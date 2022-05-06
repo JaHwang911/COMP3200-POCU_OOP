@@ -9,7 +9,7 @@ public class Comment {
 
     public Comment(String userName, String comment) {
         this.comment = comment;
-        this.subComments = new ArrayList<String>(32);
+        this.subComments = new ArrayList<>(32);
         this.userName = userName;
     }
 

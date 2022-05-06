@@ -14,11 +14,11 @@ public class Blog {
     private ArrayList<Post> posts;
 
     public Blog() {
-         this.posts = new ArrayList<Post>(128);
+         this.posts = new ArrayList<>(128);
     }
 
     public ArrayList<Post> getPostsByAuthorOrNull(String authorName) {
-        ArrayList<Post> resultPosts = new ArrayList<Post>(posts.size());
+        ArrayList<Post> resultPosts = new ArrayList<>(posts.size());
 
         for (Post a : this.posts) {
             if (a.getAuthor().equals(authorName)) {

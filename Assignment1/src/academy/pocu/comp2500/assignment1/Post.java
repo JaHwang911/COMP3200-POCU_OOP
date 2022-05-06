@@ -23,8 +23,8 @@ public class Post {
         this.body = body;
         this.author = fullName;
         this.tag = tag;
-        this.comments = new ArrayList<Comment>(128);
-        this.reactions = new ArrayList<Reaction>(128);
+        this.comments = new ArrayList<>(128);
+        this.reactions = new ArrayList<>(128);
         this.writeTime = OffsetDateTime.now();
     }
 
