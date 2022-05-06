@@ -5,10 +5,10 @@ import academy.pocu.comp2500.assignment1.Post;
 import java.util.ArrayList;
 
 public class User {
-    private UserType type;
-    private String firstName;
-    private String lastName;
-    private String fullName;
+    private UserType    type;
+    private String      firstName;
+    private String      lastName;
+    private String      fullName;
 
     public User (String firstName, String lastName, UserType type) {
         this.firstName = firstName;

@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import academy.pocu.comp2500.assignment1.user.User;
 
 public class Post {
-    private String title;
-    private String body;
-    private final String author;
-    private String tag;
-    private ArrayList<Comment> comments = new ArrayList<Comment>(128);
-    private ArrayList<Reaction> reactions = new ArrayList<Reaction>(128);
-    private OffsetDateTime writeTime;
-    private OffsetDateTime modifiedTime;
+    private String                  title;
+    private String                  body;
+    private final String            author;
+    private String                  tag;
+    private ArrayList<Comment>      comments;
+    private ArrayList<Reaction>     reactions;
+    private OffsetDateTime          writeTime;
+    private OffsetDateTime          modifiedTime;
 
     public Post(String fullName, String title, String body) {
         this(fullName, title, body, null);
@@ -23,7 +23,9 @@ public class Post {
         this.body = body;
         this.author = fullName;
         this.tag = tag;
-        this.writeTime.now();
+        this.comments = new ArrayList<Comment>(128);
+        this.reactions = new ArrayList<Reaction>(128);
+        this.writeTime = OffsetDateTime.now();
     }
 
     public String getTitle() {
@@ -49,6 +51,10 @@ public class Post {
         return this.writeTime;
     }
 
+    public OffsetDateTime getModifiedTime() {
+        return this.modifiedTime;
+    }
+
     // Test 지워야함
     public void setTitle(String title) {
         this.title = title;
@@ -66,14 +72,14 @@ public class Post {
     void modified(String title, String body) {
         this.title = title;
         this.body = body;
-        this.modifiedTime.now();
+        this.modifiedTime = OffsetDateTime.now();
     }
 
     void modified(String title, String body, String tag) {
         this.title = title;
         this.body = body;
         this.tag = tag;
-        this.modifiedTime.now();
+        this.modifiedTime = OffsetDateTime.now();
     }
 
     public boolean modifiedComment(User user, Comment comment, String text) {

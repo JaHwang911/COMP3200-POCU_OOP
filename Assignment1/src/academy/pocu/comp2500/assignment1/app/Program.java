@@ -25,6 +25,7 @@ public class Program {
             System.out.println(String.format("Title: %s", a.getTitle()));
             System.out.println(String.format("Content: %s", a.getBody()));
             System.out.println(String.format("author: %s", a.getAuthor()));
+            System.out.println(String.format("Time: %s", a.getTime()));
             System.out.println("==============================");
         }
 
@@ -35,6 +36,7 @@ public class Program {
             System.out.println(String.format("Title: %s", a.getTitle()));
             System.out.println(String.format("Content: %s", a.getBody()));
             System.out.println(String.format("author: %s", a.getAuthor()));
+            System.out.println(String.format("Time: %s", a.getTime()));
             System.out.println("==============================");
         }
     }
