@@ -72,8 +72,7 @@ public class Blog {
                 setPostsByTitle();
                 break;
             default:
-                System.out.println("Unknown ordered type");
-                assert false;
+                assert (false) : "Unknown ordered type";
                 break;
         }
     }
