@@ -59,6 +59,7 @@ public class Blog {
             case CREATED:
                 setPostsByCreated();
                 break;
+            case NORMAL:
             case CREATED_DESC:
                 setPostsByCreatedDesc();
                 break;
