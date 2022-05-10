@@ -2,62 +2,75 @@ package academy.pocu.comp2500.assignment1;
 
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
+
 import academy.pocu.comp2500.assignment1.user.User;
+import academy.pocu.comp2500.assignment1.user.UserType;
 
 public class Post {
     private String                  title;
     private String                  body;
-    private final String            author;
+    private String                  author;
     private String                  tag;
     private ArrayList<Comment>      comments;
     private ArrayList<Reaction>     reactions;
-    private OffsetDateTime          writeTime;
+    private OffsetDateTime          createdTime;
     private OffsetDateTime          modifiedTime;
 
-    public Post(String fullName, String title, String body) {
-        this(fullName, title, body, null);
-    }
+    public Post(User user, String title, String body) {
+        if (user.getUserType() != UserType.WRITER) {
+            System.out.println("Invalid user type");
+            return;
+        }
 
-    public Post(String fullName, String title, String body, String tag) {
         this.title = title;
         this.body = body;
-        this.author = fullName;
-        this.tag = tag;
+        this.author = user.getUserName();
+        this.tag = "";
         this.comments = new ArrayList<>(128);
         this.reactions = new ArrayList<>(128);
-        this.writeTime = OffsetDateTime.now();
+        this.createdTime = OffsetDateTime.now();
+        this.modifiedTime = OffsetDateTime.now();
     }
 
+    // Getter
     public String getTitle() {
         return this.title;
     }
     public String getBody() {
         return this.body;
     }
-
     public String getAuthor() {
         return this.author;
     }
-
     public String getTag() {
         return this.tag;
     }
 
     public ArrayList<Comment> getCommentsOrNULL() {
-        return comments;
+        Collections.sort(this.comments, (a, b) -> a.getUpvote() - b.getUpvote());
+        Collections.sort(this.comments, (a, b) -> b.getDownvote() - a.getDownvote());
+
+        return this.comments;
     }
 
     public OffsetDateTime getTime() {
-        return this.writeTime;
+        return this.createdTime;
     }
 
     public OffsetDateTime getModifiedTime() {
         return this.modifiedTime;
     }
 
-    // Test 지워야함
-    public void setTitle(String title) {
-        this.title = title;
+    // Add
+    public boolean addTag(User user, String tag) {
+        if (!user.getUserName().equals(this.author)) {
+            return false;
+        }
+
+        this.tag = tag;
+
+        return true;
     }
 
     public void addComment(User user, String comment) {
@@ -65,26 +78,45 @@ public class Post {
         this.comments.add(newComment);
     }
 
-    public void addReaction(Reaction reaction) {
-        this.reactions.add(reaction);
+    public void addReaction(User user, ReactionType type) {
+        Reaction newReaction = new Reaction(user, type);
+        reactions.add(newReaction);
     }
 
-    void modified(String title, String body) {
-        this.title = title;
-        this.body = body;
-        this.modifiedTime = OffsetDateTime.now();
-    }
-
-    void modified(String title, String body, String tag) {
-        this.title = title;
-        this.body = body;
-        this.tag = tag;
-        this.modifiedTime = OffsetDateTime.now();
-    }
-
-    public boolean modifiedComment(User user, Comment comment, String text) {
-        if (!user.getUserName().equals(comment.getUserName())) {
+    // Modify
+    public boolean modifyTitle(User user, String title) {
+        if (!user.getUserName().equals(this.author)) {
             return false;
+        }
+
+        this.title = title;
+        this.modifiedTime = OffsetDateTime.now();
+
+        return true;
+    }
+
+    public boolean modifyBody(User user, String body) {
+        if (!user.getUserName().equals(this.author)) {
+            return false;
+        }
+
+        this.body = body;
+        this.modifiedTime = OffsetDateTime.now();
+
+        return true;
+    }
+
+    // Remove
+    public boolean removeReaction(User user, Reaction reaction) {
+        if (!user.getUserName().equals(reaction.getUserName())) {
+            return false;
+        }
+
+        for (Reaction r : this.reactions) {
+            if (r == reaction) {
+                reactions.remove(r);
+                return true;
+            }
         }
 
         return false;

@@ -8,36 +8,83 @@ import academy.pocu.comp2500.assignment1.user.UserType;
 import java.util.ArrayList;
 
 public class Program {
-
     public static void main(String[] args) {
+        testAddPost();
+        testGetByTag();
+        testGetByAuthor();
+
+        System.out.println("No prob");
+    }
+
+    private static void testAddPost() {
         Blog blog = new Blog();
         User user1 = new User("Ja", "Hwang", UserType.WRITER);
-        User user2 = new User("Baro", "kim", UserType.WRITER);
 
-        blog.addPost(user1, "About CS", "CS is ...");
-//        blog.addPost(user1, "About me", "I'm ...");
-//        blog.addPost(user1, "About Event horizon", "Black hole is ...");
-//        blog.addPost(user2, "About Unreal", "unreal is ...");
-//        blog.addPost(user2, "About Unity", "Unity is ...");
-        ArrayList<Post> allArticles = blog.getAllPosts();
+        Post post1 = new Post(user1, "About CS", "CS is ...");
+        post1.addTag(user1, "computer");
 
-        for (Post a : allArticles) {
-            System.out.println(String.format("Title: %s", a.getTitle()));
-            System.out.println(String.format("Content: %s", a.getBody()));
-            System.out.println(String.format("author: %s", a.getAuthor()));
-            System.out.println(String.format("Time: %s", a.getTime()));
-            System.out.println("==============================");
-        }
+        Post post2 = new Post(user1, "About me", "I'm ...");
+        post2.addTag(user1, "i my me mine");
 
-        Post firstArticle = allArticles.get(0);
-        firstArticle.setTitle("About time");
+        Post post3 = new Post(user1, "About event horizon", "Black hole is ...");
+        post3.addTag(user1, "Space");
 
-        for (Post a : allArticles) {
-            System.out.println(String.format("Title: %s", a.getTitle()));
-            System.out.println(String.format("Content: %s", a.getBody()));
-            System.out.println(String.format("author: %s", a.getAuthor()));
-            System.out.println(String.format("Time: %s", a.getTime()));
-            System.out.println("==============================");
-        }
+        blog.addPost(post1);
+        blog.addPost(post2);
+        blog.addPost(post3);
+
+        ArrayList<Post> posts = blog.getAllPosts();
+
+        assert posts.get(0).getTitle().equals("About CS");
+        assert posts.get(1).getTitle().equals("About me");
+        assert posts.get(2).getTitle().equals("About event horizon");
+    }
+
+    private static void testGetByTag() {
+        Blog blog = new Blog();
+        User user1 = new User("Ja", "Hwang", UserType.WRITER);
+
+        Post post1 = new Post(user1, "About CS", "CS is ...");
+        post1.addTag(user1, "Computer");
+
+        Post post2 = new Post(user1, "About event horizon", "Black hole is ...");
+        post2.addTag(user1, "Space");
+
+        blog.addPost(post1);
+        blog.addPost(post2);
+
+        ArrayList<Post> posts = blog.getPostsByTagOrNUll("Space");
+
+        assert posts.size() == 1;
+        assert posts.get(0).getTitle().equals("About event horizon");
+
+        posts = blog.getPostsByTagOrNUll("Android");
+
+        assert posts.size() == 0;
+    }
+
+    private static void testGetByAuthor() {
+        Blog blog = new Blog();
+        User user1 = new User("Ja", "Hwang", UserType.WRITER);
+        User user2 = new User("Baro", "Kim", UserType.WRITER);
+
+        Post post1 = new Post(user1, "About CS", "CS is ...");
+        post1.addTag(user1, "Computer");
+
+        Post post2 = new Post(user2, "About Unreal", "Unreal is ...");
+        post2.addTag(user1, "Game");
+
+        blog.addPost(post1);
+        blog.addPost(post2);
+
+        ArrayList<Post> posts = blog.getPostsByAuthorOrNull("Baro Kim");
+
+        assert posts.size() == 1;
+        assert posts.get(0).getTitle().equals("About Unreal");
+        assert posts.get(0).getAuthor().equals("Baro Kim");
+
+        posts = blog.getPostsByTagOrNUll("Junseok Kim");
+
+        assert posts.size() == 0;
     }
 }

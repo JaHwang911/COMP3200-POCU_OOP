@@ -4,6 +4,8 @@ import academy.pocu.comp2500.assignment1.user.User;
 import academy.pocu.comp2500.assignment1.user.UserType;
 
 import java.util.ArrayList;
+import java.util.Collections;
+
 //정렬 방법
 //작성 일시 내림차순
 //작성 일시 오름차순
@@ -17,12 +19,17 @@ public class Blog {
          this.posts = new ArrayList<>(128);
     }
 
+    // Get post
+    public ArrayList<Post> getAllPosts() {
+        return this.posts;
+    }
+
     public ArrayList<Post> getPostsByAuthorOrNull(String authorName) {
         ArrayList<Post> resultPosts = new ArrayList<>(posts.size());
 
-        for (Post a : this.posts) {
-            if (a.getAuthor().equals(authorName)) {
-                resultPosts.add(a);
+        for (Post p : this.posts) {
+            if (p.getAuthor().equals(authorName)) {
+                resultPosts.add(p);
             }
         }
 
@@ -30,68 +37,64 @@ public class Blog {
     }
 
     public ArrayList<Post> getPostsByTagOrNUll(String tag) {
-        ArrayList<Post> resultPosts = new ArrayList<Post>(posts.size());
+        ArrayList<Post> resultPosts = new ArrayList<>(posts.size());
 
-        for (Post a : posts) {
-            if (a.getTag().equals(tag)) {
-                resultPosts.add(a);
+        for (Post p : posts) {
+            if (p.getTag().equals(tag)) {
+                resultPosts.add(p);
             }
         }
 
         return resultPosts;
     }
 
-    public void addPost(User user, String title, String text) {
-        if (user.getUserType() == UserType.VISITOR) {
-            System.out.println("Invalid user type...");
-            return;
-        }
-
-        Post article = new Post(user.getUserName(), title, text);
-        posts.add(article);
+    // Add
+    public void addPost(Post post) {
+        posts.add(post);
     }
 
-    public void addPost(User user, String title, String text, String tag) {
-        if (user.getUserType() == UserType.VISITOR) {
-            System.out.println("Invalid user type...");
-            return;
+    // Set ordered type
+    public void setPostsOrdered(OrderType type) {
+        switch (type) {
+            case CREATED:
+                setPostsByCreated();
+                break;
+            case CREATED_DESC:
+                setPostsByCreatedDesc();
+                break;
+            case MODIFIED:
+                setPostsByModified();
+                break;
+            case MODIFIED_DESC:
+                setPostsByModifiedDesc();
+                break;
+            case TITLE:
+                setPostsByTitle();
+                break;
+            default:
+                System.out.println("Unknown ordered type");
+                assert false;
+                break;
         }
-
-        Post article = new Post(user.getUserName(), title, text, tag);
-        posts.add(article);
     }
 
-    public boolean modifiedPost(User user, Post article, String title, String text) {
-        if (!article.getAuthor().equals(user.getUserName())) {
-            return false;
-        }
-
-        for (Post a : posts) {
-            if (a == article) {
-                a.modified(title, text);
-                return true;
-            }
-        }
-
-        return false;
+    private void setPostsByCreated() {
+        Collections.sort(this.posts, (a, b) -> b.getTime().compareTo(a.getTime()));
     }
 
-    public boolean modifiedPost(User user, Post article, String title, String text, String tag) {
-        if (!article.getAuthor().equals(user.getUserName())) {
-            return false;
-        }
-
-        for (Post a : posts) {
-            if (a == article) {
-                a.modified(title, text, tag);
-                return true;
-            }
-        }
-
-        return false;
+    private void setPostsByCreatedDesc() {
+        Collections.sort(this.posts, (a, b) -> a.getTime().compareTo(b.getTime()));
     }
 
-    public ArrayList<Post> getAllPosts() {
-        return posts;
+    private void setPostsByModified() {
+        Collections.sort(this.posts, (a, b) -> b.getModifiedTime().compareTo(a.getModifiedTime()));
+    }
+
+    private void setPostsByModifiedDesc() {
+        Collections.sort(this.posts, (a, b) -> a.getModifiedTime().compareTo(b.getModifiedTime()));
+    }
+
+    private void setPostsByTitle() {
+        Collections.sort(this.posts, (a, b) -> a.getTitle().compareTo(b.getTitle()));
     }
 }
