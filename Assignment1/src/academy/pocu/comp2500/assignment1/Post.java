@@ -48,8 +48,8 @@ public class Post {
         return this.tag;
     }
 
-    public ArrayList<Comment> getAllCommentsOrNULL() {
-        Collections.sort(this.comments, (a, b) -> b.getUpvote() - a.getUpvote());
+    public ArrayList<Comment> getAllComments() {
+        Collections.sort(this.comments, (a, b) -> b.getVoteRatio() - a.getVoteRatio());
 
         return this.comments;
     }
@@ -78,19 +78,19 @@ public class Post {
     }
 
     public void addComment(User user, String comment) {
-        Comment newComment = new Comment(user.getUserName(), comment);
+        Comment newComment = new Comment(user, comment);
         this.comments.add(newComment);
     }
 
     public void addReaction(User user, ReactionType type) {
         Reaction newReaction = new Reaction(user, type);
-        reactions.add(newReaction);
+        this.reactions.add(newReaction);
     }
 
     // Modify
     public boolean modifyTitle(User user, String title) {
         if (!user.getUserName().equals(this.author)) {
-            System.out.println("This is not your post");
+            System.out.println("This post is not your");
             return false;
         }
 
@@ -101,7 +101,7 @@ public class Post {
 
     public boolean modifyBody(User user, String body) {
         if (!user.getUserName().equals(this.author)) {
-            System.out.println("This is not your post");
+            System.out.println("This post is not your");
             return false;
         }
 
@@ -113,12 +113,13 @@ public class Post {
     // Remove
     public boolean removeReaction(User user, Reaction reaction) {
         if (!user.getUserName().equals(reaction.getUserName())) {
+            System.out.println("This reaction is not your");
             return false;
         }
 
         for (Reaction r : this.reactions) {
             if (r == reaction) {
-                reactions.remove(r);
+                this.reactions.remove(r);
                 return true;
             }
         }

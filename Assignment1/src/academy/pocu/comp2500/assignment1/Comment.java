@@ -10,12 +10,12 @@ public class Comment {
     private int downvote;
     private String author;
 
-    public Comment(String author, String comment) {
+    public Comment(User user, String comment) {
         this.comment = comment;
         this.subComments = new ArrayList<>(32);
         this.upvote = 0;
         this.downvote = 0;
-        this.author = author;
+        this.author = user.getUserName();
     }
 
     // Get
@@ -35,10 +35,14 @@ public class Comment {
         return this.author;
     }
 
-    public ArrayList<Subcomment> getAllSubcommentsOrNull() {
-        Collections.sort(this.subComments, (a, b) -> b.getUpvote() - a.getUpvote());
+    public ArrayList<Subcomment> getAllSubcomments() {
+        Collections.sort(this.subComments, (a, b) -> b.getVoteRatio() - a.getVoteRatio());
 
-        return subComments;
+        return this.subComments;
+    }
+
+    public int getVoteRatio() {
+        return this.upvote - this.downvote;
     }
 
     //Add
@@ -51,13 +55,13 @@ public class Comment {
     }
 
     public void addSubcomment(User user, String comment) {
-        Subcomment newSubcomment = new Subcomment(user, comment);
-        subComments.add(newSubcomment);
+        this.subComments.add(new Subcomment(user, comment));
     }
 
     //Modify
     public boolean modifyComment(User user, String text) {
         if (!user.getUserName().equals(this.author)) {
+            System.out.println("This Comment is not your");
             return false;
         }
 

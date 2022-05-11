@@ -21,8 +21,8 @@ public class App {
         registry.registerReactionRemover("Post", "removeReaction");
         registry.registerCommentUpvoter("Comment", "addUpvote");
         registry.registerCommentDownvoter("Comment", "addDownvote");
-        registry.registerCommentListGetter("Post", "getAllCommentsOrNULL");
-        registry.registerSubcommentListGetter("Comment", "getAllSubcommentsOrNull");
+        registry.registerCommentListGetter("Post", "getAllComments");
+        registry.registerSubcommentListGetter("Comment", "getAllSubcomments");
         registry.registerSubcommentUpvoter("Subcomment", "addUpvote");
         registry.registerSubcommentDownvoter("Subcomment", "addDownvote");
     }

@@ -21,13 +21,13 @@ public class Blog {
     // Get post
     public ArrayList<Post> getAllPosts() {
         if (filteredPosts.size() > 0) {
-            return filteredPosts;
+            return this.filteredPosts;
         }
-        
+
         return this.posts;
     }
 
-    public ArrayList<Post> getPostsByAuthorOrNull(String authorName) {
+    public ArrayList<Post> getPostsByAuthor(String authorName) {
         ArrayList<Post> resultPosts = new ArrayList<>(posts.size());
 
         for (Post p : this.posts) {
@@ -39,10 +39,10 @@ public class Blog {
         return resultPosts;
     }
 
-    public ArrayList<Post> getPostsByTagOrNUll(String tag) {
+    public ArrayList<Post> getPostsByTag(String tag) {
         ArrayList<Post> resultPosts = new ArrayList<>(posts.size());
 
-        for (Post p : posts) {
+        for (Post p : this.posts) {
             if (p.getTag().equals(tag)) {
                 resultPosts.add(p);
             }
@@ -53,12 +53,12 @@ public class Blog {
 
     // Add
     public void addPost(Post post) {
-        posts.add(post);
+        this.posts.add(post);
     }
 
     // Set ordered type
     public void setPostsFilteredByTag(String tag) {
-        filteredPosts.clear();
+        this.filteredPosts.clear();
 
         for (Post p : this.posts) {
             if (p.getTag().equals(tag)) {
@@ -68,7 +68,7 @@ public class Blog {
     }
 
     public void setPostsFilteredByAuthor(String author) {
-        filteredPosts.clear();
+        this.filteredPosts.clear();
 
         for (Post p : this.posts) {
             if (p.getTag().equals(author)) {

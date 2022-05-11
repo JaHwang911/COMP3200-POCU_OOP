@@ -62,12 +62,12 @@ public class Program {
         blog.addPost(post1);
         blog.addPost(post2);
 
-        ArrayList<Post> posts = blog.getPostsByTagOrNUll("Space");
+        ArrayList<Post> posts = blog.getPostsByTag("Space");
 
         assert posts.size() == 1;
         assert posts.get(0).getTitle().equals("About event horizon");
 
-        posts = blog.getPostsByTagOrNUll("Android");
+        posts = blog.getPostsByTag("Android");
 
         assert posts.size() == 0;
     }
@@ -86,13 +86,13 @@ public class Program {
         blog.addPost(post1);
         blog.addPost(post2);
 
-        ArrayList<Post> posts = blog.getPostsByAuthorOrNull("Baro Kim");
+        ArrayList<Post> posts = blog.getPostsByAuthor("Baro Kim");
 
         assert posts.size() == 1;
         assert posts.get(0).getTitle().equals("About Unreal");
         assert posts.get(0).getAuthor().equals("Baro Kim");
 
-        posts = blog.getPostsByTagOrNUll("Junseok Kim");
+        posts = blog.getPostsByTag("Junseok Kim");
 
         assert posts.size() == 0;
     }
@@ -203,7 +203,7 @@ public class Program {
         post1.addComment(user2, "Awsome!!");
 
         blog.addPost(post1);
-        ArrayList<Comment> comments = post1.getAllCommentsOrNULL();
+        ArrayList<Comment> comments = post1.getAllComments();
 
         assert comments.size() == 1;
         assert comments.get(0).getAuthor().equals("Baro Kim");
@@ -218,7 +218,7 @@ public class Program {
         post1.addComment(user2, "Awsome!!");
 
         blog.addPost(post1);
-        ArrayList<Comment> comments = post1.getAllCommentsOrNULL();
+        ArrayList<Comment> comments = post1.getAllComments();
         Comment comment = comments.get(0);
 
         assert comments.size() == 1;
@@ -226,7 +226,7 @@ public class Program {
 
         comment.addSubcomment(user1, "Thanks bro!");
 
-        ArrayList<Subcomment> subcomment = comment.getAllSubcommentsOrNull();
+        ArrayList<Subcomment> subcomment = comment.getAllSubcomments();
 
         assert subcomment.size() == 1;
         assert subcomment.get(0).getComment().equals("Thanks bro!");
@@ -246,7 +246,7 @@ public class Program {
         getPost1.addComment(user2, "Awesome!!");
         getPost1.addComment(user2, "So so");
 
-        ArrayList<Comment> comments = getPost1.getAllCommentsOrNULL();
+        ArrayList<Comment> comments = getPost1.getAllComments();
 
         assert comments.size() == 2;
 
@@ -256,7 +256,7 @@ public class Program {
         comment1.addDownvote();
         comment2.addUpvote();
 
-        comments = getPost1.getAllCommentsOrNULL();
+        comments = getPost1.getAllComments();
 
         assert comments.get(0).getComment().equals("So so");
         assert comments.get(1).getComment().equals("Awesome!!");
@@ -277,17 +277,17 @@ public class Program {
 
         getPost1.addComment(user2, "Awesome!!");
 
-        ArrayList<Comment> comments = getPost1.getAllCommentsOrNULL();
+        ArrayList<Comment> comments = getPost1.getAllComments();
 
         comments.get(0).addSubcomment(user4, "Umm.. I don't think so!!");
         comments.get(0).addSubcomment(user3, "Yeah, I think so!!");
 
-        ArrayList<Subcomment> subcomments = comments.get(0).getAllSubcommentsOrNull();
+        ArrayList<Subcomment> subcomments = comments.get(0).getAllSubcomments();
 
         subcomments.get(0).addDownvote();
         subcomments.get(1).addUpvote();
 
-        subcomments = comments.get(0).getAllSubcommentsOrNull();
+        subcomments = comments.get(0).getAllSubcomments();
 
         assert subcomments.get(0).getComment().equals("Yeah, I think so!!");
         assert subcomments.get(1).getComment().equals("Umm.. I don't think so!!");
