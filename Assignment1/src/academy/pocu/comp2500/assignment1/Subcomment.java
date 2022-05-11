@@ -1,10 +1,10 @@
 package academy.pocu.comp2500.assignment1;
 
 public class Subcomment {
-    private String  comment;
-    private int     upvote;
-    private int     downvote;
-    private String  author;
+    private String comment;
+    private int upvote;
+    private int downvote;
+    private String author;
 
     public Subcomment(User user, String comment) {
         this.comment = comment;

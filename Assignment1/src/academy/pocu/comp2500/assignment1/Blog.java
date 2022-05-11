@@ -13,7 +13,7 @@ public class Blog {
     private ArrayList<Post> posts;
 
     public Blog() {
-         this.posts = new ArrayList<>(128);
+        this.posts = new ArrayList<>(128);
     }
 
     // Get post

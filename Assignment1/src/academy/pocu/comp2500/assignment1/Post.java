@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Post {
-    private String                  title;
-    private String                  body;
-    private String                  author;
-    private String                  tag;
-    private ArrayList<Comment>      comments;
-    private ArrayList<Reaction>     reactions;
-    private OffsetDateTime          createdTime;
-    private OffsetDateTime          modifiedTime;
+    private String title;
+    private String body;
+    private String author;
+    private String tag;
+    private ArrayList<Comment> comments;
+    private ArrayList<Reaction> reactions;
+    private OffsetDateTime createdTime;
+    private OffsetDateTime modifiedTime;
 
     public Post(User user, String title, String body) {
         if (user.getUserType() != UserType.WRITER) {

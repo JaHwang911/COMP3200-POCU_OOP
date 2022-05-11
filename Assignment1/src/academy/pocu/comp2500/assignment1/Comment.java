@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Comment {
-    private String                  comment;
-    private ArrayList<Subcomment>   subComments;
-    private int                     upvote;
-    private int                     downvote;
-    private String                  author;
+    private String comment;
+    private ArrayList<Subcomment> subComments;
+    private int upvote;
+    private int downvote;
+    private String author;
 
     public Comment(String author, String comment) {
         this.comment = comment;

@@ -9,16 +9,15 @@ import java.util.ArrayList;
     }
 */
 public class User {
-    private UserType    type;
-    private String      firstName;
-    private String      lastName;
-    private String      fullName;
+    private UserType type;
+    private String firstName;
+    private String lastName;
+    private String fullName;
 
-    public User (String firstName, String lastName, UserType type) {
+    public User(String firstName, String lastName, UserType type) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.type = type;
-
         this.fullName = String.format("%s %s", firstName, lastName);
     }
 
