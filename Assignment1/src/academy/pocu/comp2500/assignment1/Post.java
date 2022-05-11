@@ -67,8 +67,13 @@ public class Post {
             return false;
         }
 
-        this.tags.add(tag);
+        for (String t : this.tags) {
+            if (t.equals(tag)) {
+                return false;
+            }
+        }
 
+        this.tags.add(tag);
         return true;
     }
 
