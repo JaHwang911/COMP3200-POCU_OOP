@@ -23,8 +23,7 @@ public class Blog {
         if (filteredPosts.size() > 0) {
             return filteredPosts;
         }
-
-        this.setPostsOrdered(OrderType.NORMAL);
+        
         return this.posts;
     }
 
