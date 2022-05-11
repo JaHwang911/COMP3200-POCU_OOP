@@ -43,9 +43,14 @@ public class Blog {
         ArrayList<Post> resultPosts = new ArrayList<>(posts.size());
 
         for (Post p : this.posts) {
-            if (p.getTag().equals(tag)) {
-                resultPosts.add(p);
+            ArrayList<String> tags = p.getTags();
+
+            for (String t : tags) {
+                if (t.equals(tag)) {
+                    resultPosts.add(p);
+                }
             }
+
         }
 
         return resultPosts;
@@ -61,8 +66,12 @@ public class Blog {
         this.filteredPosts.clear();
 
         for (Post p : this.posts) {
-            if (p.getTag().equals(tag)) {
-                this.filteredPosts.add(p);
+            ArrayList<String> tags = p.getTags();
+
+            for (String t : tags) {
+                if (t.equals(tag)) {
+                    this.filteredPosts.add(p);
+                }
             }
         }
     }
@@ -71,7 +80,7 @@ public class Blog {
         this.filteredPosts.clear();
 
         for (Post p : this.posts) {
-            if (p.getTag().equals(author)) {
+            if (p.getAuthor().equals(author)) {
                 this.filteredPosts.add(p);
             }
         }
@@ -81,19 +90,19 @@ public class Blog {
         switch (type) {
             case NORMAL:
             case CREATED:
-                setPostsByCreated();
+                this.setPostsByCreated();
                 break;
             case CREATED_DESC:
-                setPostsByCreatedDesc();
+                this.setPostsByCreatedDesc();
                 break;
             case MODIFIED:
-                setPostsByModified();
+                this.setPostsByModified();
                 break;
             case MODIFIED_DESC:
-                setPostsByModifiedDesc();
+                this.setPostsByModifiedDesc();
                 break;
             case TITLE:
-                setPostsByTitle();
+                this.setPostsByTitle();
                 break;
             default:
                 assert (false) : "Unknown ordered type";

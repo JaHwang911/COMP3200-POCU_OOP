@@ -8,23 +8,18 @@ public class Post {
     private String title;
     private String body;
     private String author;
-    private String tag;
+    private ArrayList<String> tags;
     private ArrayList<Comment> comments;
     private ArrayList<Reaction> reactions;
     private OffsetDateTime createdTime;
     private OffsetDateTime modifiedTime;
 
     public Post(User user, String title, String body) {
-        if (user.getUserType() != UserType.WRITER) {
-            System.out.println("Invalid user type");
-            return;
-        }
-
         OffsetDateTime now = OffsetDateTime.now();
         this.title = title;
         this.body = body;
         this.author = user.getUserName();
-        this.tag = "";
+        this.tags = new ArrayList<>(128);
         this.comments = new ArrayList<>(128);
         this.reactions = new ArrayList<>(128);
         this.createdTime = now;
@@ -44,8 +39,8 @@ public class Post {
         return this.author;
     }
 
-    public String getTag() {
-        return this.tag;
+    public ArrayList<String> getTags() {
+        return this.tags;
     }
 
     public ArrayList<Comment> getAllComments() {
@@ -72,7 +67,7 @@ public class Post {
             return false;
         }
 
-        this.tag = tag;
+        this.tags.add(tag);
 
         return true;
     }

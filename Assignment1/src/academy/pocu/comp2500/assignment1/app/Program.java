@@ -297,9 +297,8 @@ public class Program {
         Blog blog = new Blog();
         User user1 = new User("Ja", "Hwang", UserType.WRITER);
         User user2 = new User("Baro", "Kim", UserType.WRITER);
-        Post post1 = new Post(user1, "About Me", "I'm ...");
 
-        blog.addPost(post1);
+        blog.addPost(new Post(user1, "About Me", "I'm ..."));
 
         ArrayList<Post> posts = blog.getAllPosts();
         Post post = posts.get(0);
