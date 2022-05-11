@@ -1,8 +1,8 @@
 package academy.pocu.comp2500.assignment1.app;
 
 import academy.pocu.comp2500.assignment1.*;
-import academy.pocu.comp2500.assignment1.user.User;
-import academy.pocu.comp2500.assignment1.user.UserType;
+import academy.pocu.comp2500.assignment1.User;
+import academy.pocu.comp2500.assignment1.UserType;
 import academy.pocu.comp2500.assignment1.registry.Registry;
 
 import java.util.ArrayList;

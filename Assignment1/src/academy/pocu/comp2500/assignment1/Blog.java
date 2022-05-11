@@ -1,8 +1,5 @@
 package academy.pocu.comp2500.assignment1;
 
-import academy.pocu.comp2500.assignment1.user.User;
-import academy.pocu.comp2500.assignment1.user.UserType;
-
 import java.util.ArrayList;
 import java.util.Collections;
 

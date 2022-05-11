@@ -1,7 +1,5 @@
 package academy.pocu.comp2500.assignment1;
 
-import academy.pocu.comp2500.assignment1.user.User;
-
 public class Reaction {
     private ReactionType    type;
     private String          userName;

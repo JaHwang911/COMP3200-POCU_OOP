@@ -3,8 +3,6 @@ package academy.pocu.comp2500.assignment1;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import academy.pocu.comp2500.assignment1.user.User;
-
 public class Comment {
     private String                  comment;
     private ArrayList<Subcomment>   subComments;

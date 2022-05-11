@@ -4,9 +4,6 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import academy.pocu.comp2500.assignment1.user.User;
-import academy.pocu.comp2500.assignment1.user.UserType;
-
 public class Post {
     private String                  title;
     private String                  body;
