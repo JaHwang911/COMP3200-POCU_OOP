@@ -1,14 +1,16 @@
 package academy.pocu.comp2500.assignment1;
 
 import java.util.ArrayList;
+import java.util.Collections;
+
 import academy.pocu.comp2500.assignment1.user.User;
 
 public class Comment {
-    private String              comment;
-    private ArrayList<Subcomment>  subComments;
-    private int                 upvote;
-    private int                 downvote;
-    private String              author;
+    private String                  comment;
+    private ArrayList<Subcomment>   subComments;
+    private int                     upvote;
+    private int                     downvote;
+    private String                  author;
 
     public Comment(String author, String comment) {
         this.comment = comment;
@@ -35,7 +37,9 @@ public class Comment {
         return this.author;
     }
 
-    public ArrayList<Subcomment> getSubComments() {
+    public ArrayList<Subcomment> getAllSubcommentsOrNull() {
+        Collections.sort(this.subComments, (a, b) -> b.getUpvote() - a.getUpvote());
+
         return subComments;
     }
 
@@ -48,7 +52,7 @@ public class Comment {
         ++this.downvote;
     }
 
-    public void addSubComment(User user, String comment) {
+    public void addSubcomment(User user, String comment) {
         Subcomment newSubcomment = new Subcomment(user, comment);
         subComments.add(newSubcomment);
     }

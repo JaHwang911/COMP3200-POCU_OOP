@@ -11,6 +11,10 @@ public class Reaction {
         this.userName = user.getUserName();
     }
 
+    public ReactionType getType() {
+        return this.type;
+    }
+
     public String getUserName() {
         return this.userName;
     }

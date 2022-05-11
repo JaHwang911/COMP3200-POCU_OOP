@@ -37,21 +37,27 @@ public class Post {
     public String getTitle() {
         return this.title;
     }
+
     public String getBody() {
         return this.body;
     }
+
     public String getAuthor() {
         return this.author;
     }
+
     public String getTag() {
         return this.tag;
     }
 
-    public ArrayList<Comment> getCommentsOrNULL() {
-        Collections.sort(this.comments, (a, b) -> a.getUpvote() - b.getUpvote());
-        Collections.sort(this.comments, (a, b) -> b.getDownvote() - a.getDownvote());
+    public ArrayList<Comment> getAllCommentsOrNULL() {
+        Collections.sort(this.comments, (a, b) -> b.getUpvote() - a.getUpvote());
 
         return this.comments;
+    }
+
+    public ArrayList<Reaction> getAllReactions() {
+        return this.reactions;
     }
 
     public OffsetDateTime getTime() {
@@ -86,6 +92,7 @@ public class Post {
     // Modify
     public boolean modifyTitle(User user, String title) {
         if (!user.getUserName().equals(this.author)) {
+            System.out.println("This post is not yours");
             return false;
         }
 
@@ -97,6 +104,7 @@ public class Post {
 
     public boolean modifyBody(User user, String body) {
         if (!user.getUserName().equals(this.author)) {
+            System.out.println("This post is not yours");
             return false;
         }
 

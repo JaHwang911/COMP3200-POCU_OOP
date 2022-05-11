@@ -6,5 +6,26 @@ public class App {
     public App(Registry registry) {
         // Register like this
         // registry.registerPostAdder("Foo", "bar");
+        registry.registerBlogCreator("Blog");
+        registry.registerTagFilterSetter("Blog", "setPostsFillteredByTag");
+        registry.registerAuthorFilterSetter("Blog", "setPostsFillteredByAuthor");
+        registry.registerPostOrderSetter("Blog", "setPostsOrdered");
+        registry.registerPostListGetter("Blog", "getAllPosts");
+        registry.registerPostAdder("Blog", "addPost");
+        registry.registerPostTitleUpdater("Post", "modifyTitle");
+        registry.registerPostBodyUpdater("Post", "modifyBody");
+        registry.registerPostTagAdder("Post", "addTag");
+        registry.registerCommentAdder("Post", "addComment");
+        registry.registerSubcommentAdder("Comment", "addSubcomment");
+        registry.registerCommentUpdater("Comment", "modifyComment");
+        registry.registerSubcommentUpdater("Subcomment", "modifySubcomment");
+        registry.registerReactionAdder("Post", "addReaction");
+        registry.registerReactionRemover("Post", "removeReaction");
+        registry.registerCommentUpvoter("Comment", "addUpvote");
+        registry.registerCommentDownvoter("Comment", "addDownvote");
+        registry.registerCommentListGetter("Post", "getAllCommentsOrNULL");
+        registry.registerSubcommentListGetter("Comment", "getAllSubcommentsOrNull");
+        registry.registerSubcommentUpvoter("Subcomment", "addUpvote");
+        registry.registerSubcommentDownvoter("Subcomment", "addDownvote");
     }
 }

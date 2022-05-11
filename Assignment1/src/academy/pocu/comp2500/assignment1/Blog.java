@@ -54,12 +54,28 @@ public class Blog {
     }
 
     // Set ordered type
+    public void setPostsFillteredByTag(String tag) {
+        for (Post p : this.posts) {
+            if (!p.getTag().equals(tag)) {
+                this.posts.remove(p);
+            }
+        }
+    }
+
+    public void setPostsFillteredByAuthor(String author) {
+        for (Post p : this.posts) {
+            if (!p.getTag().equals(author)) {
+                this.posts.remove(p);
+            }
+        }
+    }
+
     public void setPostsOrdered(OrderType type) {
         switch (type) {
+            case NORMAL:
             case CREATED:
                 setPostsByCreated();
                 break;
-            case NORMAL:
             case CREATED_DESC:
                 setPostsByCreatedDesc();
                 break;
