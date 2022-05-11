@@ -11,6 +11,7 @@ import java.util.Collections;
 //제목(사전 순서) 오름차순
 public class Blog {
     private ArrayList<Post> posts;
+    private ArrayList<Post> filteredPosts;
 
     public Blog() {
         this.posts = new ArrayList<>(128);
@@ -18,6 +19,10 @@ public class Blog {
 
     // Get post
     public ArrayList<Post> getAllPosts() {
+        if (filteredPosts.size() != 0) {
+            return filteredPosts;
+        }
+        
         return this.posts;
     }
 
@@ -52,17 +57,21 @@ public class Blog {
 
     // Set ordered type
     public void setPostsFillteredByTag(String tag) {
+        filteredPosts.clear();
+
         for (Post p : this.posts) {
-            if (!p.getTag().equals(tag)) {
-                this.posts.remove(p);
+            if (p.getTag().equals(tag)) {
+                this.filteredPosts.add(p);
             }
         }
     }
 
     public void setPostsFillteredByAuthor(String author) {
+        filteredPosts.clear();
+
         for (Post p : this.posts) {
-            if (!p.getTag().equals(author)) {
-                this.posts.remove(p);
+            if (p.getTag().equals(author)) {
+                this.filteredPosts.add(p);
             }
         }
     }
