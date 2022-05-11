@@ -15,14 +15,16 @@ public class Blog {
 
     public Blog() {
         this.posts = new ArrayList<>(128);
+        this.filteredPosts = new ArrayList<>(128);
     }
 
     // Get post
     public ArrayList<Post> getAllPosts() {
-        if (filteredPosts.size() != 0) {
+        if (filteredPosts.size() > 0) {
             return filteredPosts;
         }
-        
+
+        this.setPostsOrdered(OrderType.NORMAL);
         return this.posts;
     }
 
@@ -56,7 +58,7 @@ public class Blog {
     }
 
     // Set ordered type
-    public void setPostsFillteredByTag(String tag) {
+    public void setPostsFilteredByTag(String tag) {
         filteredPosts.clear();
 
         for (Post p : this.posts) {
@@ -66,7 +68,7 @@ public class Blog {
         }
     }
 
-    public void setPostsFillteredByAuthor(String author) {
+    public void setPostsFilteredByAuthor(String author) {
         filteredPosts.clear();
 
         for (Post p : this.posts) {
@@ -101,11 +103,11 @@ public class Blog {
     }
 
     private void setPostsByCreated() {
-        Collections.sort(this.posts, (a, b) -> b.getTime().compareTo(a.getTime()));
+        Collections.sort(this.posts, (a, b) -> b.getCreatedTime().compareTo(a.getCreatedTime()));
     }
 
     private void setPostsByCreatedDesc() {
-        Collections.sort(this.posts, (a, b) -> a.getTime().compareTo(b.getTime()));
+        Collections.sort(this.posts, (a, b) -> a.getCreatedTime().compareTo(b.getCreatedTime()));
     }
 
     private void setPostsByModified() {

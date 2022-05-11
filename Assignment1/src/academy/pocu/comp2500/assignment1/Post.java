@@ -20,14 +20,15 @@ public class Post {
             return;
         }
 
+        OffsetDateTime now = OffsetDateTime.now();
         this.title = title;
         this.body = body;
         this.author = user.getUserName();
         this.tag = "";
         this.comments = new ArrayList<>(128);
         this.reactions = new ArrayList<>(128);
-        this.createdTime = OffsetDateTime.now();
-        this.modifiedTime = OffsetDateTime.now();
+        this.createdTime = now;
+        this.modifiedTime = now;
     }
 
     // Getter
@@ -57,7 +58,7 @@ public class Post {
         return this.reactions;
     }
 
-    public OffsetDateTime getTime() {
+    public OffsetDateTime getCreatedTime() {
         return this.createdTime;
     }
 
@@ -89,25 +90,23 @@ public class Post {
     // Modify
     public boolean modifyTitle(User user, String title) {
         if (!user.getUserName().equals(this.author)) {
-            System.out.println("This post is not yours");
+            System.out.println("This is not your post");
             return false;
         }
 
         this.title = title;
         this.modifiedTime = OffsetDateTime.now();
-
         return true;
     }
 
     public boolean modifyBody(User user, String body) {
         if (!user.getUserName().equals(this.author)) {
-            System.out.println("This post is not yours");
+            System.out.println("This is not your post");
             return false;
         }
 
         this.body = body;
         this.modifiedTime = OffsetDateTime.now();
-
         return true;
     }
 

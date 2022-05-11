@@ -1,8 +1,6 @@
 package academy.pocu.comp2500.assignment1.app;
 
 import academy.pocu.comp2500.assignment1.*;
-import academy.pocu.comp2500.assignment1.User;
-import academy.pocu.comp2500.assignment1.UserType;
 import academy.pocu.comp2500.assignment1.registry.Registry;
 
 import java.util.ArrayList;
@@ -286,10 +284,6 @@ public class Program {
 
         ArrayList<Subcomment> subcomments = comments.get(0).getAllSubcommentsOrNull();
 
-        for (Subcomment s : subcomments) {
-            System.out.println(s.getComment());
-        }
-
         subcomments.get(0).addDownvote();
         subcomments.get(1).addUpvote();
 
@@ -305,11 +299,14 @@ public class Program {
         User user2 = new User("Baro", "Kim", UserType.WRITER);
         Post post1 = new Post(user1, "About Me", "I'm ...");
 
-        post1.modifyTitle(user2, "About Unreal");
-
         blog.addPost(post1);
+
         ArrayList<Post> posts = blog.getAllPosts();
         Post post = posts.get(0);
+
+        assert post.getTitle().equals("About Me");
+        assert post.getBody().equals("I'm ...");
+        assert post.getAuthor().equals("Ja Hwang");
 
         post.modifyTitle(user1, "About Math");
         post.modifyBody(user1, "Math is ...");
