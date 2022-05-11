@@ -15,10 +15,10 @@ public class Post {
     private OffsetDateTime modifiedTime;
 
     public Post(User user, String title, String body) {
-//        if (user.getUserType() != UserType.WRITER) {
-//            System.out.println("Invalid user type");
-//            return;
-//        }
+        if (user.getUserType() != UserType.WRITER) {
+            System.out.println("Invalid user type");
+            return;
+        }
 
         OffsetDateTime now = OffsetDateTime.now();
         this.title = title;
