@@ -10,8 +10,8 @@ public class App {
         registry.registerPostOrderSetter("Blog", "setPostsOrdered");
         registry.registerPostListGetter("Blog", "getAllPosts");
         registry.registerPostAdder("Blog", "addPost");
-        registry.registerPostTitleUpdater("Blog", "modifyPostTitle");
-        registry.registerPostBodyUpdater("Blog", "modifyPostBody");
+        registry.registerPostTitleUpdater("Post", "modifyTitle");
+        registry.registerPostBodyUpdater("Post", "modifyBody");
         registry.registerPostTagAdder("Post", "addTag");
         registry.registerCommentAdder("Post", "addComment");
         registry.registerSubcommentAdder("Comment", "addSubcomment");

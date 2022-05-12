@@ -61,36 +61,6 @@ public class Blog {
         return true;
     }
 
-    public boolean modifyPostTitle(User user, Post post, String title) {
-        if (user != post.getOwner()) {
-            return false;
-        }
-
-        for (Post p : this.posts) {
-            if (p == post) {
-                p.modifyTitle(title);
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    public boolean modifyPostBody(User user, Post post, String body) {
-        if (user != post.getOwner()) {
-            return false;
-        }
-
-        for (Post p : this.posts) {
-            if (p == post) {
-                p.modifyBody(body);
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     // Set ordered type
     public void setPostsFilteredByTag(String tag) {
         this.filteredPosts.clear();

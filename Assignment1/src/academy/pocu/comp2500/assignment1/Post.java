@@ -127,13 +127,24 @@ public class Post {
         return reaction.subUser(name);
     }
 
-    public void modifyTitle(String title) {
+    public boolean modifyTitle(User user, String title) {
+        if (this.owner != user) {
+            return false;
+        }
+
         this.title = title;
         this.modifiedTime = OffsetDateTime.now();
+
+        return true;
     }
 
-    public void modifyBody(String body) {
+    public boolean modifyBody(User user, String body) {
+        if (this.owner != user) {
+            return false;
+        }
+
         this.body = body;
         this.modifiedTime = OffsetDateTime.now();
+        return true;
     }
 }

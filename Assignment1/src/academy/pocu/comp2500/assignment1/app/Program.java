@@ -15,7 +15,7 @@ public class Program {
 //        testAddSubcomment();
 //        testCommentUpvoteDownvote();
 //        testSubcommentUpvoteDownvote();
-//        testUpdatePost();
+        testUpdatePost();
 //        testAddReaction();
 
         Registry registry = new Registry();
@@ -23,6 +23,27 @@ public class Program {
         registry.validate();
 
         System.out.println("No prob");
+    }
+
+    private static void testUpdatePost() {
+        Blog blog = new Blog();
+        User user1 = new User("Ja", "Hwang", UserType.WRITER);
+        User user2 = new User("Golf", "Wang", UserType.WRITER);
+
+        blog.addPost(new Post(user1, "About Me", "I'm ..."));
+
+        ArrayList<Post> posts = blog.getAllPosts();
+        Post post = posts.get(0);
+
+        assert post.getTitle().equals("About Me");
+        assert post.getBody().equals("I'm ...");
+        assert post.getAuthor().equals("Ja Hwang");
+
+        post.modifyTitle(user1, "About Math");
+        post.modifyBody(user1, "Math is ...");
+
+        assert posts.get(0).getTitle().equals("About Math");
+        assert posts.get(0).getBody().equals("Math is ...");
     }
 
 //    private static void testAddPost() {
