@@ -29,13 +29,13 @@ public class Program {
         Blog blog = new Blog();
         User user1 = new User("Ja", "Hwang", UserType.WRITER);
 
-        Post post1 = new Post(user1, "About CS", "CS is ...");
+        Post post1 = new Post(user1.getUserName(), "About CS", "CS is ...");
         post1.addTag(user1, "computer");
 
-        Post post2 = new Post(user1, "About Me", "I'm ...");
+        Post post2 = new Post(user1.getUserName(), "About Me", "I'm ...");
         post2.addTag(user1, "i my me mine");
 
-        Post post3 = new Post(user1, "About event horizon", "Black hole is ...");
+        Post post3 = new Post(user1.getUserName(), "About event horizon", "Black hole is ...");
         post3.addTag(user1, "Space");
 
         blog.addPost(post1);
@@ -53,10 +53,10 @@ public class Program {
         Blog blog = new Blog();
         User user1 = new User("Ja", "Hwang", UserType.WRITER);
 
-        Post post1 = new Post(user1, "About CS", "CS is ...");
+        Post post1 = new Post(user1.getUserName(), "About CS", "CS is ...");
         post1.addTag(user1, "Computer");
 
-        Post post2 = new Post(user1, "About event horizon", "Black hole is ...");
+        Post post2 = new Post(user1.getUserName(), "About event horizon", "Black hole is ...");
         post2.addTag(user1, "Space");
 
         blog.addPost(post1);
@@ -77,10 +77,10 @@ public class Program {
         User user1 = new User("Ja", "Hwang", UserType.WRITER);
         User user2 = new User("Baro", "Kim", UserType.WRITER);
 
-        Post post1 = new Post(user1, "About CS", "CS is ...");
+        Post post1 = new Post(user1.getUserName(), "About CS", "CS is ...");
         post1.addTag(user1, "Computer");
 
-        Post post2 = new Post(user2, "About Unreal", "Unreal is ...");
+        Post post2 = new Post(user2.getUserName(), "About Unreal", "Unreal is ...");
         post2.addTag(user1, "Game");
 
         blog.addPost(post1);
@@ -103,22 +103,22 @@ public class Program {
         User user2 = new User("Baro", "Kim", UserType.WRITER);
         User user3 = new User("Juneseok", "Kim", UserType.WRITER);
 
-        Post post1 = new Post(user1, "About CS", "CS is ...");
+        Post post1 = new Post(user1.getUserName(), "About CS", "CS is ...");
         post1.addTag(user1, "Computer");
 
-        Post post2 = new Post(user1, "About Me", "I'm ...");
+        Post post2 = new Post(user1.getUserName(), "About Me", "I'm ...");
         post1.addTag(user1, "I My Me Mine");
 
-        Post post3 = new Post(user2, "About Unreal", "Unreal is ...");
+        Post post3 = new Post(user2.getUserName(), "About Unreal", "Unreal is ...");
         post3.addTag(user1, "Game");
 
-        Post post4 = new Post(user2, "About Unity", "Unity is ...");
+        Post post4 = new Post(user2.getUserName(), "About Unity", "Unity is ...");
         post4.addTag(user1, "Game");
 
-        Post post5 = new Post(user3, "About Android", "Android is ...");
+        Post post5 = new Post(user3.getUserName(), "About Android", "Android is ...");
         post5.addTag(user3, "mobile");
 
-        Post post6 = new Post(user3, "About IOS", "IOS is ...");
+        Post post6 = new Post(user3.getUserName(), "About IOS", "IOS is ...");
         post6.addTag(user3, "mobile");
 
         blog.addPost(post1);
@@ -199,7 +199,7 @@ public class Program {
         User user1 = new User("Ja", "Hwang", UserType.WRITER);
         User user2 = new User("Baro", "Kim", UserType.WRITER);
 
-        Post post1 = new Post(user1, "About Time", "Time is ...");
+        Post post1 = new Post(user1.getUserName(), "About Time", "Time is ...");
         post1.addComment(user2, "Awsome!!");
 
         blog.addPost(post1);
@@ -214,7 +214,7 @@ public class Program {
         User user1 = new User("Ja", "Hwang", UserType.WRITER);
         User user2 = new User("Baro", "Kim", UserType.WRITER);
 
-        Post post1 = new Post(user1, "About Time", "Time is ...");
+        Post post1 = new Post(user1.getUserName(), "About Time", "Time is ...");
         post1.addComment(user2, "Awsome!!");
 
         blog.addPost(post1);
@@ -237,7 +237,7 @@ public class Program {
         User user1 = new User("Ja", "Hwang", UserType.WRITER);
         User user2 = new User("Baro", "Kim", UserType.WRITER);
 
-        Post post1 = new Post(user1, "About Time", "Time is ...");
+        Post post1 = new Post(user1.getUserName(), "About Time", "Time is ...");
 
         blog.addPost(post1);
         ArrayList<Post> posts = blog.getAllPosts();
@@ -270,7 +270,7 @@ public class Program {
         User user3 = new User("Juneseok", "lee", UserType.VISITOR);
         User user4 = new User("hyeon ho", "lee", UserType.VISITOR);
 
-        Post post1 = new Post(user1, "About Time", "Time is ...");
+        Post post1 = new Post(user1.getUserName(), "About Time", "Time is ...");
 
         blog.addPost(post1);
         ArrayList<Post> posts = blog.getAllPosts();
@@ -299,7 +299,7 @@ public class Program {
         User user1 = new User("Ja", "Hwang", UserType.WRITER);
         User user2 = new User("Baro", "Kim", UserType.WRITER);
 
-        blog.addPost(new Post(user1, "About Me", "I'm ..."));
+        blog.addPost(new Post(user1.getUserName(), "About Me", "I'm ..."));
 
         ArrayList<Post> posts = blog.getAllPosts();
         Post post = posts.get(0);
@@ -323,7 +323,7 @@ public class Program {
         User user2 = new User("Baro", "Kim", UserType.WRITER);
         User user3 = new User("Junesoek", "Lee", UserType.VISITOR);
 
-        blog.addPost(new Post(user1, "About Me", "I'm ..."));
+        blog.addPost(new Post(user1.getUserName(), "About Me", "I'm ..."));
         ArrayList<Post> posts = blog.getAllPosts();
         Post post = posts.get(0);
 
