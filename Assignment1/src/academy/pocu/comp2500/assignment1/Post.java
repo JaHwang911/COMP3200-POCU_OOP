@@ -10,7 +10,12 @@ public class Post {
     private final String author;
     private final ArrayList<String> tags;
     private final ArrayList<Comment> comments;
-    private final ArrayList<Reaction> reactions;
+    private final Reaction reactionGreat = new Reaction(ReactionType.GREAT);
+    private final Reaction reactionSad = new Reaction(ReactionType.SAD);
+    private final Reaction reactionAngry = new Reaction(ReactionType.ANGRY);
+    private final Reaction reactionFun = new Reaction(ReactionType.FUN);
+    private final Reaction reactionLove = new Reaction(ReactionType.LOVE);
+    private final Reaction[] reactions = { reactionGreat, reactionSad, reactionAngry, reactionFun, reactionLove};
     private final OffsetDateTime createdTime;
     private OffsetDateTime modifiedTime;
 
@@ -21,7 +26,6 @@ public class Post {
         this.author = user.getUserName();
         this.tags = new ArrayList<>(128);
         this.comments = new ArrayList<>(128);
-        this.reactions = new ArrayList<>(128);
         this.createdTime = now;
         this.modifiedTime = now;
     }
@@ -49,7 +53,7 @@ public class Post {
         return this.comments;
     }
 
-    public ArrayList<Reaction> getAllReactions() {
+    public Reaction[] getAllReactions() {
         return this.reactions;
     }
 
@@ -82,12 +86,28 @@ public class Post {
         this.comments.add(newComment);
     }
 
-    public void addReaction(User user, ReactionType type) {
-        Reaction newReaction = new Reaction(user, type);
-        this.reactions.add(newReaction);
+    public boolean addReaction(User user, ReactionType type) {
+        switch (type) {
+            case GREAT:
+                return reactionGreat.addCount(user);
+            case SAD:
+                return reactionSad.addCount(user);
+            case ANGRY:
+                return reactionAngry.addCount(user);
+            case FUN:
+                return reactionFun.addCount(user);
+            case LOVE:
+                return reactionLove.addCount(user);
+            default:
+                assert false : "Unknown Reaction type";
+                return false;
+        }
     }
 
-    // Modify
+    public boolean removeReaction(User user, Reaction reaction) {
+        return reaction.subCount(user);
+    }
+
     public boolean modifyTitle(User user, String title) {
         if (!user.getUserName().equals(this.author)) {
             System.out.println("This post is not your");
@@ -108,22 +128,5 @@ public class Post {
         this.body = body;
         this.modifiedTime = OffsetDateTime.now();
         return true;
-    }
-
-    // Remove
-    public boolean removeReaction(User user, Reaction reaction) {
-        if (!user.getUserName().equals(reaction.getUserName())) {
-            System.out.println("This reaction is not your");
-            return false;
-        }
-
-        for (Reaction r : this.reactions) {
-            if (r == reaction) {
-                this.reactions.remove(r);
-                return true;
-            }
-        }
-
-        return false;
     }
 }

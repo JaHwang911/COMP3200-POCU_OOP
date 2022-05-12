@@ -321,18 +321,17 @@ public class Program {
         User user1 = new User("Ja", "Hwang", UserType.WRITER);
         User user2 = new User("Baro", "Kim", UserType.WRITER);
         User user3 = new User("Junesoek", "Lee", UserType.VISITOR);
-        Post post1 = new Post(user1, "About Me", "I'm ...");
 
-        blog.addPost(post1);
+        blog.addPost(new Post(user1, "About Me", "I'm ..."));
         ArrayList<Post> posts = blog.getAllPosts();
         Post post = posts.get(0);
 
         post.addReaction(user2, ReactionType.GREAT);
         post.addReaction(user3, ReactionType.FUN);
 
-        posts = blog.getAllPosts();
+        post = blog.getAllPosts().get(0);
 
-        assert posts.get(0).getAllReactions().get(0).getType() == ReactionType.GREAT;
-        assert posts.get(0).getAllReactions().get(1).getType() == ReactionType.FUN;
+        assert post.getAllReactions()[0].getType() == ReactionType.GREAT;
+        assert post.getAllReactions()[1].getType() == ReactionType.FUN;
     }
 }
