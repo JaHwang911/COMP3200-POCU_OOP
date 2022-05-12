@@ -127,25 +127,13 @@ public class Post {
         return reaction.subUser(name);
     }
 
-    public boolean modifyTitle(User user, String title) {
-        if (this.owner != user) {
-            System.out.println("This post is not your");
-            return false;
-        }
-
+    public void modifyTitle(String title) {
         this.title = title;
         this.modifiedTime = OffsetDateTime.now();
-        return true;
     }
 
-    public boolean modifyBody(User user, String body) {
-        if (this.owner != user) {
-            System.out.println("This post is not your");
-            return false;
-        }
-
+    public void modifyBody(String body) {
         this.body = body;
         this.modifiedTime = OffsetDateTime.now();
-        return true;
     }
 }

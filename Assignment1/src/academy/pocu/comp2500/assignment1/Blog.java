@@ -50,7 +50,6 @@ public class Blog {
         return resultPosts;
     }
 
-    // Add
     public boolean addPost(Post post) {
 
         if (post.getOwner().getUserType() == UserType.VISITOR) {
@@ -60,6 +59,36 @@ public class Blog {
         this.posts.add(post);
 
         return true;
+    }
+
+    public boolean modifyPostTitle(User user, Post post, String title) {
+        if (user != post.getOwner()) {
+            return false;
+        }
+
+        for (Post p : this.posts) {
+            if (p == post) {
+                p.modifyTitle(title);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean modifyPostBody(User user, Post post, String body) {
+        if (user != post.getOwner()) {
+            return false;
+        }
+
+        for (Post p : this.posts) {
+            if (p == post) {
+                p.modifyBody(body);
+                return true;
+            }
+        }
+
+        return false;
     }
 
     // Set ordered type
