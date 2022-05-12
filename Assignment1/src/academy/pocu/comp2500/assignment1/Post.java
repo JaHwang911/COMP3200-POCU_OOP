@@ -128,7 +128,7 @@ public class Post {
     }
 
     public boolean modifyTitle(User user, String title) {
-        if (this.owner != user) {
+        if (!this.owner.equals(user)) {
             return false;
         }
 
@@ -139,7 +139,7 @@ public class Post {
     }
 
     public boolean modifyBody(User user, String body) {
-        if (this.owner != user) {
+        if (!this.owner.equals(user)) {
             return false;
         }
 
