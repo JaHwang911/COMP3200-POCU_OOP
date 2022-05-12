@@ -4,12 +4,10 @@ import java.util.ArrayList;
 
 public class Reaction {
     private ReactionType type;
-    private int count;
     private ArrayList<String> userNames;
 
     public Reaction(ReactionType type) {
         this.type = type;
-        this.count = 0;
         this.userNames = new ArrayList<String>(32);
     }
 
@@ -18,10 +16,10 @@ public class Reaction {
     }
 
     public int getCount() {
-        return this.count;
+        return userNames.size();
     }
 
-    public boolean addCount(User user) {
+    public boolean addUser(User user) {
         String name = user.getUserName();
 
         for (String u : this.userNames) {
@@ -31,17 +29,15 @@ public class Reaction {
         }
 
         this.userNames.add(name);
-        ++this.count;
 
         return true;
     }
 
-    public boolean subCount(User user) {
+    public boolean subUser(User user) {
         String name = user.getUserName();
 
         for (String u : this.userNames) {
             if (u.equals(name)) {
-                --this.count;
                 return true;
             }
         }

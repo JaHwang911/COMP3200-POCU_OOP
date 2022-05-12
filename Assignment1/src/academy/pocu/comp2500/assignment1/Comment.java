@@ -5,57 +5,99 @@ import java.util.Collections;
 
 public class Comment {
     private String comment;
-    private ArrayList<Subcomment> subComments;
-    private int upvote;
-    private int downvote;
+    private ArrayList<Comment> subComments;
+    private ArrayList<String> upvoter;
+    private ArrayList<String> downvoter;
     private String author;
 
-    public Comment(User user, String comment) {
-        this.comment = comment;
+    public Comment(User user, String text) {
+        this.comment = text;
         this.subComments = new ArrayList<>(32);
-        this.upvote = 0;
-        this.downvote = 0;
+        this.upvoter = new ArrayList<>(32);
+        this.downvoter = new ArrayList<>(32);
         this.author = user.getUserName();
     }
 
-    // Get
     public String getComment() {
         return this.comment;
-    }
-
-    public int getUpvote() {
-        return this.upvote;
-    }
-
-    public int getDownvote() {
-        return this.downvote;
     }
 
     public String getAuthor() {
         return this.author;
     }
 
-    public ArrayList<Subcomment> getAllSubcomments() {
+    public void addSubcomment(User user, String text) {
+        this.subComments.add(new Comment(user, text));
+    }
+
+    public ArrayList<Comment> getAllSubcomments() {
         Collections.sort(this.subComments, (a, b) -> b.getVoteRatio() - a.getVoteRatio());
 
         return this.subComments;
     }
 
+    public int getUpvote() {
+        return this.upvoter.size();
+    }
+
+    public int getDownvote() {
+        return this.downvoter.size();
+    }
+
     public int getVoteRatio() {
-        return this.upvote - this.downvote;
+        return this.upvoter.size() - this.downvoter.size();
     }
 
-    //Add
-    public void addUpvote() {
-        ++this.upvote;
+    public boolean addUpvote(User user) {
+        String userName = user.getUserName();
+
+        for (String u : this.upvoter) {
+            if (u.equals(userName)) {
+                return false;
+            }
+        }
+
+        this.upvoter.add(userName);
+        return true;
     }
 
-    public void addDownvote() {
-        ++this.downvote;
+    public boolean cancelUpvote(User user) {
+        String userName = user.getUserName();
+
+        for (String u : this.upvoter) {
+            if (u.equals(userName)) {
+                this.upvoter.remove(u);
+                return true;
+            }
+        }
+
+        return false;
     }
 
-    public void addSubcomment(User user, String comment) {
-        this.subComments.add(new Subcomment(user, comment));
+    public boolean addDownvote(User user) {
+        String userName = user.getUserName();
+
+        for (String u : this.downvoter) {
+            if (u.equals(userName)) {
+                return false;
+            }
+        }
+
+        this.downvoter.add(userName);
+        return true;
+    }
+
+    public boolean cancelDownvote(User user) {
+        String userName = user.getUserName();
+
+        for (String u : this.downvoter) {
+            if (u.equals(userName)) {
+                this.downvoter.remove(u);
+                return true;
+            }
+        }
+
+        return false;
     }
 
     //Modify

@@ -15,7 +15,6 @@ public class Post {
     private final Reaction reactionAngry = new Reaction(ReactionType.ANGRY);
     private final Reaction reactionFun = new Reaction(ReactionType.FUN);
     private final Reaction reactionLove = new Reaction(ReactionType.LOVE);
-    private final Reaction[] reactions = { reactionGreat, reactionSad, reactionAngry, reactionFun, reactionLove};
     private final OffsetDateTime createdTime;
     private OffsetDateTime modifiedTime;
 
@@ -53,10 +52,6 @@ public class Post {
         return this.comments;
     }
 
-    public Reaction[] getAllReactions() {
-        return this.reactions;
-    }
-
     public OffsetDateTime getCreatedTime() {
         return this.createdTime;
     }
@@ -65,7 +60,6 @@ public class Post {
         return this.modifiedTime;
     }
 
-    // Add
     public boolean addTag(User user, String tag) {
         if (!user.getUserName().equals(this.author)) {
             return false;
@@ -86,18 +80,37 @@ public class Post {
         this.comments.add(newComment);
     }
 
+    // Reaction
+    public int getReactionCount(ReactionType type) {
+        switch (type) {
+            case GREAT:
+                return this.reactionGreat.getCount();
+            case SAD:
+                return this.reactionSad.getCount();
+            case FUN:
+                return this.reactionFun.getCount();
+            case ANGRY:
+                return this.reactionAngry.getCount();
+            case LOVE:
+                return this.reactionLove.getCount();
+            default:
+                assert false : "Unknown Reaction type";
+                return -1;
+        }
+    }
+
     public boolean addReaction(User user, ReactionType type) {
         switch (type) {
             case GREAT:
-                return reactionGreat.addCount(user);
+                return reactionGreat.addUser(user);
             case SAD:
-                return reactionSad.addCount(user);
+                return reactionSad.addUser(user);
             case ANGRY:
-                return reactionAngry.addCount(user);
+                return reactionAngry.addUser(user);
             case FUN:
-                return reactionFun.addCount(user);
+                return reactionFun.addUser(user);
             case LOVE:
-                return reactionLove.addCount(user);
+                return reactionLove.addUser(user);
             default:
                 assert false : "Unknown Reaction type";
                 return false;
@@ -105,7 +118,7 @@ public class Post {
     }
 
     public boolean removeReaction(User user, Reaction reaction) {
-        return reaction.subCount(user);
+        return reaction.subUser(user);
     }
 
     public boolean modifyTitle(User user, String title) {

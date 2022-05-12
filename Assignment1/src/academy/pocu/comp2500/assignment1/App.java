@@ -16,14 +16,14 @@ public class App {
         registry.registerCommentAdder("Post", "addComment");
         registry.registerSubcommentAdder("Comment", "addSubcomment");
         registry.registerCommentUpdater("Comment", "modifyComment");
-        registry.registerSubcommentUpdater("Subcomment", "modifySubcomment");
+        registry.registerSubcommentUpdater("Comment", "modifyComment");
         registry.registerReactionAdder("Post", "addReaction");
         registry.registerReactionRemover("Post", "removeReaction");
         registry.registerCommentUpvoter("Comment", "addUpvote");
         registry.registerCommentDownvoter("Comment", "addDownvote");
         registry.registerCommentListGetter("Post", "getAllComments");
         registry.registerSubcommentListGetter("Comment", "getAllSubcomments");
-        registry.registerSubcommentUpvoter("Subcomment", "addUpvote");
-        registry.registerSubcommentDownvoter("Subcomment", "addDownvote");
+        registry.registerSubcommentUpvoter("Comment", "addUpvote");
+        registry.registerSubcommentDownvoter("Comment", "addDownvote");
     }
 }

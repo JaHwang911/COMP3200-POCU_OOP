@@ -226,7 +226,7 @@ public class Program {
 
         comment.addSubcomment(user1, "Thanks bro!");
 
-        ArrayList<Subcomment> subcomment = comment.getAllSubcomments();
+        ArrayList<Comment> subcomment = comment.getAllSubcomments();
 
         assert subcomment.size() == 1;
         assert subcomment.get(0).getComment().equals("Thanks bro!");
@@ -253,8 +253,9 @@ public class Program {
         Comment comment1 = comments.get(0);
         Comment comment2 = comments.get(1);
 
-        comment1.addDownvote();
-        comment2.addUpvote();
+        assert (comment1.addDownvote(user1));
+        assert (comment2.addUpvote(user1));
+        assert (!comment1.addDownvote(user1));
 
         comments = getPost1.getAllComments();
 
@@ -282,10 +283,10 @@ public class Program {
         comments.get(0).addSubcomment(user4, "Umm.. I don't think so!!");
         comments.get(0).addSubcomment(user3, "Yeah, I think so!!");
 
-        ArrayList<Subcomment> subcomments = comments.get(0).getAllSubcomments();
+        ArrayList<Comment> subcomments = comments.get(0).getAllSubcomments();
 
-        subcomments.get(0).addDownvote();
-        subcomments.get(1).addUpvote();
+        subcomments.get(0).addDownvote(user1);
+        subcomments.get(1).addUpvote(user2);
 
         subcomments = comments.get(0).getAllSubcomments();
 
@@ -331,7 +332,7 @@ public class Program {
 
         post = blog.getAllPosts().get(0);
 
-        assert post.getAllReactions()[0].getType() == ReactionType.GREAT;
-        assert post.getAllReactions()[1].getType() == ReactionType.FUN;
+        assert post.getReactionCount(ReactionType.GREAT) == 1;
+        assert post.getReactionCount(ReactionType.FUN) == 1;
     }
 }
