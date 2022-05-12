@@ -44,6 +44,10 @@ public class Post {
         return this.ownerInfo.getUserType();
     }
 
+    public User getOwnerInfo() {
+        return this.ownerInfo;
+    }
+
     public String getAuthor() {
         return this.author;
     }
