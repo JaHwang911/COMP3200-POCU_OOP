@@ -8,7 +8,6 @@ public class Post {
     private String title;
     private String body;
     private final User owner;
-    private final String author;
     private final ArrayList<String> tags;
     private final ArrayList<Comment> comments;
     private final Reaction reactionGreat = new Reaction(ReactionType.GREAT);
@@ -24,7 +23,6 @@ public class Post {
         this.title = title;
         this.body = body;
         this.owner = user;
-        this.author = user.getUserName();
         this.tags = new ArrayList<>(128);
         this.comments = new ArrayList<>(128);
         this.createdTime = now;
@@ -42,10 +40,6 @@ public class Post {
 
     public User getOwner() {
         return this.owner;
-    }
-
-    public String getAuthor() {
-        return this.author;
     }
 
     public ArrayList<String> getTags() {
@@ -66,8 +60,8 @@ public class Post {
         return this.modifiedTime;
     }
 
-    public boolean addTag(String name, String tag) {
-        if (!name.equals(this.author)) {
+    public boolean addTag(User user, String tag) {
+        if (this.owner.equals(user)) {
             return false;
         }
 
@@ -81,9 +75,8 @@ public class Post {
         return true;
     }
 
-    public void addComment(String name, String comment) {
-        Comment newComment = new Comment(name, comment);
-        this.comments.add(newComment);
+    public void addComment(User user, String comment) {
+        this.comments.add(new Comment(user, comment));
     }
 
     // Reaction
@@ -105,26 +98,26 @@ public class Post {
         }
     }
 
-    public boolean addReaction(String name, ReactionType type) {
+    public boolean addReaction(User user, ReactionType type) {
         switch (type) {
             case GREAT:
-                return reactionGreat.addUser(name);
+                return reactionGreat.addUser(user);
             case SAD:
-                return reactionSad.addUser(name);
+                return reactionSad.addUser(user);
             case ANGRY:
-                return reactionAngry.addUser(name);
+                return reactionAngry.addUser(user);
             case FUN:
-                return reactionFun.addUser(name);
+                return reactionFun.addUser(user);
             case LOVE:
-                return reactionLove.addUser(name);
+                return reactionLove.addUser(user);
             default:
                 assert false : "Unknown Reaction type";
                 return false;
         }
     }
 
-    public boolean removeReaction(String name, Reaction reaction) {
-        return reaction.subUser(name);
+    public boolean removeReaction(User user, Reaction reaction) {
+        return reaction.subUser(user);
     }
 
     public boolean modifyTitle(User user, String title) {

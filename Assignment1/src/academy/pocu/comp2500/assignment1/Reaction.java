@@ -4,36 +4,40 @@ import java.util.ArrayList;
 
 public class Reaction {
     private ReactionType type;
-    private ArrayList<String> userNames;
+    private ArrayList<User> users;
 
     public Reaction(ReactionType type) {
         this.type = type;
-        this.userNames = new ArrayList<String>(32);
+        this.users = new ArrayList<>(32);
     }
 
     public ReactionType getType() {
         return this.type;
     }
-
-    public int getCount() {
-        return userNames.size();
+    
+    public ArrayList<User> getAllUsers() {
+        return this.users;
     }
 
-    public boolean addUser(String name) {
-        for (String u : this.userNames) {
-            if (u.equals(name)) {
+    public int getCount() {
+        return users.size();
+    }
+
+    public boolean addUser(User user) {
+        for (User u : this.users) {
+            if (u.equals(user)) {
                 return false;
             }
         }
 
-        this.userNames.add(name);
+        this.users.add(user);
 
         return true;
     }
 
-    public boolean subUser(String name) {
-        for (String u : this.userNames) {
-            if (u.equals(name)) {
+    public boolean subUser(User user) {
+        for (User u : this.users) {
+            if (u.equals(user)) {
                 return true;
             }
         }

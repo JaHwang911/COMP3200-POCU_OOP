@@ -5,35 +5,25 @@ import java.util.Collections;
 
 public class Comment {
     private String comment;
-    private ArrayList<Comment> subComments;
-    private ArrayList<String> upvoter;
-    private ArrayList<String> downvoter;
-    private String author;
+    private final ArrayList<Comment> subComments;
+    private final ArrayList<User> upvoter;
+    private final ArrayList<User> downvoter;
+    private final User owner;
 
-    public Comment(String author, String text) {
+    public Comment(User user, String text) {
         this.comment = text;
         this.subComments = new ArrayList<>(32);
         this.upvoter = new ArrayList<>(32);
         this.downvoter = new ArrayList<>(32);
-        this.author = author;
+        this.owner = user;
     }
 
     public String getComment() {
         return this.comment;
     }
 
-    public String getAuthor() {
-        return this.author;
-    }
-
-    public void addSubcomment(String name, String text) {
-        this.subComments.add(new Comment(name, text));
-    }
-
-    public ArrayList<Comment> getAllSubcomments() {
-        Collections.sort(this.subComments, (a, b) -> b.getVoteRatio() - a.getVoteRatio());
-
-        return this.subComments;
+    public User getOwner() {
+        return this.owner;
     }
 
     public int getUpvote() {
@@ -48,21 +38,31 @@ public class Comment {
         return this.upvoter.size() - this.downvoter.size();
     }
 
-    public boolean addUpvote(String name) {
-        for (String uName : this.upvoter) {
-            if (uName.equals(name)) {
+    public ArrayList<Comment> getAllSubcomments() {
+        Collections.sort(this.subComments, (a, b) -> b.getVoteRatio() - a.getVoteRatio());
+
+        return this.subComments;
+    }
+
+    public void addSubcomment(User user, String text) {
+        this.subComments.add(new Comment(user, text));
+    }
+
+    public boolean addUpvote(User user) {
+        for (User u : this.upvoter) {
+            if (u.equals(user)) {
                 return false;
             }
         }
 
-        this.upvoter.add(name);
+        this.upvoter.add(user);
         return true;
     }
 
-    public boolean cancelUpvote(String name) {
-        for (String uName : this.upvoter) {
-            if (uName.equals(name)) {
-                this.upvoter.remove(uName);
+    public boolean cancelUpvote(User user) {
+        for (User u : this.upvoter) {
+            if (u.equals(user)) {
+                this.upvoter.remove(u);
                 return true;
             }
         }
@@ -70,21 +70,21 @@ public class Comment {
         return false;
     }
 
-    public boolean addDownvote(String name) {
-        for (String uName : this.downvoter) {
-            if (uName.equals(name)) {
+    public boolean addDownvote(User user) {
+        for (User u : this.downvoter) {
+            if (u.equals(user)) {
                 return false;
             }
         }
 
-        this.downvoter.add(name);
+        this.downvoter.add(user);
         return true;
     }
 
-    public boolean cancelDownvote(String name) {
-        for (String uName : this.downvoter) {
-            if (uName.equals(name)) {
-                this.downvoter.remove(uName);
+    public boolean cancelDownvote(User user) {
+        for (User u : this.downvoter) {
+            if (u.equals(user)) {
+                this.downvoter.remove(user);
                 return true;
             }
         }
@@ -93,8 +93,8 @@ public class Comment {
     }
 
     //Modify
-    public boolean modifyComment(String name, String text) {
-        if (!name.equals(this.author)) {
+    public boolean modifyComment(User user, String text) {
+        if (!this.owner.equals(user)) {
             System.out.println("This Comment is not your");
             return false;
         }
