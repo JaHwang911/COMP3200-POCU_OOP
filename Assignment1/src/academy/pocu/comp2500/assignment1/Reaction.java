@@ -19,9 +19,7 @@ public class Reaction {
         return userNames.size();
     }
 
-    public boolean addUser(User user) {
-        String name = user.getUserName();
-
+    public boolean addUser(String name) {
         for (String u : this.userNames) {
             if (u.equals(name)) {
                 return false;
@@ -33,9 +31,7 @@ public class Reaction {
         return true;
     }
 
-    public boolean subUser(User user) {
-        String name = user.getUserName();
-
+    public boolean subUser(String name) {
         for (String u : this.userNames) {
             if (u.equals(name)) {
                 return true;

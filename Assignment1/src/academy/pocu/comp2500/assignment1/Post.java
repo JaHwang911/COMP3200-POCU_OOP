@@ -60,8 +60,8 @@ public class Post {
         return this.modifiedTime;
     }
 
-    public boolean addTag(User user, String tag) {
-        if (!user.getUserName().equals(this.author)) {
+    public boolean addTag(String name, String tag) {
+        if (!name.equals(this.author)) {
             return false;
         }
 
@@ -75,8 +75,8 @@ public class Post {
         return true;
     }
 
-    public void addComment(User user, String comment) {
-        Comment newComment = new Comment(user, comment);
+    public void addComment(String name, String comment) {
+        Comment newComment = new Comment(name, comment);
         this.comments.add(newComment);
     }
 
@@ -99,30 +99,30 @@ public class Post {
         }
     }
 
-    public boolean addReaction(User user, ReactionType type) {
+    public boolean addReaction(String name, ReactionType type) {
         switch (type) {
             case GREAT:
-                return reactionGreat.addUser(user);
+                return reactionGreat.addUser(name);
             case SAD:
-                return reactionSad.addUser(user);
+                return reactionSad.addUser(name);
             case ANGRY:
-                return reactionAngry.addUser(user);
+                return reactionAngry.addUser(name);
             case FUN:
-                return reactionFun.addUser(user);
+                return reactionFun.addUser(name);
             case LOVE:
-                return reactionLove.addUser(user);
+                return reactionLove.addUser(name);
             default:
                 assert false : "Unknown Reaction type";
                 return false;
         }
     }
 
-    public boolean removeReaction(User user, Reaction reaction) {
-        return reaction.subUser(user);
+    public boolean removeReaction(String name, Reaction reaction) {
+        return reaction.subUser(name);
     }
 
-    public boolean modifyTitle(User user, String title) {
-        if (!user.getUserName().equals(this.author)) {
+    public boolean modifyTitle(String name, String title) {
+        if (!name.equals(this.author)) {
             System.out.println("This post is not your");
             return false;
         }
@@ -132,8 +132,8 @@ public class Post {
         return true;
     }
 
-    public boolean modifyBody(User user, String body) {
-        if (!user.getUserName().equals(this.author)) {
+    public boolean modifyBody(String name, String body) {
+        if (!name.equals(this.author)) {
             System.out.println("This post is not your");
             return false;
         }

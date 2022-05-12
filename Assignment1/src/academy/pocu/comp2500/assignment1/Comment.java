@@ -10,12 +10,12 @@ public class Comment {
     private ArrayList<String> downvoter;
     private String author;
 
-    public Comment(User user, String text) {
+    public Comment(String author, String text) {
         this.comment = text;
         this.subComments = new ArrayList<>(32);
         this.upvoter = new ArrayList<>(32);
         this.downvoter = new ArrayList<>(32);
-        this.author = user.getUserName();
+        this.author = author;
     }
 
     public String getComment() {
@@ -26,8 +26,8 @@ public class Comment {
         return this.author;
     }
 
-    public void addSubcomment(User user, String text) {
-        this.subComments.add(new Comment(user, text));
+    public void addSubcomment(String name, String text) {
+        this.subComments.add(new Comment(name, text));
     }
 
     public ArrayList<Comment> getAllSubcomments() {
@@ -48,25 +48,21 @@ public class Comment {
         return this.upvoter.size() - this.downvoter.size();
     }
 
-    public boolean addUpvote(User user) {
-        String userName = user.getUserName();
-
-        for (String u : this.upvoter) {
-            if (u.equals(userName)) {
+    public boolean addUpvote(String name) {
+        for (String uName : this.upvoter) {
+            if (uName.equals(name)) {
                 return false;
             }
         }
 
-        this.upvoter.add(userName);
+        this.upvoter.add(name);
         return true;
     }
 
-    public boolean cancelUpvote(User user) {
-        String userName = user.getUserName();
-
-        for (String u : this.upvoter) {
-            if (u.equals(userName)) {
-                this.upvoter.remove(u);
+    public boolean cancelUpvote(String name) {
+        for (String uName : this.upvoter) {
+            if (uName.equals(name)) {
+                this.upvoter.remove(uName);
                 return true;
             }
         }
@@ -74,25 +70,21 @@ public class Comment {
         return false;
     }
 
-    public boolean addDownvote(User user) {
-        String userName = user.getUserName();
-
-        for (String u : this.downvoter) {
-            if (u.equals(userName)) {
+    public boolean addDownvote(String name) {
+        for (String uName : this.downvoter) {
+            if (uName.equals(name)) {
                 return false;
             }
         }
 
-        this.downvoter.add(userName);
+        this.downvoter.add(name);
         return true;
     }
 
-    public boolean cancelDownvote(User user) {
-        String userName = user.getUserName();
-
-        for (String u : this.downvoter) {
-            if (u.equals(userName)) {
-                this.downvoter.remove(u);
+    public boolean cancelDownvote(String name) {
+        for (String uName : this.downvoter) {
+            if (uName.equals(name)) {
+                this.downvoter.remove(uName);
                 return true;
             }
         }
@@ -101,8 +93,8 @@ public class Comment {
     }
 
     //Modify
-    public boolean modifyComment(User user, String text) {
-        if (!user.getUserName().equals(this.author)) {
+    public boolean modifyComment(String name, String text) {
+        if (!name.equals(this.author)) {
             System.out.println("This Comment is not your");
             return false;
         }

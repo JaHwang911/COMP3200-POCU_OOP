@@ -30,13 +30,13 @@ public class Program {
         User user1 = new User("Ja", "Hwang", UserType.WRITER);
 
         Post post1 = new Post(user1.getUserName(), "About CS", "CS is ...");
-        post1.addTag(user1, "computer");
+        post1.addTag(user1.getUserName(), "computer");
 
         Post post2 = new Post(user1.getUserName(), "About Me", "I'm ...");
-        post2.addTag(user1, "i my me mine");
+        post2.addTag(user1.getUserName(), "i my me mine");
 
         Post post3 = new Post(user1.getUserName(), "About event horizon", "Black hole is ...");
-        post3.addTag(user1, "Space");
+        post3.addTag(user1.getUserName(), "Space");
 
         blog.addPost(post1);
         blog.addPost(post2);
@@ -54,10 +54,10 @@ public class Program {
         User user1 = new User("Ja", "Hwang", UserType.WRITER);
 
         Post post1 = new Post(user1.getUserName(), "About CS", "CS is ...");
-        post1.addTag(user1, "Computer");
+        post1.addTag(user1.getUserName(), "Computer");
 
         Post post2 = new Post(user1.getUserName(), "About event horizon", "Black hole is ...");
-        post2.addTag(user1, "Space");
+        post2.addTag(user1.getUserName(), "Space");
 
         blog.addPost(post1);
         blog.addPost(post2);
@@ -78,10 +78,10 @@ public class Program {
         User user2 = new User("Baro", "Kim", UserType.WRITER);
 
         Post post1 = new Post(user1.getUserName(), "About CS", "CS is ...");
-        post1.addTag(user1, "Computer");
+        post1.addTag(user1.getUserName(), "Computer");
 
         Post post2 = new Post(user2.getUserName(), "About Unreal", "Unreal is ...");
-        post2.addTag(user1, "Game");
+        post2.addTag(user1.getUserName(), "Game");
 
         blog.addPost(post1);
         blog.addPost(post2);
@@ -104,22 +104,22 @@ public class Program {
         User user3 = new User("Juneseok", "Kim", UserType.WRITER);
 
         Post post1 = new Post(user1.getUserName(), "About CS", "CS is ...");
-        post1.addTag(user1, "Computer");
+        post1.addTag(user1.getUserName(), "Computer");
 
         Post post2 = new Post(user1.getUserName(), "About Me", "I'm ...");
-        post1.addTag(user1, "I My Me Mine");
+        post1.addTag(user1.getUserName(), "I My Me Mine");
 
         Post post3 = new Post(user2.getUserName(), "About Unreal", "Unreal is ...");
-        post3.addTag(user1, "Game");
+        post3.addTag(user1.getUserName(), "Game");
 
         Post post4 = new Post(user2.getUserName(), "About Unity", "Unity is ...");
-        post4.addTag(user1, "Game");
+        post4.addTag(user1.getUserName(), "Game");
 
         Post post5 = new Post(user3.getUserName(), "About Android", "Android is ...");
-        post5.addTag(user3, "mobile");
+        post5.addTag(user3.getUserName(), "mobile");
 
         Post post6 = new Post(user3.getUserName(), "About IOS", "IOS is ...");
-        post6.addTag(user3, "mobile");
+        post6.addTag(user3.getUserName(), "mobile");
 
         blog.addPost(post1);
         blog.addPost(post2);
@@ -200,7 +200,7 @@ public class Program {
         User user2 = new User("Baro", "Kim", UserType.WRITER);
 
         Post post1 = new Post(user1.getUserName(), "About Time", "Time is ...");
-        post1.addComment(user2, "Awsome!!");
+        post1.addComment(user2.getUserName(), "Awsome!!");
 
         blog.addPost(post1);
         ArrayList<Comment> comments = post1.getAllComments();
@@ -215,7 +215,7 @@ public class Program {
         User user2 = new User("Baro", "Kim", UserType.WRITER);
 
         Post post1 = new Post(user1.getUserName(), "About Time", "Time is ...");
-        post1.addComment(user2, "Awsome!!");
+        post1.addComment(user2.getUserName(), "Awsome!!");
 
         blog.addPost(post1);
         ArrayList<Comment> comments = post1.getAllComments();
@@ -224,7 +224,7 @@ public class Program {
         assert comments.size() == 1;
         assert comments.get(0).getAuthor().equals("Baro Kim");
 
-        comment.addSubcomment(user1, "Thanks bro!");
+        comment.addSubcomment(user1.getUserName(), "Thanks bro!");
 
         ArrayList<Comment> subcomment = comment.getAllSubcomments();
 
@@ -243,8 +243,8 @@ public class Program {
         ArrayList<Post> posts = blog.getAllPosts();
         Post getPost1 = posts.get(0);
 
-        getPost1.addComment(user2, "Awesome!!");
-        getPost1.addComment(user2, "So so");
+        getPost1.addComment(user2.getUserName(), "Awesome!!");
+        getPost1.addComment(user2.getUserName(), "So so");
 
         ArrayList<Comment> comments = getPost1.getAllComments();
 
@@ -253,9 +253,9 @@ public class Program {
         Comment comment1 = comments.get(0);
         Comment comment2 = comments.get(1);
 
-        assert (comment1.addDownvote(user1));
-        assert (comment2.addUpvote(user1));
-        assert (!comment1.addDownvote(user1));
+        assert (comment1.addDownvote(user1.getUserName()));
+        assert (comment2.addUpvote(user1.getUserName()));
+        assert (!comment1.addDownvote(user1.getUserName()));
 
         comments = getPost1.getAllComments();
 
@@ -276,17 +276,17 @@ public class Program {
         ArrayList<Post> posts = blog.getAllPosts();
         Post getPost1 = posts.get(0);
 
-        getPost1.addComment(user2, "Awesome!!");
+        getPost1.addComment(user2.getUserName(), "Awesome!!");
 
         ArrayList<Comment> comments = getPost1.getAllComments();
 
-        comments.get(0).addSubcomment(user4, "Umm.. I don't think so!!");
-        comments.get(0).addSubcomment(user3, "Yeah, I think so!!");
+        comments.get(0).addSubcomment(user4.getUserName(), "Umm.. I don't think so!!");
+        comments.get(0).addSubcomment(user3.getUserName(), "Yeah, I think so!!");
 
         ArrayList<Comment> subcomments = comments.get(0).getAllSubcomments();
 
-        subcomments.get(0).addDownvote(user1);
-        subcomments.get(1).addUpvote(user2);
+        subcomments.get(0).addDownvote(user1.getUserName());
+        subcomments.get(1).addUpvote(user2.getUserName());
 
         subcomments = comments.get(0).getAllSubcomments();
 
@@ -308,8 +308,8 @@ public class Program {
         assert post.getBody().equals("I'm ...");
         assert post.getAuthor().equals("Ja Hwang");
 
-        post.modifyTitle(user1, "About Math");
-        post.modifyBody(user1, "Math is ...");
+        post.modifyTitle(user1.getUserName(), "About Math");
+        post.modifyBody(user1.getUserName(), "Math is ...");
 
         posts = blog.getAllPosts();
 
@@ -327,8 +327,8 @@ public class Program {
         ArrayList<Post> posts = blog.getAllPosts();
         Post post = posts.get(0);
 
-        post.addReaction(user2, ReactionType.GREAT);
-        post.addReaction(user3, ReactionType.FUN);
+        post.addReaction(user2.getUserName(), ReactionType.GREAT);
+        post.addReaction(user3.getUserName(), ReactionType.FUN);
 
         post = blog.getAllPosts().get(0);
 
