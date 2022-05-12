@@ -40,10 +40,6 @@ public class Post {
         return this.body;
     }
 
-    public UserType getAuthorType() {
-        return this.owner.getUserType();
-    }
-
     public User getOwner() {
         return this.owner;
     }

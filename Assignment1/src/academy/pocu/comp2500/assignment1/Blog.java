@@ -52,7 +52,8 @@ public class Blog {
 
     // Add
     public boolean addPost(Post post) {
-        if (post.getAuthorType() == UserType.VISITOR) {
+
+        if (post.getOwner().getUserType() == UserType.VISITOR) {
             return false;
         }
 
