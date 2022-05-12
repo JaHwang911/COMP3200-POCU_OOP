@@ -38,9 +38,9 @@ public class Program {
         Post post3 = new Post(user1.getUserName(), "About event horizon", "Black hole is ...");
         post3.addTag(user1.getUserName(), "Space");
 
-        blog.addPost(post1);
-        blog.addPost(post2);
-        blog.addPost(post3);
+        assert blog.addPost(user1, post1);
+        assert blog.addPost(user1, post2);
+        assert blog.addPost(user1, post3);
 
         ArrayList<Post> posts = blog.getAllPosts();
 
@@ -59,8 +59,8 @@ public class Program {
         Post post2 = new Post(user1.getUserName(), "About event horizon", "Black hole is ...");
         post2.addTag(user1.getUserName(), "Space");
 
-        blog.addPost(post1);
-        blog.addPost(post2);
+        assert blog.addPost(user1, post1);
+        assert blog.addPost(user1, post2);
 
         ArrayList<Post> posts = blog.getPostsByTag("Space");
 
@@ -83,8 +83,9 @@ public class Program {
         Post post2 = new Post(user2.getUserName(), "About Unreal", "Unreal is ...");
         post2.addTag(user1.getUserName(), "Game");
 
-        blog.addPost(post1);
-        blog.addPost(post2);
+        assert blog.addPost(user1, post1);
+        assert blog.addPost(user2, post2);
+        assert !blog.addPost(user2, post1);
 
         ArrayList<Post> posts = blog.getPostsByAuthor("Baro Kim");
 
@@ -121,12 +122,12 @@ public class Program {
         Post post6 = new Post(user3.getUserName(), "About IOS", "IOS is ...");
         post6.addTag(user3.getUserName(), "mobile");
 
-        blog.addPost(post1);
-        blog.addPost(post2);
-        blog.addPost(post3);
-        blog.addPost(post4);
-        blog.addPost(post5);
-        blog.addPost(post6);
+        assert blog.addPost(user1, post1);
+        assert blog.addPost(user1, post2);
+        assert blog.addPost(user2, post3);
+        assert blog.addPost(user2, post4);
+        assert blog.addPost(user3, post5);
+        assert blog.addPost(user3, post6);
 
         // CREATE
         blog.setPostsOrdered(OrderType.CREATED);
@@ -197,12 +198,15 @@ public class Program {
     private static void testAddComment() {
         Blog blog = new Blog();
         User user1 = new User("Ja", "Hwang", UserType.WRITER);
-        User user2 = new User("Baro", "Kim", UserType.WRITER);
+        User user2 = new User("Baro", "Kim", UserType.VISITOR);
 
         Post post1 = new Post(user1.getUserName(), "About Time", "Time is ...");
         post1.addComment(user2.getUserName(), "Awsome!!");
 
-        blog.addPost(post1);
+        Post post2 = new Post(user2.getUserName(), "About Null", "Null is ...");
+
+        assert blog.addPost(user1, post1);
+        assert !blog.addPost(user2 ,post2);
         ArrayList<Comment> comments = post1.getAllComments();
 
         assert comments.size() == 1;
@@ -217,7 +221,7 @@ public class Program {
         Post post1 = new Post(user1.getUserName(), "About Time", "Time is ...");
         post1.addComment(user2.getUserName(), "Awsome!!");
 
-        blog.addPost(post1);
+        blog.addPost(user1, post1);
         ArrayList<Comment> comments = post1.getAllComments();
         Comment comment = comments.get(0);
 
@@ -239,7 +243,7 @@ public class Program {
 
         Post post1 = new Post(user1.getUserName(), "About Time", "Time is ...");
 
-        blog.addPost(post1);
+        blog.addPost(user1, post1);
         ArrayList<Post> posts = blog.getAllPosts();
         Post getPost1 = posts.get(0);
 
@@ -272,7 +276,7 @@ public class Program {
 
         Post post1 = new Post(user1.getUserName(), "About Time", "Time is ...");
 
-        blog.addPost(post1);
+        blog.addPost(user1, post1);
         ArrayList<Post> posts = blog.getAllPosts();
         Post getPost1 = posts.get(0);
 
@@ -299,7 +303,7 @@ public class Program {
         User user1 = new User("Ja", "Hwang", UserType.WRITER);
         User user2 = new User("Baro", "Kim", UserType.WRITER);
 
-        blog.addPost(new Post(user1.getUserName(), "About Me", "I'm ..."));
+        blog.addPost(user1, new Post(user1.getUserName(), "About Me", "I'm ..."));
 
         ArrayList<Post> posts = blog.getAllPosts();
         Post post = posts.get(0);
@@ -323,7 +327,7 @@ public class Program {
         User user2 = new User("Baro", "Kim", UserType.WRITER);
         User user3 = new User("Junesoek", "Lee", UserType.VISITOR);
 
-        blog.addPost(new Post(user1.getUserName(), "About Me", "I'm ..."));
+        blog.addPost(user1, new Post(user1.getUserName(), "About Me", "I'm ..."));
         ArrayList<Post> posts = blog.getAllPosts();
         Post post = posts.get(0);
 
