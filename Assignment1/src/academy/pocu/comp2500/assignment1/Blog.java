@@ -21,11 +21,11 @@ public class Blog {
         return this.posts;
     }
 
-    public ArrayList<Post> getPostsByAuthor(String authorName) {
+    public ArrayList<Post> getPostsByAuthor(User user) {
         ArrayList<Post> resultPosts = new ArrayList<>(posts.size());
 
         for (Post p : this.posts) {
-            if (p.getAuthor().equals(authorName)) {
+            if (p.getOwner().equals(user)) {
                 resultPosts.add(p);
             }
         }
@@ -76,11 +76,11 @@ public class Blog {
         }
     }
 
-    public void setPostsFilteredByAuthor(String author) {
+    public void setPostsFilteredByAuthor(User user) {
         this.filteredPosts.clear();
 
         for (Post p : this.posts) {
-            if (p.getAuthor().equals(author)) {
+            if (p.getOwner().equals(user)) {
                 this.filteredPosts.add(p);
             }
         }

@@ -12,7 +12,7 @@ public class User {
     private UserType type;
     private String firstName;
     private String lastName;
-    private String fullName;
+    private final String fullName;
 
     public User(String firstName, String lastName, UserType type) {
         this.firstName = firstName;
