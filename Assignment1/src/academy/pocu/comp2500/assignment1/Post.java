@@ -7,6 +7,7 @@ import java.util.Collections;
 public class Post {
     private String title;
     private String body;
+    private final User ownerInfo;
     private final String author;
     private final ArrayList<String> tags;
     private final ArrayList<Comment> comments;
@@ -18,11 +19,12 @@ public class Post {
     private final OffsetDateTime createdTime;
     private OffsetDateTime modifiedTime;
 
-    public Post(String author, String title, String body) {
+    public Post(User user, String title, String body) {
         OffsetDateTime now = OffsetDateTime.now();
         this.title = title;
         this.body = body;
-        this.author = author;
+        this.ownerInfo = user;
+        this.author = user.getUserName();
         this.tags = new ArrayList<>(128);
         this.comments = new ArrayList<>(128);
         this.createdTime = now;
@@ -36,6 +38,10 @@ public class Post {
 
     public String getBody() {
         return this.body;
+    }
+
+    public UserType getAuthorType() {
+        return this.ownerInfo.getUserType();
     }
 
     public String getAuthor() {

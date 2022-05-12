@@ -51,17 +51,9 @@ public class Blog {
     }
 
     // Add
-    public boolean addPost(User user, Post post) {
-        if (user.getUserType() == UserType.VISITOR) {
+    public boolean addPost(Post post) {
+        if (post.getAuthorType() == UserType.VISITOR) {
             return false;
-        } else if (!post.getAuthor().equals(user.getUserName())) {
-            return false;
-        }
-
-        for (Post p : this.posts) {
-            if (p == post) {
-                return false;
-            }
         }
 
         this.posts.add(post);

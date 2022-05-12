@@ -28,10 +28,4 @@ public class User {
     public UserType getUserType() {
         return this.type;
     }
-
-    public void readArticle(ArrayList<Post> articles) {
-        for (Post a : articles) {
-            System.out.println(a.getBody());
-        }
-    }
 }
