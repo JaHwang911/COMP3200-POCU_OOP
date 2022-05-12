@@ -7,11 +7,11 @@ import java.util.Collections;
 public class Post {
     private String title;
     private String body;
-    private String author;
-    private ArrayList<String> tags;
-    private ArrayList<Comment> comments;
-    private ArrayList<Reaction> reactions;
-    private OffsetDateTime createdTime;
+    private final String author;
+    private final ArrayList<String> tags;
+    private final ArrayList<Comment> comments;
+    private final ArrayList<Reaction> reactions;
+    private final OffsetDateTime createdTime;
     private OffsetDateTime modifiedTime;
 
     public Post(User user, String title, String body) {

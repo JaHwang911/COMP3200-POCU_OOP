@@ -3,12 +3,6 @@ package academy.pocu.comp2500.assignment1;
 import java.util.ArrayList;
 import java.util.Collections;
 
-//정렬 방법
-//작성 일시 내림차순
-//작성 일시 오름차순
-//수정 일시 내림차순
-//수정 일시 오름차순
-//제목(사전 순서) 오름차순
 public class Blog {
     private ArrayList<Post> posts;
     private ArrayList<Post> filteredPosts;
