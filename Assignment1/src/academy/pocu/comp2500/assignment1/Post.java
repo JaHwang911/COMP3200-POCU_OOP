@@ -7,7 +7,7 @@ import java.util.Collections;
 public class Post {
     private String title;
     private String body;
-    private final User ownerInfo;
+    private final User owner;
     private final String author;
     private final ArrayList<String> tags;
     private final ArrayList<Comment> comments;
@@ -23,7 +23,7 @@ public class Post {
         OffsetDateTime now = OffsetDateTime.now();
         this.title = title;
         this.body = body;
-        this.ownerInfo = user;
+        this.owner = user;
         this.author = user.getUserName();
         this.tags = new ArrayList<>(128);
         this.comments = new ArrayList<>(128);
@@ -41,11 +41,11 @@ public class Post {
     }
 
     public UserType getAuthorType() {
-        return this.ownerInfo.getUserType();
+        return this.owner.getUserType();
     }
 
-    public User getOwnerInfo() {
-        return this.ownerInfo;
+    public User getOwner() {
+        return this.owner;
     }
 
     public String getAuthor() {
@@ -131,8 +131,8 @@ public class Post {
         return reaction.subUser(name);
     }
 
-    public boolean modifyTitle(String name, String title) {
-        if (!name.equals(this.author)) {
+    public boolean modifyTitle(User user, String title) {
+        if (this.owner != user) {
             System.out.println("This post is not your");
             return false;
         }
@@ -142,8 +142,8 @@ public class Post {
         return true;
     }
 
-    public boolean modifyBody(String name, String body) {
-        if (!name.equals(this.author)) {
+    public boolean modifyBody(User user, String body) {
+        if (this.owner != user) {
             System.out.println("This post is not your");
             return false;
         }
