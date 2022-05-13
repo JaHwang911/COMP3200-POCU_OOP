@@ -14,18 +14,12 @@ public class Blog {
         this.isFiltered = false;
     }
 
-    public boolean addPost(Post post) {
-        if (post.getAuthor().getUserType() == UserType.VISITOR) {
+    public boolean addPost(User user, String title, String body) {
+        if (user.getUserType() == UserType.VISITOR) {
             return false;
         }
 
-        for (Post p : this.posts) {
-            if (p.equals(post)) {
-                return false;
-            }
-        }
-
-        this.posts.add(post);
+        this.posts.add(new Post(user, title, body));
 
         return true;
     }
