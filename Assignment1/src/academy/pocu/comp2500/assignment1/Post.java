@@ -3,10 +3,7 @@ package academy.pocu.comp2500.assignment1;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
-/*
-    subcomment는 멤버 변수로 author comment를 가지고 있다
-    author comment의 자료형은 Comment
- */
+
 public class Post {
     private String title;
     private String body;
@@ -22,11 +19,15 @@ public class Post {
     private OffsetDateTime modifiedTime;
 
     public Post(User user, String title, String body) {
+        this(user, title, body, new ArrayList<>(8));
+    }
+
+    public Post(User user, String title, String body, ArrayList<String> tags) {
         OffsetDateTime now = OffsetDateTime.now();
         this.title = title;
         this.body = body;
         this.author = user;
-        this.tags = new ArrayList<>(128);
+        this.tags = tags;
         this.comments = new ArrayList<>(128);
         this.createdTime = now;
         this.modifiedTime = now;

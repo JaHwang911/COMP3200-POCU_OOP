@@ -8,7 +8,7 @@ public class App {
         registry.registerTagFilterSetter("Blog", "setPostsFilteredByTag");
         registry.registerAuthorFilterSetter("Blog", "setPostsFilteredByAuthor");
         registry.registerPostOrderSetter("Blog", "setPostsOrdered");
-        registry.registerPostListGetter("Blog", "getAllPosts");
+        registry.registerPostListGetter("Blog", "getPosts");
         registry.registerPostAdder("Blog", "addPost");
         registry.registerPostTitleUpdater("Post", "updateTitle");
         registry.registerPostBodyUpdater("Post", "updateBody");

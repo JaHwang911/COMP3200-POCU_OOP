@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Blog {
-    private ArrayList<Post> posts;
-    private ArrayList<Post> filteredPosts;
+    private final ArrayList<Post> posts;
+    private final ArrayList<Post> filteredPosts;
+    private boolean isFiltered;
 
     public Blog() {
         this.posts = new ArrayList<>(128);
         this.filteredPosts = new ArrayList<>(128);
+        this.isFiltered = false;
     }
 
     public boolean addPost(Post post) {
@@ -17,17 +19,23 @@ public class Blog {
             return false;
         }
 
+        for (Post p : this.posts) {
+            if (p.equals(post)) {
+                return false;
+            }
+        }
+
         this.posts.add(post);
 
         return true;
     }
 
-    public ArrayList<Post> getAllPosts() {
-        if (filteredPosts.size() > 0) {
-            return this.filteredPosts;
+    public ArrayList<Post> getPosts() {
+        if (!isFiltered) {
+            return this.posts;
         }
 
-        return this.posts;
+        return this.filteredPosts;
     }
 
     public ArrayList<Post> getPostsByAuthor(User user) {
@@ -75,18 +83,22 @@ public class Blog {
     }
 
     // Set ordered type
-    public void setPostsFilteredByTag(String tag) {
+    public void setPostsFilteredByTag(ArrayList<String> filterTags) {
         this.filteredPosts.clear();
 
         for (Post p : this.posts) {
             ArrayList<String> tags = p.getTags();
 
             for (String t : tags) {
-                if (t.equals(tag)) {
-                    this.filteredPosts.add(p);
+                for (String ft : filterTags) {
+                    if (t.equals(ft)) {
+                        this.filteredPosts.add(p);
+                    }
                 }
             }
         }
+
+        this.isFiltered = true;
     }
 
     public void setPostsFilteredByAuthor(User user) {
@@ -97,6 +109,8 @@ public class Blog {
                 this.filteredPosts.add(p);
             }
         }
+
+        this.isFiltered = true;
     }
 
     public void setPostsOrdered(OrderType type) {
@@ -121,25 +135,40 @@ public class Blog {
                 assert (false) : "Unknown ordered type";
                 break;
         }
+
+        this.isFiltered = true;
+    }
+
+    private void fillFilteredPost() {
+        filteredPosts.clear();
+
+        for (Post p : this.posts) {
+            filteredPosts.add(p);
+        }
     }
 
     private void setPostsByCreated() {
-        Collections.sort(this.posts, (a, b) -> b.getCreatedTime().compareTo(a.getCreatedTime()));
+        fillFilteredPost();
+        Collections.sort(this.filteredPosts, (a, b) -> b.getCreatedTime().compareTo(a.getCreatedTime()));
     }
 
     private void setPostsByCreatedDesc() {
-        Collections.sort(this.posts, (a, b) -> a.getCreatedTime().compareTo(b.getCreatedTime()));
+        fillFilteredPost();
+        Collections.sort(this.filteredPosts, (a, b) -> a.getCreatedTime().compareTo(b.getCreatedTime()));
     }
 
     private void setPostsByModified() {
-        Collections.sort(this.posts, (a, b) -> b.getModifiedTime().compareTo(a.getModifiedTime()));
+        fillFilteredPost();
+        Collections.sort(this.filteredPosts, (a, b) -> b.getModifiedTime().compareTo(a.getModifiedTime()));
     }
 
     private void setPostsByModifiedDesc() {
-        Collections.sort(this.posts, (a, b) -> a.getModifiedTime().compareTo(b.getModifiedTime()));
+        fillFilteredPost();
+        Collections.sort(this.filteredPosts, (a, b) -> a.getModifiedTime().compareTo(b.getModifiedTime()));
     }
 
     private void setPostsByTitle() {
-        Collections.sort(this.posts, (a, b) -> a.getTitle().compareTo(b.getTitle()));
+        fillFilteredPost();
+        Collections.sort(this.filteredPosts, (a, b) -> a.getTitle().compareTo(b.getTitle()));
     }
 }
