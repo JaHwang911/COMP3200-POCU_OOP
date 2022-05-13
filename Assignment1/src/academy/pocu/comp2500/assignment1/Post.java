@@ -118,18 +118,6 @@ public class Post {
         return false;
     }
 
-    public ArrayList<Comment> getSubcomments(Comment comment) {
-        ArrayList<Comment> result = new ArrayList<>(32);
-
-        for (Comment c : this.comments) {
-            if (c.equals(comment)) {
-                result.addAll(c.getSubcomments());
-            }
-        }
-
-        return result;
-    }
-
     public boolean addReaction(User user, ReactionType type) {
         switch (type) {
             case GREAT:
