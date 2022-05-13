@@ -7,14 +7,22 @@ public class Blog {
     private final ArrayList<Post> posts;
     private final ArrayList<Post> filteredPosts;
     private OrderType orderType;
+    private FilterType filterType;
+    private final ArrayList<String> filteredTags;
+    private User filteredAuthor;
 
     public Blog() {
         this.posts = new ArrayList<>(128);
         this.filteredPosts = new ArrayList<>(128);
-        orderType = OrderType.NORMAL;
+        this.orderType = OrderType.NORMAL;
+        this.filterType = FilterType.UNSET;
+        this.filteredTags = new ArrayList<>(8);
+        this.filteredAuthor = null;
     }
 
     public ArrayList<Post> getPosts() {
+        fillFilteredPost();
+
         switch (this.orderType) {
             case NORMAL:
             case CREATED:
@@ -31,9 +39,6 @@ public class Blog {
                 break;
             case TITLE:
                 setPostsByTitle();
-                break;
-            case TAG:
-            case AUTHOR:
                 break;
             default:
                 assert false : "Unknown order type";
@@ -68,11 +73,20 @@ public class Blog {
     }
 
     // Set ordered type
-    public void setPostsByTag(String tag) {
-        if (orderType != OrderType.AUTHOR) {
-            this.filteredPosts.clear();
+    public void setFilterByTag(boolean isSet, String tag) {
+        if (!isSet) {
+            this.filterType = FilterType.UNSET;
+            return;
         }
 
+        if (this.filterType == FilterType.UNSET) {
+            this.filterType = FilterType.TAG;
+            this.filteredPosts.clear();
+        } else if (this.filterType == FilterType.AUTHOR) {
+            this.filterType = FilterType.COMBO;
+        }
+
+        this.filteredTags.add(tag);
         for (Post p : this.posts) {
             ArrayList<String> tags = p.getTags();
 
@@ -82,13 +96,19 @@ public class Blog {
                 }
             }
         }
-
-        this.orderType = OrderType.TAG;
     }
 
-    public void setPostsByAuthor(User user) {
-        if (orderType != OrderType.TAG) {
+    public void setFilterByAuthor(boolean isSet, User user) {
+        if (!isSet) {
+            this.filterType = FilterType.UNSET;
+            return;
+        }
+
+        if (this.filterType == FilterType.UNSET) {
+            this.filterType = FilterType.AUTHOR;
             this.filteredPosts.clear();
+        } else if (this.filterType == FilterType.TAG) {
+            this.filterType = FilterType.COMBO;
         }
 
         for (Post p : this.posts) {
@@ -96,8 +116,6 @@ public class Blog {
                 this.filteredPosts.add(p);
             }
         }
-
-        this.orderType = OrderType.AUTHOR;
     }
 
     public void setPostsOrdered(OrderType type) {
@@ -106,34 +124,25 @@ public class Blog {
 
     private void fillFilteredPost() {
         filteredPosts.clear();
-
-        for (Post p : this.posts) {
-            filteredPosts.add(p);
-        }
     }
 
     private void setPostsByCreated() {
-        fillFilteredPost();
         Collections.sort(this.filteredPosts, (a, b) -> b.getCreatedTime().compareTo(a.getCreatedTime()));
     }
 
     private void setPostsByCreatedDesc() {
-        fillFilteredPost();
         Collections.sort(this.filteredPosts, (a, b) -> a.getCreatedTime().compareTo(b.getCreatedTime()));
     }
 
     private void setPostsByModified() {
-        fillFilteredPost();
         Collections.sort(this.filteredPosts, (a, b) -> b.getModifiedTime().compareTo(a.getModifiedTime()));
     }
 
     private void setPostsByModifiedDesc() {
-        fillFilteredPost();
         Collections.sort(this.filteredPosts, (a, b) -> a.getModifiedTime().compareTo(b.getModifiedTime()));
     }
 
     private void setPostsByTitle() {
-        fillFilteredPost();
         Collections.sort(this.filteredPosts, (a, b) -> a.getTitle().compareTo(b.getTitle()));
     }
 }
