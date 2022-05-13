@@ -21,7 +21,11 @@ public class Blog {
     }
 
     public ArrayList<Post> getPosts() {
-        fillFilteredPost();
+        if (this.filterType == FilterType.UNSET) {
+            for (Post p : this.posts) {
+                this.filteredPosts.add(p);
+            }
+        }
 
         switch (this.orderType) {
             case NORMAL:
@@ -73,57 +77,97 @@ public class Blog {
     }
 
     // Set ordered type
-    public void setFilterByTag(boolean isSet, String tag) {
-        if (!isSet) {
+    public void setFilterByTag(String tagOrNull) {
+        if (tagOrNull == null) {
             this.filterType = FilterType.UNSET;
             return;
         }
 
-        if (this.filterType == FilterType.UNSET) {
-            this.filterType = FilterType.TAG;
-            this.filteredPosts.clear();
-        } else if (this.filterType == FilterType.AUTHOR) {
-            this.filterType = FilterType.COMBO;
-        }
+        switch (this.filterType) {
+            case UNSET:
+                this.filterType = FilterType.TAG;
+                this.filteredPosts.clear();
+            case TAG:
+                for (Post p : this.posts) {
+                    ArrayList<String> tags = p.getTags();
 
-        this.filteredTags.add(tag);
-        for (Post p : this.posts) {
-            ArrayList<String> tags = p.getTags();
-
-            for (String t : tags) {
-                if (t.equals(tag)) {
-                    this.filteredPosts.add(p);
+                    for (String t : tags) {
+                        if (t.equals(tagOrNull)) {
+                            this.filteredPosts.add(p);
+                            break;
+                        }
+                    }
                 }
-            }
+                break;
+            case AUTHOR:
+            case COMBO:
+                this.filterType = FilterType.COMBO;
+
+                for (Post fp : this.filteredPosts) {
+                    boolean hasTag = false;
+                    var tags = fp.getTags();
+
+                    for (String t : tags) {
+                        if (t.equals(tagOrNull)) {
+                            hasTag = true;
+                            break;
+                        }
+                    }
+
+                    if (hasTag == false) {
+                        this.filteredPosts.remove(fp);
+                    }
+                }
+
+                for (Post p : this.posts) {
+                    var tags = p.getTags();
+
+                    for (String t : tags) {
+                        if (t.equals(tagOrNull)) {
+                            this.filteredPosts.add(p);
+                            break;
+                        }
+                    }
+                }
+                break;
+            default:
+                assert false : "Unknown filter type";
+                break;
         }
     }
 
-    public void setFilterByAuthor(boolean isSet, User user) {
-        if (!isSet) {
+    public void setFilterByAuthor(User userOrNull) {
+        if (userOrNull == null) {
             this.filterType = FilterType.UNSET;
             return;
         }
 
-        if (this.filterType == FilterType.UNSET) {
-            this.filterType = FilterType.AUTHOR;
-            this.filteredPosts.clear();
-        } else if (this.filterType == FilterType.TAG) {
-            this.filterType = FilterType.COMBO;
-        }
+        switch (this.filterType) {
+            case UNSET:
+            case AUTHOR:
+                this.filterType = FilterType.AUTHOR;
+                this.filteredPosts.clear();
 
-        for (Post p : this.posts) {
-            if (p.getAuthor().equals(user)) {
-                this.filteredPosts.add(p);
-            }
+                for (Post p : this.posts) {
+                    if (p.getAuthor().equals(userOrNull)) {
+                        this.filteredPosts.add(p);
+                    }
+                }
+                break;
+            case TAG:
+                this.filterType = FilterType.COMBO;
+
+                for (Post fp : this.filteredPosts) {
+                    if (!fp.getAuthor().equals(userOrNull)) {
+                        this.filteredPosts.remove(fp);
+                    }
+                }
+                break;
         }
     }
 
     public void setPostsOrdered(OrderType type) {
         this.orderType = type;
-    }
-
-    private void fillFilteredPost() {
-        filteredPosts.clear();
     }
 
     private void setPostsByCreated() {

@@ -20,19 +20,23 @@ public class Program {
         Blog blog = new Blog();
         User a1 = new User("a1", UserType.WRITER);
         User a2 = new User("a2", UserType.WRITER);
-        blog.addPost(new Post(a1, "p1", "body"));
-        blog.addPost(new Post(a1, "p2", "body"));
-        blog.addPost(new Post(a2, "p3", "body"));
-        blog.addPost(new Post(a2, "p4", "body"));
+        Post post1 = new Post(a1, "p1", "body");
+        Post post2 = new Post(a1, "p2", "body");
+        Post post3 = new Post(a2, "p3", "body");
+        Post post4 = new Post(a2, "p4", "body");
 
-        var posts = blog.getPosts();
+        post1.addTag(a1, "t1");
+        post2.addTag(a1, "t2");
+        post3.addTag(a2, "t1");
+        post4.addTag(a2, "t2");
 
-        posts.get(0).addTag(a1, "t1");
-        posts.get(1).addTag(a1, "t2");
-        posts.get(2).addTag(a2, "t1");
-        posts.get(3).addTag(a2, "t2");
+        blog.addPost(post1);
+        blog.addPost(post2);
+        blog.addPost(post3);
+        blog.addPost(post4);
 
-        blog.setFilterByTag(true, "t1");
+        blog.setFilterByTag("t1");
+        blog.setPostsOrdered(OrderType.CREATED_DESC);
 
         var filteredTag = blog.getPosts();
 
@@ -40,8 +44,8 @@ public class Program {
         assert filteredTag.get(0).getTitle().equals("p1");
         assert filteredTag.get(1).getTitle().equals("p3");
 
-        blog.setFilterByTag(false, null);
-        blog.setFilterByAuthor(true, a1);
+        blog.setFilterByTag(null);
+        blog.setFilterByAuthor(a1);
 
         var filteredUser = blog.getPosts();
 
@@ -49,9 +53,9 @@ public class Program {
         assert filteredUser.get(0).getTitle().equals("p1");
         assert filteredUser.get(1).getTitle().equals("p2");
 
-        blog.setFilterByAuthor(false, null);
-        blog.setFilterByTag(true, "t1");
-        blog.setFilterByAuthor(true, a2);
+        blog.setFilterByAuthor(null);
+        blog.setFilterByTag("t1");
+        blog.setFilterByAuthor(a2);
 
         var filteredCombo = blog.getPosts();
 
