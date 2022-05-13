@@ -13,7 +13,6 @@ public class Post {
     private final User author;
     private final ArrayList<String> tags;
     private final ArrayList<Comment> comments;
-    private final ArrayList<Subcomment> subcomments;
     private final Reaction reactionGreat = new Reaction(ReactionType.GREAT);
     private final Reaction reactionSad = new Reaction(ReactionType.SAD);
     private final Reaction reactionAngry = new Reaction(ReactionType.ANGRY);
@@ -29,7 +28,6 @@ public class Post {
         this.author = user;
         this.tags = new ArrayList<>(128);
         this.comments = new ArrayList<>(128);
-        this.subcomments = new ArrayList<>(128);
         this.createdTime = now;
         this.modifiedTime = now;
     }
@@ -114,37 +112,16 @@ public class Post {
         return false;
     }
 
-    public void addSubcomment(User user, Comment comment, String text) {
-        this.subcomments.add(new Subcomment(user, comment, text));
-    }
+    public ArrayList<Comment> getSubcomments(Comment comment) {
+        ArrayList<Comment> result = new ArrayList<>(32);
 
-    public ArrayList<Subcomment> getSubcomments(Comment comment) {
-        ArrayList<Subcomment> result = new ArrayList<>(this.subcomments.size());
-
-        for (Subcomment sc : this.subcomments) {
-            if (sc.getOwnerComment().equals(comment)) {
-                result.add(sc);
+        for (Comment c : this.comments) {
+            if (c.equals(comment)) {
+                result.addAll(c.getSubcomments());
             }
         }
-
-        Collections.sort(result, (a, b) -> b.getVoteRatio() - a.getVoteRatio());
 
         return result;
-    }
-
-    public boolean removeSubcomment(User user, Subcomment subcomment) {
-        if (!user.equals(subcomment.getAuthor())) {
-            return false;
-        }
-
-        for (Subcomment sc : this.subcomments) {
-            if (sc.equals(subcomment)) {
-                this.comments.remove(sc);
-                return true;
-            }
-        }
-
-        return false;
     }
 
     public boolean addReaction(User user, ReactionType type) {
@@ -187,7 +164,7 @@ public class Post {
         return reaction.subUser(user);
     }
 
-    public boolean modifyTitle(User user, String title) {
+    public boolean updateTitle(User user, String title) {
         if (!this.author.equals(user)) {
             return false;
         }
@@ -198,7 +175,7 @@ public class Post {
         return true;
     }
 
-    public boolean modifyBody(User user, String body) {
+    public boolean updateBody(User user, String body) {
         if (!this.author.equals(user)) {
             return false;
         }

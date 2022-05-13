@@ -37,10 +37,10 @@ public class Program {
 
         assert post.getTitle().equals("About Me");
         assert post.getBody().equals("I'm ...");
-        assert post.getOwner().equals(user1);
+        assert post.getAuthor().equals(user1);
 
-        assert post.modifyTitle(user1, "About Math");
-        assert post.modifyBody(user1, "Math is ...");
+        assert post.updateTitle(user1, "About Math");
+        assert post.updateBody(user1, "Math is ...");
 
         assert posts.get(0).getTitle().equals("About Math");
         assert posts.get(0).getBody().equals("Math is ...");

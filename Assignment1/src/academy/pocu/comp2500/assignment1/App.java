@@ -10,20 +10,20 @@ public class App {
         registry.registerPostOrderSetter("Blog", "setPostsOrdered");
         registry.registerPostListGetter("Blog", "getAllPosts");
         registry.registerPostAdder("Blog", "addPost");
-        registry.registerPostTitleUpdater("Post", "modifyTitle");
-        registry.registerPostBodyUpdater("Post", "modifyBody");
+        registry.registerPostTitleUpdater("Post", "updateTitle");
+        registry.registerPostBodyUpdater("Post", "updateBody");
         registry.registerPostTagAdder("Post", "addTag");
         registry.registerCommentAdder("Post", "addComment");
-        registry.registerSubcommentAdder("Post", "addSubcomment");
-        registry.registerCommentUpdater("Comment", "modifyComment");
-        registry.registerSubcommentUpdater("Subcomment", "modifyComment");
+        registry.registerSubcommentAdder("Comment", "addSubcomment");
+        registry.registerCommentUpdater("Comment", "updateComment");
+        registry.registerSubcommentUpdater("Comment", "updateComment");
         registry.registerReactionAdder("Post", "addReaction");
         registry.registerReactionRemover("Post", "removeReaction");
         registry.registerCommentUpvoter("Comment", "addUpvote");
         registry.registerCommentDownvoter("Comment", "addDownvote");
         registry.registerCommentListGetter("Post", "getComments");
         registry.registerSubcommentListGetter("Post", "getSubcomments");
-        registry.registerSubcommentUpvoter("Subcomment", "addUpvote");
-        registry.registerSubcommentDownvoter("Subcomment", "addDownvote");
+        registry.registerSubcommentUpvoter("Comment", "addUpvote");
+        registry.registerSubcommentDownvoter("Comment", "addDownvote");
     }
 }
