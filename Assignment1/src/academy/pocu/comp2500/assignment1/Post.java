@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Post {
-    private final Blog blog;
     private String title;
     private String body;
     private final User author;
@@ -19,13 +18,12 @@ public class Post {
     private final OffsetDateTime createdTime;
     private OffsetDateTime modifiedTime;
 
-    public Post(Blog blog, User user, String title, String body) {
-        this(blog, user, title, body, new ArrayList<>(8));
+    public Post(User user, String title, String body) {
+        this(user, title, body, new ArrayList<>(8));
     }
 
-    public Post(Blog blog, User user, String title, String body, ArrayList<String> tags) {
+    public Post(User user, String title, String body, ArrayList<String> tags) {
         OffsetDateTime now = OffsetDateTime.now();
-        this.blog = blog;
         this.title = title;
         this.body = body;
         this.author = user;
@@ -46,10 +44,6 @@ public class Post {
 
     public User getAuthor() {
         return this.author;
-    }
-
-    public Blog getBlog() {
-        return this.blog;
     }
 
     public OffsetDateTime getCreatedTime() {
@@ -94,9 +88,7 @@ public class Post {
         return false;
     }
 
-    public void addComment(User user, String text) {
-        Comment comment = new Comment(this, user, text);
-
+    public void addComment(Comment comment) {
         this.comments.add(comment);
     }
 
@@ -109,11 +101,14 @@ public class Post {
     public boolean removeComment(User user, Comment comment) {
         if (!user.equals(comment.getAuthor())) {
             return false;
-        } else if (!this.equals(comment.getPost())) {
-            return false;
         }
 
-        this.comments.remove(comment);
+        for (Comment c : this.comments) {
+            if (c.equals(comment)) {
+                this.comments.remove(comment);
+                return true;
+            }
+        }
 
         return false;
     }

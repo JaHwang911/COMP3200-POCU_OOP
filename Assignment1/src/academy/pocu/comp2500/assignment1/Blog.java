@@ -43,8 +43,8 @@ public class Blog {
         return this.filteredPosts;
     }
 
-    public boolean addPost(User user, Post post) {
-        if (user.getUserType() == UserType.VISITOR) {
+    public boolean addPost(Post post) {
+        if (post.getAuthor().getUserType() == UserType.VISITOR) {
             return false;
         }
 
@@ -55,12 +55,16 @@ public class Blog {
     public boolean removePost(User user, Post post) {
         if (!user.equals(post.getAuthor())) {
             return false;
-        } else if (!this.equals(post.getBlog())) {
-            return false;
         }
 
-        this.posts.remove(post);
-        return true;
+        for (Post p : this.posts) {
+            if (p.equals(post)) {
+                this.posts.remove(post);
+                return true;
+            }
+        }
+
+        return false;
     }
 
     // Set ordered type
