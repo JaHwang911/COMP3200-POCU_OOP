@@ -83,18 +83,13 @@ public class Program {
         assert blog.addPost(post1);
         assert blog.addPost(post2);
 
-        ArrayList<String> filterTags = new ArrayList<>(2);
-        filterTags.add("Space");
-        blog.setPostsFilteredByTag(filterTags);
+        blog.setPostsFilteredByTag("Space");
         ArrayList<Post> posts = blog.getPosts();
 
         assert posts.size() == 1;
         assert posts.get(0).getTitle().equals("About event horizon");
 
-        filterTags.clear();
-        filterTags.add("Android");
-
-        blog.setPostsFilteredByTag(filterTags);
+        blog.setPostsFilteredByTag("Android");
         posts = blog.getPosts();
 
         assert posts.size() == 0;

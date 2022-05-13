@@ -32,7 +32,7 @@ public class Blog {
 
     public ArrayList<Post> getPosts() {
         if (!isFiltered) {
-            return this.posts;
+            fillFilteredPost();
         }
 
         return this.filteredPosts;
@@ -83,17 +83,15 @@ public class Blog {
     }
 
     // Set ordered type
-    public void setPostsFilteredByTag(ArrayList<String> filterTags) {
+    public void setPostsFilteredByTag(String tag) {
         this.filteredPosts.clear();
 
         for (Post p : this.posts) {
             ArrayList<String> tags = p.getTags();
 
             for (String t : tags) {
-                for (String ft : filterTags) {
-                    if (t.equals(ft)) {
-                        this.filteredPosts.add(p);
-                    }
+                if (t.equals(tag)) {
+                    this.filteredPosts.add(p);
                 }
             }
         }
