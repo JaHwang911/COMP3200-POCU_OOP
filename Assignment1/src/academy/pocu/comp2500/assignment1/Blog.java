@@ -69,7 +69,9 @@ public class Blog {
 
     // Set ordered type
     public void setPostsByTag(String tag) {
-        this.filteredPosts.clear();
+        if (orderType != OrderType.AUTHOR) {
+            this.filteredPosts.clear();
+        }
 
         for (Post p : this.posts) {
             ArrayList<String> tags = p.getTags();
@@ -85,7 +87,9 @@ public class Blog {
     }
 
     public void setPostsByAuthor(User user) {
-        this.filteredPosts.clear();
+        if (orderType != OrderType.TAG) {
+            this.filteredPosts.clear();
+        }
 
         for (Post p : this.posts) {
             if (p.getAuthor().equals(user)) {
