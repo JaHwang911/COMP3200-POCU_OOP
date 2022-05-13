@@ -1,7 +1,5 @@
 package academy.pocu.comp2500.assignment1;
 
-import java.util.ArrayList;
-
 /*
     내가 글을 쓴다는 개념이면 Post 생성자 매개변수도 바꿔야 함
     public Post writePost(Sting title, String body) {
@@ -9,20 +7,16 @@ import java.util.ArrayList;
     }
 */
 public class User {
-    private UserType type;
-    private String firstName;
-    private String lastName;
-    private final String fullName;
+    private final UserType type;
+    private final String name;
 
-    public User(String firstName, String lastName, UserType type) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public User(String name, UserType type) {
         this.type = type;
-        this.fullName = String.format("%s %s", firstName, lastName);
+        this.name = name;
     }
 
     public String getUserName() {
-        return this.fullName;
+        return this.name;
     }
 
     public UserType getUserType() {

@@ -6,12 +6,41 @@ import java.util.Collections;
 public class Blog {
     private final ArrayList<Post> posts;
     private final ArrayList<Post> filteredPosts;
-    private boolean isFiltered;
+    private OrderType orderType;
 
     public Blog() {
         this.posts = new ArrayList<>(128);
         this.filteredPosts = new ArrayList<>(128);
-        this.isFiltered = false;
+        orderType = OrderType.NORMAL;
+    }
+
+    public ArrayList<Post> getPosts() {
+        switch (this.orderType) {
+            case NORMAL:
+            case CREATED:
+                setPostsByCreated();
+                break;
+            case CREATED_DESC:
+                setPostsByCreatedDesc();
+                break;
+            case MODIFIED:
+                setPostsByModified();
+                break;
+            case MODIFIED_DESC:
+                setPostsByModifiedDesc();
+                break;
+            case TITLE:
+                setPostsByTitle();
+                break;
+            case TAG:
+            case AUTHOR:
+                break;
+            default:
+                assert false : "Unknown order type";
+                break;
+        }
+
+        return this.filteredPosts;
     }
 
     public boolean addPost(User user, String title, String body) {
@@ -19,65 +48,25 @@ public class Blog {
             return false;
         }
 
-        this.posts.add(new Post(user, title, body));
+        Post post = new Post(this, user, title, body);
 
+        this.posts.add(post);
         return true;
-    }
-
-    public ArrayList<Post> getPosts() {
-        if (!isFiltered) {
-            fillFilteredPost();
-        }
-
-        return this.filteredPosts;
-    }
-
-    public ArrayList<Post> getPostsByAuthor(User user) {
-        ArrayList<Post> resultPosts = new ArrayList<>(posts.size());
-
-        for (Post p : this.posts) {
-            if (p.getAuthor().equals(user)) {
-                resultPosts.add(p);
-            }
-        }
-
-        return resultPosts;
-    }
-
-    public ArrayList<Post> getPostsByTag(String tag) {
-        ArrayList<Post> resultPosts = new ArrayList<>(posts.size());
-
-        for (Post p : this.posts) {
-            ArrayList<String> tags = p.getTags();
-
-            for (String t : tags) {
-                if (t.equals(tag)) {
-                    resultPosts.add(p);
-                }
-            }
-
-        }
-
-        return resultPosts;
     }
 
     public boolean removePost(User user, Post post) {
         if (!user.equals(post.getAuthor())) {
             return false;
+        } else if (!this.equals(post.getBlog())) {
+            return false;
         }
 
-        for (Post p : this.posts) {
-            if (p.equals(post)) {
-                this.posts.remove(p);
-                return true;
-            }
-        }
-
-        return false;
+        this.posts.remove(post);
+        return true;
     }
 
     // Set ordered type
-    public void setPostsFilteredByTag(String tag) {
+    public void setPostsByTag(String tag) {
         this.filteredPosts.clear();
 
         for (Post p : this.posts) {
@@ -90,10 +79,10 @@ public class Blog {
             }
         }
 
-        this.isFiltered = true;
+        this.orderType = OrderType.TAG;
     }
 
-    public void setPostsFilteredByAuthor(User user) {
+    public void setPostsByAuthor(User user) {
         this.filteredPosts.clear();
 
         for (Post p : this.posts) {
@@ -102,33 +91,11 @@ public class Blog {
             }
         }
 
-        this.isFiltered = true;
+        this.orderType = OrderType.AUTHOR;
     }
 
     public void setPostsOrdered(OrderType type) {
-        switch (type) {
-            case NORMAL:
-            case CREATED:
-                this.setPostsByCreated();
-                break;
-            case CREATED_DESC:
-                this.setPostsByCreatedDesc();
-                break;
-            case MODIFIED:
-                this.setPostsByModified();
-                break;
-            case MODIFIED_DESC:
-                this.setPostsByModifiedDesc();
-                break;
-            case TITLE:
-                this.setPostsByTitle();
-                break;
-            default:
-                assert (false) : "Unknown ordered type";
-                break;
-        }
-
-        this.isFiltered = true;
+        this.orderType = type;
     }
 
     private void fillFilteredPost() {

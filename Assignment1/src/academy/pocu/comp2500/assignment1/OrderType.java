@@ -6,5 +6,7 @@ public enum OrderType {
     CREATED_DESC,
     MODIFIED,
     MODIFIED_DESC,
-    TITLE
+    TITLE,
+    TAG,
+    AUTHOR
 }

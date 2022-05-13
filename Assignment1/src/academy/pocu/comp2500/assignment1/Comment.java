@@ -4,13 +4,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Comment {
+    private final Post post;
     private String comment;
-    private ArrayList<Comment> subcomments;
+    private final ArrayList<Comment> subcomments;
     private final ArrayList<User> upvoter;
     private final ArrayList<User> downvoter;
     private final User author;
 
-    public Comment(User user, String text) {
+    public Comment(Post post, User user, String text) {
+        this.post = post;
         this.author = user;
         this.comment = text;
         this.subcomments = new ArrayList<>(32);
@@ -26,8 +28,12 @@ public class Comment {
         return this.author;
     }
 
+    public Post getPost() {
+        return this.post;
+    }
+
     public void addSubcomment(User user, String text) {
-        this.subcomments.add(new Comment(user, text));
+        this.subcomments.add(new Comment(this.post, user, text));
     }
 
     public ArrayList<Comment> getSubcomments() {
