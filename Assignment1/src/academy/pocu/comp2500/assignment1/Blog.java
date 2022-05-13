@@ -43,12 +43,10 @@ public class Blog {
         return this.filteredPosts;
     }
 
-    public boolean addPost(User user, String title, String body) {
+    public boolean addPost(User user, Post post) {
         if (user.getUserType() == UserType.VISITOR) {
             return false;
         }
-
-        Post post = new Post(this, user, title, body);
 
         this.posts.add(post);
         return true;
