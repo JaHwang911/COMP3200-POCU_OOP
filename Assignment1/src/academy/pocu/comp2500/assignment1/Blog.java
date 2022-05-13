@@ -12,7 +12,16 @@ public class Blog {
         this.filteredPosts = new ArrayList<>(128);
     }
 
-    // Get post
+    public boolean addPost(Post post) {
+        if (post.getAuthor().getUserType() == UserType.VISITOR) {
+            return false;
+        }
+
+        this.posts.add(post);
+
+        return true;
+    }
+
     public ArrayList<Post> getAllPosts() {
         if (filteredPosts.size() > 0) {
             return this.filteredPosts;
@@ -25,7 +34,7 @@ public class Blog {
         ArrayList<Post> resultPosts = new ArrayList<>(posts.size());
 
         for (Post p : this.posts) {
-            if (p.getOwner().equals(user)) {
+            if (p.getAuthor().equals(user)) {
                 resultPosts.add(p);
             }
         }
@@ -50,15 +59,19 @@ public class Blog {
         return resultPosts;
     }
 
-    public boolean addPost(Post post) {
-
-        if (post.getOwner().getUserType() == UserType.VISITOR) {
+    public boolean removePost(User user, Post post) {
+        if (!user.equals(post.getAuthor())) {
             return false;
         }
 
-        this.posts.add(post);
+        for (Post p : this.posts) {
+            if (p.equals(post)) {
+                this.posts.remove(p);
+                return true;
+            }
+        }
 
-        return true;
+        return false;
     }
 
     // Set ordered type
@@ -80,7 +93,7 @@ public class Blog {
         this.filteredPosts.clear();
 
         for (Post p : this.posts) {
-            if (p.getOwner().equals(user)) {
+            if (p.getAuthor().equals(user)) {
                 this.filteredPosts.add(p);
             }
         }

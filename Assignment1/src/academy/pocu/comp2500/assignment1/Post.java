@@ -3,13 +3,17 @@ package academy.pocu.comp2500.assignment1;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
-
+/*
+    subcomment는 멤버 변수로 author comment를 가지고 있다
+    author comment의 자료형은 Comment
+ */
 public class Post {
     private String title;
     private String body;
-    private final User owner;
+    private final User author;
     private final ArrayList<String> tags;
     private final ArrayList<Comment> comments;
+    private final ArrayList<Subcomment> subcomments;
     private final Reaction reactionGreat = new Reaction(ReactionType.GREAT);
     private final Reaction reactionSad = new Reaction(ReactionType.SAD);
     private final Reaction reactionAngry = new Reaction(ReactionType.ANGRY);
@@ -22,9 +26,10 @@ public class Post {
         OffsetDateTime now = OffsetDateTime.now();
         this.title = title;
         this.body = body;
-        this.owner = user;
+        this.author = user;
         this.tags = new ArrayList<>(128);
         this.comments = new ArrayList<>(128);
+        this.subcomments = new ArrayList<>(128);
         this.createdTime = now;
         this.modifiedTime = now;
     }
@@ -38,18 +43,8 @@ public class Post {
         return this.body;
     }
 
-    public User getOwner() {
-        return this.owner;
-    }
-
-    public ArrayList<String> getTags() {
-        return this.tags;
-    }
-
-    public ArrayList<Comment> getAllComments() {
-        Collections.sort(this.comments, (a, b) -> b.getVoteRatio() - a.getVoteRatio());
-
-        return this.comments;
+    public User getAuthor() {
+        return this.author;
     }
 
     public OffsetDateTime getCreatedTime() {
@@ -61,7 +56,7 @@ public class Post {
     }
 
     public boolean addTag(User user, String tag) {
-        if (this.owner.equals(user)) {
+        if (!this.author.equals(user)) {
             return false;
         }
 
@@ -75,27 +70,81 @@ public class Post {
         return true;
     }
 
+    public ArrayList<String> getTags() {
+        return this.tags;
+    }
+
+    public boolean removeTag(User user, String tag) {
+        if (!this.author.equals(user)) {
+            return false;
+        }
+
+        for (String t : this.tags) {
+            if (t.equals(tag)) {
+                this.tags.remove(t);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public void addComment(User user, String comment) {
         this.comments.add(new Comment(user, comment));
     }
 
-    // Reaction
-    public int getReactionCount(ReactionType type) {
-        switch (type) {
-            case GREAT:
-                return this.reactionGreat.getCount();
-            case SAD:
-                return this.reactionSad.getCount();
-            case FUN:
-                return this.reactionFun.getCount();
-            case ANGRY:
-                return this.reactionAngry.getCount();
-            case LOVE:
-                return this.reactionLove.getCount();
-            default:
-                assert false : "Unknown Reaction type";
-                return -1;
+    public ArrayList<Comment> getComments() {
+        Collections.sort(this.comments, (a, b) -> b.getVoteRatio() - a.getVoteRatio());
+
+        return this.comments;
+    }
+
+    public boolean removeComment(User user, Comment comment) {
+        if (!user.equals(comment.getAuthor())) {
+            return false;
         }
+
+        for (Comment c : this.comments) {
+            if (c.equals(comment)) {
+                this.comments.remove(c);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public void addSubcomment(User user, Comment comment, String text) {
+        this.subcomments.add(new Subcomment(user, comment, text));
+    }
+
+    public ArrayList<Subcomment> getSubcomments(Comment comment) {
+        ArrayList<Subcomment> result = new ArrayList<>(this.subcomments.size());
+
+        for (Subcomment sc : this.subcomments) {
+            if (sc.getOwnerComment().equals(comment)) {
+                result.add(sc);
+            }
+        }
+
+        Collections.sort(result, (a, b) -> b.getVoteRatio() - a.getVoteRatio());
+
+        return result;
+    }
+
+    public boolean removeSubcomment(User user, Subcomment subcomment) {
+        if (!user.equals(subcomment.getAuthor())) {
+            return false;
+        }
+
+        for (Subcomment sc : this.subcomments) {
+            if (sc.equals(subcomment)) {
+                this.comments.remove(sc);
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public boolean addReaction(User user, ReactionType type) {
@@ -116,12 +165,30 @@ public class Post {
         }
     }
 
+    public int getReactionCount(ReactionType type) {
+        switch (type) {
+            case GREAT:
+                return this.reactionGreat.getCount();
+            case SAD:
+                return this.reactionSad.getCount();
+            case FUN:
+                return this.reactionFun.getCount();
+            case ANGRY:
+                return this.reactionAngry.getCount();
+            case LOVE:
+                return this.reactionLove.getCount();
+            default:
+                assert false : "Unknown Reaction type";
+                return -1;
+        }
+    }
+
     public boolean removeReaction(User user, Reaction reaction) {
         return reaction.subUser(user);
     }
 
     public boolean modifyTitle(User user, String title) {
-        if (!this.owner.equals(user)) {
+        if (!this.author.equals(user)) {
             return false;
         }
 
@@ -132,7 +199,7 @@ public class Post {
     }
 
     public boolean modifyBody(User user, String body) {
-        if (!this.owner.equals(user)) {
+        if (!this.author.equals(user)) {
             return false;
         }
 
