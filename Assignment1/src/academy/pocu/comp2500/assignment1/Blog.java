@@ -85,13 +85,8 @@ public class Blog {
                 this.filteredPosts.clear();
             case TAG:
                 for (Post p : this.posts) {
-                    ArrayList<String> tags = p.getTags();
-
-                    for (String t : tags) {
-                        if (t.equals(tagOrNull)) {
-                            this.filteredPosts.add(p);
-                            break;
-                        }
+                    if (p.hasTag(tagOrNull)) {
+                        this.filteredPosts.add(p);
                     }
                 }
                 break;
@@ -100,29 +95,15 @@ public class Blog {
                 this.filterType = FilterType.COMBO;
 
                 for (Post fp : this.filteredPosts) {
-                    boolean hasTag = false;
-                    var tags = fp.getTags();
-
-                    for (String t : tags) {
-                        if (t.equals(tagOrNull)) {
-                            hasTag = true;
-                            break;
-                        }
-                    }
-
-                    if (hasTag == false) {
+                    if(!fp.hasTag(tagOrNull)) {
                         this.filteredPosts.remove(fp);
                     }
                 }
 
                 for (Post p : this.posts) {
-                    var tags = p.getTags();
-
-                    for (String t : tags) {
-                        if (t.equals(tagOrNull)) {
-                            this.filteredPosts.add(p);
-                            break;
-                        }
+                    if (p.hasTag(tagOrNull)) {
+                        this.filteredPosts.add(p);
+                        break;
                     }
                 }
                 break;

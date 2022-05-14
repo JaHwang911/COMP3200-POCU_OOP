@@ -73,6 +73,16 @@ public class Post {
         return this.tags;
     }
 
+    public boolean hasTag(String tag) {
+        for (String t : this.tags) {
+            if (t.equals(tag)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public boolean removeTag(User user, String tag) {
         if (!this.author.equals(user)) {
             return false;
