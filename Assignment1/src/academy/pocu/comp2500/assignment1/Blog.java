@@ -17,7 +17,7 @@ public class Blog {
     }
 
     public ArrayList<Post> getPosts() {
-        if (this.filterType == FilterType.UNSET) {
+        if (this.filterType == FilterType.UNSET && filteredPosts.size() == 0) {
             for (Post p : this.posts) {
                 this.filteredPosts.add(p);
             }

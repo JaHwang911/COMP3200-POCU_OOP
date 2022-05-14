@@ -108,7 +108,7 @@ public class Comment {
     }
 
     public boolean modifyComment(User user, String text) {
-        if (!this.author.equals(user) || !this.author.getUserName().equals(user.getUserName())) {
+        if (!this.author.equals(user)) {
             System.out.println("This Comment is not your");
             return false;
         }
