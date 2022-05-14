@@ -154,7 +154,7 @@ public class Post {
     }
 
     public boolean modifyTitle(User user, String title) {
-        if (!this.author.equals(user) || !this.author.getUserName().equals(user.getUserName())) {
+        if (!this.author.equals(user)) {
             return false;
         }
 
@@ -165,7 +165,7 @@ public class Post {
     }
 
     public boolean modifyBody(User user, String body) {
-        if (!this.author.equals(user) || !this.author.getUserName().equals(user.getUserName())) {
+        if (!this.author.equals(user)) {
             return false;
         }
 

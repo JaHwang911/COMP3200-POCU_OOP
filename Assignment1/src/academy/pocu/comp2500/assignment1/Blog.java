@@ -8,16 +8,12 @@ public class Blog {
     private final ArrayList<Post> filteredPosts;
     private OrderType orderType;
     private FilterType filterType;
-    private final ArrayList<String> filteredTags;
-    private User filteredAuthor;
 
     public Blog() {
         this.posts = new ArrayList<>(128);
         this.filteredPosts = new ArrayList<>(128);
         this.orderType = OrderType.NORMAL;
         this.filterType = FilterType.UNSET;
-        this.filteredTags = new ArrayList<>(8);
-        this.filteredAuthor = null;
     }
 
     public ArrayList<Post> getPosts() {
@@ -30,19 +26,19 @@ public class Blog {
         switch (this.orderType) {
             case NORMAL:
             case CREATED:
-                setPostsByCreated();
+                sortByCreated();
                 break;
             case CREATED_DESC:
-                setPostsByCreatedDesc();
+                sortByCreatedDesc();
                 break;
             case MODIFIED:
-                setPostsByModified();
+                sortByModified();
                 break;
             case MODIFIED_DESC:
-                setPostsByModifiedDesc();
+                sortByModifiedDesc();
                 break;
             case TITLE:
-                setPostsByTitle();
+                sortByTitle();
                 break;
             default:
                 assert false : "Unknown order type";
@@ -166,27 +162,27 @@ public class Blog {
         }
     }
 
-    public void setPostsOrdered(OrderType type) {
+    public void setSorted(OrderType type) {
         this.orderType = type;
     }
 
-    private void setPostsByCreated() {
-        Collections.sort(this.filteredPosts, (a, b) -> b.getCreatedTime().compareTo(a.getCreatedTime()));
+    private void sortByCreated() {
+        this.filteredPosts.sort((a, b) -> b.getCreatedTime().compareTo(a.getCreatedTime()));
     }
 
-    private void setPostsByCreatedDesc() {
-        Collections.sort(this.filteredPosts, (a, b) -> a.getCreatedTime().compareTo(b.getCreatedTime()));
+    private void sortByCreatedDesc() {
+        this.filteredPosts.sort((a, b) -> a.getCreatedTime().compareTo(b.getCreatedTime()));
     }
 
-    private void setPostsByModified() {
-        Collections.sort(this.filteredPosts, (a, b) -> b.getModifiedTime().compareTo(a.getModifiedTime()));
+    private void sortByModified() {
+        this.filteredPosts.sort((a, b) -> b.getModifiedTime().compareTo(a.getModifiedTime()));
     }
 
-    private void setPostsByModifiedDesc() {
-        Collections.sort(this.filteredPosts, (a, b) -> a.getModifiedTime().compareTo(b.getModifiedTime()));
+    private void sortByModifiedDesc() {
+        this.filteredPosts.sort((a, b) -> a.getModifiedTime().compareTo(b.getModifiedTime()));
     }
 
-    private void setPostsByTitle() {
-        Collections.sort(this.filteredPosts, (a, b) -> a.getTitle().compareTo(b.getTitle()));
+    private void sortByTitle() {
+        this.filteredPosts.sort((a, b) -> a.getTitle().compareTo(b.getTitle()));
     }
 }
