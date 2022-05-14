@@ -95,7 +95,7 @@ public class Blog {
                 this.filterType = FilterType.COMBO;
 
                 for (Post fp : this.filteredPosts) {
-                    if(!fp.hasTag(tagOrNull)) {
+                    if (!fp.hasTag(tagOrNull)) {
                         this.filteredPosts.remove(fp);
                     }
                 }
