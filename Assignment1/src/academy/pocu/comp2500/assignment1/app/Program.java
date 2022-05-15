@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class Program {
     public static void main(String[] args) {
         testFilter();
+        testFixPost();
 
         Registry registry = new Registry();
         App app = new App(registry);
@@ -61,5 +62,14 @@ public class Program {
 
         assert filteredCombo.size() == 1;
         assert filteredCombo.get(0).getTitle().equals("p3");
+    }
+
+    private static void testFixPost() {
+        Blog blog = new Blog();
+        User n1 = new User("n1", UserType.WRITER);
+        User n2 = new User("n1", UserType.WRITER);
+
+        Post p1 = new Post(n1, "t1", "body");
+        assert p1.modifyTitle(n1, "Hello");
     }
 }
