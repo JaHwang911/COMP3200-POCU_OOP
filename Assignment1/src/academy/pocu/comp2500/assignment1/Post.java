@@ -97,8 +97,8 @@ public class Post {
         return false;
     }
 
-    public void addComment(Comment comment) {
-        this.comments.add(comment);
+    public void addComment(User user, String text) {
+        this.comments.add(new Comment(user, text));
     }
 
     public ArrayList<Comment> getComments() {

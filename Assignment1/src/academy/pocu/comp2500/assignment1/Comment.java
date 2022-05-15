@@ -26,8 +26,8 @@ public class Comment {
         return this.author;
     }
 
-    public void addSubcomment(Comment subcomment) {
-        this.subcomments.add(subcomment);
+    public void addSubcomment(User user, String text) {
+        this.subcomments.add(new Comment(user, text));
     }
 
     public ArrayList<Comment> getSubcomments() {
