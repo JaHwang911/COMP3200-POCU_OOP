@@ -19,15 +19,11 @@ public class Post {
     private OffsetDateTime modifiedTime;
 
     public Post(User user, String title, String body) {
-        this(user, title, body, new ArrayList<>(8));
-    }
-
-    public Post(User user, String title, String body, ArrayList<String> tags) {
         OffsetDateTime now = OffsetDateTime.now();
         this.title = title;
         this.body = body;
         this.author = user;
-        this.tags = tags;
+        this.tags = new ArrayList<>(128);
         this.comments = new ArrayList<>(128);
         this.createdTime = now;
         this.modifiedTime = now;
@@ -97,8 +93,8 @@ public class Post {
         return false;
     }
 
-    public void addComment(User user, String text) {
-        this.comments.add(new Comment(user, text));
+    public void addComment(Comment comment) {
+        this.comments.add(comment);
     }
 
     public ArrayList<Comment> getComments() {
@@ -163,7 +159,7 @@ public class Post {
     }
 
     public boolean modifyTitle(User user, String title) {
-        if (!this.author.equals(user) && !this.author.getUserName().equals(user.getUserName())) {
+        if (!this.author.equals(user)) {
             return false;
         }
 
@@ -174,7 +170,7 @@ public class Post {
     }
 
     public boolean modifyBody(User user, String body) {
-        if (!this.author.equals(user) && !this.author.getUserName().equals(user.getUserName())) {
+        if (!this.author.equals(user)) {
             return false;
         }
 

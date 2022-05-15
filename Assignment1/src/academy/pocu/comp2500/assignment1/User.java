@@ -5,6 +5,8 @@ package academy.pocu.comp2500.assignment1;
     public Post writePost(Sting title, String body) {
         return new Post(this.fullName, title, body);
     }
+
+    User 타입이 필요한지?
 */
 public class User {
     private final UserType type;

@@ -26,12 +26,12 @@ public class Comment {
         return this.author;
     }
 
-    public void addSubcomment(User user, String text) {
-        this.subcomments.add(new Comment(user, text));
+    public void addSubcomment(Comment comment) {
+        this.subcomments.add(comment);
     }
 
     public ArrayList<Comment> getSubcomments() {
-        Collections.sort(this.subcomments, (a, b) -> b.getVoteRatio() - a.getVoteRatio());
+        this.subcomments.sort((a, b) -> b.getVoteRatio() - a.getVoteRatio());
 
         return this.subcomments;
     }
