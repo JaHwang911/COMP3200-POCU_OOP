@@ -70,6 +70,6 @@ public class Program {
         User n2 = new User("n1", UserType.WRITER);
 
         Post p1 = new Post(n1, "t1", "body");
-        assert p1.modifyTitle(n1, "Hello");
+        assert !p1.modifyTitle(n2, "Hello");
     }
 }

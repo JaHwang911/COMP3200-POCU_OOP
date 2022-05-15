@@ -33,7 +33,6 @@ public class Post {
         this.modifiedTime = now;
     }
 
-    // Getter
     public String getTitle() {
         return this.title;
     }
@@ -164,7 +163,7 @@ public class Post {
     }
 
     public boolean modifyTitle(User user, String title) {
-        if (!this.author.getUserName().equals(user.getUserName())) {
+        if (!this.author.equals(user) && !this.author.getUserName().equals(user.getUserName())) {
             return false;
         }
 
@@ -175,7 +174,7 @@ public class Post {
     }
 
     public boolean modifyBody(User user, String body) {
-        if (!this.author.getUserName().equals(user.getUserName())) {
+        if (!this.author.equals(user) && !this.author.getUserName().equals(user.getUserName())) {
             return false;
         }
 
