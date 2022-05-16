@@ -15,9 +15,8 @@ public class Blog {
         this.filterType = FilterType.UNSET;
     }
 
-    public boolean addPost(Post post) {
+    public void addPost(Post post) {
         this.post.add(post);
-        return true;
     }
 
     public ArrayList<Post> getPost() {

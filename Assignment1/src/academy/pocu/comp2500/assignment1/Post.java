@@ -20,9 +20,10 @@ public class Post {
 
     public Post(String name, String title, String body) {
         OffsetDateTime now = OffsetDateTime.now();
+
+        this.name = name;
         this.title = title;
         this.body = body;
-        this.name = name;
         this.tags = new ArrayList<>(128);
         this.comments = new ArrayList<>(128);
         this.createdTime = now;
