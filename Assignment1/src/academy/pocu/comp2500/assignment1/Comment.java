@@ -5,14 +5,14 @@ import java.util.Collections;
 
 public class Comment {
     private String comment;
-    private final String userName;
+    private final String name;
     private final ArrayList<Comment> subcomments;
     private final ArrayList<String> upvoter;
     private final ArrayList<String> downvoter;
 
-    public Comment(String userName, String comment) {
+    public Comment(String name, String comment) {
+        this.name = name;
         this.comment = comment;
-        this.userName = userName;
         this.subcomments = new ArrayList<>(32);
         this.upvoter = new ArrayList<>(32);
         this.downvoter = new ArrayList<>(32);
@@ -22,8 +22,8 @@ public class Comment {
         return this.comment;
     }
 
-    public String getUserName() {
-        return this.userName;
+    public String getName() {
+        return this.name;
     }
 
     public void addSubcomment(Comment comment) {
@@ -37,7 +37,7 @@ public class Comment {
     }
 
     public boolean removeSubcomment(String name, Comment comment) {
-        if (!name.equals(comment.getUserName())) {
+        if (!name.equals(comment.getName())) {
             return false;
         }
 
@@ -63,20 +63,20 @@ public class Comment {
         return this.upvoter.size() - this.downvoter.size();
     }
 
-    public boolean addUpvote(String userName) {
+    public boolean addUpvote(String name) {
         for (String u : this.upvoter) {
-            if (u.equals(userName)) {
+            if (u.equals(name)) {
                 return false;
             }
         }
 
-        this.upvoter.add(userName);
+        this.upvoter.add(name);
         return true;
     }
 
-    public boolean cancelUpvote(String userName) {
+    public boolean cancelUpvote(String name) {
         for (String u : this.upvoter) {
-            if (u.equals(userName)) {
+            if (u.equals(name)) {
                 this.upvoter.remove(u);
                 return true;
             }
@@ -85,21 +85,21 @@ public class Comment {
         return false;
     }
 
-    public boolean addDownvote(String userName) {
+    public boolean addDownvote(String name) {
         for (String u : this.downvoter) {
-            if (u.equals(userName)) {
+            if (u.equals(name)) {
                 return false;
             }
         }
 
-        this.downvoter.add(userName);
+        this.downvoter.add(name);
         return true;
     }
 
-    public boolean cancelDownvote(String userName) {
+    public boolean cancelDownvote(String name) {
         for (String u : this.downvoter) {
-            if (u.equals(userName)) {
-                this.downvoter.remove(userName);
+            if (u.equals(name)) {
+                this.downvoter.remove(name);
                 return true;
             }
         }
@@ -107,8 +107,8 @@ public class Comment {
         return false;
     }
 
-    public boolean modifyComment(String userName, String comment) {
-        if (!this.userName.equals(userName)) {
+    public boolean modifyComment(String name, String comment) {
+        if (!this.name.equals(name)) {
             System.out.println("This Comment is not your");
             return false;
         }

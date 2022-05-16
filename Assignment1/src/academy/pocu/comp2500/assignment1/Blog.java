@@ -4,21 +4,21 @@ import java.util.ArrayList;
 
 public class Blog {
     private final ArrayList<Post> post;
-    private final ArrayList<Post> filteredpost;
+    private final ArrayList<Post> filteredPost;
     private OrderType orderType;
     private FilterType filterType;
 
     public Blog() {
         this.post = new ArrayList<>(128);
-        this.filteredpost = new ArrayList<>(128);
+        this.filteredPost = new ArrayList<>(128);
         this.orderType = OrderType.NORMAL;
         this.filterType = FilterType.UNSET;
     }
 
     public ArrayList<Post> getPost() {
-        if (this.filterType == FilterType.UNSET && filteredpost.size() == 0) {
+        if (this.filterType == FilterType.UNSET && filteredPost.size() == 0) {
             for (Post p : this.post) {
-                this.filteredpost.add(p);
+                this.filteredPost.add(p);
             }
         }
 
@@ -44,7 +44,7 @@ public class Blog {
                 break;
         }
 
-        return this.filteredpost;
+        return this.filteredPost;
     }
 
     public boolean addPost(Post post) {
@@ -52,8 +52,8 @@ public class Blog {
         return true;
     }
 
-    public boolean removePost(String userName, Post post) {
-        if (!userName.equals(post.getUserName())) {
+    public boolean removePost(String name, Post post) {
+        if (!name.equals(post.getName())) {
             return false;
         }
 
@@ -77,11 +77,11 @@ public class Blog {
         switch (this.filterType) {
             case UNSET:
                 this.filterType = FilterType.TAG;
-                this.filteredpost.clear();
+                this.filteredPost.clear();
             case TAG:
                 for (Post p : this.post) {
                     if (p.hasTag(tagOrNull)) {
-                        this.filteredpost.add(p);
+                        this.filteredPost.add(p);
                     }
                 }
                 break;
@@ -89,15 +89,15 @@ public class Blog {
             case COMBO:
                 this.filterType = FilterType.COMBO;
 
-                for (Post fp : this.filteredpost) {
+                for (Post fp : this.filteredPost) {
                     if (!fp.hasTag(tagOrNull)) {
-                        this.filteredpost.remove(fp);
+                        this.filteredPost.remove(fp);
                     }
                 }
 
                 for (Post p : this.post) {
                     if (p.hasTag(tagOrNull)) {
-                        this.filteredpost.add(p);
+                        this.filteredPost.add(p);
                         break;
                     }
                 }
@@ -108,8 +108,8 @@ public class Blog {
         }
     }
 
-    public void setFilterByAuthor(String userNameOrNull) {
-        if (userNameOrNull == null) {
+    public void setFilterByAuthor(String userOrNull) {
+        if (userOrNull == null) {
             this.filterType = FilterType.UNSET;
             return;
         }
@@ -118,20 +118,20 @@ public class Blog {
             case UNSET:
             case AUTHOR:
                 this.filterType = FilterType.AUTHOR;
-                this.filteredpost.clear();
+                this.filteredPost.clear();
 
                 for (Post p : this.post) {
-                    if (p.getUserName().equals(userNameOrNull)) {
-                        this.filteredpost.add(p);
+                    if (p.getName().equals(userOrNull)) {
+                        this.filteredPost.add(p);
                     }
                 }
                 break;
             case TAG:
                 this.filterType = FilterType.COMBO;
 
-                for (Post fp : this.filteredpost) {
-                    if (!fp.getUserName().equals(userNameOrNull)) {
-                        this.filteredpost.remove(fp);
+                for (Post fp : this.filteredPost) {
+                    if (!fp.getName().equals(userOrNull)) {
+                        this.filteredPost.remove(fp);
                     }
                 }
                 break;
@@ -143,22 +143,22 @@ public class Blog {
     }
 
     private void sortByCreated() {
-        this.filteredpost.sort((a, b) -> b.getCreatedTime().compareTo(a.getCreatedTime()));
+        this.filteredPost.sort((a, b) -> b.getCreatedTime().compareTo(a.getCreatedTime()));
     }
 
     private void sortByCreatedDesc() {
-        this.filteredpost.sort((a, b) -> a.getCreatedTime().compareTo(b.getCreatedTime()));
+        this.filteredPost.sort((a, b) -> a.getCreatedTime().compareTo(b.getCreatedTime()));
     }
 
     private void sortByModified() {
-        this.filteredpost.sort((a, b) -> b.getModifiedTime().compareTo(a.getModifiedTime()));
+        this.filteredPost.sort((a, b) -> b.getModifiedTime().compareTo(a.getModifiedTime()));
     }
 
     private void sortByModifiedDesc() {
-        this.filteredpost.sort((a, b) -> a.getModifiedTime().compareTo(b.getModifiedTime()));
+        this.filteredPost.sort((a, b) -> a.getModifiedTime().compareTo(b.getModifiedTime()));
     }
 
     private void sortByTitle() {
-        this.filteredpost.sort((a, b) -> a.getTitle().compareTo(b.getTitle()));
+        this.filteredPost.sort((a, b) -> a.getTitle().compareTo(b.getTitle()));
     }
 }
