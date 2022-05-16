@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class Program {
     public static void main(String[] args) {
         testFilter();
+        testUpdatePost();
 
         Registry registry = new Registry();
         App app = new App(registry);
@@ -36,7 +37,7 @@ public class Program {
         blog.setFilterByTag("t1");
         blog.setSorted(OrderType.CREATED_DESC);
 
-        var filteredTag = blog.getPosts();
+        var filteredTag = blog.getPost();
 
         assert filteredTag.size() == 2;
         assert filteredTag.get(0).getTitle().equals("p1");
@@ -45,7 +46,7 @@ public class Program {
         blog.setFilterByTag(null);
         blog.setFilterByAuthor("a1");
 
-        var filteredUser = blog.getPosts();
+        var filteredUser = blog.getPost();
 
         assert filteredUser.size() == 2;
         assert filteredUser.get(0).getTitle().equals("p1");
@@ -55,9 +56,21 @@ public class Program {
         blog.setFilterByTag("t1");
         blog.setFilterByAuthor("a2");
 
-        var filteredCombo = blog.getPosts();
+        var filteredCombo = blog.getPost();
 
         assert filteredCombo.size() == 1;
         assert filteredCombo.get(0).getTitle().equals("p3");
+    }
+
+    private static void testUpdatePost() {
+        Blog blog = new Blog();
+
+        blog.addPost(new Post("u1", "t1", "body"));
+        Post post = blog.getPost().get(0);
+
+        post.modifyTitle("u1", "t0");
+        post.modifyBody("u1", "body1");
+
+        blog.getPost();
     }
 }
