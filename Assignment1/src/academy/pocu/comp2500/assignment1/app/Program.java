@@ -36,7 +36,7 @@ public class Program {
         blog.setFilterByTag("t1");
         blog.setOrderType(OrderType.CREATED_DESC);
 
-        var filteredTag = blog.getPost();
+        var filteredTag = blog.getPosts();
 
         assert filteredTag.size() == 2;
         assert filteredTag.get(0).getTitle().equals("p1");
@@ -45,7 +45,7 @@ public class Program {
         blog.setFilterByTag(null);
         blog.setFilterByAuthor("a1");
 
-        var filteredUser = blog.getPost();
+        var filteredUser = blog.getPosts();
 
         assert filteredUser.size() == 2;
         assert filteredUser.get(0).getTitle().equals("p1");
@@ -55,7 +55,7 @@ public class Program {
         blog.setFilterByTag("t1");
         blog.setFilterByAuthor("a2");
 
-        var filteredCombo = blog.getPost();
+        var filteredCombo = blog.getPosts();
 
         assert filteredCombo.size() == 1;
         assert filteredCombo.get(0).getTitle().equals("p3");

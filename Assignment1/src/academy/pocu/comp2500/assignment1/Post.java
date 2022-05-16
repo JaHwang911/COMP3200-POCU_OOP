@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Post {
-    private final String name;
+    private final String author;
     private String title;
     private String body;
     private final ArrayList<String> tags;
@@ -18,10 +18,10 @@ public class Post {
     private final OffsetDateTime createdTime;
     private OffsetDateTime modifiedTime;
 
-    public Post(String name, String title, String body) {
+    public Post(String author, String title, String body) {
         OffsetDateTime now = OffsetDateTime.now();
 
-        this.name = name;
+        this.author = author;
         this.title = title;
         this.body = body;
         this.tags = new ArrayList<>(128);
@@ -35,16 +35,16 @@ public class Post {
         this.modifiedTime = now;
     }
 
+    public String getName() {
+        return this.author;
+    }
+
     public String getTitle() {
         return this.title;
     }
 
     public String getBody() {
         return this.body;
-    }
-
-    public String getName() {
-        return this.name;
     }
 
     public OffsetDateTime getCreatedTime() {
@@ -56,7 +56,7 @@ public class Post {
     }
 
     public boolean addTag(String name, String tag) {
-        if (!this.name.equals(name)) {
+        if (!this.author.equals(name)) {
             return false;
         }
 
@@ -85,7 +85,7 @@ public class Post {
     }
 
     public boolean removeTag(String name, String tag) {
-        if (!this.name.equals(name)) {
+        if (!this.author.equals(name)) {
             return false;
         }
 
@@ -248,7 +248,7 @@ public class Post {
     }
 
     public boolean modifyTitle(String name, String title) {
-        if (!this.name.equals(name)) {
+        if (!this.author.equals(name)) {
             return false;
         }
 
@@ -259,7 +259,7 @@ public class Post {
     }
 
     public boolean modifyBody(String name, String body) {
-        if (!this.name.equals(name)) {
+        if (!this.author.equals(name)) {
             return false;
         }
 

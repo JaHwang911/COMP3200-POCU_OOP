@@ -3,26 +3,26 @@ package academy.pocu.comp2500.assignment1;
 import java.util.ArrayList;
 
 public class Blog {
-    private final ArrayList<Post> post;
-    private final ArrayList<Post> filteredPost;
+    private final ArrayList<Post> posts;
+    private final ArrayList<Post> filteredPosts;
     private OrderType orderType;
     private FilterType filterType;
 
     public Blog() {
-        this.post = new ArrayList<>(128);
-        this.filteredPost = new ArrayList<>(128);
+        this.posts = new ArrayList<>(128);
+        this.filteredPosts = new ArrayList<>(128);
         this.orderType = OrderType.NORMAL;
         this.filterType = FilterType.UNSET;
     }
 
     public void addPost(Post post) {
-        this.post.add(post);
+        this.posts.add(post);
     }
 
-    public ArrayList<Post> getPost() {
-        if (this.filterType == FilterType.UNSET && filteredPost.size() == 0) {
-            for (Post p : this.post) {
-                this.filteredPost.add(p);
+    public ArrayList<Post> getPosts() {
+        if (this.filterType == FilterType.UNSET && filteredPosts.size() == 0) {
+            for (Post p : this.posts) {
+                this.filteredPosts.add(p);
             }
         }
 
@@ -48,20 +48,15 @@ public class Blog {
                 break;
         }
 
-        return this.filteredPost;
+        return this.filteredPosts;
     }
 
-    public boolean removePost(String name, Post post) {
-        if (!name.equals(post.getName())) {
+    public boolean removePosts(String name, Post posts) {
+        if (!name.equals(posts.getName())) {
             return false;
         }
 
-        for (Post p : this.post) {
-            if (p.equals(post)) {
-                this.post.remove(post);
-                return true;
-            }
-        }
+        this.posts.remove(posts);
 
         return false;
     }
@@ -76,11 +71,11 @@ public class Blog {
         switch (this.filterType) {
             case UNSET:
                 this.filterType = FilterType.TAG;
-                this.filteredPost.clear();
+                this.filteredPosts.clear();
             case TAG:
-                for (Post p : this.post) {
+                for (Post p : this.posts) {
                     if (p.hasTag(tagOrNull)) {
-                        this.filteredPost.add(p);
+                        this.filteredPosts.add(p);
                     }
                 }
                 break;
@@ -88,15 +83,15 @@ public class Blog {
             case COMBO:
                 this.filterType = FilterType.COMBO;
 
-                for (Post fp : this.filteredPost) {
+                for (Post fp : this.filteredPosts) {
                     if (!fp.hasTag(tagOrNull)) {
-                        this.filteredPost.remove(fp);
+                        this.filteredPosts.remove(fp);
                     }
                 }
 
-                for (Post p : this.post) {
+                for (Post p : this.posts) {
                     if (p.hasTag(tagOrNull)) {
-                        this.filteredPost.add(p);
+                        this.filteredPosts.add(p);
                         break;
                     }
                 }
@@ -117,20 +112,20 @@ public class Blog {
             case UNSET:
             case AUTHOR:
                 this.filterType = FilterType.AUTHOR;
-                this.filteredPost.clear();
+                this.filteredPosts.clear();
 
-                for (Post p : this.post) {
+                for (Post p : this.posts) {
                     if (p.getName().equals(userOrNull)) {
-                        this.filteredPost.add(p);
+                        this.filteredPosts.add(p);
                     }
                 }
                 break;
             case TAG:
                 this.filterType = FilterType.COMBO;
 
-                for (Post fp : this.filteredPost) {
+                for (Post fp : this.filteredPosts) {
                     if (!fp.getName().equals(userOrNull)) {
-                        this.filteredPost.remove(fp);
+                        this.filteredPosts.remove(fp);
                     }
                 }
                 break;
@@ -142,22 +137,22 @@ public class Blog {
     }
 
     private void sortByCreated() {
-        this.filteredPost.sort((a, b) -> b.getCreatedTime().compareTo(a.getCreatedTime()));
+        this.filteredPosts.sort((a, b) -> b.getCreatedTime().compareTo(a.getCreatedTime()));
     }
 
     private void sortByCreatedDesc() {
-        this.filteredPost.sort((a, b) -> a.getCreatedTime().compareTo(b.getCreatedTime()));
+        this.filteredPosts.sort((a, b) -> a.getCreatedTime().compareTo(b.getCreatedTime()));
     }
 
     private void sortByModified() {
-        this.filteredPost.sort((a, b) -> b.getModifiedTime().compareTo(a.getModifiedTime()));
+        this.filteredPosts.sort((a, b) -> b.getModifiedTime().compareTo(a.getModifiedTime()));
     }
 
     private void sortByModifiedDesc() {
-        this.filteredPost.sort((a, b) -> a.getModifiedTime().compareTo(b.getModifiedTime()));
+        this.filteredPosts.sort((a, b) -> a.getModifiedTime().compareTo(b.getModifiedTime()));
     }
 
     private void sortByTitle() {
-        this.filteredPost.sort((a, b) -> a.getTitle().compareTo(b.getTitle()));
+        this.filteredPosts.sort((a, b) -> a.getTitle().compareTo(b.getTitle()));
     }
 }
