@@ -7,7 +7,7 @@ import java.util.Collections;
 public class Post {
     private String title;
     private String body;
-    private final String author;
+    private final String userName;
     private final ArrayList<String> tags;
     private final ArrayList<Comment> comments;
     private final Reaction reactionGreat = new Reaction(ReactionType.GREAT);
@@ -18,11 +18,11 @@ public class Post {
     private final OffsetDateTime createdTime;
     private OffsetDateTime modifiedTime;
 
-    public Post(String name, String title, String body) {
+    public Post(String userName, String title, String body) {
         OffsetDateTime now = OffsetDateTime.now();
         this.title = title;
         this.body = body;
-        this.author = name;
+        this.userName = userName;
         this.tags = new ArrayList<>(128);
         this.comments = new ArrayList<>(128);
         this.createdTime = now;
@@ -37,8 +37,8 @@ public class Post {
         return this.body;
     }
 
-    public String getAuthor() {
-        return this.author;
+    public String getUserName() {
+        return this.userName;
     }
 
     public OffsetDateTime getCreatedTime() {
@@ -49,8 +49,8 @@ public class Post {
         return this.modifiedTime;
     }
 
-    public boolean addTag(String name, String tag) {
-        if (!this.author.equals(name)) {
+    public boolean addTag(String userName, String tag) {
+        if (!this.userName.equals(userName)) {
             return false;
         }
 
@@ -78,8 +78,8 @@ public class Post {
         return false;
     }
 
-    public boolean removeTag(String name, String tag) {
-        if (!this.author.equals(name)) {
+    public boolean removeTag(String userName, String tag) {
+        if (!this.userName.equals(userName)) {
             return false;
         }
 
@@ -102,8 +102,8 @@ public class Post {
         return this.comments;
     }
 
-    public boolean removeComment(String name, Comment comment) {
-        if (!name.equals(comment.getAuthor())) {
+    public boolean removeComment(String userName, Comment comment) {
+        if (!userName.equals(comment.getUserName())) {
             return false;
         }
 
@@ -117,18 +117,18 @@ public class Post {
         return false;
     }
 
-    public boolean addReaction(String user, ReactionType type) {
+    public boolean addReaction(String userName, ReactionType type) {
         switch (type) {
             case GREAT:
-                return reactionGreat.addUser(user);
+                return reactionGreat.addUser(userName);
             case SAD:
-                return reactionSad.addUser(user);
+                return reactionSad.addUser(userName);
             case ANGRY:
-                return reactionAngry.addUser(user);
+                return reactionAngry.addUser(userName);
             case FUN:
-                return reactionFun.addUser(user);
+                return reactionFun.addUser(userName);
             case LOVE:
-                return reactionLove.addUser(user);
+                return reactionLove.addUser(userName);
             default:
                 assert false : "Unknown Reaction type";
                 return false;
@@ -153,12 +153,12 @@ public class Post {
         }
     }
 
-    public boolean removeReaction(String user, Reaction reaction) {
-        return reaction.subUser(user);
+    public boolean removeReaction(String userName, Reaction reaction) {
+        return reaction.subUser(userName);
     }
 
-    public boolean modifyTitle(String name, String title) {
-        if (!this.author.equals(name)) {
+    public boolean modifyTitle(String userName, String title) {
+        if (!this.userName.equals(userName)) {
             return false;
         }
 
@@ -168,8 +168,8 @@ public class Post {
         return true;
     }
 
-    public boolean modifyBody(String name, String body) {
-        if (!this.author.equals(name)) {
+    public boolean modifyBody(String userName, String body) {
+        if (!this.userName.equals(userName)) {
             return false;
         }
 
