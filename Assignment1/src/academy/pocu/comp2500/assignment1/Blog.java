@@ -138,7 +138,7 @@ public class Blog {
         }
     }
 
-    public void setSorted(OrderType type) {
+    public void setOrderType(OrderType type) {
         this.orderType = type;
     }
 
