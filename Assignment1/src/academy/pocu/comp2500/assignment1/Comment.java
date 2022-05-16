@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Comment {
-    private String comment;
     private final String name;
+    private String comment;
     private final ArrayList<Comment> subcomments;
     private final ArrayList<String> upvoter;
     private final ArrayList<String> downvoter;

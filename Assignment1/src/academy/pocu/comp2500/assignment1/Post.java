@@ -10,11 +10,11 @@ public class Post {
     private String body;
     private final ArrayList<String> tags;
     private final ArrayList<Comment> comments;
-    private final Reaction reactionGreat = new Reaction(ReactionType.GREAT);
-    private final Reaction reactionSad = new Reaction(ReactionType.SAD);
-    private final Reaction reactionAngry = new Reaction(ReactionType.ANGRY);
-    private final Reaction reactionFun = new Reaction(ReactionType.FUN);
-    private final Reaction reactionLove = new Reaction(ReactionType.LOVE);
+    private final ArrayList<String> reactionGreat;
+    private final ArrayList<String> reactionSad;
+    private final ArrayList<String> reactionAngry;
+    private final ArrayList<String> reactionFun;
+    private final ArrayList<String> reactionLove;
     private final OffsetDateTime createdTime;
     private OffsetDateTime modifiedTime;
 
@@ -26,6 +26,11 @@ public class Post {
         this.body = body;
         this.tags = new ArrayList<>(128);
         this.comments = new ArrayList<>(128);
+        reactionGreat = new ArrayList<>(32);
+        reactionSad = new ArrayList<>(32);
+        reactionAngry = new ArrayList<>(32);
+        reactionFun = new ArrayList<>(32);
+        reactionLove = new ArrayList<>(32);
         this.createdTime = now;
         this.modifiedTime = now;
     }
@@ -118,44 +123,128 @@ public class Post {
         return false;
     }
 
-    public boolean addReaction(String name, ReactionType type) {
-        switch (type) {
+    public boolean addReaction(String name, ReactionType reactionType) {
+        switch (reactionType) {
             case GREAT:
-                return reactionGreat.addUser(name);
+                for (String userName : this.reactionGreat) {
+                    if (userName.equals(name)) {
+                        return false;
+                    }
+                }
+
+                reactionGreat.add(name);
+                return true;
             case SAD:
-                return reactionSad.addUser(name);
+                for (String userName : this.reactionSad) {
+                    if (userName.equals(name)) {
+                        return false;
+                    }
+                }
+
+                reactionSad.add(name);
+                return true;
             case ANGRY:
-                return reactionAngry.addUser(name);
+                for (String userName : this.reactionAngry) {
+                    if (userName.equals(name)) {
+                        return false;
+                    }
+                }
+
+                reactionAngry.add(name);
+                return true;
             case FUN:
-                return reactionFun.addUser(name);
+                for (String userName : this.reactionFun) {
+                    if (userName.equals(name)) {
+                        return false;
+                    }
+                }
+
+                reactionFun.add(name);
+                return true;
             case LOVE:
-                return reactionLove.addUser(name);
+                for (String userName : this.reactionLove) {
+                    if (userName.equals(name)) {
+                        return false;
+                    }
+                }
+
+                reactionLove.add(name);
+                return true;
             default:
                 assert false : "Unknown Reaction type";
                 return false;
         }
     }
 
-    public int getReactionCount(ReactionType type) {
-        switch (type) {
+    public int getReactionCount(ReactionType reactionType) {
+        switch (reactionType) {
             case GREAT:
-                return this.reactionGreat.getCount();
+                return this.reactionGreat.size();
             case SAD:
-                return this.reactionSad.getCount();
+                return this.reactionSad.size();
             case FUN:
-                return this.reactionFun.getCount();
+                return this.reactionFun.size();
             case ANGRY:
-                return this.reactionAngry.getCount();
+                return this.reactionAngry.size();
             case LOVE:
-                return this.reactionLove.getCount();
+                return this.reactionLove.size();
             default:
                 assert false : "Unknown Reaction type";
                 return -1;
         }
     }
 
-    public boolean removeReaction(String name, Reaction reaction) {
-        return reaction.subUser(name);
+    public boolean removeReaction(String name, ReactionType reactionType) {
+        switch (reactionType) {
+            case GREAT:
+                for (String userName : this.reactionGreat) {
+                    if (userName.equals(name)) {
+                        this.reactionGreat.remove(userName);
+                        return true;
+                    }
+                }
+
+                return false;
+            case SAD:
+                for (String userName : this.reactionSad) {
+                    if (userName.equals(name)) {
+                        this.reactionSad.remove(userName);
+                        return true;
+                    }
+                }
+
+                return false;
+            case ANGRY:
+                for (String userName : this.reactionAngry) {
+                    if (userName.equals(name)) {
+                        this.reactionAngry.remove(userName);
+                        return true;
+                    }
+                }
+
+                return false;
+            case FUN:
+                for (String userName : this.reactionFun) {
+                    if (userName.equals(name)) {
+                        this.reactionFun.remove(userName);
+                        return true;
+                    }
+                }
+
+                return false;
+            case LOVE:
+                for (String userName : this.reactionLove) {
+                    if (userName.equals(name)) {
+                        this.reactionLove.remove(userName);
+                        return true;
+                    }
+                }
+
+                return false;
+            default:
+                assert false : "Unknown Reaction type";
+                return false;
+        }
     }
 
     public boolean modifyTitle(String name, String title) {
