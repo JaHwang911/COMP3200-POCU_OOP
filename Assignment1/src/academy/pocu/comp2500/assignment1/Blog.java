@@ -51,12 +51,12 @@ public class Blog {
         return this.filteredPosts;
     }
 
-    public boolean removePosts(String name, Post posts) {
-        if (!name.equals(posts.getName())) {
+    public boolean removePosts(String name, Post post) {
+        if (!name.equals(post.getName())) {
             return false;
         }
 
-        this.posts.remove(posts);
+        this.posts.remove(post);
 
         return false;
     }
