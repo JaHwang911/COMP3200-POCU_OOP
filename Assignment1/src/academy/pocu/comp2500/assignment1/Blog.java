@@ -1,7 +1,6 @@
 package academy.pocu.comp2500.assignment1;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class Blog {
     private final ArrayList<Post> posts;
@@ -49,16 +48,12 @@ public class Blog {
     }
 
     public boolean addPost(Post post) {
-        if (post.getAuthor().getUserType() == UserType.VISITOR) {
-            return false;
-        }
-
         this.posts.add(post);
         return true;
     }
 
-    public boolean removePost(User user, Post post) {
-        if (!user.equals(post.getAuthor())) {
+    public boolean removePost(String name, Post post) {
+        if (!name.equals(post.getAuthor())) {
             return false;
         }
 
@@ -113,7 +108,7 @@ public class Blog {
         }
     }
 
-    public void setFilterByAuthor(User userOrNull) {
+    public void setFilterByAuthor(String userOrNull) {
         if (userOrNull == null) {
             this.filterType = FilterType.UNSET;
             return;

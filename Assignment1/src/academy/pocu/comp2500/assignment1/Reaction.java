@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Reaction {
     private ReactionType type;
-    private ArrayList<User> users;
+    private ArrayList<String> users;
 
     public Reaction(ReactionType type) {
         this.type = type;
@@ -15,7 +15,7 @@ public class Reaction {
         return this.type;
     }
     
-    public ArrayList<User> getAllUsers() {
+    public ArrayList<String> getAllUsers() {
         return this.users;
     }
 
@@ -23,8 +23,8 @@ public class Reaction {
         return users.size();
     }
 
-    public boolean addUser(User user) {
-        for (User u : this.users) {
+    public boolean addUser(String user) {
+        for (String u : this.users) {
             if (u.equals(user)) {
                 return false;
             }
@@ -35,8 +35,8 @@ public class Reaction {
         return true;
     }
 
-    public boolean subUser(User user) {
-        for (User u : this.users) {
+    public boolean subUser(String user) {
+        for (String u : this.users) {
             if (u.equals(user)) {
                 return true;
             }
