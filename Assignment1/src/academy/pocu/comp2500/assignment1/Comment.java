@@ -32,7 +32,6 @@ public class Comment {
 
     public ArrayList<Comment> getSubcomments() {
         this.subcomments.sort((a, b) -> b.getVoteRatio() - a.getVoteRatio());
-
         return this.subcomments;
     }
 
@@ -41,9 +40,9 @@ public class Comment {
             return false;
         }
 
-        for (Comment sc : this.subcomments) {
-            if (sc.equals(comment)) {
-                this.subcomments.remove(sc);
+        for (Comment c : this.subcomments) {
+            if (c.equals(comment)) {
+                this.subcomments.remove(c);
                 return true;
             }
         }

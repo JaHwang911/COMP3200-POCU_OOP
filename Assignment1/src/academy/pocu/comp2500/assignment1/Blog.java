@@ -15,6 +15,11 @@ public class Blog {
         this.filterType = FilterType.UNSET;
     }
 
+    public boolean addPost(Post post) {
+        this.post.add(post);
+        return true;
+    }
+
     public ArrayList<Post> getPost() {
         if (this.filterType == FilterType.UNSET && filteredPost.size() == 0) {
             for (Post p : this.post) {
@@ -45,11 +50,6 @@ public class Blog {
         }
 
         return this.filteredPost;
-    }
-
-    public boolean addPost(Post post) {
-        this.post.add(post);
-        return true;
     }
 
     public boolean removePost(String name, Post post) {
@@ -138,8 +138,8 @@ public class Blog {
         }
     }
 
-    public void setOrderType(OrderType type) {
-        this.orderType = type;
+    public void setOrderType(OrderType sortingType) {
+        this.orderType = sortingType;
     }
 
     private void sortByCreated() {
