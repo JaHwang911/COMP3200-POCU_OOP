@@ -54,14 +54,28 @@ public class Post {
         return this.modifiedTime;
     }
 
-    public boolean addTag(String name, String tag) {
-        if (!this.author.equals(name)) {
+    public boolean addTag(String author, String tag) {
+        if (!this.author.equals(author)) {
             return false;
         } else if (this.tags.contains(tag)) {
             return false;
         }
 
         this.tags.add(tag);
+        return true;
+    }
+
+    public boolean addTag(String author, ArrayList<String> tags) {
+        if (!this.author.equals(author)) {
+            return false;
+        }
+
+        for (String t : tags) {
+            if (!this.tags.contains(t)) {
+                this.tags.add(t);
+            }
+        }
+
         return true;
     }
 
@@ -75,7 +89,6 @@ public class Post {
         }
 
         this.tags.remove(tag);
-
         return true;
     }
 
