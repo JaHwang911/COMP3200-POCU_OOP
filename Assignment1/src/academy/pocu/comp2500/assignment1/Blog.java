@@ -47,8 +47,8 @@ public class Blog {
                 }
                 break;
             case AUTHOR:
-                assert this.filteredAuthor != null;
                 assert this.filteredTags.size() == 0;
+                assert this.filteredAuthor != null;
 
                 for (Post p : this.posts) {
                     if (p.getName().equals(filteredAuthor)) {
@@ -117,8 +117,8 @@ public class Blog {
         return false;
     }
 
-    public void setFilterOnOffByTag(String tagOrNull) {
-        if (tagOrNull == null) {
+    public void setFilterOnOffByTags(ArrayList<String> tagsOrNull) {
+        if (tagsOrNull == null) {
             switch (this.filterType) {
                 case COMBO:
                     this.filterType = FilterType.AUTHOR;
@@ -137,12 +137,12 @@ public class Blog {
             case UNSET:
                 this.filterType = FilterType.TAG;
             case TAG:
-                this.filteredTags.add(tagOrNull);
+                this.filteredTags.addAll(tagsOrNull);
                 break;
             case AUTHOR:
             case COMBO:
                 this.filterType = FilterType.COMBO;
-                this.filteredTags.add(tagOrNull);
+                this.filteredTags.addAll(tagsOrNull);
                 break;
             default:
                 assert false : "Unknown filter type";
