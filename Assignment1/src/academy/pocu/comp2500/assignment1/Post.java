@@ -2,7 +2,6 @@ package academy.pocu.comp2500.assignment1;
 
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class Post {
     private final String author;
