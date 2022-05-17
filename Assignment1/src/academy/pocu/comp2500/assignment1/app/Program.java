@@ -31,10 +31,10 @@ public class Program {
         tag2.add("t2");
         tag2.add("Game");
 
-        post1.addTags("a1", tag1);
-        post2.addTags("a1", tag2);
-        post3.addTags("a2", tag1);
-        post4.addTags("a2", tag2);
+        post1.addTag("a1", "t1");
+        post2.addTag("a1", "t2");
+        post3.addTag("a2", "t1");
+        post4.addTag("a2", "t2");
 
         blog.addPost(post1);
         blog.addPost(post2);
@@ -53,7 +53,8 @@ public class Program {
         assert filteredTag.get(0).getTitle().equals("p1");
         assert filteredTag.get(1).getTitle().equals("p3");
 
-        blog.setFilterOnOffByTags(null);
+        tags.clear();
+        blog.setFilterOnOffByTags(tags);
         blog.setFilterOnOffByAuthor("a1");
 
         var filteredUser = blog.getPosts();
@@ -62,6 +63,7 @@ public class Program {
         assert filteredUser.get(0).getTitle().equals("p1");
         assert filteredUser.get(1).getTitle().equals("p2");
 
+        tags.add("t1");
         blog.setFilterOnOffByAuthor(null);
         blog.setFilterOnOffByTags(tags);
         blog.setFilterOnOffByAuthor("a2");
@@ -71,7 +73,8 @@ public class Program {
         assert filteredCombo.size() == 1;
         assert filteredCombo.get(0).getTitle().equals("p3");
 
-        blog.setFilterOnOffByTags(null);
+        tags.clear();
+        blog.setFilterOnOffByTags(tags);
         blog.setFilterOnOffByAuthor(null);
 
         var notSetFilterPosts = blog.getPosts();

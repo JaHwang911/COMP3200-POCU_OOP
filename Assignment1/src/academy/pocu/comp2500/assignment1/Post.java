@@ -54,19 +54,14 @@ public class Post {
         return this.modifiedTime;
     }
 
-    public boolean addTags(String name, ArrayList<String> tags) {
+    public boolean addTag(String name, String tag) {
         if (!this.author.equals(name)) {
+            return false;
+        } else if (this.tags.contains(tag)) {
             return false;
         }
 
-        for (String t : this.tags) {
-            if (tags.contains(t)) {
-                return false;
-            }
-        }
-
-        this.tags.addAll(tags);
-
+        this.tags.add(tag);
         return true;
     }
 
