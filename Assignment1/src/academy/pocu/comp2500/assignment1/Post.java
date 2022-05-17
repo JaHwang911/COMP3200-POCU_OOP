@@ -79,7 +79,7 @@ public class Post {
         return true;
     }
 
-    public ArrayList<String> getTags() {
+    public ArrayList<String> getTag() {
         return this.tags;
     }
 
