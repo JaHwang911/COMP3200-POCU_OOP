@@ -118,7 +118,7 @@ public class Blog {
     }
 
     public void setFilterOnOffByTags(ArrayList<String> tagsOrNull) {
-        if (tagsOrNull == null) {
+        if (tagsOrNull.size() == 0) {
             switch (this.filterType) {
                 case COMBO:
                     this.filterType = FilterType.AUTHOR;
