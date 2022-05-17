@@ -54,18 +54,19 @@ public class Post {
         return this.modifiedTime;
     }
 
-    public boolean addTag(String name, String tag) {
+    public boolean addTags(String name, ArrayList<String> tags) {
         if (!this.author.equals(name)) {
             return false;
         }
 
         for (String t : this.tags) {
-            if (t.equals(tag)) {
+            if (tags.contains(t)) {
                 return false;
             }
         }
 
-        this.tags.add(tag);
+        this.tags.addAll(tags);
+
         return true;
     }
 
@@ -73,29 +74,14 @@ public class Post {
         return this.tags;
     }
 
-    public boolean hasTag(String tag) {
-        for (String t : this.tags) {
-            if (t.equals(tag)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    public boolean removeTag(String name, String tag) {
-        if (!this.author.equals(name)) {
+    public boolean removeTag(String author, String tag) {
+        if (!this.author.equals(author)) {
             return false;
         }
 
-        for (String t : this.tags) {
-            if (t.equals(tag)) {
-                this.tags.remove(t);
-                return true;
-            }
-        }
+        this.tags.remove(tag);
 
-        return false;
+        return true;
     }
 
     public void addComment(Comment comment) {
