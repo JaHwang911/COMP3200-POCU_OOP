@@ -62,7 +62,7 @@ public class Blog {
     }
 
     // Set ordered type
-    public void setFilterByTag(String tagOrNull) {
+    public void setFilterOnOffByTag(String tagOrNull) {
         if (tagOrNull == null) {
             this.filterType = FilterType.UNSET;
             return;
@@ -102,7 +102,7 @@ public class Blog {
         }
     }
 
-    public void setFilterByAuthor(String userOrNull) {
+    public void setFilterOnOffByAuthor(String userOrNull) {
         if (userOrNull == null) {
             this.filterType = FilterType.UNSET;
             return;

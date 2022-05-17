@@ -247,8 +247,8 @@ public class Post {
         }
     }
 
-    public boolean modifyTitle(String name, String title) {
-        if (!this.author.equals(name)) {
+    public boolean modifyTitle(String author, String title) {
+        if (!this.author.equals(author)) {
             return false;
         }
 
@@ -258,8 +258,8 @@ public class Post {
         return true;
     }
 
-    public boolean modifyBody(String name, String body) {
-        if (!this.author.equals(name)) {
+    public boolean modifyBody(String author, String body) {
+        if (!this.author.equals(author)) {
             return false;
         }
 

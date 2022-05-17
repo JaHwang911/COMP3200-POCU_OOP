@@ -33,7 +33,7 @@ public class Program {
         blog.addPost(post3);
         blog.addPost(post4);
 
-        blog.setFilterByTag("t1");
+        blog.setFilterOnOffByTag("t1");
         blog.setOrderType(OrderType.CREATED_DESC);
 
         var filteredTag = blog.getPosts();
@@ -42,8 +42,8 @@ public class Program {
         assert filteredTag.get(0).getTitle().equals("p1");
         assert filteredTag.get(1).getTitle().equals("p3");
 
-        blog.setFilterByTag(null);
-        blog.setFilterByAuthor("a1");
+        blog.setFilterOnOffByTag(null);
+        blog.setFilterOnOffByAuthor("a1");
 
         var filteredUser = blog.getPosts();
 
@@ -51,9 +51,9 @@ public class Program {
         assert filteredUser.get(0).getTitle().equals("p1");
         assert filteredUser.get(1).getTitle().equals("p2");
 
-        blog.setFilterByAuthor(null);
-        blog.setFilterByTag("t1");
-        blog.setFilterByAuthor("a2");
+        blog.setFilterOnOffByAuthor(null);
+        blog.setFilterOnOffByTag("t1");
+        blog.setFilterOnOffByAuthor("a2");
 
         var filteredCombo = blog.getPosts();
 
