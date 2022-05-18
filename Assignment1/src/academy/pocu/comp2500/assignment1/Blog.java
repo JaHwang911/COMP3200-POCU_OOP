@@ -32,17 +32,22 @@ public class Blog {
                 resultPosts.addAll(this.posts);
                 break;
             case TAG:
-                assert this.filteredTags.size() != 0;
+                assert this.filteredTags.size() > 0;
                 assert this.filteredAuthor == null;
 
                 for (Post p : this.posts) {
                     var tags = p.getTag();
+                    boolean hasTag = true;
 
-                    for (String t : tags) {
-                        if (this.filteredTags.contains(t)) {
-                            resultPosts.add(p);
+                    for (String t : this.filteredTags) {
+                        if (!tags.contains(t)) {
+                            hasTag = false;
                             break;
                         }
+                    }
+
+                    if (hasTag) {
+                        resultPosts.add(p);
                     }
                 }
                 break;
@@ -57,28 +62,25 @@ public class Blog {
                 }
                 break;
             case COMBO:
-                assert this.filteredTags.size() != 0;
+                assert this.filteredTags.size() > 0;
                 assert this.filteredAuthor != null;
 
                 for (Post p : this.posts) {
-                    var tags = p.getTag();
+                    if (!p.getName().equals(this.filteredAuthor)) {
+                        continue;
+                    }
 
-                    for (String t : tags) {
-                        if (this.filteredTags.contains(t)) {
-                            resultPosts.add(p);
+                    var tags = p.getTag();
+                    boolean hasTag = true;
+
+                    for (String t : this.filteredTags) {
+                        if (!tags.contains(t)) {
+                            hasTag = false;
                             break;
                         }
                     }
-                }
 
-                for (Post p : resultPosts) {
-                    if (!p.getName().equals(this.filteredAuthor)) {
-                        resultPosts.remove(p);
-                    }
-                }
-
-                for (Post p : this.posts) {
-                    if (p.getName().equals(this.filteredAuthor)) {
+                    if (hasTag) {
                         resultPosts.add(p);
                     }
                 }
@@ -128,6 +130,7 @@ public class Blog {
             switch (this.filterType) {
                 case COMBO:
                     this.filterType = FilterType.AUTHOR;
+                    this.filteredTags.clear();
                     return;
                 case TAG:
                     this.filterType = FilterType.UNSET;
@@ -161,6 +164,7 @@ public class Blog {
             switch (this.filterType) {
                 case COMBO:
                     this.filterType = FilterType.TAG;
+                    this.filteredAuthor = null;
                     return;
                 case AUTHOR:
                     this.filterType = FilterType.UNSET;

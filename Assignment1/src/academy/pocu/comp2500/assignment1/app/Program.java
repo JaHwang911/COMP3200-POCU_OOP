@@ -7,6 +7,18 @@ import java.util.ArrayList;
 
 public class Program {
     public static void main(String[] args) {
+
+        ArrayList<String> str1 = new ArrayList<>();
+        ArrayList<String> str2 = new ArrayList<>();
+
+        str1.add("1");
+        str1.add("2");
+
+        str2.add("1");
+        str2.add("2");
+        str2.add("3");
+
+        System.out.println(str1.contains(str2));
         testFilter();
 
         Registry registry = new Registry();
@@ -23,15 +35,8 @@ public class Program {
         Post post3 = new Post("a2", "p3", "body");
         Post post4 = new Post("a2", "p4", "body");
 
-        ArrayList<String> tag1 = new ArrayList<>(2);
-        tag1.add("t1");
-        tag1.add("Computer");
-
-        ArrayList<String> tag2 = new ArrayList<>(2);
-        tag2.add("t2");
-        tag2.add("Game");
-
         post1.addTag("a1", "t1");
+        post1.addTag("a1", "Computer");
         post2.addTag("a1", "t2");
         post3.addTag("a2", "t1");
         post4.addTag("a2", "t2");
@@ -81,13 +86,13 @@ public class Program {
 
         assert notSetFilterPosts.size() == 4;
 
-//        blog.setFilterOnOffByTag(null);
-//        blog.setFilterOnOffByAuthor(null);
-//
-//        blog.setFilterOnOffByTag("t1");
-//        blog.setFilterOnOffByAuthor("a1");
-//        blog.setFilterOnOffByTag("Computer");
-//
-//        var pingPongFilterPosts = blog.getPosts();
+        tags.clear();
+        tags.add("t1");
+        tags.add("Computer");
+
+        blog.setFilterOnOffByTags(tags);
+        var multiSetTags = blog.getPosts();
+
+        assert multiSetTags.size() == 1;
     }
 }
