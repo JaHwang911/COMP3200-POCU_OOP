@@ -94,5 +94,14 @@ public class Program {
         var multiSetTags = blog.getPosts();
 
         assert multiSetTags.size() == 1;
+
+        /*
+            내가 실수 했던 테스트
+                * 이미 태그 필터 or 콤보 필터가 설정돼 있을 때 다시 태그 필터를 설정하는 테스트
+                    -> 기존의 태그를 비우지 않았음
+                * 이미 콤보 필터가 설정돼 있을 때 작성자 필터를 설정 하는 테스트
+                    -> switch 문의 case combo를 등록하지 않아 이미 콤보 필터가 설정돼 있었다면 작동하지 않음
+         */
+
     }
 }
