@@ -38,13 +38,26 @@ public class ListItem {
         StringBuilder buffer = new StringBuilder();
         buffer.append(String.format("%c %s", this.bulletStyle, this.itemName));
 
-        if (this.subListItems.size() > 0) {
-            buffer.append(this.SUB_LIST_LINE);
+        for (ListItem l : this.subListItems) {
+            buffer.append("\n");
+            buffer.append(l.toString(1));
+        }
 
-            for (ListItem l : this.subListItems) {
-                buffer.append(l.toString());
-                buffer.append(this.SUB_LIST_LINE);
-            }
+        return buffer.toString();
+    }
+
+    public String toString(int level) {
+        StringBuilder buffer = new StringBuilder();
+
+        for (int i = 0; i < level; ++i) {
+            buffer.append("    ");
+        }
+
+        buffer.append(String.format("%c %s", this.bulletStyle, this.itemName));
+
+        for (ListItem l : this.subListItems) {
+            buffer.append("\n");
+            buffer.append(l.toString(level + 1));
         }
 
         return buffer.toString();
