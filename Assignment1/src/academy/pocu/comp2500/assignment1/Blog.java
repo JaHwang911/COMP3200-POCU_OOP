@@ -76,6 +76,12 @@ public class Blog {
                         resultPosts.remove(p);
                     }
                 }
+
+                for (Post p : this.posts) {
+                    if (p.getName().equals(this.filteredAuthor)) {
+                        resultPosts.add(p);
+                    }
+                }
                 break;
             default:
                 assert false : "Unknown filter type";
