@@ -36,7 +36,7 @@ public class Blog {
                 assert this.filteredAuthor == null;
 
                 for (Post p : this.posts) {
-                    var tags = p.getTag();
+                    ArrayList<String> tags = p.getTag();
                     boolean hasTag = true;
 
                     for (String t : this.filteredTags) {
@@ -70,7 +70,7 @@ public class Blog {
                         continue;
                     }
 
-                    var tags = p.getTag();
+                    ArrayList<String> tags = p.getTag();
                     boolean hasTag = true;
 
                     for (String t : this.filteredTags) {
@@ -134,7 +134,6 @@ public class Blog {
                     return;
                 case TAG:
                     this.filterType = FilterType.UNSET;
-                    this.filteredAuthor = null;
                     this.filteredTags.clear();
                     return;
                 default:
@@ -146,6 +145,7 @@ public class Blog {
             case UNSET:
                 this.filterType = FilterType.TAG;
             case TAG:
+                this.filteredTags.clear();
                 this.filteredTags.addAll(tags);
                 break;
             case AUTHOR:
@@ -169,7 +169,6 @@ public class Blog {
                 case AUTHOR:
                     this.filterType = FilterType.UNSET;
                     this.filteredAuthor = null;
-                    this.filteredTags.clear();
                     return;
                 default:
                     return;
