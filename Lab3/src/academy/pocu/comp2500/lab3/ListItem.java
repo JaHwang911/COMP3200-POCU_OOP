@@ -3,23 +3,27 @@ package academy.pocu.comp2500.lab3;
 import java.util.ArrayList;
 
 public class ListItem {
-    private String itemName;
+    private String text;
     private char bulletStyle;
     private ArrayList<ListItem> subListItems;
     private final String SUB_LIST_LINE = "\n    ";
 
     public ListItem(String text) {
-        this.itemName = text;
-        this.bulletStyle = '*';
+        this(text, '*');
+    }
+
+    public ListItem(String text, char bulletStyle) {
+        this.text = text;
+        this.bulletStyle = bulletStyle;
         this.subListItems = new ArrayList<>();
     }
 
     public String getText() {
-        return this.itemName;
+        return this.text;
     }
 
     public void setText(String text) {
-        this.itemName = text;
+        this.text = text;
     }
 
     public char getBulletStyle() {
@@ -34,12 +38,19 @@ public class ListItem {
         return this.subListItems.get(index);
     }
 
+    public void removeSublistItem(int index) {
+        this.subListItems.remove(index);
+    }
+
+    public void setBulletStyle(char bulletStyle) {
+        this.bulletStyle = bulletStyle;
+    }
+
     public String toString() {
         StringBuilder buffer = new StringBuilder();
-        buffer.append(String.format("%c %s", this.bulletStyle, this.itemName));
+        buffer.append(String.format("%c %s%s", this.bulletStyle, this.text, System.lineSeparator()));
 
         for (ListItem l : this.subListItems) {
-            buffer.append("\n");
             buffer.append(l.toString(1));
         }
 
@@ -53,10 +64,9 @@ public class ListItem {
             buffer.append("    ");
         }
 
-        buffer.append(String.format("%c %s", this.bulletStyle, this.itemName));
+        buffer.append(String.format("%c %s%s", this.bulletStyle, this.text, System.lineSeparator()));
 
         for (ListItem l : this.subListItems) {
-            buffer.append("\n");
             buffer.append(l.toString(level + 1));
         }
 
