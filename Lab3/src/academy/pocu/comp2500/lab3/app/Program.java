@@ -3,8 +3,6 @@ package academy.pocu.comp2500.lab3.app;
 import academy.pocu.comp2500.lab3.ListItem;
 
 import java.util.ArrayList;
-import org.junit.Test;
-import static org.junit.Assert.*;
 
 public class Program {
 
