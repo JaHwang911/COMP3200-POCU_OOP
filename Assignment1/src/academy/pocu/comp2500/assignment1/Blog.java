@@ -115,8 +115,8 @@ public class Blog {
         return false;
     }
 
-    public void setFilterOnOffByTags(ArrayList<String> tagsOrNull) {
-        if (tagsOrNull == null) {
+    public void setFilterOnOffByTags(ArrayList<String> tags) {
+        if (tags.size() == 0) {
             switch (this.filterType) {
                 case TAG:
                     assert this.filteredAuthor == null;
@@ -140,13 +140,13 @@ public class Blog {
             case TAG:
                 this.filterType = FilterType.TAG;
                 this.filteredTags.clear();
-                this.filteredTags.addAll(tagsOrNull);
+                this.filteredTags.addAll(tags);
                 break;
             case AUTHOR:
             case COMBO:
                 this.filterType = FilterType.COMBO;
                 this.filteredTags.clear();
-                this.filteredTags.addAll(tagsOrNull);
+                this.filteredTags.addAll(tags);
                 break;
             default:
                 assert false : "Unknown filter type";
