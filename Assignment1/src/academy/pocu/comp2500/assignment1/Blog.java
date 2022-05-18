@@ -37,17 +37,12 @@ public class Blog {
 
                 for (Post p : this.posts) {
                     ArrayList<String> tags = p.getTag();
-                    boolean hasTag = true;
 
-                    for (String t : this.filteredTags) {
-                        if (!tags.contains(t)) {
-                            hasTag = false;
+                    for (String t : tags) {
+                        if (this.filteredTags.contains(t)) {
+                            resultPosts.add(p);
                             break;
                         }
-                    }
-
-                    if (hasTag) {
-                        resultPosts.add(p);
                     }
                 }
                 break;
@@ -56,7 +51,7 @@ public class Blog {
                 assert this.filteredAuthor != null;
 
                 for (Post p : this.posts) {
-                    if (p.getName().equals(filteredAuthor)) {
+                    if (p.getName().equals(this.filteredAuthor)) {
                         resultPosts.add(p);
                     }
                 }
@@ -123,12 +118,16 @@ public class Blog {
     public void setFilterOnOffByTags(ArrayList<String> tagsOrNull) {
         if (tagsOrNull == null) {
             switch (this.filterType) {
-                case COMBO:
-                    this.filterType = FilterType.AUTHOR;
+                case TAG:
+                    assert this.filteredAuthor == null;
+
+                    this.filterType = FilterType.UNSET;
                     this.filteredTags.clear();
                     return;
-                case TAG:
-                    this.filterType = FilterType.UNSET;
+                case COMBO:
+                    assert this.filteredAuthor != null;
+
+                    this.filterType = FilterType.AUTHOR;
                     this.filteredTags.clear();
                     return;
                 default:
@@ -145,8 +144,8 @@ public class Blog {
                 break;
             case AUTHOR:
             case COMBO:
-                this.filteredTags.clear();
                 this.filterType = FilterType.COMBO;
+                this.filteredTags.clear();
                 this.filteredTags.addAll(tagsOrNull);
                 break;
             default:
@@ -158,13 +157,19 @@ public class Blog {
     public void setFilterOnOffByAuthor(String authorOrNull) {
         if (authorOrNull == null) {
             switch (this.filterType) {
-                case COMBO:
-                    this.filterType = FilterType.TAG;
-                    this.filteredAuthor = null;
-                    return;
                 case AUTHOR:
+                    assert this.filteredTags.size() == 0;
+
                     this.filterType = FilterType.UNSET;
                     this.filteredAuthor = null;
+
+                    return;
+                case COMBO:
+                    assert this.filteredTags.size() > 0;
+
+                    this.filterType = FilterType.TAG;
+                    this.filteredAuthor = null;
+
                     return;
                 default:
                     return;
