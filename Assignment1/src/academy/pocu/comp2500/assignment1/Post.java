@@ -65,20 +65,6 @@ public class Post {
         return true;
     }
 
-    public boolean addTag(String author, ArrayList<String> tags) {
-        if (!this.author.equals(author)) {
-            return false;
-        }
-
-        for (String t : tags) {
-            if (!this.tags.contains(t)) {
-                this.tags.add(t);
-            }
-        }
-
-        return true;
-    }
-
     public ArrayList<String> getTag() {
         return this.tags;
     }
