@@ -71,17 +71,12 @@ public class Blog {
                     }
 
                     ArrayList<String> tags = p.getTag();
-                    boolean hasTag = true;
 
-                    for (String t : this.filteredTags) {
-                        if (!tags.contains(t)) {
-                            hasTag = false;
+                    for (String t : tags) {
+                        if (this.filteredTags.contains(t)) {
+                            resultPosts.add(p);
                             break;
                         }
-                    }
-
-                    if (hasTag) {
-                        resultPosts.add(p);
                     }
                 }
                 break;
@@ -125,8 +120,8 @@ public class Blog {
         return false;
     }
 
-    public void setFilterOnOffByTags(ArrayList<String> tags) {
-        if (tags.size() == 0) {
+    public void setFilterOnOffByTags(ArrayList<String> tagsOrNull) {
+        if (tagsOrNull == null) {
             switch (this.filterType) {
                 case COMBO:
                     this.filterType = FilterType.AUTHOR;
@@ -146,13 +141,13 @@ public class Blog {
             case TAG:
                 this.filterType = FilterType.TAG;
                 this.filteredTags.clear();
-                this.filteredTags.addAll(tags);
+                this.filteredTags.addAll(tagsOrNull);
                 break;
             case AUTHOR:
             case COMBO:
                 this.filteredTags.clear();
                 this.filterType = FilterType.COMBO;
-                this.filteredTags.addAll(tags);
+                this.filteredTags.addAll(tagsOrNull);
                 break;
             default:
                 assert false : "Unknown filter type";
