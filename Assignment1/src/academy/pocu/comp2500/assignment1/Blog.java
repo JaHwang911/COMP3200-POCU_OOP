@@ -127,18 +127,20 @@ public class Blog {
 
     public void setFilterOnOffByTags(ArrayList<String> tags) {
         if (tags.size() == 0) {
-            switch (this.filterType) {
-                case COMBO:
-                    this.filterType = FilterType.AUTHOR;
-                    this.filteredTags.clear();
-                    return;
-                case TAG:
-                    this.filterType = FilterType.UNSET;
-                    this.filteredTags.clear();
-                    return;
-                default:
-                    return;
-            }
+            this.filterType = FilterType.UNSET;
+            this.filteredTags.clear();
+//            switch (this.filterType) {
+//                case COMBO:
+//                    this.filterType = FilterType.AUTHOR;
+//                    this.filteredTags.clear();
+//                    return;
+//                case TAG:
+//                    this.filterType = FilterType.UNSET;
+//                    this.filteredTags.clear();
+//                    return;
+//                default:
+//                    return;
+//            }
         }
 
         switch (this.filterType) {
@@ -161,18 +163,20 @@ public class Blog {
 
     public void setFilterOnOffByAuthor(String authorOrNull) {
         if (authorOrNull == null) {
-            switch (this.filterType) {
-                case COMBO:
-                    this.filterType = FilterType.TAG;
-                    this.filteredAuthor = null;
-                    return;
-                case AUTHOR:
-                    this.filterType = FilterType.UNSET;
-                    this.filteredAuthor = null;
-                    return;
-                default:
-                    return;
-            }
+            this.filterType = FilterType.UNSET;
+            this.filteredAuthor = null;
+//            switch (this.filterType) {
+//                case COMBO:
+//                    this.filterType = FilterType.TAG;
+//                    this.filteredAuthor = null;
+//                    return;
+//                case AUTHOR:
+//                    this.filterType = FilterType.UNSET;
+//                    this.filteredAuthor = null;
+//                    return;
+//                default:
+//                    return;
+//            }
         }
 
         switch (this.filterType) {
