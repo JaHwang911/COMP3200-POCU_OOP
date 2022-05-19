@@ -2,12 +2,14 @@ package academy.pocu.comp2500.assignment1;
 
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Post {
     private final String author;
     private String title;
     private String body;
-    private final ArrayList<String> tags;
+    private final HashSet<String> tags;
+//    private final ArrayList<String> tags;
     private final ArrayList<Comment> comments;
     private final ArrayList<String> reactionGreat;
     private final ArrayList<String> reactionSad;
@@ -23,7 +25,8 @@ public class Post {
         this.author = author;
         this.title = title;
         this.body = body;
-        this.tags = new ArrayList<>(128);
+        this.tags = new HashSet<>(128);
+//        this.tags = new ArrayList<>(128);
         this.comments = new ArrayList<>(128);
         reactionGreat = new ArrayList<>(32);
         reactionSad = new ArrayList<>(32);
@@ -54,18 +57,28 @@ public class Post {
         return this.modifiedTime;
     }
 
+//    public boolean addTag(String author, String tag) {
+//        if (!this.author.equals(author)) {
+//            return false;
+//        } else if (this.tags.contains(tag)) {
+//            return false;
+//        }
+//
+//        this.tags.add(tag);
+//        return true;
+//    }
+
     public boolean addTag(String author, String tag) {
         if (!this.author.equals(author)) {
-            return false;
-        } else if (this.tags.contains(tag)) {
             return false;
         }
 
         this.tags.add(tag);
+
         return true;
     }
 
-    public ArrayList<String> getTag() {
+    public HashSet<String> getTag() {
         return this.tags;
     }
 

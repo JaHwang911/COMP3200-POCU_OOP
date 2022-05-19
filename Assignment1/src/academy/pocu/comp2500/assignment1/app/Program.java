@@ -7,19 +7,7 @@ import java.util.ArrayList;
 
 public class Program {
     public static void main(String[] args) {
-
-        ArrayList<String> str1 = new ArrayList<>();
-        ArrayList<String> str2 = new ArrayList<>();
-
-        str1.add("1");
-        str1.add("2");
-
-        str2.add("1");
-        str2.add("2");
-        str2.add("3");
-
-        System.out.println(str1.contains(str2));
-        testFilter();
+//        testFilter();
 
         Registry registry = new Registry();
         App app = new App(registry);
