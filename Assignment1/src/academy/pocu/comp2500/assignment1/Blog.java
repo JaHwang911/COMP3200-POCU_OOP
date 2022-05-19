@@ -36,7 +36,7 @@ public class Blog {
                 assert this.filteredAuthor == null;
 
                 for (Post p : this.posts) {
-                    var tags = p.getTag();
+                    ArrayList<String> tags = p.getTag();
 
                     for (String t : tags) {
                         if (this.filteredTags.contains(t)) {
@@ -65,7 +65,7 @@ public class Blog {
                         continue;
                     }
 
-                    var tags = p.getTag();
+                    ArrayList<String> tags = p.getTag();
 
                     for (String t : tags) {
                         if (this.filteredTags.contains(t)) {
