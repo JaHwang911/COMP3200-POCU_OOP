@@ -5,6 +5,15 @@ import academy.pocu.comp2500.assignment1.registry.Registry;
 
 import java.util.ArrayList;
 
+/*
+ * 과제1 실수 모음
+ * 매개변수 이름을 정해진 것으로 하지 않음
+ * registry에 클래스 이름 혹은 매서드 이름을 올바르게 적지 않음
+ * 포스트 클래스에서 생성자로 받은 인자들의 getter로 언제나 같은 자료형을 리턴해야함
+ * 추천 비추천을 취소하는 기능도 있어야함
+ * 만들다 보면 서로 연관되어 있는 부분이 많습니다. 그런 부분들의 통일을 잘 생각 해보시면 수월 하실 겁니다.
+ */
+
 public class Program {
     public static void main(String[] args) {
 //        testFilter();
