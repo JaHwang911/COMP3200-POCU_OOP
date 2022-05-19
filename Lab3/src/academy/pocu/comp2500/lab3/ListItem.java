@@ -57,7 +57,7 @@ public class ListItem {
         return buffer.toString();
     }
 
-    public String toString(int level) {
+    private String toString(int level) {
         StringBuilder buffer = new StringBuilder();
 
         for (int i = 0; i < level; ++i) {
