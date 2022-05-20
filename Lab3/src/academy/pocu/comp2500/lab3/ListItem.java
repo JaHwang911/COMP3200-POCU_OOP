@@ -47,12 +47,12 @@ public class ListItem {
     }
 
     public String toString() {
-        final int depthLevel = 0;
+        final int DEPTH_LEVEL = 0;
         StringBuilder buffer = new StringBuilder();
         buffer.append(String.format("%c %s%s", this.bulletStyle, this.text, System.lineSeparator()));
 
         for (ListItem subListItem : this.subListItems) {
-            buffer.append(subListItem.toString(depthLevel + 1));
+            buffer.append(subListItem.toString(DEPTH_LEVEL + 1));
         }
 
         return buffer.toString();
