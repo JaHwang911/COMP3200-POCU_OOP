@@ -4,17 +4,17 @@ import java.util.ArrayList;
 
 public class Blog {
     private final ArrayList<Post> posts;
-    private OrderType orderType;
+    private SortType sortType;
     private FilterType filterType;
-    private final ArrayList<String> filteredTags;
-    private String filteredAuthor;
+    private final ArrayList<String> filteringTags;
+    private String filteringAuthor;
 
     public Blog() {
         this.posts = new ArrayList<>(128);
-        this.orderType = OrderType.NORMAL;
+        this.sortType = SortType.NORMAL;
         this.filterType = FilterType.UNSET;
-        this.filteredTags = new ArrayList<>(16);
-        this.filteredAuthor = null;
+        this.filteringTags = new ArrayList<>(32);
+        this.filteringAuthor = null;
     }
 
     public void addPost(Post post) {
@@ -26,50 +26,38 @@ public class Blog {
 
         switch (filterType) {
             case UNSET:
-                assert this.filteredTags.size() == 0;
-                assert this.filteredAuthor == null;
-
                 resultPosts.addAll(this.posts);
                 break;
             case TAG:
-                assert this.filteredTags.size() > 0;
-                assert this.filteredAuthor == null;
+                for (Post post : this.posts) {
+                    ArrayList<String> tags = post.getTag();
 
-                for (Post p : this.posts) {
-                    ArrayList<String> tags = p.getTag();
-
-                    for (String t : tags) {
-                        if (this.filteredTags.contains(t)) {
-                            resultPosts.add(p);
+                    for (String tag : tags) {
+                        if (this.filteringTags.contains(tag)) {
+                            resultPosts.add(post);
                             break;
                         }
                     }
                 }
                 break;
             case AUTHOR:
-                assert this.filteredTags.size() == 0;
-                assert this.filteredAuthor != null;
-
-                for (Post p : this.posts) {
-                    if (p.getName().equals(this.filteredAuthor)) {
-                        resultPosts.add(p);
+                for (Post post : this.posts) {
+                    if (post.getAuthor().equals(this.filteringAuthor)) {
+                        resultPosts.add(post);
                     }
                 }
                 break;
             case COMBO:
-                assert this.filteredTags.size() > 0;
-                assert this.filteredAuthor != null;
-
-                for (Post p : this.posts) {
-                    if (!p.getName().equals(this.filteredAuthor)) {
+                for (Post post : this.posts) {
+                    if (!post.getAuthor().equals(this.filteringAuthor)) {
                         continue;
                     }
 
-                    ArrayList<String> tags = p.getTag();
+                    ArrayList<String> tags = post.getTag();
 
-                    for (String t : tags) {
-                        if (this.filteredTags.contains(t)) {
-                            resultPosts.add(p);
+                    for (String tag : tags) {
+                        if (this.filteringTags.contains(tag)) {
+                            resultPosts.add(post);
                             break;
                         }
                     }
@@ -80,7 +68,7 @@ public class Blog {
                 break;
         }
 
-        switch (this.orderType) {
+        switch (this.sortType) {
             case NORMAL:
             case CREATED:
                 sortByCreated(resultPosts);
@@ -106,29 +94,27 @@ public class Blog {
     }
 
     public boolean removePosts(String name, Post post) {
-        if (!name.equals(post.getName())) {
+        if (!name.equals(post.getAuthor())) {
             return false;
         }
 
-        this.posts.remove(post);
-
-        return false;
+        return this.posts.remove(post);
     }
 
     public void setFilterOnOffByTags(ArrayList<String> tags) {
         if (tags.size() == 0) {
             switch (this.filterType) {
                 case TAG:
-                    assert this.filteredAuthor == null;
+                    assert this.filteringAuthor == null;
 
                     this.filterType = FilterType.UNSET;
-                    this.filteredTags.clear();
+                    this.filteringTags.clear();
                     return;
                 case COMBO:
-                    assert this.filteredAuthor != null;
+                    assert this.filteringAuthor != null;
 
                     this.filterType = FilterType.AUTHOR;
-                    this.filteredTags.clear();
+                    this.filteringTags.clear();
                     return;
                 default:
                     return;
@@ -139,14 +125,14 @@ public class Blog {
             case UNSET:
             case TAG:
                 this.filterType = FilterType.TAG;
-                this.filteredTags.clear();
-                this.filteredTags.addAll(tags);
+                this.filteringTags.clear();
+                this.filteringTags.addAll(tags);
                 break;
             case AUTHOR:
             case COMBO:
                 this.filterType = FilterType.COMBO;
-                this.filteredTags.clear();
-                this.filteredTags.addAll(tags);
+                this.filteringTags.clear();
+                this.filteringTags.addAll(tags);
                 break;
             default:
                 assert false : "Unknown filter type";
@@ -158,17 +144,17 @@ public class Blog {
         if (authorOrNull == null) {
             switch (this.filterType) {
                 case AUTHOR:
-                    assert this.filteredTags.size() == 0;
+                    assert this.filteringTags.size() == 0;
 
                     this.filterType = FilterType.UNSET;
-                    this.filteredAuthor = null;
+                    this.filteringAuthor = null;
 
                     return;
                 case COMBO:
-                    assert this.filteredTags.size() > 0;
+                    assert this.filteringTags.size() > 0;
 
                     this.filterType = FilterType.TAG;
-                    this.filteredAuthor = null;
+                    this.filteringAuthor = null;
 
                     return;
                 default:
@@ -180,12 +166,12 @@ public class Blog {
             case UNSET:
             case AUTHOR:
                 this.filterType = FilterType.AUTHOR;
-                this.filteredAuthor = authorOrNull;
+                this.filteringAuthor = authorOrNull;
                 break;
             case TAG:
             case COMBO:
                 this.filterType = FilterType.COMBO;
-                this.filteredAuthor = authorOrNull;
+                this.filteringAuthor = authorOrNull;
                 break;
             default:
                 assert false : "Unknown filter type";
@@ -193,8 +179,8 @@ public class Blog {
         }
     }
 
-    public void setOrderType(OrderType sortingType) {
-        this.orderType = sortingType;
+    public void setSortType(SortType sortingType) {
+        this.sortType = sortingType;
     }
 
     private void sortByCreated(ArrayList<Post> filteredPosts) {

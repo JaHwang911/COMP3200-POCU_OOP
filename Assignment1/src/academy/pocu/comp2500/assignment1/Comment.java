@@ -39,14 +39,7 @@ public class Comment {
             return false;
         }
 
-        for (Comment c : this.subcomments) {
-            if (c.equals(comment)) {
-                this.subcomments.remove(c);
-                return true;
-            }
-        }
-
-        return false;
+        return this.subcomments.remove(comment);
     }
 
     public int getUpvote() {
@@ -62,10 +55,8 @@ public class Comment {
     }
 
     public boolean addUpvote(String name) {
-        for (String u : this.upvoter) {
-            if (u.equals(name)) {
-                return false;
-            }
+        if (this.upvoter.contains(name)) {
+            return false;
         }
 
         this.upvoter.add(name);
@@ -73,21 +64,12 @@ public class Comment {
     }
 
     public boolean cancelUpvote(String name) {
-        for (String u : this.upvoter) {
-            if (u.equals(name)) {
-                this.upvoter.remove(u);
-                return true;
-            }
-        }
-
-        return false;
+        return this.upvoter.remove(name);
     }
 
     public boolean addDownvote(String name) {
-        for (String u : this.downvoter) {
-            if (u.equals(name)) {
-                return false;
-            }
+        if (this.downvoter.contains(name)) {
+            return false;
         }
 
         this.downvoter.add(name);
@@ -95,19 +77,12 @@ public class Comment {
     }
 
     public boolean cancelDownvote(String name) {
-        for (String u : this.downvoter) {
-            if (u.equals(name)) {
-                this.downvoter.remove(name);
-                return true;
-            }
-        }
-
-        return false;
+        return this.downvoter.remove(name);
     }
 
     public boolean modifyComment(String name, String comment) {
         if (!this.name.equals(name)) {
-            System.out.println("This Comment is not your");
+            System.out.println("This is not your comment");
             return false;
         }
 

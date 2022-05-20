@@ -24,8 +24,8 @@ public class Post {
         this.author = author;
         this.title = title;
         this.body = body;
-        this.tags = new ArrayList<>(128);
-        this.comments = new ArrayList<>(128);
+        this.tags = new ArrayList<>(32);
+        this.comments = new ArrayList<>(32);
         reactionGreat = new ArrayList<>(32);
         reactionSad = new ArrayList<>(32);
         reactionAngry = new ArrayList<>(32);
@@ -35,7 +35,7 @@ public class Post {
         this.modifiedTime = now;
     }
 
-    public String getName() {
+    public String getAuthor() {
         return this.author;
     }
 
@@ -56,14 +56,11 @@ public class Post {
     }
 
     public boolean addTag(String author, String tag) {
-        if (!this.author.equals(author)) {
-            return false;
-        } else if (this.tags.contains(tag)) {
+        if (!this.author.equals(author) || this.tags.contains(tag)) {
             return false;
         }
 
-        this.tags.add(tag);
-        return true;
+        return this.tags.add(tag);
     }
 
     public ArrayList<String> getTag() {
@@ -75,8 +72,7 @@ public class Post {
             return false;
         }
 
-        this.tags.remove(tag);
-        return true;
+        return this.tags.remove(tag);
     }
 
     public void addComment(Comment comment) {
@@ -93,63 +89,41 @@ public class Post {
             return false;
         }
 
-        for (Comment c : this.comments) {
-            if (c.equals(comment)) {
-                this.comments.remove(comment);
-                return true;
-            }
-        }
-
-        return false;
+        return this.comments.remove(comment);
     }
 
     public boolean addReaction(String name, ReactionType reactionType) {
         switch (reactionType) {
             case GREAT:
-                for (String userName : this.reactionGreat) {
-                    if (userName.equals(name)) {
-                        return false;
-                    }
+                if (this.reactionGreat.contains(name)) {
+                    return false;
                 }
 
-                reactionGreat.add(name);
-                return true;
+                return this.reactionGreat.add(name);
             case SAD:
-                for (String userName : this.reactionSad) {
-                    if (userName.equals(name)) {
-                        return false;
-                    }
+                if (this.reactionSad.contains(name)) {
+                    return false;
                 }
 
-                reactionSad.add(name);
-                return true;
+                return this.reactionSad.add(name);
             case ANGRY:
-                for (String userName : this.reactionAngry) {
-                    if (userName.equals(name)) {
-                        return false;
-                    }
+                if (this.reactionAngry.contains(name)) {
+                    return false;
                 }
 
-                reactionAngry.add(name);
-                return true;
+                return this.reactionAngry.add(name);
             case FUN:
-                for (String userName : this.reactionFun) {
-                    if (userName.equals(name)) {
-                        return false;
-                    }
+                if (this.reactionFun.contains(name)) {
+                    return false;
                 }
 
-                reactionFun.add(name);
-                return true;
+                return this.reactionFun.add(name);
             case LOVE:
-                for (String userName : this.reactionLove) {
-                    if (userName.equals(name)) {
-                        return false;
-                    }
+                if (this.reactionLove.contains(name)) {
+                    return false;
                 }
 
-                reactionLove.add(name);
-                return true;
+                return this.reactionLove.add(name);
             default:
                 assert false : "Unknown Reaction type";
                 return false;
@@ -177,50 +151,15 @@ public class Post {
     public boolean removeReaction(String name, ReactionType reactionType) {
         switch (reactionType) {
             case GREAT:
-                for (String userName : this.reactionGreat) {
-                    if (userName.equals(name)) {
-                        this.reactionGreat.remove(userName);
-                        return true;
-                    }
-                }
-
-                return false;
+                return this.reactionGreat.remove(name);
             case SAD:
-                for (String userName : this.reactionSad) {
-                    if (userName.equals(name)) {
-                        this.reactionSad.remove(userName);
-                        return true;
-                    }
-                }
-
-                return false;
+                return this.reactionSad.remove(name);
             case ANGRY:
-                for (String userName : this.reactionAngry) {
-                    if (userName.equals(name)) {
-                        this.reactionAngry.remove(userName);
-                        return true;
-                    }
-                }
-
-                return false;
+                return this.reactionAngry.remove(name);
             case FUN:
-                for (String userName : this.reactionFun) {
-                    if (userName.equals(name)) {
-                        this.reactionFun.remove(userName);
-                        return true;
-                    }
-                }
-
-                return false;
+                return this.reactionFun.remove(name);
             case LOVE:
-                for (String userName : this.reactionLove) {
-                    if (userName.equals(name)) {
-                        this.reactionLove.remove(userName);
-                        return true;
-                    }
-                }
-
-                return false;
+                return this.reactionLove.remove(name);
             default:
                 assert false : "Unknown Reaction type";
                 return false;
@@ -229,6 +168,7 @@ public class Post {
 
     public boolean modifyTitle(String author, String title) {
         if (!this.author.equals(author)) {
+            System.out.println("This is not your post");
             return false;
         }
 
@@ -240,6 +180,7 @@ public class Post {
 
     public boolean modifyBody(String author, String body) {
         if (!this.author.equals(author)) {
+            System.out.println("This is not your post");
             return false;
         }
 

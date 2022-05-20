@@ -47,27 +47,28 @@ public class ListItem {
     }
 
     public String toString() {
+        final int depthLevel = 0;
         StringBuilder buffer = new StringBuilder();
         buffer.append(String.format("%c %s%s", this.bulletStyle, this.text, System.lineSeparator()));
 
-        for (ListItem l : this.subListItems) {
-            buffer.append(l.toString(1));
+        for (ListItem subListItem : this.subListItems) {
+            buffer.append(subListItem.toString(depthLevel + 1));
         }
 
         return buffer.toString();
     }
 
-    private String toString(int level) {
+    private String toString(final int depthLevel) {
         StringBuilder buffer = new StringBuilder();
 
-        for (int i = 0; i < level; ++i) {
+        for (int i = 0; i < depthLevel; ++i) {
             buffer.append("    ");
         }
 
         buffer.append(String.format("%c %s%s", this.bulletStyle, this.text, System.lineSeparator()));
 
-        for (ListItem l : this.subListItems) {
-            buffer.append(l.toString(level + 1));
+        for (ListItem subListItem : this.subListItems) {
+            buffer.append(subListItem.toString(depthLevel + 1));
         }
 
         return buffer.toString();

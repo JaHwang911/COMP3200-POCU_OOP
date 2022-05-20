@@ -47,7 +47,7 @@ public class Program {
         tags.add("t1");
 
         blog.setFilterOnOffByTags(tags);
-        blog.setOrderType(OrderType.CREATED_DESC);
+        blog.setSortType(SortType.CREATED_DESC);
 
         var filteredTag = blog.getPosts();
 

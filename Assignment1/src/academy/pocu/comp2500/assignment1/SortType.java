@@ -1,6 +1,6 @@
 package academy.pocu.comp2500.assignment1;
 
-public enum OrderType {
+public enum SortType {
     NORMAL,
     CREATED,
     CREATED_DESC,
