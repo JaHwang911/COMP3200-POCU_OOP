@@ -8,6 +8,8 @@
       <sourceFolder url="file://$MODULE_DIR$/Test/garden/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Test/ref_getter/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/ref_getter/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/sample_pocutunes/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/sample_vehicle/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/test_ref_getter/src" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
