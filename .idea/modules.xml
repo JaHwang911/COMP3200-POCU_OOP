@@ -18,6 +18,7 @@
       <module fileurl="file://$PROJECT_DIR$/Lab8/Lab8.iml" filepath="$PROJECT_DIR$/Lab8/Lab8.iml" />
       <module fileurl="file://$PROJECT_DIR$/Lab9/Lab9.iml" filepath="$PROJECT_DIR$/Lab9/Lab9.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/OOP.iml" filepath="$PROJECT_DIR$/.idea/OOP.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TestMath/TestMath.iml" filepath="$PROJECT_DIR$/TestMath/TestMath.iml" />
     </modules>
   </component>
 </project>
