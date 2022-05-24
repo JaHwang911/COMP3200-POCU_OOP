@@ -1,21 +1,31 @@
 package academy.pocu.comp2500.lab4.app;
 
 import java.util.ArrayList;
+import academy.pocu.comp2500.lab4.MemoryCache;
 
 public class Program {
 
     public static void main(String[] args) {
-        ArrayList<String> test = new ArrayList<>();
+        {
+            MemoryCache memCacheA = MemoryCache.getInstance("A");
 
-        test.add("Hi");
-        test.add("My");
-        test.add("Name");
+            MemoryCache memCacheB = MemoryCache.getInstance("B");
+            MemoryCache memCacheC = MemoryCache.getInstance("C");
 
-        test.remove(1);
+            assert memCacheA == MemoryCache.getInstance("A");
+            assert memCacheB == MemoryCache.getInstance("B");
+            assert memCacheC == MemoryCache.getInstance("C");
 
-        System.out.println(test.get(0));
-        System.out.println(test.get(1));
+            MemoryCache.setMaxInstanceCount(3);
 
-        // 만약 현재 위치에 있는 인데스
+            MemoryCache memCacheD = MemoryCache.getInstance("D");
+
+            assert memCacheA != MemoryCache.getInstance("A");
+            assert memCacheC == MemoryCache.getInstance("C");
+            assert memCacheB != MemoryCache.getInstance("B");
+            assert memCacheD != MemoryCache.getInstance("D");
+
+            System.out.println("No prob");
+        }
     }
 }

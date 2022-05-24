@@ -28,49 +28,35 @@ public class MemoryCache {
         if (caches.get(name) != null) {
             if (evictionPolicy == EvictionPolicy.LEAST_RECENTLY_USED) {
                 cachesPriority.remove(name);
-                cachesPriority.add(name);
+                cachesPriority.addFirst(name);
             }
 
             return caches.get(name);
         }
 
         if (numInstance == maxInstance) {
-            String tmpName = null;
-
-            switch (evictionPolicy) {
-                case FIRST_IN_FIRST_OUT:
-                case LEAST_RECENTLY_USED:
-                    tmpName = cachesPriority.getFirst();
-                    break;
-                case LAST_IN_FIRST_OUT:
-                    tmpName = cachesPriority.getLast();
-                    break;
-                default:
-                    assert false : "Unknown eviction policy type";
-                    break;
-            }
-
-            assert tmpName != null : "Cache priority zero... wrong priority add or delete";
-
-            caches.remove(tmpName);
-            cachesPriority.remove(tmpName);
+            removeCacheByEvictionPolicy();
         }
 
         caches.put(name, new MemoryCache(name));
-        cachesPriority.add(name);
+        cachesPriority.addFirst(name);
 
-        assert caches.size() == cachesPriority.size() : "";
+        assert caches.size() == cachesPriority.size();
 
         return caches.get(name);
     }
 
-    public void setInstanceCount(int max) {
+    public static void setMaxInstanceCount(int max) {
         assert max != 0 : "Max instance count can never be zero";
 
         maxInstance = max;
+
+        while (numInstance > maxInstance) {
+            removeCacheByEvictionPolicy();
+        }
     }
 
-    public void setEvictionPolicy(EvictionPolicy policyType) {
+    public static void setEvictionPolicy(EvictionPolicy policyType) {
         evictionPolicy = policyType;
     }
 
@@ -79,5 +65,28 @@ public class MemoryCache {
         cachesPriority.clear();
 
         numInstance = 0;
+    }
+
+    private static void removeCacheByEvictionPolicy() {
+        String removedCache = null;
+
+        switch (evictionPolicy) {
+            case FIRST_IN_FIRST_OUT:
+            case LEAST_RECENTLY_USED:
+                removedCache = cachesPriority.getLast();
+                break;
+            case LAST_IN_FIRST_OUT:
+                removedCache = cachesPriority.getFirst();
+                break;
+            default:
+                assert false : "Unknown eviction policy type";
+                break;
+        }
+
+        assert removedCache != null : "Cache priority zero... wrong priority add or delete";
+
+        caches.remove(removedCache);
+        cachesPriority.remove(removedCache);
+        --numInstance;
     }
 }
