@@ -2,25 +2,21 @@ package academy.pocu.comp2500.lab4;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 
-/*
-    개체 마다 자기 순서를 가지고 있고 만약 어떤 일을 하면 그 개체의 순서는 1로 바꾸고
-    0 부터 그 개체의 원래 순서의 값 만큼 for 문 돌면서 값을 순선의 값을 1씩 올려 줌
-*/
 public class MemoryCache {
     private final String diskName;
     private final HashMap<String, String> entry;
-    private int priority;
 
     private static int numInstance;
     private static int maxInstance = Integer.MAX_VALUE;
     private static EvictionPolicy evictionPolicy = EvictionPolicy.LEAST_RECENTLY_USED;
-    private static ArrayList<MemoryCache> caches;
+    private static final HashMap<String, MemoryCache> caches = new HashMap<>(256);
+    private static final LinkedList<String> cachesPriority = new LinkedList<>();
 
     private MemoryCache(String name) {
         this.diskName = name;
         this.entry = new HashMap<>(256);
-        this.priority = 0;
         ++numInstance;
     }
 
@@ -29,28 +25,43 @@ public class MemoryCache {
     }
 
     public static MemoryCache getInstance(String name) {
-        for (MemoryCache cache : caches) {
-            if (cache.getDiskName().equals(name)) {
-                return cache;
+        if (caches.get(name) != null) {
+            if (evictionPolicy == EvictionPolicy.LEAST_RECENTLY_USED) {
+                cachesPriority.remove(name);
+                cachesPriority.add(name);
             }
+
+            return caches.get(name);
         }
 
         if (numInstance == maxInstance) {
-            // Delete instance by eviction policy
+            String tmpName = null;
+
             switch (evictionPolicy) {
                 case FIRST_IN_FIRST_OUT:
-                    caches.remove(0);
+                case LEAST_RECENTLY_USED:
+                    tmpName = cachesPriority.getFirst();
                     break;
                 case LAST_IN_FIRST_OUT:
-                    caches.remove(maxInstance - 1);
+                    tmpName = cachesPriority.getLast();
+                    break;
+                default:
+                    assert false : "Unknown eviction policy type";
                     break;
             }
+
+            assert tmpName != null : "Cache priority zero... wrong priority add or delete";
+
+            caches.remove(tmpName);
+            cachesPriority.remove(tmpName);
         }
 
-        MemoryCache retInstance = new MemoryCache(name);
-        caches.add(retInstance);
+        caches.put(name, new MemoryCache(name));
+        cachesPriority.add(name);
 
-        return retInstance;
+        assert caches.size() == cachesPriority.size() : "";
+
+        return caches.get(name);
     }
 
     public void setInstanceCount(int max) {
@@ -64,25 +75,9 @@ public class MemoryCache {
     }
 
     public void clear() {
-        caches = null;
+        caches.clear();
+        cachesPriority.clear();
+
         numInstance = 0;
-    }
-
-    private void setPriority(int priority) {
-        this.priority = priority;
-    }
-
-    private int getPriority() {
-        return this.priority;
-    }
-
-    private void fixPriority(int priorityOfInstance) {
-        for (MemoryCache cache : caches) {
-            int priority = cache.getPriority();
-
-            if (priority < priorityOfInstance) {
-                cache.setPriority(priority + 1);
-            }
-        }
     }
 }
