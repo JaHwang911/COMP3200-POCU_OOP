@@ -8,9 +8,9 @@ import academy.pocu.comp2500.lab4.EvictionPolicy;
 public class Program {
 
     public static void main(String[] args) {
-//        testOfficial();
+        testOfficial();
 //        testManyCaches();
-        testManyEntry();
+//        testManyEntry();
 
         System.out.println("No prob");
     }

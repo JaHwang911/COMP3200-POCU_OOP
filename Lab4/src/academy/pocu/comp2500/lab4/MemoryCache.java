@@ -1,11 +1,9 @@
 package academy.pocu.comp2500.lab4;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
 public class MemoryCache {
-    private final String diskName;
     private int maxEntryCount;
     private final HashMap<String, String> entry;
     private final LinkedList<String> entryRecentlyUsed;
@@ -13,43 +11,38 @@ public class MemoryCache {
 
     private static int maxInstanceCount = Integer.MAX_VALUE;
     private static EvictionPolicy evictionPolicy = EvictionPolicy.LEAST_RECENTLY_USED;
-    private static final HashMap<String, MemoryCache> caches = new HashMap<>(256);
-    private static final LinkedList<String> cachesRecentlyUsed = new LinkedList<>();
-    private static final LinkedList<String> cachesAdded = new LinkedList<>();
+    private static final HashMap<String, MemoryCache> CACHES = new HashMap<>(256);
+    private static final LinkedList<String> CACHES_RECENTLY_USED = new LinkedList<>();
+    private static final LinkedList<String> CACHES_ADDED = new LinkedList<>();
 
     private MemoryCache(String name) {
-        this.diskName = name;
         this.maxEntryCount = Integer.MAX_VALUE;
         this.entry = new HashMap<>(256);
         this.entryRecentlyUsed = new LinkedList<>();
         this.entryAdded = new LinkedList<>();
     }
 
-    public String getDiskName() {
-        return this.diskName;
-    }
-
     public static MemoryCache getInstance(String name) {
-        if (caches.containsKey(name)) {
-            cachesRecentlyUsed.remove(name);
-            cachesRecentlyUsed.addFirst(name);
+        if (CACHES.containsKey(name)) {
+            CACHES_RECENTLY_USED.remove(name);
+            CACHES_RECENTLY_USED.addFirst(name);
 
-            assert caches.size() == cachesRecentlyUsed.size();
-            return caches.get(name);
+            assert CACHES.size() == CACHES_RECENTLY_USED.size();
+            return CACHES.get(name);
         }
 
-        if (caches.size() == maxInstanceCount) {
+        if (CACHES.size() == maxInstanceCount) {
             removeCacheByEvictionPolicy();
         }
 
-        caches.put(name, new MemoryCache(name));
-        cachesRecentlyUsed.addFirst(name);
-        cachesAdded.addFirst(name);
+        CACHES.put(name, new MemoryCache(name));
+        CACHES_RECENTLY_USED.addFirst(name);
+        CACHES_ADDED.addFirst(name);
 
-        assert caches.size() == cachesRecentlyUsed.size();
-        assert caches.size() == cachesAdded.size();
+        assert CACHES.size() == CACHES_RECENTLY_USED.size();
+        assert CACHES.size() == CACHES_ADDED.size();
 
-        return caches.get(name);
+        return CACHES.get(name);
     }
 
     public static void setMaxInstanceCount(int max) {
@@ -57,7 +50,7 @@ public class MemoryCache {
 
         maxInstanceCount = max;
 
-        while (caches.size() > maxInstanceCount) {
+        while (CACHES.size() > maxInstanceCount) {
             removeCacheByEvictionPolicy();
         }
     }
@@ -107,9 +100,10 @@ public class MemoryCache {
         evictionPolicy = policyType;
     }
 
-    public void clear() {
-        caches.clear();
-        cachesRecentlyUsed.clear();
+    public static void clear() {
+        CACHES.clear();
+        CACHES_RECENTLY_USED.clear();
+        CACHES_ADDED.clear();
     }
 
     private static void removeCacheByEvictionPolicy() {
@@ -117,13 +111,13 @@ public class MemoryCache {
 
         switch (evictionPolicy) {
             case LEAST_RECENTLY_USED:
-                removedCacheName = cachesRecentlyUsed.getLast();
+                removedCacheName = CACHES_RECENTLY_USED.getLast();
                 break;
             case FIRST_IN_FIRST_OUT:
-                removedCacheName = cachesAdded.getLast();
+                removedCacheName = CACHES_ADDED.getLast();
                 break;
             case LAST_IN_FIRST_OUT:
-                removedCacheName = cachesAdded.getFirst();
+                removedCacheName = CACHES_ADDED.getFirst();
                 break;
             default:
                 assert false : "Unknown eviction policy type";
@@ -132,10 +126,10 @@ public class MemoryCache {
 
         assert removedCacheName != null : "Cache priority zero... wrong priority add or delete";
 
-        MemoryCache removedCache = caches.remove(removedCacheName);
+        MemoryCache removedCache = CACHES.remove(removedCacheName);
         removedCache = null;
-        cachesRecentlyUsed.remove(removedCacheName);
-        cachesAdded.remove(removedCacheName);
+        CACHES_RECENTLY_USED.remove(removedCacheName);
+        CACHES_ADDED.remove(removedCacheName);
     }
 
     private void removeEntryByEvictionPolicy() {
