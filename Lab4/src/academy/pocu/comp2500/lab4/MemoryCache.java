@@ -96,7 +96,7 @@ public class MemoryCache {
         }
     }
 
-    public static void setEvictionPolicy(EvictionPolicy policyType) {
+    public void setEvictionPolicy(EvictionPolicy policyType) {
         evictionPolicy = policyType;
     }
 
