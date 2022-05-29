@@ -1,61 +1,33 @@
 package academy.pocu.comp2500.lab4;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 
 public class MemoryCache {
-    private final String name;
     private int maxEntryCount;
-    private MemoryCache previous;
-    private MemoryCache next;
-    private MemoryCache lruPrevious;
-    private MemoryCache lruNext;
-    private final HashMap<String, Entry> entry;
-    private String firstEntryKey;
-    private String lastEntryKey;
-    private String lruFirstEntryKey;
-    private String lruLastEntryKey;
+    private final HashMap<String, String> entry;
+    private final LinkedList<String> entryRecentlyUsed;
+    private final LinkedList<String> entryAdded;
 
     private static int maxInstanceCount = Integer.MAX_VALUE;
     private static EvictionPolicy evictionPolicy = EvictionPolicy.LEAST_RECENTLY_USED;
     private static final HashMap<String, MemoryCache> CACHES = new HashMap<>(256);
-    private static String firstCacheName;
-    private static String lastCacheName;
-    private static String lruFirstCacheName;
-    private static String lruLastCacheName;
+    private static final LinkedList<String> CACHES_RECENTLY_USED = new LinkedList<>();
+    private static final LinkedList<String> CACHES_ADDED = new LinkedList<>();
 
-    private MemoryCache(String name, MemoryCache lruNextOrNull, MemoryCache previous) {
-        this.name = name;
+    private MemoryCache(String name) {
         this.maxEntryCount = Integer.MAX_VALUE;
-        this.lruNext = lruNextOrNull;
-        this.previous = previous;
-        this.entry = new HashMap<>();
+        this.entry = new HashMap<>(256);
+        this.entryRecentlyUsed = new LinkedList<>();
+        this.entryAdded = new LinkedList<>();
     }
 
     public static MemoryCache getInstance(String name) {
         if (CACHES.containsKey(name)) {
-            MemoryCache current = CACHES.get(name);
-            MemoryCache previous = current.lruPrevious;
-            MemoryCache next = current.lruNext;
+            CACHES_RECENTLY_USED.remove(name);
+            CACHES_RECENTLY_USED.addFirst(name);
 
-            if (next == null) {
-                assert lruLastCacheName.equals(current.name);
-
-                lruLastCacheName = previous.name;
-                previous.lruNext = null;
-            } else {
-                previous.lruNext = next;
-                next.lruPrevious = previous;
-            }
-
-            MemoryCache firstCache = CACHES.get(lruFirstCacheName);
-
-            current.lruPrevious = firstCache.lruPrevious;
-            current.lruNext = firstCache;
-
-            firstCache.lruPrevious = current;
-
-            lruFirstCacheName = current.name;
-
+            assert CACHES.size() == CACHES_RECENTLY_USED.size();
             return CACHES.get(name);
         }
 
@@ -63,31 +35,14 @@ public class MemoryCache {
             removeCacheByEvictionPolicy();
         }
 
-        if (CACHES.size() == 0) {
-            CACHES.put(name, new MemoryCache(name,null, null));
+        CACHES.put(name, new MemoryCache(name));
+        CACHES_RECENTLY_USED.addFirst(name);
+        CACHES_ADDED.addFirst(name);
 
-            lruFirstCacheName = name;
-            lruLastCacheName = name;
+        assert CACHES.size() == CACHES_RECENTLY_USED.size();
+        assert CACHES.size() == CACHES_ADDED.size();
 
-            firstCacheName = name;
-            lastCacheName = name;
-
-            return CACHES.get(name);
-        }
-
-        MemoryCache lruFirstCache = CACHES.get(lruFirstCacheName);
-        MemoryCache lastOrderedCache = CACHES.get(lastCacheName);
-        MemoryCache current = new MemoryCache(name, lruFirstCache, lastOrderedCache);
-
-        CACHES.put(name, current);
-
-        lruFirstCache.lruPrevious = current;
-        lastOrderedCache.next = current;
-
-        lruFirstCacheName = name;
-        lastCacheName = name;
-
-        return current;
+        return CACHES.get(name);
     }
 
     public static void setMaxInstanceCount(int max) {
@@ -100,44 +55,12 @@ public class MemoryCache {
         }
     }
 
-    public void setEvictionPolicy(EvictionPolicy policyType) {
-        evictionPolicy = policyType;
-    }
-
     public void addEntry(String key, String value) {
         if (this.entry.containsKey(key)) {
-            Entry current = this.entry.get(key);
-            Entry prev = current.getLruPrevious();
-            Entry next = current.getLruNext();
+            this.entryRecentlyUsed.remove(key);
+            this.entryRecentlyUsed.addFirst(key);
 
-            current.setValue(value);
-
-            if (this.entry.size() == 1) {
-                return;
-            }
-
-            if (next == null) {
-                assert this.lruLastEntryKey.equals(current.getKey());
-
-                this.lruLastEntryKey = prev.getKey();
-                prev.setLruNext(null);
-                return;
-            } else if (prev == null) {
-                next.setLruPrevious(null);
-                this.lruFirstEntryKey = next.getKey();
-                return;
-            }
-
-            prev.setLruNext(next);
-            next.setLruPrevious(prev);
-
-            Entry firstEntry = this.entry.get(this.lruFirstEntryKey);
-
-            current.setLruPrevious(null);
-            current.setLruNext(firstEntry);
-            firstEntry.setLruPrevious(current);
-            this.lruFirstEntryKey = key;
-
+            this.entry.replace(key, value);
             return;
         }
 
@@ -145,57 +68,20 @@ public class MemoryCache {
             removeEntryByEvictionPolicy();
         }
 
-        if (this.entry.size() == 0) {
-            this.entry.put(key, new Entry(key, value, null, null));
+        this.entry.put(key, value);
+        this.entryRecentlyUsed.addFirst(key);
+        this.entryAdded.addFirst(key);
 
-            this.lruFirstEntryKey = key;
-            this.lruLastEntryKey = key;
-
-            this.firstEntryKey = key;
-            this.lastEntryKey = key;
-
-            return;
-        }
-
-        Entry lruFirstEntry = this.entry.get(this.lruFirstEntryKey);
-        Entry lastOrderedEntry = this.entry.get(this.lastEntryKey);
-        Entry current = new Entry(key, value, lastOrderedEntry, lruFirstEntry);
-
-        this.entry.put(key, current);
-
-        lruFirstEntry.setLruPrevious(current);
-        lastOrderedEntry.setNext(current);
-
-        this.lruFirstEntryKey = key;
-        this.lastEntryKey = key;
+        assert this.entry.size() == this.entryRecentlyUsed.size();
+        assert this.entry.size() == this.entryAdded.size();
     }
 
     public String getEntryOrNull(String key) {
         if (this.entry.containsKey(key)) {
-            Entry current = this.entry.get(key);
-            Entry prev = current.getLruPrevious();
-            Entry next = current.getLruNext();
-            Entry firstEntry = this.entry.get(this.lruFirstEntryKey);
+            this.entryRecentlyUsed.remove(key);
+            this.entryRecentlyUsed.addFirst(key);
 
-            if (this.entry.size() == 1) {
-                return current.getValue();
-            }
-
-            if (next == null) {
-                prev.setLruNext(null);
-                this.lruLastEntryKey = prev.getKey();
-            } else {
-                prev.setLruNext(next);
-                next.setLruPrevious(prev);
-            }
-
-            current.setLruPrevious(null);
-            current.setLruNext(firstEntry);
-            firstEntry.setLruPrevious(current);
-
-            this.lruFirstEntryKey = key;
-
-            return current.getValue();
+            return this.entry.get(key);
         }
 
         return null;
@@ -210,150 +96,67 @@ public class MemoryCache {
         }
     }
 
+    public void setEvictionPolicy(EvictionPolicy policyType) {
+        evictionPolicy = policyType;
+    }
+
     public static void clear() {
         CACHES.clear();
+        CACHES_RECENTLY_USED.clear();
+        CACHES_ADDED.clear();
     }
 
     private static void removeCacheByEvictionPolicy() {
-        MemoryCache removedCache;
-        MemoryCache prev;
-        MemoryCache next;
+        String removedCacheName = null;
 
         switch (evictionPolicy) {
             case LEAST_RECENTLY_USED:
-                removedCache = CACHES.remove(lruLastCacheName);
-
-                lruLastCacheName = removedCache.lruPrevious.name;
-                CACHES.get(lruLastCacheName).lruNext = null;
-
-                prev = removedCache.previous;
-                next = removedCache.next;
-
-                if (prev == null) {
-                    firstCacheName = next.name;
-                    next.previous = null;
-                    break;
-                } else if (next == null) {
-                    lastCacheName = prev.name;
-                    prev.next = null;
-                    break;
-                }
-
-                prev.next = next;
-                next.previous = prev;
-
+                removedCacheName = CACHES_RECENTLY_USED.getLast();
                 break;
             case FIRST_IN_FIRST_OUT:
-                removedCache = CACHES.remove(firstCacheName);
-                firstCacheName = removedCache.next.name;
+                removedCacheName = CACHES_ADDED.getLast();
                 break;
             case LAST_IN_FIRST_OUT:
-                removedCache = CACHES.remove(lastCacheName);
-                lastCacheName = removedCache.previous.name;
+                removedCacheName = CACHES_ADDED.getFirst();
                 break;
             default:
                 assert false : "Unknown eviction policy type";
                 break;
         }
+
+        assert removedCacheName != null : "Cache priority zero... wrong priority add or delete";
+
+        MemoryCache removedCache = CACHES.remove(removedCacheName);
+        removedCache = null;
+        CACHES_RECENTLY_USED.remove(removedCacheName);
+        CACHES_ADDED.remove(removedCacheName);
     }
 
     private void removeEntryByEvictionPolicy() {
-        Entry removedEntry;
-        Entry prev;
-        Entry next;
+        String removedEntry = null;
 
         switch (evictionPolicy) {
             case LEAST_RECENTLY_USED:
-                removedEntry = this.entry.remove(this.lruLastEntryKey);
-                lruLastEntryKey = removedEntry.getLruPrevious().getKey();
-                this.entry.get(lruLastEntryKey).setLruNext(null);
-
-                prev = removedEntry.getPrevious();
-                next = removedEntry.getNext();
-
-                if (this.entry.size() == 0) {
-                    this.firstEntryKey = null;
-                    this.lastEntryKey = null;
-                    this.lruFirstEntryKey = null;
-                    this.lruLastEntryKey = null;
-                    break;
-                }
-
-                if (prev == null) {
-                    this.firstEntryKey = next.getKey();
-                    next.setPrevious(null);
-                    break;
-                } else if (next == null) {
-                    this.lastEntryKey = prev.getKey();
-                    prev.setNext(null);
-                    break;
-                }
-
-                prev.setNext(next);
-                next.setPrevious(prev);
-
+                removedEntry = this.entryRecentlyUsed.getLast();
                 break;
             case FIRST_IN_FIRST_OUT:
-                removedEntry = this.entry.remove(this.firstEntryKey);
-                this.firstEntryKey = removedEntry.getNext().getKey();
-
-                prev = removedEntry.getLruPrevious();
-                next = removedEntry.getLruNext();
-
-                if (this.entry.size() == 0) {
-                    this.firstEntryKey = null;
-                    this.lastEntryKey = null;
-                    this.lruFirstEntryKey = null;
-                    this.lruLastEntryKey = null;
-                    break;
-                }
-
-                if (prev == null) {
-                    this.lruFirstEntryKey = next.getKey();
-                    next.setLruPrevious(null);
-                    break;
-                } else if (next == null) {
-                    this.lruLastEntryKey = prev.getKey();
-                    prev.setLruNext(null);
-                    break;
-                }
-
-                prev.setLruNext(next);
-                next.setLruPrevious(prev);
-
+                removedEntry = this.entryAdded.getLast();
                 break;
             case LAST_IN_FIRST_OUT:
-                removedEntry = this.entry.remove(this.lastEntryKey);
-                this.lastEntryKey = removedEntry.getPrevious().getKey();
-
-                prev = removedEntry.getLruPrevious();
-                next = removedEntry.getLruNext();
-
-                if (this.entry.size() == 0) {
-                    this.firstEntryKey = null;
-                    this.lastEntryKey = null;
-                    this.lruFirstEntryKey = null;
-                    this.lruLastEntryKey = null;
-                    break;
-                }
-
-                if (prev == null) {
-                    this.lruFirstEntryKey = next.getKey();
-                    next.setLruPrevious(null);
-                    break;
-                } else if (next == null) {
-                    this.lruLastEntryKey = prev.getKey();
-                    prev.setLruNext(null);
-                    break;
-                }
-
-                prev.setLruNext(next);
-                next.setLruPrevious(prev);
-
+                removedEntry = this.entryAdded.getFirst();
                 break;
             default:
                 assert false : "Unknown eviction policy type";
                 break;
         }
+
+        assert (removedEntry != null) : "Entry priority zero... wrong priority add or delete";
+
+        this.entry.remove(removedEntry);
+        this.entryRecentlyUsed.remove(removedEntry);
+        this.entryAdded.remove(removedEntry);
+
+        assert this.entry.size() == this.entryRecentlyUsed.size();
+        assert this.entry.size() == this.entryAdded.size();
     }
 }
