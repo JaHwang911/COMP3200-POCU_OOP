@@ -64,7 +64,7 @@ public class MemoryCache {
         }
 
         if (CACHES.size() == 0) {
-            CACHES.put(name, new MemoryCache(name,null, null));
+            CACHES.put(name, new MemoryCache(name, null, null));
 
             lruFirstCacheName = name;
             lruLastCacheName = name;
@@ -246,10 +246,44 @@ public class MemoryCache {
             case FIRST_IN_FIRST_OUT:
                 removedCache = CACHES.remove(firstCacheName);
                 firstCacheName = removedCache.next.name;
+
+                prev = removedCache.lruPrevious;
+                next = removedCache.lruNext;
+
+                if (prev == null) {
+                    lruFirstCacheName = next.name;
+                    next.lruPrevious = null;
+                    break;
+                } else if (next == null) {
+                    lruLastCacheName = prev.name;
+                    prev.lruNext = null;
+                    break;
+                }
+
+                prev.lruNext = next;
+                next.lruPrevious = prev;
+
                 break;
             case LAST_IN_FIRST_OUT:
                 removedCache = CACHES.remove(lastCacheName);
                 lastCacheName = removedCache.previous.name;
+
+                prev = removedCache.lruPrevious;
+                next = removedCache.lruNext;
+
+                if (prev == null) {
+                    lruFirstCacheName = next.name;
+                    next.lruPrevious = null;
+                    break;
+                } else if (next == null) {
+                    lruLastCacheName = prev.name;
+                    prev.lruNext = null;
+                    break;
+                }
+
+                prev.lruNext = next;
+                next.lruPrevious = prev;
+
                 break;
             default:
                 assert false : "Unknown eviction policy type";
