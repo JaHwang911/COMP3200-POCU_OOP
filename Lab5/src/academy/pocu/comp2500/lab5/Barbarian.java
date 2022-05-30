@@ -28,13 +28,19 @@ public class Barbarian {
     }
 
     public void attack(Barbarian enemy) {
+        assert !this.equals(enemy);
+
         double damage = (this.attack - enemy.defence) / 2.0;
         damage = damage < 0 ? 1 : damage;
 
+        System.out.println("================");
+        System.out.printf("%s attack -> %s%s", this.name, enemy.name, System.lineSeparator());
         enemy.takeDamage((int)damage);
     }
 
     protected void takeDamage(int damage) {
+        assert damage > 0;
+
         if (damage >= this.hp) {
             this.hp = 0;
             this.alive = false;
@@ -42,5 +48,8 @@ public class Barbarian {
         }
 
         this.hp -= damage;
+        System.out.printf("%s: %s", this.name, System.lineSeparator());
+        System.out.printf("Take %d damages%s", damage, System.lineSeparator());
+        System.out.println("================");
     }
 }

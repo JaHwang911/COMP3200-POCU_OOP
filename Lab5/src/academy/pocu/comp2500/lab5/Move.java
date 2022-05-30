@@ -24,6 +24,8 @@ public class Move {
     }
 
     public void useMoves() {
+        assert this.count != 0 : "Wrong attack condition";
+
         --this.count;
     }
 

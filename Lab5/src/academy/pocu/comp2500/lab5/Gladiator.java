@@ -27,6 +27,8 @@ public class Gladiator extends Barbarian {
     }
 
     public void attack(String moveName, Barbarian enemy) {
+        assert !this.equals(enemy);
+
         Move move = this.moves.get(moveName);
 
         if (move == null || move.getCount() == 0) {
@@ -34,13 +36,15 @@ public class Gladiator extends Barbarian {
         }
 
         double damage = ((double)this.attack / enemy.defence * move.getPower()) / 2.0;
-        damage = damage < 0 ? 1 : damage;
+        damage = damage < 1 ? 1 : damage;
 
+        System.out.println("================");
+        System.out.printf("%s attack -> %s%s", this.name, enemy.name, System.lineSeparator());
         enemy.takeDamage((int)damage);
         move.useMoves();
     }
 
-    protected void rest() {
+    public void rest() {
         this.hp += 10;
 
         this.moves.forEach((key, value) -> {
