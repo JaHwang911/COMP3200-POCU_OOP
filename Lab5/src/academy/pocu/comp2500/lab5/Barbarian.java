@@ -17,10 +17,6 @@ public class Barbarian {
         this.alive = true;
     }
 
-    public String getName() {
-        return this.name;
-    }
-
     public int getHp() {
         return this.hp;
     }
@@ -39,7 +35,7 @@ public class Barbarian {
 
         System.out.println("================");
         System.out.printf("%s attack -> %s%s", this.name, enemy.name, System.lineSeparator());
-        enemy.takeDamage((int)damage);
+        enemy.takeDamage((int) damage);
     }
 
     protected void takeDamage(int damage) {

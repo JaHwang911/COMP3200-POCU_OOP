@@ -17,7 +17,7 @@ public class Knight extends Gladiator {
 
         System.out.println("================");
         System.out.printf("%s attack together -> %s%s", super.name, enemy.name, System.lineSeparator());
-        enemy.takeDamage((int)damage);
+        enemy.takeDamage((int) damage);
     }
 
     public void setPet(Pet petOrNull) {
