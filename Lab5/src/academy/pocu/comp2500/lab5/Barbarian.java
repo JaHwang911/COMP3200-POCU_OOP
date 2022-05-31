@@ -17,10 +17,6 @@ public class Barbarian {
         this.alive = true;
     }
 
-    public String getName() {
-        return this.name;
-    }
-
     public int getHp() {
         return this.hp;
     }
@@ -39,39 +35,27 @@ public class Barbarian {
 
         System.out.println("================");
         System.out.printf("%s attack -> %s%s", this.name, enemy.name, System.lineSeparator());
-        if ((int) damage >= enemy.hp) {
-            enemy.hp = 0;
-            enemy.alive = false;
+
+        enemy.takeDamage((int) damage);
+    }
+
+    protected void takeDamage(int damage) {
+        assert damage >= 1;
+
+        if (damage >= this.hp) {
+            this.hp = 0;
+            this.alive = false;
             System.out.println("You died");
             System.out.println("================");
             return;
         }
 
-        int beforeHp = enemy.hp;
-        enemy.hp -= (int) damage;
+        int beforeHp = this.hp;
+        this.hp -= damage;
 
-        System.out.printf("%s: %s", enemy.name, System.lineSeparator());
-        System.out.printf("Take %d damages%s", (int) damage, System.lineSeparator());
-        System.out.printf("HP: %d -> %d%s", beforeHp, enemy.hp, System.lineSeparator());
+        System.out.printf("%s: %s", this.name, System.lineSeparator());
+        System.out.printf("Take %d damages%s", damage, System.lineSeparator());
+        System.out.printf("HP: %d -> %d%s", beforeHp, this.hp, System.lineSeparator());
         System.out.println("================");
     }
-
-//    protected void takeDamage(int damage) {
-//        assert damage > 0;
-//
-//        if (damage >= this.hp) {
-//            this.hp = 0;
-//            this.alive = false;
-//            System.out.println("You died");
-//            System.out.println("================");
-//            return;
-//        }
-//
-//        int beforeHp = this.hp;
-//        this.hp -= damage;
-//        System.out.printf("%s: %s", this.name, System.lineSeparator());
-//        System.out.printf("Take %d damages%s", damage, System.lineSeparator());
-//        System.out.printf("HP: %d -> %d%s", beforeHp, this.hp, System.lineSeparator());
-//        System.out.println("================");
-//    }
 }
