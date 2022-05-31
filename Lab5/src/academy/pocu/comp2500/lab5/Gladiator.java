@@ -41,7 +41,7 @@ public class Gladiator extends Barbarian {
         Move move = this.moves.get(moveName);
 
         if (move == null || move.getPowerGauge() == 0) {
-            System.out.println("Not enough move gage or not earned");
+            System.out.println("Not enough move gauge or not earned");
             return;
         }
 

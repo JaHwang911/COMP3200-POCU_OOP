@@ -45,7 +45,7 @@ public class Barbarian {
         if (damage >= this.hp) {
             this.hp = 0;
             this.alive = false;
-            System.out.println("You died");
+            System.out.println("YOU DIED");
             System.out.println("================");
             return;
         }
