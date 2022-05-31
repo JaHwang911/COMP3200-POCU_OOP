@@ -17,7 +17,7 @@ public class Barbarian {
         this.alive = true;
     }
 
-    protected String getName() {
+    public String getName() {
         return this.name;
     }
 
