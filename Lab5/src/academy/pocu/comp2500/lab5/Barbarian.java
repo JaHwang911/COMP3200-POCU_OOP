@@ -2,6 +2,7 @@ package academy.pocu.comp2500.lab5;
 
 public class Barbarian {
     protected String name;
+    protected final int maxHp;
     protected int hp;
     protected final int attack;
     protected final int defence;
@@ -9,7 +10,8 @@ public class Barbarian {
 
     public Barbarian(String name, int hp, int attack, int defence) {
         this.name = name;
-        this.hp = hp;
+        this.maxHp = hp;
+        this.hp = this.maxHp;
         this.attack = attack;
         this.defence = defence;
         this.alive = true;
@@ -28,7 +30,9 @@ public class Barbarian {
     }
 
     public void attack(Barbarian enemy) {
-        assert !this.equals(enemy);
+        if (!this.alive || this.equals(enemy)) {
+            return;
+        }
 
         double damage = (this.attack - enemy.defence) / 2.0;
         damage = damage < 0 ? 1 : damage;
@@ -44,12 +48,16 @@ public class Barbarian {
         if (damage >= this.hp) {
             this.hp = 0;
             this.alive = false;
+            System.out.println("You died");
+            System.out.println("================");
             return;
         }
 
+        int beforeHp = this.hp;
         this.hp -= damage;
         System.out.printf("%s: %s", this.name, System.lineSeparator());
         System.out.printf("Take %d damages%s", damage, System.lineSeparator());
+        System.out.printf("HP: %d -> %d%s", beforeHp, this.hp, System.lineSeparator());
         System.out.println("================");
     }
 }

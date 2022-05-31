@@ -3,8 +3,9 @@ package academy.pocu.comp2500.lab5;
 import java.util.HashMap;
 
 public class Gladiator extends Barbarian {
-    private static final int MAX_MOVE_COUNT = 4;
-    private HashMap<String, Move> moves;
+    private final int REST_ADD_HP = 10;
+    protected static final int MAX_MOVE_COUNT = 4;
+    protected HashMap<String, Move> moves;
 
     public Gladiator(String name, int hp, int attack, int defence) {
         super(name, hp, attack, defence);
@@ -22,33 +23,50 @@ public class Gladiator extends Barbarian {
         return true;
     }
 
-    public boolean removeMove(Move move) {
-        return this.moves.remove(move.getName(), move);
+    public boolean removeMove(String moveName) {
+        Move removedMove = this.moves.get(moveName);
+
+        if (removedMove == null) {
+            return false;
+        }
+
+        return this.moves.remove(moveName, removedMove);
     }
 
     public void attack(String moveName, Barbarian enemy) {
-        assert !this.equals(enemy);
-
-        Move move = this.moves.get(moveName);
-
-        if (move == null || move.getCount() == 0) {
+        if (!super.alive || this.equals(enemy)) {
             return;
         }
 
-        double damage = ((double)this.attack / enemy.defence * move.getPower()) / 2.0;
+        Move move = this.moves.get(moveName);
+
+        if (move == null || move.getPowerGauge() == 0) {
+            System.out.println("Not enough move gage or not earned");
+            return;
+        }
+
+        double damage = ((double)super.attack / enemy.defence * move.getPower()) / 2.0;
         damage = damage < 1 ? 1 : damage;
 
         System.out.println("================");
-        System.out.printf("%s attack -> %s%s", this.name, enemy.name, System.lineSeparator());
+        System.out.printf("%s attack(%s) -> %s%s", super.name, moveName, enemy.name, System.lineSeparator());
         enemy.takeDamage((int)damage);
         move.useMoves();
     }
 
     public void rest() {
-        this.hp += 10;
+        int requiredMaxHp = super.maxHp - super.hp;
+
+        assert requiredMaxHp >= 0;
+
+        if (requiredMaxHp < REST_ADD_HP) {
+            super.hp = super.maxHp;
+        } else {
+            super.hp += REST_ADD_HP;
+        }
 
         this.moves.forEach((key, value) -> {
-            value.addMoveCount();
+            value.addPowerGauge();
         });
     }
 }

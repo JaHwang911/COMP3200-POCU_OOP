@@ -1,14 +1,16 @@
 package academy.pocu.comp2500.lab5;
 
 public class Move {
-    private String name;
+    private final String name;
     private final int power;
-    private int count;
+    private int powerGauge;
+    private final int maxPowerGauge;
 
-    public Move(String name, int power, int count) {
+    public Move(String name, int power, int powerGauge) {
         this.name = name;
         this.power = power;
-        this.count = count;
+        this.maxPowerGauge = powerGauge;
+        this.powerGauge = this.maxPowerGauge;
     }
 
     public String getName() {
@@ -19,17 +21,21 @@ public class Move {
         return this.power;
     }
 
-    public int getCount() {
-        return this.count;
+    public int getPowerGauge() {
+        return this.powerGauge;
     }
 
     public void useMoves() {
-        assert this.count != 0 : "Wrong attack condition";
+        assert this.powerGauge != 0 : "Wrong attack condition";
 
-        --this.count;
+        --this.powerGauge;
     }
 
-    public void addMoveCount() {
-        ++this.count;
+    public void addPowerGauge() {
+        if (this.maxPowerGauge == this.powerGauge) {
+            return;
+        }
+
+        ++this.powerGauge;
     }
 }
