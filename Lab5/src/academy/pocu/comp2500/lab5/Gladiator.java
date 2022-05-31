@@ -45,7 +45,7 @@ public class Gladiator extends Barbarian {
             return;
         }
 
-        double damage = (super.attack / enemy.defence * move.getPower()) / 2.0;
+        double damage = ((double) super.attack / enemy.defence * move.getPower()) / 2.0;
         damage = damage < 1 ? 1 : damage;
 
         System.out.println("================");
