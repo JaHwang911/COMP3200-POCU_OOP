@@ -10,8 +10,8 @@ public class Program {
 
     public static void main(String[] args) {
         testAttack();
-//        testTooManyMoves();
-//        testOfficial();
+        testTooManyMoves();
+        testOfficial();
 
         System.out.println("No prob");
     }
