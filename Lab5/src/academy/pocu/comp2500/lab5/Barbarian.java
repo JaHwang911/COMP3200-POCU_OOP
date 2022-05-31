@@ -17,6 +17,10 @@ public class Barbarian {
         this.alive = true;
     }
 
+    protected String getName() {
+        return this.name;
+    }
+
     public int getHp() {
         return this.hp;
     }
