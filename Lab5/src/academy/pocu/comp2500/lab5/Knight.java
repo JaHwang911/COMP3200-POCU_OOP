@@ -1,7 +1,7 @@
 package academy.pocu.comp2500.lab5;
 
 public class Knight extends Gladiator {
-    protected Pet pet;
+    private Pet pet;
 
     public Knight(String name, int hp, int attack, int defence) {
         super(name, hp, attack, defence);

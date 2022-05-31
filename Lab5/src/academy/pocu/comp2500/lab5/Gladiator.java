@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class Gladiator extends Barbarian {
     private final int REST_ADD_HP = 10;
-    protected static final int MAX_MOVE_COUNT = 4;
+    private static final int MAX_MOVE_COUNT = 4;
     protected HashMap<String, Move> moves;
 
     public Gladiator(String name, int hp, int attack, int defence) {
