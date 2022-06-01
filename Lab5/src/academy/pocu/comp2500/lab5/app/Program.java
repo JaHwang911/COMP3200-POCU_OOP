@@ -1,22 +1,21 @@
 package academy.pocu.comp2500.lab5.app;
 
-import academy.pocu.comp2500.lab5.Barbarian;
-import academy.pocu.comp2500.lab5.Gladiator;
-import academy.pocu.comp2500.lab5.Knight;
-import academy.pocu.comp2500.lab5.Move;
-import academy.pocu.comp2500.lab5.Pet;
+import academy.pocu.comp2500.lab5.*;
 
 public class Program {
 
     public static void main(String[] args) {
-        testAttack();
-        testTooManyMoves();
+//        testAttack();
+//        testTooManyMoves();
         testOfficial();
+
+        System.out.println(0xFF0000);
 
         System.out.println("No prob");
     }
 
     private static void testOfficial() {
+        Users users = new Users();
         Barbarian barbarian0 = new Barbarian("Dragonborn Whiterun", 250, 210, 60);
         Barbarian barbarian1 = new Barbarian("Ulfric Stormcloak", 200, 70, 10);
 
@@ -73,9 +72,18 @@ public class Program {
 
         assert knight1.getHp() == 61;
 
+        users.addUser(barbarian0);
+        users.addUser(barbarian1);
+        users.addUser(gladiator0);
+        users.addUser(gladiator1);
+        users.addUser(knight0);
+        users.addUser(knight1);
+
         barbarian0.attack(barbarian0);
         gladiator0.attack("Gomu Gomu no pistol", gladiator0);
         knight0.attackTogether(knight0);
+
+        users.printUsers();
     }
 
     private static void testAttack() {
