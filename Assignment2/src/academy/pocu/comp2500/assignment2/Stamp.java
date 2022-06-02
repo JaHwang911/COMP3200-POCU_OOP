@@ -3,11 +3,12 @@ package academy.pocu.comp2500.assignment2;
 public class Stamp extends Product {
     private Color color;
     private final String text;
+    private final StampSize stampSize;
 
-    public Stamp(StampSize size, StampColor color, String text) {
+    public Stamp(StampSize stampSize, StampColor color, String text) {
         super(ProductType.STAMP);
 
-        switch (size) {
+        switch (stampSize) {
             case STAMP_40MM_30MM:
                 super.widthMillimeter = 40;
                 super.heightMillimeter = 30;
@@ -43,6 +44,7 @@ public class Stamp extends Product {
                 break;
         }
 
+        this.stampSize = stampSize;
         this.text = text;
     }
 
@@ -52,5 +54,9 @@ public class Stamp extends Product {
 
     public int getColor() {
         return this.color.getColor();
+    }
+
+    public StampSize getStampSize() {
+        return this.stampSize;
     }
 }
