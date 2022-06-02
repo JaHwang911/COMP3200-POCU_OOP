@@ -37,8 +37,8 @@ public class Calendar extends Product {
         setPrice();
     }
 
-    public int getColor() {
-        return this.color.getColor();
+    public Color getColor() {
+        return this.color;
     }
 
     public CalendarType getCalendarType() {

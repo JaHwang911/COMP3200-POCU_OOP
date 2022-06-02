@@ -11,6 +11,18 @@ public class Color {
         this.blue = blue;
     }
 
+    public int getRed() {
+        return this.red;
+    }
+
+    public int getBlue() {
+        return this.blue;
+    }
+
+    public int getGreen() {
+        return this.green;
+    }
+
     public int getColor() {
         int color = this.red;
 

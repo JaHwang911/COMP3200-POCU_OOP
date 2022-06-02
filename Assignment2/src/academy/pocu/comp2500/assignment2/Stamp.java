@@ -29,8 +29,8 @@ public class Stamp extends Product {
         setPrice(width * height);
     }
 
-    public int getColor() {
-        return this.color.getColor();
+    public Color getColor() {
+        return this.color;
     }
 
     private void setPrice(int area) {
