@@ -7,7 +7,7 @@ public class Product {
     protected int price;
     protected DeliveryMethod deliveryMethod;
 
-    public Product(ProductType type) {
+    protected Product(ProductType type) {
         this.productType = type;
         this.deliveryMethod = DeliveryMethod.PICKUP;
     }
