@@ -12,4 +12,18 @@ public class Cart {
     public void addProduct(Product product) {
         this.products.add(product);
     }
+
+    public boolean removeProduct(Product product) {
+        return this.products.remove(product);
+    }
+
+    public int getTotalPrice() {
+        int totalPrice = 0;
+
+        for (Product product : this.products) {
+            totalPrice += product.getPrice();
+        }
+
+        return totalPrice;
+    }
 }

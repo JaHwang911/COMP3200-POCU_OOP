@@ -10,37 +10,49 @@ public class Calendar extends Product {
     private final HashMap<String, ImageAperture> imageApertures;
 
     public Calendar(CalendarType calendarType, Orientation orientation, Color color) {
+        super(ProductType.CALENDAR);
+
         switch (calendarType) {
             case WALL:
                 super.widthMillimeter = 400;
                 super.heightMillimeter = 400;
+                super.price = 1000;
                 break;
             case DESK:
                 super.widthMillimeter = 200;
                 super.heightMillimeter = 150;
+                super.price = 1000;
                 break;
             case MAGNET:
                 super.widthMillimeter = 100;
                 super.heightMillimeter = 200;
+                super.price = 1500;
                 break;
         }
-        super.productType = ProductType.CALENDAR;
 
         this.calendarType = calendarType;
         this.color = color;
         this.orientation = orientation;
         this.textApertures = new HashMap<>();
         this.imageApertures = new HashMap<>();
-
-        setPrice();
     }
 
     public Color getColor() {
         return this.color;
     }
 
-    public CalendarType getCalendarType() {
-        return this.calendarType;
+    public String getCalendarType() {
+        switch (this.calendarType) {
+            case WALL:
+                return "Wall";
+            case DESK:
+                return "Desk";
+            case MAGNET:
+                return "Magnet";
+            default:
+                assert false : "Unknown calendar type";
+                return "";
+        }
     }
 
     public Orientation getOrientation() {
@@ -87,20 +99,5 @@ public class Calendar extends Product {
 
     public ImageAperture getImageAperture(String path) {
         return this.imageApertures.get(path);
-    }
-
-    private void setPrice() {
-        switch (this.calendarType) {
-            case WALL:
-            case DESK:
-                super.price = 1000;
-                break;
-            case MAGNET:
-                super.price = 1500;
-                break;
-            default:
-                assert false : "Unknown CalendarType";
-                break;
-        }
     }
 }

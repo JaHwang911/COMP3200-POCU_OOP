@@ -2,12 +2,31 @@ package academy.pocu.comp2500.assignment2;
 
 public class Stamp extends Product {
     private Color color;
-    private String text;
+    private final String text;
 
-    public Stamp(int width, int height, StampColor color, String text) {
-        super.widthMillimeter = width * 10;
-        super.heightMillimeter = height * 10;
-        super.productType = ProductType.STAMP;
+    public Stamp(StampSize size, StampColor color, String text) {
+        super(ProductType.STAMP);
+
+        switch (size) {
+            case STAMP_40mm_30mm:
+                super.widthMillimeter = 40;
+                super.heightMillimeter = 30;
+                super.price = 2300;
+                break;
+            case STAMP_50mm_20mm:
+                super.widthMillimeter = 50;
+                super.heightMillimeter = 20;
+                super.price = 2300;
+                break;
+            case STAMP_70mm_40mm:
+                super.widthMillimeter = 70;
+                super.heightMillimeter = 40;
+                super.price = 2300;
+                break;
+            default:
+                assert false : "Unknown size type";
+                break;
+        }
 
         switch (color) {
             case RED:
@@ -25,20 +44,13 @@ public class Stamp extends Product {
         }
 
         this.text = text;
+    }
 
-        setPrice(width * height);
+    public String getText() {
+        return this.text;
     }
 
     public Color getColor() {
         return this.color;
-    }
-
-    private void setPrice(int area) {
-        if (area <= 12) {
-            super.price = 2300;
-            return;
-        }
-
-        super.price = 2600;
     }
 }

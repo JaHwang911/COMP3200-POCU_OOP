@@ -3,21 +3,43 @@ package academy.pocu.comp2500.assignment2;
 import java.util.HashMap;
 
 public class BusinessCard extends Product {
-    private final TextureType textureType;
+    private final BusinessCardType businessCardType;
     private final Orientation orientation;
     private final SideType sideType;
     private Color color;
     private final HashMap<String, TextAperture> textApertures;
     private final HashMap<String, ImageAperture> imageApertures;
 
-    public BusinessCard(TextureType textureType, SideType sides, Orientation orientation, BusinessCardColor color) {
-        super.widthMillimeter = 900;
-        super.heightMillimeter = 500;
-        super.productType = ProductType.BUSINESS_CARD;
+    public BusinessCard(BusinessCardType businessCardType, SideType sides, Orientation orientation, BusinessCardColor color) {
+        super(ProductType.BUSINESS_CARD);
+        super.widthMillimeter = 90;
+        super.heightMillimeter = 50;
 
-        this.textureType = textureType;
-        this.sideType = sides;
-        this.orientation = orientation;
+        switch (businessCardType) {
+            case LINEN:
+                super.price = 110;
+                break;
+            case LAID:
+                super.price = 120;
+                break;
+            case SMOOTH:
+                super.price = 100;
+                break;
+            default:
+                assert false : "Unknown card type";
+                break;
+        }
+
+        switch (sides) {
+            case DOUBLE:
+                super.price += 30;
+                break;
+            case SINGLE:
+                break;
+            default:
+                assert false : "Unknown side type";
+                break;
+        }
 
         switch (color) {
             case GRAY:
@@ -34,14 +56,25 @@ public class BusinessCard extends Product {
                 break;
         }
 
+        this.businessCardType = businessCardType;
+        this.sideType = sides;
+        this.orientation = orientation;
         this.textApertures = new HashMap<>();
         this.imageApertures = new HashMap<>();
-
-        setPrice();
     }
 
-    public TextureType getTextureType() {
-        return this.textureType;
+    public String getBusinessCardType() {
+        switch (this.businessCardType) {
+            case LINEN:
+                return "Linen";
+            case LAID:
+                return "Laid";
+            case SMOOTH:
+                return "Smooth";
+            default:
+                assert false : "Unknown card type";
+                return "";
+        }
     }
 
     public Orientation getOrientation() {
@@ -110,26 +143,5 @@ public class BusinessCard extends Product {
         super.price += 5;
 
         return true;
-    }
-
-    private void setPrice() {
-        switch (this.textureType) {
-            case LINEN:
-                super.price = 110;
-                break;
-            case LAID:
-                super.price = 120;
-                break;
-            case SMOOTH:
-                super.price = 100;
-                break;
-            default:
-                assert false : "Unknown texture type";
-                break;
-        }
-
-        if (this.sideType == SideType.DOUBLE) {
-            super.price += 30;
-        }
     }
 }

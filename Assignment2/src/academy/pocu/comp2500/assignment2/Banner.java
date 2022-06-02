@@ -9,26 +9,70 @@ public class Banner extends Product {
     private final HashMap<String, TextAperture> textApertures;
     private final HashMap<String, ImageAperture> imageApertures;
 
-    public Banner(int width, int height, BannerType bannerType, Orientation orientation, Color color) {
-        super.widthMillimeter = width * 1000;
-        super.heightMillimeter = height * 1000;
-        super.productType = ProductType.BANNER;
+    public Banner(BannerSize size, BannerType bannerType, Orientation orientation, Color color) {
+        super(ProductType.BANNER);
+
+        switch (bannerType) {
+            case GLOSS:
+                super.price = 5000;
+                break;
+            case SCRIM:
+            case MESH:
+                super.price = 5100;
+                break;
+            default:
+                assert false : "Unknown banner type";
+                break;
+        }
+
+        switch (size) {
+            case BANNER_1000mm_500mm:
+                super.widthMillimeter = 1000;
+                super.heightMillimeter = 500;
+                break;
+            case BANNER_1000mm_1000mm:
+                super.widthMillimeter = 1000;
+                super.heightMillimeter = 1000;
+                super.price += 200;
+                break;
+            case BANNER_2000mm_500mm:
+                super.widthMillimeter = 2000;
+                super.heightMillimeter = 500;
+                super.price += 300;
+                break;
+            case BANNER_3000mm_1000mm:
+                super.widthMillimeter = 3000;
+                super.heightMillimeter = 1000;
+                super.price += 1000;
+                break;
+            default:
+                assert false : "Unknown banner size";
+                break;
+        }
 
         this.bannerType = bannerType;
         this.orientation = orientation;
         this.color = color;
         this.textApertures = new HashMap<>();
         this.imageApertures = new HashMap<>();
-
-        setPrice();
     }
 
     public Color getColor() {
         return this.color;
     }
 
-    public BannerType getBannerType() {
-        return this.bannerType;
+    public String getBannerType() {
+        switch (this.bannerType) {
+            case GLOSS:
+                return "Gloss";
+            case SCRIM:
+                return "Scrim";
+            case MESH:
+                return "Mesh";
+            default:
+                assert false : "Unknown banner type";
+                return "";
+        }
     }
 
     public Orientation getOrientation() {
@@ -59,9 +103,5 @@ public class Banner extends Product {
         super.price += 5;
 
         return true;
-    }
-
-    private void setPrice() {
-
     }
 }
