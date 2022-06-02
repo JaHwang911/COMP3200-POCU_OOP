@@ -5,16 +5,30 @@ import academy.pocu.comp2500.assignment2.app.CalendarType;
 import java.util.HashMap;
 
 public class Calendar extends Product {
-    private final CalendarType type;
+    private final CalendarType calendarType;
     private final PrintDirection printDirection;
     private final Color color;
     private final HashMap<String, TextAperture> textApertures;
     private final HashMap<String, ImageAperture> imageApertures;
 
-    public Calendar(int width, int height, CalendarType type, PrintDirection printDirection, Color color) {
-        super(width * 10, height * 10);
+    public Calendar(CalendarType calendarType, PrintDirection printDirection, Color color) {
+        switch (calendarType) {
+            case WALL:
+                super.widthMillimeter = 400;
+                super.heightMillimeter = 400;
+                break;
+            case DESK:
+                super.widthMillimeter = 200;
+                super.heightMillimeter = 150;
+                break;
+            case MAGNET:
+                super.widthMillimeter = 100;
+                super.heightMillimeter = 200;
+                break;
+        }
+        super.productType = ProductType.CALENDAR;
 
-        this.type = type;
+        this.calendarType = calendarType;
         this.color = color;
         this.printDirection = printDirection;
         this.textApertures = new HashMap<>();
@@ -28,7 +42,7 @@ public class Calendar extends Product {
     }
 
     public CalendarType getCalendarType() {
-        return this.type;
+        return this.calendarType;
     }
 
     public boolean addTextAperture(int posX, int posY, TextAperture aperture) {
@@ -74,7 +88,7 @@ public class Calendar extends Product {
     }
 
     private void setPrice() {
-        switch (type) {
+        switch (this.calendarType) {
             case WALL:
             case DESK:
                 super.price = 1000;

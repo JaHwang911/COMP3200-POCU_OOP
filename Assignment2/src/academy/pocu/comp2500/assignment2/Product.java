@@ -1,14 +1,10 @@
 package academy.pocu.comp2500.assignment2;
 
 public class Product {
+    protected ProductType productType = ProductType.UNSET;
     protected int widthMillimeter;
     protected int heightMillimeter;
     protected int price;
-
-    public Product(int width, int height) {
-        this.widthMillimeter = width;
-        this.heightMillimeter = height;
-    }
 
     public int getWidthMillimeter() {
         return this.widthMillimeter;
@@ -18,8 +14,8 @@ public class Product {
         return this.heightMillimeter;
     }
 
-    public int getSize() {
-        return this.widthMillimeter * this.heightMillimeter;
+    public ProductType getProductType() {
+        return this.productType;
     }
 
     public int getPrice() {

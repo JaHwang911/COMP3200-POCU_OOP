@@ -4,10 +4,10 @@ public class Stamp extends Product {
     private Color color;
     private String text;
 
-    public Stamp(int width, int height, String text, StampColor color) {
-        super(width * 10, height * 10);
-
-        this.text = text;
+    public Stamp(int width, int height, StampColor color, String text) {
+        super.widthMillimeter = width * 10;
+        super.heightMillimeter = height * 10;
+        super.productType = ProductType.STAMP;
 
         switch (color) {
             case RED:
@@ -23,6 +23,8 @@ public class Stamp extends Product {
                 assert false : "Unknown color type!";
                 break;
         }
+
+        this.text = text;
 
         setPrice(width * height);
     }
