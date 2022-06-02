@@ -57,8 +57,8 @@ public class Banner extends Product {
         this.imageApertures = new HashMap<>();
     }
 
-    public Color getColor() {
-        return this.color;
+    public int getColor() {
+        return this.color.getColor();
     }
 
     public String getBannerType() {
@@ -79,8 +79,8 @@ public class Banner extends Product {
         return this.orientation;
     }
 
-    public boolean addTextAperture(int posX, int posY, TextAperture aperture) {
-        if (posX < 0 || posX > super.widthMillimeter || posY < 0 || posY > super.heightMillimeter) {
+    public boolean addTextAperture(int x, int y, TextAperture aperture) {
+        if (x < 0 || x > super.widthMillimeter || y < 0 || y > super.heightMillimeter) {
             return false;
         } else if (aperture.getWidth() > super.widthMillimeter || aperture.getHeight() > super.heightMillimeter) {
             return false;
@@ -92,8 +92,8 @@ public class Banner extends Product {
         return true;
     }
 
-    public boolean addImageAperture(int posX, int posY, ImageAperture aperture) {
-        if (posX < 0 || posX > super.widthMillimeter || posY < 0 || posY > super.heightMillimeter) {
+    public boolean addImageAperture(int x, int y, ImageAperture aperture) {
+        if (x < 0 || x > super.widthMillimeter || y < 0 || y > super.heightMillimeter) {
             return false;
         } else if (aperture.getWidth() > super.widthMillimeter || aperture.getHeight() > super.heightMillimeter) {
             return false;
@@ -103,5 +103,21 @@ public class Banner extends Product {
         super.price += 5;
 
         return true;
+    }
+
+    public int getTextApertureCount() {
+        return this.textApertures.size();
+    }
+
+    public TextAperture getTextAperture(String text) {
+        return this.textApertures.get(text);
+    }
+
+    public int getImageApertureCount() {
+        return this.imageApertures.size();
+    }
+
+    public ImageAperture getImageAperture(String imagePath) {
+        return this.imageApertures.get(imagePath);
     }
 }

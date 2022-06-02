@@ -15,36 +15,36 @@ public class Program {
     }
 
     private static void testStamp() {
-        Stamp stamp0 = new Stamp(StampSize.STAMP_40mm_30mm, StampColor.RED, "Stamp0");
-        Stamp stamp1 = new Stamp(StampSize.STAMP_50mm_20mm, StampColor.BLUE, "Stamp1");
-        Stamp stamp2 = new Stamp(StampSize.STAMP_70mm_40mm, StampColor.GREEN, "Stamp2");
+        Stamp stamp0 = new Stamp(StampSize.STAMP_40MM_30MM, StampColor.RED, "Stamp0");
+        Stamp stamp1 = new Stamp(StampSize.STAMP_50MM_20MM, StampColor.BLUE, "Stamp1");
+        Stamp stamp2 = new Stamp(StampSize.STAMP_70MM_40MM, StampColor.GREEN, "Stamp2");
 
         assert stamp0.getWidthMillimeter() == 40;
         assert stamp0.getHeightMillimeter() == 30;
         assert stamp0.getPrice() == 2300;
         assert stamp0.getText().equals("Stamp0");
-        assert stamp0.getDeliveryType() == DeliveryType.PICKUP;
-        stamp0.setDeliveryType(DeliveryType.SHIP);
-        assert stamp0.getDeliveryType() == DeliveryType.SHIP;
-        assert stamp0.getColor().getColor() == 0xFF0000;
+        assert stamp0.getDeliveryType() == DeliveryMethod.PICKUP;
+        stamp0.setDeliveryType(DeliveryMethod.SHIP);
+        assert stamp0.getDeliveryType() == DeliveryMethod.SHIP;
+        assert stamp0.getColor() == 0xFF0000;
 
         assert stamp1.getWidthMillimeter() == 50;
         assert stamp1.getHeightMillimeter() == 20;
         assert stamp1.getPrice() == 2300;
         assert stamp1.getText().equals("Stamp1");
-        assert stamp1.getDeliveryType() == DeliveryType.PICKUP;
-        stamp1.setDeliveryType(DeliveryType.SHIP);
-        assert stamp1.getDeliveryType() == DeliveryType.SHIP;
-        assert stamp0.getColor().getColor() == 0x0000FF;
+        assert stamp1.getDeliveryType() == DeliveryMethod.PICKUP;
+        stamp1.setDeliveryType(DeliveryMethod.SHIP);
+        assert stamp1.getDeliveryType() == DeliveryMethod.SHIP;
+        assert stamp1.getColor() == 0x0000FF;
 
         assert stamp2.getWidthMillimeter() == 70;
         assert stamp2.getHeightMillimeter() == 40;
         assert stamp2.getPrice() == 2600;
-        assert stamp2.getText().equals("stamp2");
-        assert stamp2.getDeliveryType() == DeliveryType.PICKUP;
-        stamp2.setDeliveryType(DeliveryType.SHIP);
-        assert stamp2.getDeliveryType() == DeliveryType.SHIP;
-        assert stamp0.getColor().getColor() == 0x008000;
+        assert stamp2.getText().equals("Stamp2");
+        assert stamp2.getDeliveryType() == DeliveryMethod.PICKUP;
+        stamp2.setDeliveryType(DeliveryMethod.SHIP);
+        assert stamp2.getDeliveryType() == DeliveryMethod.SHIP;
+        assert stamp2.getColor() == 0x008000;
     }
 
     private static void testCalendar() {

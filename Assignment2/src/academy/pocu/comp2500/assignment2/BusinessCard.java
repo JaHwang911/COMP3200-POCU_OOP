@@ -81,8 +81,8 @@ public class BusinessCard extends Product {
         return this.orientation;
     }
 
-    public Color getColor() {
-        return this.color;
+    public int getColor() {
+        return this.color.getColor();
     }
 
     public SideType getSideType() {

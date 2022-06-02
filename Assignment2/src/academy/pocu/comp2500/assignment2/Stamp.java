@@ -21,7 +21,7 @@ public class Stamp extends Product {
             case STAMP_70MM_40MM:
                 super.widthMillimeter = 70;
                 super.heightMillimeter = 40;
-                super.price = 2300;
+                super.price = 2600;
                 break;
             default:
                 assert false : "Unknown size type";
@@ -50,7 +50,7 @@ public class Stamp extends Product {
         return this.text;
     }
 
-    public Color getColor() {
-        return this.color;
+    public int getColor() {
+        return this.color.getColor();
     }
 }

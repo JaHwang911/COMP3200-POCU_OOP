@@ -5,11 +5,11 @@ public class Product {
     protected int widthMillimeter;
     protected int heightMillimeter;
     protected int price;
-    protected DeliveryType deliveryType;
+    protected DeliveryMethod deliveryMethod;
 
     public Product(ProductType type) {
         this.productType = type;
-        this.deliveryType = DeliveryType.PICKUP;
+        this.deliveryMethod = DeliveryMethod.PICKUP;
     }
 
     public int getWidthMillimeter() {
@@ -36,12 +36,12 @@ public class Product {
         }
     }
 
-    public DeliveryType getDeliveryType() {
-        return this.deliveryType;
+    public DeliveryMethod getDeliveryType() {
+        return this.deliveryMethod;
     }
 
-    public void setDeliveryType(DeliveryType type) {
-        this.deliveryType = type;
+    public void setDeliveryType(DeliveryMethod type) {
+        this.deliveryMethod = type;
     }
 
     public int getPrice() {
