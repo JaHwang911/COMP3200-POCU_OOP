@@ -8,17 +8,17 @@ public class Stamp extends Product {
         super(ProductType.STAMP);
 
         switch (size) {
-            case STAMP_40mm_30mm:
+            case STAMP_40MM_30MM:
                 super.widthMillimeter = 40;
                 super.heightMillimeter = 30;
                 super.price = 2300;
                 break;
-            case STAMP_50mm_20mm:
+            case STAMP_50MM_20MM:
                 super.widthMillimeter = 50;
                 super.heightMillimeter = 20;
                 super.price = 2300;
                 break;
-            case STAMP_70mm_40mm:
+            case STAMP_70MM_40MM:
                 super.widthMillimeter = 70;
                 super.heightMillimeter = 40;
                 super.price = 2300;

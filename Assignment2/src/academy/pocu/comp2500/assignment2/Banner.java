@@ -26,21 +26,21 @@ public class Banner extends Product {
         }
 
         switch (size) {
-            case BANNER_1000mm_500mm:
+            case BANNER_1000MM_500MM:
                 super.widthMillimeter = 1000;
                 super.heightMillimeter = 500;
                 break;
-            case BANNER_1000mm_1000mm:
+            case BANNER_1000MM_1000MM:
                 super.widthMillimeter = 1000;
                 super.heightMillimeter = 1000;
                 super.price += 200;
                 break;
-            case BANNER_2000mm_500mm:
+            case BANNER_2000MM_500MM:
                 super.widthMillimeter = 2000;
                 super.heightMillimeter = 500;
                 super.price += 300;
                 break;
-            case BANNER_3000mm_1000mm:
+            case BANNER_3000MM_1000MM:
                 super.widthMillimeter = 3000;
                 super.heightMillimeter = 1000;
                 super.price += 1000;
