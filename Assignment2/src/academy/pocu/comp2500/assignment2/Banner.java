@@ -1,23 +1,21 @@
 package academy.pocu.comp2500.assignment2;
 
-import academy.pocu.comp2500.assignment2.app.CalendarType;
-
 import java.util.HashMap;
 
 public class Banner extends Product {
     private final BannerType bannerType;
-    private final PrintDirection printDirection;
+    private final Orientation orientation;
     private final Color color;
     private final HashMap<String, TextAperture> textApertures;
     private final HashMap<String, ImageAperture> imageApertures;
 
-    public Banner(int width, int height, BannerType bannerType, PrintDirection printDirection, Color color) {
+    public Banner(int width, int height, BannerType bannerType, Orientation orientation, Color color) {
         super.widthMillimeter = width * 1000;
         super.heightMillimeter = height * 1000;
         super.productType = ProductType.BANNER;
 
         this.bannerType = bannerType;
-        this.printDirection = printDirection;
+        this.orientation = orientation;
         this.color = color;
         this.textApertures = new HashMap<>();
         this.imageApertures = new HashMap<>();
@@ -31,6 +29,10 @@ public class Banner extends Product {
 
     public BannerType getBannerType() {
         return this.bannerType;
+    }
+
+    public Orientation getOrientation() {
+        return this.orientation;
     }
 
     public boolean addTextAperture(int posX, int posY, TextAperture aperture) {

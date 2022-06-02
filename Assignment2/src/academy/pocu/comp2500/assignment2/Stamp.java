@@ -11,13 +11,13 @@ public class Stamp extends Product {
 
         switch (color) {
             case RED:
-                this.color = new Color(255, 0, 0);
+                this.color = new Color(0xFF, 0x00, 0x00);
                 break;
             case BLUE:
-                this.color = new Color(0, 0, 255);
+                this.color = new Color(0x00, 0x00, 0xFF);
                 break;
             case GREEN:
-                this.color = new Color(0, 128, 0);
+                this.color = new Color(0x00, 0x80, 0x00);
                 break;
             default:
                 assert false : "Unknown color type!";

@@ -1,17 +1,15 @@
 package academy.pocu.comp2500.assignment2;
 
-import academy.pocu.comp2500.assignment2.app.CalendarType;
-
 import java.util.HashMap;
 
 public class Calendar extends Product {
     private final CalendarType calendarType;
-    private final PrintDirection printDirection;
+    private final Orientation orientation;
     private final Color color;
     private final HashMap<String, TextAperture> textApertures;
     private final HashMap<String, ImageAperture> imageApertures;
 
-    public Calendar(CalendarType calendarType, PrintDirection printDirection, Color color) {
+    public Calendar(CalendarType calendarType, Orientation orientation, Color color) {
         switch (calendarType) {
             case WALL:
                 super.widthMillimeter = 400;
@@ -30,7 +28,7 @@ public class Calendar extends Product {
 
         this.calendarType = calendarType;
         this.color = color;
-        this.printDirection = printDirection;
+        this.orientation = orientation;
         this.textApertures = new HashMap<>();
         this.imageApertures = new HashMap<>();
 
@@ -43,6 +41,10 @@ public class Calendar extends Product {
 
     public CalendarType getCalendarType() {
         return this.calendarType;
+    }
+
+    public Orientation getOrientation() {
+        return this.orientation;
     }
 
     public boolean addTextAperture(int posX, int posY, TextAperture aperture) {

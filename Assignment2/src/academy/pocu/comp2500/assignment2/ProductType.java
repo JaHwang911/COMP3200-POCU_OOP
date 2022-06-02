@@ -5,5 +5,5 @@ public enum ProductType {
     STAMP,
     CALENDAR,
     BANNER,
-    BUSINESS
+    BUSINESS_CARD
 }
