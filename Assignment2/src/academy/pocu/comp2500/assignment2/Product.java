@@ -40,8 +40,8 @@ public class Product {
         return this.deliveryMethod;
     }
 
-    public void setDeliveryType(DeliveryMethod deliveryType) {
-        this.deliveryMethod = deliveryType;
+    public void setDeliveryType(DeliveryMethod deliveryMethod) {
+        this.deliveryMethod = deliveryMethod;
     }
 
     public int getPrice() {
