@@ -4,29 +4,10 @@ public class Stamp extends Product {
     private Color color;
     private final String text;
 
-    public Stamp(StampSize stampSize, StampColor color, String text) {
+    public Stamp(int width, int height, StampColor color, String text) {
         super(ProductType.STAMP);
-
-        switch (stampSize) {
-            case STAMP_40MM_30MM:
-                super.widthMillimeter = 40;
-                super.heightMillimeter = 30;
-                super.price = 2300;
-                break;
-            case STAMP_50MM_20MM:
-                super.widthMillimeter = 50;
-                super.heightMillimeter = 20;
-                super.price = 2300;
-                break;
-            case STAMP_70MM_40MM:
-                super.widthMillimeter = 70;
-                super.heightMillimeter = 40;
-                super.price = 2600;
-                break;
-            default:
-                assert false : "Unknown size type";
-                break;
-        }
+        super.widthMillimeter = width * 10;
+        super.heightMillimeter = height * 10;
 
         switch (color) {
             case RED:
