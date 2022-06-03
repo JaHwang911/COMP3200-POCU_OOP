@@ -13,7 +13,6 @@ public class BusinessCard extends Product {
     private final HashMap<String, ImageAperture> imageApertures;
 
     public BusinessCard(BusinessCardType businessCardType, SideType sides, Orientation orientation, BusinessCardColor color) {
-        super(ProductType.BUSINESS_CARD);
 
         switch (businessCardType) {
             case LINEN:

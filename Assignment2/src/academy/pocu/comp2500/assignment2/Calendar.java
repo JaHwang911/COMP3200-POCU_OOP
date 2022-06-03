@@ -4,16 +4,12 @@ import java.util.HashMap;
 
 public class Calendar extends Product {
     private final CalendarType calendarType;
-    private int width;
-    private int height;
     private final Orientation orientation;
     private final Color color;
     private final HashMap<String, TextAperture> textApertures;
     private final HashMap<String, ImageAperture> imageApertures;
 
     public Calendar(CalendarType calendarType, Orientation orientation, Color color) {
-        super(ProductType.CALENDAR);
-
         this.calendarType = calendarType;
         this.color = color;
         this.orientation = orientation;

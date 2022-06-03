@@ -20,7 +20,6 @@ public class Program {
         Stamp stamp2 = new Stamp(StampSize.LARGE, StampColor.GREEN, "Stamp2");
 
         assert stamp0.getStampInfo().equals("Stamp (40 mm x 30 mm)");
-        assert stamp0.getStampType() == StampSize.SMALL;
         assert stamp0.getPrice() == 2300;
         assert stamp0.getText().equals("Stamp0");
         assert stamp0.getDeliveryType() == DeliveryMethod.PICKUP;
@@ -29,7 +28,6 @@ public class Program {
         assert stamp0.getColor() == 0xFF0000;
 
         assert stamp1.getStampInfo().equals("Stamp (50 mm x 20 mm)");
-        assert stamp1.getStampType() == StampSize.MEDIUM;
         assert stamp1.getPrice() == 2300;
         assert stamp1.getText().equals("Stamp1");
         assert stamp1.getDeliveryType() == DeliveryMethod.PICKUP;
@@ -38,7 +36,6 @@ public class Program {
         assert stamp1.getColor() == 0x0000FF;
 
         assert stamp2.getStampInfo().equals("Stamp (70 mm x 40 mm)");
-        assert stamp2.getStampType() == StampSize.LARGE;
         assert stamp2.getPrice() == 2600;
         assert stamp2.getText().equals("Stamp2");
         assert stamp2.getDeliveryType() == DeliveryMethod.PICKUP;

@@ -2,14 +2,31 @@ package academy.pocu.comp2500.assignment2;
 
 public class Stamp extends Product {
     private Color color;
-    private final StampSize stampSize;
     private final String text;
 
     public Stamp(StampSize stampSize, StampColor color, String text) {
-        super(ProductType.STAMP);
-
-        this.stampSize = stampSize;
         this.text = text;
+
+        switch (stampSize) {
+            case SMALL:
+                super.width = 40;
+                super.height = 30;
+                super.price = 2300;
+                break;
+            case MEDIUM:
+                super.width = 50;
+                super.height = 20;
+                super.price = 2300;
+                break;
+            case LARGE:
+                super.width = 70;
+                super.height = 40;
+                super.price = 2600;
+                break;
+            default:
+                assert false : "Unknown stamp size type";
+                break;
+        }
 
         switch (color) {
             case RED:
@@ -25,8 +42,6 @@ public class Stamp extends Product {
                 assert false : "Unknown color type!";
                 break;
         }
-
-        setPrice();
     }
 
     public int getColor() {
@@ -37,36 +52,7 @@ public class Stamp extends Product {
         return this.text;
     }
 
-    public StampSize getStampType() {
-        return this.stampSize;
-    }
-
     public String getStampInfo() {
-        switch (this.stampSize) {
-            case SMALL:
-                return String.format("Stamp (%d mm x %d mm)", 40, 30);
-            case MEDIUM:
-                return String.format("Stamp (%d mm x %d mm)", 50, 20);
-            case LARGE:
-                return String.format("Stamp (%d mm x %d mm)", 70, 40);
-            default:
-                assert false : "Unknown stamp size";
-                return "";
-        }
-    }
-
-    private void setPrice() {
-        switch (this.stampSize) {
-            case SMALL:
-            case MEDIUM:
-                super.price = 2300;
-                break;
-            case LARGE:
-                super.price = 2600;
-                break;
-            default:
-                assert false : "Unknown stamp size type";
-                break;
-        }
+        return String.format("Stamp (%d mm x %d mm)", super.width, super.height);
     }
 }
