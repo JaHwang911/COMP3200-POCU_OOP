@@ -15,9 +15,9 @@ public class Program {
     }
 
     private static void testStamp() {
-        Stamp stamp0 = new Stamp(40, 30, StampColor.RED, "Stamp0");
-        Stamp stamp1 = new Stamp(50, 20, StampColor.BLUE, "Stamp1");
-        Stamp stamp2 = new Stamp(70, 40, StampColor.GREEN, "Stamp2");
+        Stamp stamp0 = new Stamp(StampSize.STAMP_4X3, StampColor.RED, "Stamp0");
+        Stamp stamp1 = new Stamp(StampSize.STAMP_5X2, StampColor.BLUE, "Stamp1");
+        Stamp stamp2 = new Stamp(StampSize.STAMP_7X4, StampColor.GREEN, "Stamp2");
 
         assert stamp0.getWidthMillimeter() == 40;
         assert stamp0.getHeightMillimeter() == 30;
