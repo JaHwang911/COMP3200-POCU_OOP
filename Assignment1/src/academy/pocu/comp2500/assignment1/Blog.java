@@ -71,19 +71,19 @@ public class Blog {
         switch (this.sortType) {
             case NORMAL:
             case CREATED:
-                sortByCreated(resultPosts);
+                resultPosts.sort((a, b) -> b.getCreatedTime().compareTo(a.getCreatedTime()));
                 break;
             case CREATED_DESC:
-                sortByCreatedDesc(resultPosts);
+                resultPosts.sort((a, b) -> a.getCreatedTime().compareTo(b.getCreatedTime()));
                 break;
             case MODIFIED:
-                sortByModified(resultPosts);
+                resultPosts.sort((a, b) -> b.getModifiedTime().compareTo(a.getModifiedTime()));
                 break;
             case MODIFIED_DESC:
-                sortByModifiedDesc(resultPosts);
+                resultPosts.sort((a, b) -> a.getModifiedTime().compareTo(b.getModifiedTime()));
                 break;
             case TITLE:
-                sortByTitle(resultPosts);
+                resultPosts.sort((a, b) -> a.getTitle().compareTo(b.getTitle()));
                 break;
             default:
                 assert false : "Unknown order type";
@@ -181,25 +181,5 @@ public class Blog {
 
     public void setSortType(SortType sortingType) {
         this.sortType = sortingType;
-    }
-
-    private void sortByCreated(ArrayList<Post> filteredPosts) {
-        filteredPosts.sort((a, b) -> b.getCreatedTime().compareTo(a.getCreatedTime()));
-    }
-
-    private void sortByCreatedDesc(ArrayList<Post> filteredPosts) {
-        filteredPosts.sort((a, b) -> a.getCreatedTime().compareTo(b.getCreatedTime()));
-    }
-
-    private void sortByModified(ArrayList<Post> filteredPosts) {
-        filteredPosts.sort((a, b) -> b.getModifiedTime().compareTo(a.getModifiedTime()));
-    }
-
-    private void sortByModifiedDesc(ArrayList<Post> filteredPosts) {
-        filteredPosts.sort((a, b) -> a.getModifiedTime().compareTo(b.getModifiedTime()));
-    }
-
-    private void sortByTitle(ArrayList<Post> filteredPosts) {
-        filteredPosts.sort((a, b) -> a.getTitle().compareTo(b.getTitle()));
     }
 }

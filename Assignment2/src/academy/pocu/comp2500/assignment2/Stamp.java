@@ -42,7 +42,7 @@ public class Stamp extends Product {
                 assert false : "Unknown color type!";
                 break;
         }
-        
+
         this.text = text;
     }
 
