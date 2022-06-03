@@ -1,6 +1,6 @@
 package academy.pocu.comp2500.assignment2;
 
-public enum StampType {
+public enum StampSize {
     SMALL,
     MEDIUM,
     LARGE
