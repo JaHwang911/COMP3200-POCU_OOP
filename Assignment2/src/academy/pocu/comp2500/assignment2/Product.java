@@ -7,8 +7,8 @@ public class Product {
     protected int price;
     protected DeliveryMethod deliveryMethod;
 
-    protected Product(ProductType type) {
-        this.productType = type;
+    protected Product(ProductType productType) {
+        this.productType = productType;
         this.deliveryMethod = DeliveryMethod.PICKUP;
     }
 
@@ -40,8 +40,8 @@ public class Product {
         return this.deliveryMethod;
     }
 
-    public void setDeliveryType(DeliveryMethod type) {
-        this.deliveryMethod = type;
+    public void setDeliveryType(DeliveryMethod deliveryType) {
+        this.deliveryMethod = deliveryType;
     }
 
     public int getPrice() {
