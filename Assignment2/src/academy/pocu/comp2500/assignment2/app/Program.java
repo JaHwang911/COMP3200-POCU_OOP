@@ -15,12 +15,11 @@ public class Program {
     }
 
     private static void testStamp() {
-        Stamp stamp0 = new Stamp(40, 30, StampColor.BLUE, "Stamp0");
-        Stamp stamp1 = new Stamp(50, 20, StampColor.BLUE, "Stamp1");
-        Stamp stamp2 = new Stamp(70, 40, StampColor.GREEN, "Stamp2");
+        Stamp stamp0 = new Stamp(StampSize.STAMP_4X3, StampColor.RED, "Stamp0");
+        Stamp stamp1 = new Stamp(StampSize.STAMP_5X2, StampColor.BLUE, "Stamp1");
+        Stamp stamp2 = new Stamp(StampSize.STAMP_7X4, StampColor.GREEN, "Stamp2");
 
-        assert stamp0.getWidthMillimeter() == 40;
-        assert stamp0.getHeightMillimeter() == 30;
+        assert stamp0.getProductInfo().equals("Stamp (40 mm x 30 mm)");
         assert stamp0.getPrice() == 2300;
         assert stamp0.getText().equals("Stamp0");
         assert stamp0.getDeliveryType() == DeliveryMethod.PICKUP;
@@ -28,8 +27,7 @@ public class Program {
         assert stamp0.getDeliveryType() == DeliveryMethod.SHIP;
         assert stamp0.getColor() == 0xFF0000;
 
-        assert stamp1.getWidthMillimeter() == 50;
-        assert stamp1.getHeightMillimeter() == 20;
+        assert stamp1.getProductInfo().equals("Stamp (50 mm x 20 mm)");
         assert stamp1.getPrice() == 2300;
         assert stamp1.getText().equals("Stamp1");
         assert stamp1.getDeliveryType() == DeliveryMethod.PICKUP;
@@ -37,8 +35,7 @@ public class Program {
         assert stamp1.getDeliveryType() == DeliveryMethod.SHIP;
         assert stamp1.getColor() == 0x0000FF;
 
-        assert stamp2.getWidthMillimeter() == 70;
-        assert stamp2.getHeightMillimeter() == 40;
+        assert stamp2.getProductInfo().equals("Stamp (70 mm x 40 mm)");
         assert stamp2.getPrice() == 2600;
         assert stamp2.getText().equals("Stamp2");
         assert stamp2.getDeliveryType() == DeliveryMethod.PICKUP;

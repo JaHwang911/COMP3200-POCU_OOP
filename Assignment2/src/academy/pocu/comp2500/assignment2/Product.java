@@ -2,8 +2,6 @@ package academy.pocu.comp2500.assignment2;
 
 public class Product {
     protected ProductType productType;
-    protected int widthMillimeter;
-    protected int heightMillimeter;
     protected int price;
     protected DeliveryMethod deliveryMethod;
 
@@ -28,23 +26,15 @@ public class Product {
         }
     }
 
-    public int getWidthMillimeter() {
-        return this.widthMillimeter;
-    }
-
-    public int getHeightMillimeter() {
-        return this.heightMillimeter;
-    }
-
     public DeliveryMethod getDeliveryType() {
         return this.deliveryMethod;
     }
 
-    public void setDeliveryType(DeliveryMethod deliveryMethod) {
-        this.deliveryMethod = deliveryMethod;
-    }
-
     public int getPrice() {
         return this.price;
+    }
+
+    public void setDeliveryType(DeliveryMethod deliveryMethod) {
+        this.deliveryMethod = deliveryMethod;
     }
 }

@@ -2,14 +2,14 @@ package academy.pocu.comp2500.assignment2;
 
 public class Stamp extends Product {
     private Color color;
-    private int widthMillimeter;
-    private int heightMillimeter;
+    private StampSize stampSize;
     private final String text;
 
-    public Stamp(int width, int height, StampColor color, String text) {
+    public Stamp(StampSize stampSize, StampColor color, String text) {
         super(ProductType.STAMP);
-        super.widthMillimeter = width;
-        super.heightMillimeter = height;
+
+        this.stampSize = stampSize;
+        this.text = text;
 
         switch (color) {
             case RED:
@@ -26,7 +26,6 @@ public class Stamp extends Product {
                 break;
         }
 
-        this.text = text;
         setPrice();
     }
 
@@ -38,11 +37,36 @@ public class Stamp extends Product {
         return this.text;
     }
 
-    private void setPrice() {
-        if (this.widthMillimeter * this.heightMillimeter <= 120) {
-            super.price = 2300;
-        }
+    public StampSize getStampSize() {
+        return this.stampSize;
+    }
 
-        super.price = 2600;
+    public String getProductInfo() {
+        switch (this.stampSize) {
+            case STAMP_4X3:
+                return String.format("Stamp (%d mm x %d mm)", 40, 30);
+            case STAMP_5X2:
+                return String.format("Stamp (%d mm x %d mm)", 50, 20);
+            case STAMP_7X4:
+                return String.format("Stamp (%d mm x %d mm)", 70, 40);
+            default:
+                assert false : "Unknown stamp size";
+                return "";
+        }
+    }
+
+    private void setPrice() {
+        switch (this.stampSize) {
+            case STAMP_4X3:
+            case STAMP_5X2:
+                super.price = 2300;
+                break;
+            case STAMP_7X4:
+                super.price = 2600;
+                break;
+            default:
+                assert false : "Unknown stamp size type";
+                break;
+        }
     }
 }

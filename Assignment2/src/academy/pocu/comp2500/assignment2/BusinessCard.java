@@ -7,13 +7,13 @@ public class BusinessCard extends Product {
     private final Orientation orientation;
     private final SideType sideType;
     private Color color;
+    private final int WIDTH = 90;
+    private final int HEIGHT = 50;
     private final HashMap<String, TextAperture> textApertures;
     private final HashMap<String, ImageAperture> imageApertures;
 
     public BusinessCard(BusinessCardType businessCardType, SideType sides, Orientation orientation, BusinessCardColor color) {
         super(ProductType.BUSINESS_CARD);
-        super.widthMillimeter = 90;
-        super.heightMillimeter = 50;
 
         switch (businessCardType) {
             case LINEN:
@@ -94,9 +94,9 @@ public class BusinessCard extends Product {
     }
 
     public boolean addTextApertureToFront(int x, int y, TextAperture aperture) {
-        if (x < 0 || x > super.widthMillimeter || y < 0 || y > super.heightMillimeter) {
+        if (x < 0 || x > this.WIDTH || y < 0 || y > this.HEIGHT) {
             return false;
-        } else if (aperture.getWidth() > super.widthMillimeter || aperture.getHeight() > super.heightMillimeter) {
+        } else if (aperture.getWidth() > this.WIDTH || aperture.getHeight() > this.HEIGHT) {
             return false;
         }
 
@@ -107,9 +107,9 @@ public class BusinessCard extends Product {
     }
 
     public boolean addTextApertureToBack(int x, int y, TextAperture aperture) {
-        if (x < 0 || x > super.widthMillimeter || y < 0 || y > super.heightMillimeter) {
+        if (x < 0 || x > this.WIDTH || y < 0 || y > this.HEIGHT) {
             return false;
-        } else if (aperture.getWidth() > super.widthMillimeter || aperture.getHeight() > super.heightMillimeter) {
+        } else if (aperture.getWidth() > this.WIDTH || aperture.getHeight() > this.HEIGHT) {
             return false;
         } else if (this.sideType != SideType.DOUBLE) {
             return false;
@@ -126,9 +126,9 @@ public class BusinessCard extends Product {
     }
 
     public boolean addImageApertureToFront(int x, int y, ImageAperture aperture) {
-        if (x < 0 || x > super.widthMillimeter || y < 0 || y > super.heightMillimeter) {
+        if (x < 0 || x > this.WIDTH || y < 0 || y > this.HEIGHT) {
             return false;
-        } else if (aperture.getWidth() > super.widthMillimeter || aperture.getHeight() > super.heightMillimeter) {
+        } else if (aperture.getWidth() > this.WIDTH || aperture.getHeight() > this.HEIGHT) {
             return false;
         }
 
@@ -139,9 +139,9 @@ public class BusinessCard extends Product {
     }
 
     public boolean addImageApertureToBack(int x, int y, ImageAperture aperture) {
-        if (x < 0 || x > super.widthMillimeter || y < 0 || y > super.heightMillimeter) {
+        if (x < 0 || x > this.WIDTH || y < 0 || y > this.HEIGHT) {
             return false;
-        } else if (aperture.getWidth() > super.widthMillimeter || aperture.getHeight() > super.heightMillimeter) {
+        } else if (aperture.getWidth() > this.WIDTH || aperture.getHeight() > this.HEIGHT) {
             return false;
         } else if (this.sideType != SideType.DOUBLE) {
             return false;
