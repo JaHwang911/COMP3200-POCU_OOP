@@ -2,13 +2,13 @@ package academy.pocu.comp2500.assignment2;
 
 public class Stamp extends Product {
     private Color color;
-    private StampSize stampSize;
+    private final StampType stampType;
     private final String text;
 
-    public Stamp(StampSize stampSize, StampColor color, String text) {
+    public Stamp(StampType stampType, StampColor color, String text) {
         super(ProductType.STAMP);
 
-        this.stampSize = stampSize;
+        this.stampType = stampType;
         this.text = text;
 
         switch (color) {
@@ -37,17 +37,17 @@ public class Stamp extends Product {
         return this.text;
     }
 
-    public StampSize getStampSize() {
-        return this.stampSize;
+    public StampType getStampType() {
+        return this.stampType;
     }
 
-    public String getProductInfo() {
-        switch (this.stampSize) {
-            case STAMP_4X3:
+    public String getStampInfo() {
+        switch (this.stampType) {
+            case SMALL:
                 return String.format("Stamp (%d mm x %d mm)", 40, 30);
-            case STAMP_5X2:
+            case MEDIUM:
                 return String.format("Stamp (%d mm x %d mm)", 50, 20);
-            case STAMP_7X4:
+            case LARGE:
                 return String.format("Stamp (%d mm x %d mm)", 70, 40);
             default:
                 assert false : "Unknown stamp size";
@@ -56,12 +56,12 @@ public class Stamp extends Product {
     }
 
     private void setPrice() {
-        switch (this.stampSize) {
-            case STAMP_4X3:
-            case STAMP_5X2:
+        switch (this.stampType) {
+            case SMALL:
+            case MEDIUM:
                 super.price = 2300;
                 break;
-            case STAMP_7X4:
+            case LARGE:
                 super.price = 2600;
                 break;
             default:
