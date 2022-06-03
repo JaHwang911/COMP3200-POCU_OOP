@@ -15,9 +15,9 @@ public class Program {
     }
 
     private static void testStamp() {
-        Stamp stamp0 = new Stamp(StampSize.STAMP_4X3, StampColor.RED, "Stamp0");
-        Stamp stamp1 = new Stamp(StampSize.STAMP_5X2, StampColor.BLUE, "Stamp1");
-        Stamp stamp2 = new Stamp(StampSize.STAMP_7X4, StampColor.GREEN, "Stamp2");
+        Stamp stamp0 = new Stamp(40, 30, StampColor.BLUE, "Stamp0");
+        Stamp stamp1 = new Stamp(50, 20, StampColor.BLUE, "Stamp1");
+        Stamp stamp2 = new Stamp(70, 40, StampColor.GREEN, "Stamp2");
 
         assert stamp0.getWidthMillimeter() == 40;
         assert stamp0.getHeightMillimeter() == 30;
@@ -51,9 +51,5 @@ public class Program {
         Calendar calendar0 = new Calendar(CalendarType.WALL, Orientation.PORTRAIT, new Color(0xFF, 0x00, 0x00));
         Calendar calendar1 = new Calendar(CalendarType.DESK, Orientation.PORTRAIT, new Color(0x00, 0x80, 0x00));
         Calendar calendar2 = new Calendar(CalendarType.MAGNET, Orientation.PORTRAIT, new Color(0x00, 0x80, 0xFF));
-
-        assert calendar0.getWidthMillimeter() == 400;
-        assert calendar0.getHeightMillimeter() == 400;
-        assert calendar0.getPrice() == 1000;
     }
 }

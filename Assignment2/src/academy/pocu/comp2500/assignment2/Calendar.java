@@ -59,6 +59,10 @@ public class Calendar extends Product {
         return this.orientation;
     }
 
+    public TextAperture getTextAperture(String text) {
+        return this.textApertures.get(text);
+    }
+
     public boolean addTextAperture(int x, int y, TextAperture aperture) {
         if (x < 0 || x > super.widthMillimeter || y < 0 || y > super.heightMillimeter) {
             return false;
@@ -72,6 +76,10 @@ public class Calendar extends Product {
         return true;
     }
 
+    public ImageAperture getImageAperture(String imagePath) {
+        return this.imageApertures.get(imagePath);
+    }
+
     public boolean addImageAperture(int x, int y, ImageAperture aperture) {
         if (x < 0 || x > super.widthMillimeter || y < 0 || y > super.heightMillimeter) {
             return false;
@@ -83,21 +91,5 @@ public class Calendar extends Product {
         super.price += 5;
 
         return true;
-    }
-
-    public int getTextApertureCount() {
-        return this.textApertures.size();
-    }
-
-    public TextAperture getTextAperture(String text) {
-        return this.textApertures.get(text);
-    }
-
-    public int getImageApertureCount() {
-        return this.imageApertures.size();
-    }
-
-    public ImageAperture getImageAperture(String imagePath) {
-        return this.imageApertures.get(imagePath);
     }
 }

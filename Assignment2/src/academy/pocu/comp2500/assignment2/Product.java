@@ -12,14 +12,6 @@ public class Product {
         this.deliveryMethod = DeliveryMethod.PICKUP;
     }
 
-    public int getWidthMillimeter() {
-        return this.widthMillimeter;
-    }
-
-    public int getHeightMillimeter() {
-        return this.heightMillimeter;
-    }
-
     public String getProductType() {
         switch (this.productType) {
             case STAMP:
@@ -34,6 +26,14 @@ public class Product {
                 assert false : "Unset or unknown product type";
                 return "";
         }
+    }
+
+    public int getWidthMillimeter() {
+        return this.widthMillimeter;
+    }
+
+    public int getHeightMillimeter() {
+        return this.heightMillimeter;
     }
 
     public DeliveryMethod getDeliveryType() {

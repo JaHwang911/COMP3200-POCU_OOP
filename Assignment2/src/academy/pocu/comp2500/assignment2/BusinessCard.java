@@ -89,6 +89,10 @@ public class BusinessCard extends Product {
         return this.sideType;
     }
 
+    public TextAperture getTextAperture(String text) {
+        return this.textApertures.get(text);
+    }
+
     public boolean addTextApertureToFront(int x, int y, TextAperture aperture) {
         if (x < 0 || x > super.widthMillimeter || y < 0 || y > super.heightMillimeter) {
             return false;
@@ -115,6 +119,10 @@ public class BusinessCard extends Product {
         super.price += 5;
 
         return true;
+    }
+
+    public ImageAperture getImageAperture(String imagePath) {
+        return this.imageApertures.get(imagePath);
     }
 
     public boolean addImageApertureToFront(int x, int y, ImageAperture aperture) {

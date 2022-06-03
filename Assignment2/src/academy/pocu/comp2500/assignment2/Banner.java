@@ -9,52 +9,18 @@ public class Banner extends Product {
     private final HashMap<String, TextAperture> textApertures;
     private final HashMap<String, ImageAperture> imageApertures;
 
-    public Banner(BannerSize size, BannerType bannerType, Orientation orientation, Color color) {
+    public Banner(int width, int height, BannerType bannerType, Orientation orientation, Color color) {
         super(ProductType.BANNER);
-
-        switch (bannerType) {
-            case GLOSS:
-                super.price = 5000;
-                break;
-            case SCRIM:
-            case MESH:
-                super.price = 5100;
-                break;
-            default:
-                assert false : "Unknown banner type";
-                break;
-        }
-
-        switch (size) {
-            case BANNER_1000MM_500MM:
-                super.widthMillimeter = 1000;
-                super.heightMillimeter = 500;
-                break;
-            case BANNER_1000MM_1000MM:
-                super.widthMillimeter = 1000;
-                super.heightMillimeter = 1000;
-                super.price += 200;
-                break;
-            case BANNER_2000MM_500MM:
-                super.widthMillimeter = 2000;
-                super.heightMillimeter = 500;
-                super.price += 300;
-                break;
-            case BANNER_3000MM_1000MM:
-                super.widthMillimeter = 3000;
-                super.heightMillimeter = 1000;
-                super.price += 1000;
-                break;
-            default:
-                assert false : "Unknown banner size";
-                break;
-        }
+        super.widthMillimeter = width;
+        super.heightMillimeter = height;
 
         this.bannerType = bannerType;
         this.orientation = orientation;
         this.color = color;
         this.textApertures = new HashMap<>();
         this.imageApertures = new HashMap<>();
+
+        setPrice();
     }
 
     public int getColor() {
@@ -79,6 +45,10 @@ public class Banner extends Product {
         return this.orientation;
     }
 
+    public TextAperture getTextAperture(String text) {
+        return this.textApertures.get(text);
+    }
+
     public boolean addTextAperture(int x, int y, TextAperture aperture) {
         if (x < 0 || x > super.widthMillimeter || y < 0 || y > super.heightMillimeter) {
             return false;
@@ -90,6 +60,11 @@ public class Banner extends Product {
         super.price += 5;
 
         return true;
+    }
+
+
+    public ImageAperture getImageAperture(String imagePath) {
+        return this.imageApertures.get(imagePath);
     }
 
     public boolean addImageAperture(int x, int y, ImageAperture aperture) {
@@ -105,19 +80,37 @@ public class Banner extends Product {
         return true;
     }
 
-    public int getTextApertureCount() {
-        return this.textApertures.size();
-    }
+    private void setPrice() {
+        switch (bannerType) {
+            case GLOSS:
+                super.price = 5000;
+                break;
+            case SCRIM:
+            case MESH:
+                super.price = 5100;
+                break;
+            default:
+                assert false : "Unknown banner type";
+                break;
+        }
 
-    public TextAperture getTextAperture(String text) {
-        return this.textApertures.get(text);
-    }
+        int sizeType = super.widthMillimeter + super.heightMillimeter;
 
-    public int getImageApertureCount() {
-        return this.imageApertures.size();
-    }
-
-    public ImageAperture getImageAperture(String imagePath) {
-        return this.imageApertures.get(imagePath);
+        switch (sizeType) {
+            case 1500:
+                break;
+            case 2000:
+                super.price += 200;
+                break;
+            case 2500:
+                super.price += 300;
+                break;
+            case 4000:
+                super.price += 1000;
+                break;
+            default:
+                assert false : "Wrong banner size!!";
+                break;
+        }
     }
 }
