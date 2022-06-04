@@ -82,8 +82,8 @@ public class Program {
     }
 
     private static void testCalendar() {
-        Calendar calendar0 = new Calendar(CalendarType.WALL, Orientation.PORTRAIT, new Color(0xFF, 0x00, 0x00));
-        Calendar calendar1 = new Calendar(CalendarType.DESK, Orientation.PORTRAIT, new Color(0x00, 0x80, 0x00));
-        Calendar calendar2 = new Calendar(CalendarType.MAGNET, Orientation.PORTRAIT, new Color(0x00, 0x80, 0xFF));
+        Calendar calendar0 = new Calendar(CalendarType.WALL, Orientation.PORTRAIT);
+        Calendar calendar1 = new Calendar(CalendarType.DESK, Orientation.PORTRAIT);
+        Calendar calendar2 = new Calendar(CalendarType.MAGNET, Orientation.PORTRAIT);
     }
 }

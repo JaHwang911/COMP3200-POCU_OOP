@@ -86,9 +86,9 @@ public class Banner extends Product {
     }
 
     public boolean addTextAperture(int x, int y, TextAperture aperture) {
-        if (x < 0 || x > this.width || y < 0 || y > this.height) {
+        if (x < 0 || x > super.width || y < 0 || y > super.height) {
             return false;
-        } else if (aperture.getWidth() > super.width || aperture.getHeight() > super.height) {
+        } else if (aperture.getWidth() + x > super.width || aperture.getHeight() + y > super.height) {
             return false;
         }
 
@@ -109,7 +109,7 @@ public class Banner extends Product {
     public boolean addImageAperture(int x, int y, ImageAperture aperture) {
         if (x < 0 || x > super.width || y < 0 || y > super.height) {
             return false;
-        } else if (aperture.getWidth() > super.width || aperture.getHeight() > super.height) {
+        } else if (aperture.getWidth() + x > super.width || aperture.getHeight() + y > super.height) {
             return false;
         }
 

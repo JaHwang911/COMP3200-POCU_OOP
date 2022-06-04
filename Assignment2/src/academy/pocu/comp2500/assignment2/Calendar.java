@@ -8,34 +8,34 @@ public class Calendar extends Product {
     private final HashMap<String, TextAperture> textApertures;
     private final HashMap<String, ImageAperture> imageApertures;
 
-    public Calendar(CalendarType calendarType, Orientation orientation, Color color) {
-        super.color = color;
-
-        this.calendarType = calendarType;
-        this.orientation = orientation;
-        this.textApertures = new HashMap<>();
-        this.imageApertures = new HashMap<>();
+    public Calendar(CalendarType calendarType, Orientation orientation) {
+        super.color = new Color(0xFF, 0xFF, 0xFF);
 
         switch (calendarType) {
             case WALL:
-                this.width = 400;
-                this.height = 400;
+                super.width = 400;
+                super.height = 400;
                 super.price = 1000;
                 break;
             case DESK:
-                this.width = 200;
-                this.height = 150;
+                super.width = 200;
+                super.height = 150;
                 super.price = 1000;
                 break;
             case MAGNET:
-                this.width = 100;
-                this.height = 200;
+                super.width = 100;
+                super.height = 200;
                 super.price = 1500;
                 break;
             default:
                 assert false : "Unknown calendar type";
                 break;
         }
+
+        this.calendarType = calendarType;
+        this.orientation = orientation;
+        this.textApertures = new HashMap<>();
+        this.imageApertures = new HashMap<>();
     }
 
     public String getCalendarName() {
@@ -69,9 +69,9 @@ public class Calendar extends Product {
     }
 
     public boolean addTextAperture(int x, int y, TextAperture aperture) {
-        if (x < 0 || x > this.width || y < 0 || y > this.height) {
+        if (x < 0 || x > super.width || y < 0 || y > super.height) {
             return false;
-        } else if (aperture.getWidth() > this.width || aperture.getHeight() > this.height) {
+        } else if (aperture.getWidth() + x > super.width || aperture.getHeight() + y > super.height) {
             return false;
         }
 
@@ -90,9 +90,9 @@ public class Calendar extends Product {
     }
 
     public boolean addImageAperture(int x, int y, ImageAperture aperture) {
-        if (x < 0 || x > this.width || y < 0 || y > this.height) {
+        if (x < 0 || x > super.width || y < 0 || y > super.height) {
             return false;
-        } else if (aperture.getWidth() > this.width || aperture.getHeight() > this.height) {
+        } else if (aperture.getWidth() + x > super.width || aperture.getHeight() + y > super.height) {
             return false;
         }
 
