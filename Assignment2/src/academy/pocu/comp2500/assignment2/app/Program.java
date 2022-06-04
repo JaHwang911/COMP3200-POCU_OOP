@@ -19,6 +19,10 @@ public class Program {
         Stamp stamp1 = new Stamp(StampSize.MEDIUM, StampColor.BLUE, "Stamp1");
         Stamp stamp2 = new Stamp(StampSize.LARGE, StampColor.GREEN, "Stamp2");
 
+        Color red = new Color(1289, -1, -323);
+        Color green = new Color(0x0, 0x80, 0x0);
+        Color blue = new Color(0, 0, 32423);
+
         assert stamp0.getWidth() == 40;
         assert stamp0.getHeight() == 30;
         assert stamp0.getStampName().equals("Stamp (40 mm x 30 mm)");
@@ -27,7 +31,7 @@ public class Program {
         assert stamp0.getDeliveryType() == DeliveryMethod.PICKUP;
         stamp0.setDeliveryType(DeliveryMethod.SHIP);
         assert stamp0.getDeliveryType() == DeliveryMethod.SHIP;
-        assert stamp0.getRGB().equals("RGB(FF,0,0)");
+        assert stamp0.getColor().getColor() == red.getColor();
 
         assert stamp0.getWidth() == 50;
         assert stamp0.getHeight() == 20;
@@ -37,7 +41,7 @@ public class Program {
         assert stamp1.getDeliveryType() == DeliveryMethod.PICKUP;
         stamp1.setDeliveryType(DeliveryMethod.SHIP);
         assert stamp1.getDeliveryType() == DeliveryMethod.SHIP;
-        assert stamp1.getRGB().equals("RGB(0,80,0)");
+        assert stamp1.getColor().getColor() == blue.getColor();
 
         assert stamp0.getWidth() == 70;
         assert stamp0.getHeight() == 40;
@@ -47,7 +51,7 @@ public class Program {
         assert stamp2.getDeliveryType() == DeliveryMethod.PICKUP;
         stamp2.setDeliveryType(DeliveryMethod.SHIP);
         assert stamp2.getDeliveryType() == DeliveryMethod.SHIP;
-        assert stamp0.getRGB().equals("RGB(0,0,FF)");
+        assert stamp2.getColor().getColor() == green.getColor();
     }
 
     private static void testCalendar() {

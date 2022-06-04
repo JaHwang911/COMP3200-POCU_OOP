@@ -6,9 +6,9 @@ public class Color {
     private final int blue;
 
     public Color(int red, int green, int blue) {
-        this.red = red;
-        this.green = green;
-        this.blue = blue;
+        this.red = Math.min(Math.max(0, red), 255);
+        this.green = Math.min(Math.max(0, green), 255);
+        this.blue = Math.min(Math.max(0, blue), 255);;
     }
 
     public int getRed() {
