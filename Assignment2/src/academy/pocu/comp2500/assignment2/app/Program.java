@@ -3,6 +3,10 @@ package academy.pocu.comp2500.assignment2.app;
 import academy.pocu.comp2500.assignment2.*;
 import academy.pocu.comp2500.assignment2.registry.Registry;
 
+/*
+    달력을 흰색으로 하지 않음
+
+*/
 public class Program {
     public static void main(String[] args) {
         Registry registry = new Registry();
@@ -34,8 +38,8 @@ public class Program {
         assert stamp0.getDeliveryType() == DeliveryMethod.SHIP;
         assert stamp0.getColor().getColor() == red.getColor();
 
-        assert stamp0.getWidth() == 50;
-        assert stamp0.getHeight() == 20;
+        assert stamp1.getWidth() == 50;
+        assert stamp1.getHeight() == 20;
         assert stamp1.getStampName().equals("Stamp (50 mm x 20 mm)");
         assert stamp1.getPrice() == 2300;
         assert stamp1.getText().equals("Stamp1");
@@ -44,8 +48,8 @@ public class Program {
         assert stamp1.getDeliveryType() == DeliveryMethod.SHIP;
         assert stamp1.getColor().getColor() == blue.getColor();
 
-        assert stamp0.getWidth() == 70;
-        assert stamp0.getHeight() == 40;
+        assert stamp2.getWidth() == 70;
+        assert stamp2.getHeight() == 40;
         assert stamp2.getStampName().equals("Stamp (70 mm x 40 mm)");
         assert stamp2.getPrice() == 2600;
         assert stamp2.getText().equals("Stamp2");
@@ -56,27 +60,32 @@ public class Program {
     }
 
     private static void testBusinessCard() {
-        BusinessCard businessCard0 = new BusinessCard(PaperType.LAID, SideType.DOUBLE, Orientation.PORTRAIT, BusinessCardColor.IVORY);
-        TextAperture textAperture0 = new TextAperture(1, 1, "text");
-        TextAperture textAperture1 = new TextAperture(90, 50, "text");
+        BusinessCard businessCard0 = new BusinessCard(PaperType.LAID, SideType.SINGLE, Orientation.PORTRAIT, BusinessCardColor.IVORY);
 
-        businessCard0.addTextAperture(-1, 30, textAperture0);
+        TextAperture textAperture0 = new TextAperture(-1, 30, 1, 1, "text");
+        TextAperture textAperture1 = new TextAperture(30, -1, 1, 1, "text");
+        TextAperture textAperture2 = new TextAperture(90, 50, 1, 1, "text");
+
+        TextAperture textAperture3 = new TextAperture(0, 0, 90, 50, "text");
+        TextAperture textAperture4 = new TextAperture(89, 49, 1, 1, "text");
+
+        businessCard0.addTextAperture(textAperture0);
         assert businessCard0.getTextApertureCount() == 0;
         assert businessCard0.getPrice() == 120;
 
-        businessCard0.addTextAperture(30, -1, textAperture0);
+        businessCard0.addTextAperture(textAperture1);
         assert businessCard0.getTextApertureCount() == 0;
         assert businessCard0.getPrice() == 120;
 
-        businessCard0.addTextAperture(90, 50, textAperture0);
+        businessCard0.addTextAperture(textAperture2);
         assert businessCard0.getTextApertureCount() == 0;
         assert businessCard0.getPrice() == 120;
 
-        businessCard0.addTextAperture(0, 0, textAperture0);
+        businessCard0.addTextAperture(textAperture3);
         assert businessCard0.getTextApertureCount() == 1;
         assert businessCard0.getPrice() == 125;
 
-        businessCard0.addTextAperture(0, 0, textAperture1);
+        businessCard0.addTextAperture(textAperture4);
         assert businessCard0.getTextApertureCount() == 2;
         assert businessCard0.getPrice() == 130;
     }

@@ -1,13 +1,14 @@
 package academy.pocu.comp2500.assignment2;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class BusinessCard extends Product {
     private final PaperType paperType;
     private final Orientation orientation;
     private final SideType sideType;
-    private final HashMap<String, TextAperture> textApertures;
-    private final HashMap<String, ImageAperture> imageApertures;
+    private final ArrayList<TextAperture> textApertures;
+    private final ArrayList<ImageAperture> imageApertures;
 
     public BusinessCard(PaperType paperType, SideType sides, Orientation orientation, BusinessCardColor color) {
         super.width = 90;
@@ -50,8 +51,8 @@ public class BusinessCard extends Product {
         this.paperType = paperType;
         this.sideType = sides;
         this.orientation = orientation;
-        this.textApertures = new HashMap<>();
-        this.imageApertures = new HashMap<>();
+        this.textApertures = new ArrayList<>();
+        this.imageApertures = new ArrayList<>();
     }
 
     public String getBusinessCardName() {
@@ -84,18 +85,22 @@ public class BusinessCard extends Product {
         return this.textApertures.size();
     }
 
-    public TextAperture getTextAperture(String text) {
-        return this.textApertures.get(text);
+    public TextAperture getTextAperture(TextAperture aperture) {
+        int index = this.textApertures.indexOf(aperture);
+        return this.textApertures.get(index);
     }
 
-    public boolean addTextAperture(int x, int y, TextAperture aperture) {
-        if (x < 0 || x > super.width || y < 0 || y > super.height) {
+    public boolean addTextAperture(TextAperture aperture) {
+        int posX = aperture.getPosX();
+        int posY = aperture.getPosY();
+
+        if (posX < 0 || posX > super.width || posY < 0 || posY > super.height) {
             return false;
-        } else if (aperture.getWidth() + x > super.width || aperture.getHeight() + y > super.height) {
+        } else if (aperture.getWidth() + posX > super.width || aperture.getHeight() + posY > super.height) {
             return false;
         }
 
-        this.textApertures.put(aperture.getText(), aperture);
+        this.textApertures.add(aperture);
         super.price += 5;
 
         return true;
@@ -105,18 +110,22 @@ public class BusinessCard extends Product {
         return this.imageApertures.size();
     }
 
-    public ImageAperture getImageAperture(String imagePath) {
-        return this.imageApertures.get(imagePath);
+    public ImageAperture getImageAperture(ImageAperture aperture) {
+        int index = this.imageApertures.indexOf(aperture);
+        return this.imageApertures.get(index);
     }
 
-    public boolean addImageAperture(int x, int y, ImageAperture aperture) {
-        if (x < 0 || x > super.width || y < 0 || y > super.height) {
+    public boolean addImageAperture(ImageAperture aperture) {
+        int posX = aperture.getPosX();
+        int posY = aperture.getPosY();
+
+        if (posX < 0 || posX > super.width || posY < 0 || posY > super.height) {
             return false;
-        } else if (aperture.getWidth() + x > super.width || aperture.getHeight() + y > super.height) {
+        } else if (aperture.getWidth() + posX > super.width || aperture.getHeight() + posY > super.height) {
             return false;
         }
 
-        this.imageApertures.put(aperture.getPath(), aperture);
+        this.imageApertures.add(aperture);
         super.price += 5;
 
         return true;
