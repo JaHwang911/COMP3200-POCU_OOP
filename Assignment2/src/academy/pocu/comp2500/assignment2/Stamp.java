@@ -48,11 +48,11 @@ public class Stamp extends Product {
         return this.color.getColor();
     }
 
-    public String getText() {
-        return this.text;
+    public String getStampName() {
+        return String.format("Stamp (%d mm x %d mm)", super.width, super.height);
     }
 
-    public String getStampInfo() {
-        return String.format("Stamp (%d mm x %d mm)", super.width, super.height);
+    public String getText() {
+        return this.text;
     }
 }

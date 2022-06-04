@@ -62,14 +62,18 @@ public class BusinessCard extends Product {
         this.imageApertures = new HashMap<>();
     }
 
-    public String getBusinessCardType() {
+    public int getColor() {
+        return this.color.getColor();
+    }
+
+    public String getBusinessCardName() {
         switch (this.businessCardType) {
             case LINEN:
-                return "Linen";
+                return "Linen Business Card";
             case LAID:
-                return "Laid";
+                return "Laid Business Card";
             case SMOOTH:
-                return "Smooth";
+                return "Smooth Business Card";
             default:
                 assert false : "Unknown card type";
                 return "";
@@ -78,10 +82,6 @@ public class BusinessCard extends Product {
 
     public Orientation getOrientation() {
         return this.orientation;
-    }
-
-    public int getColor() {
-        return this.color.getColor();
     }
 
     public SideType getSideType() {

@@ -59,7 +59,7 @@ public class Banner extends Product {
         return this.color.getColor();
     }
 
-    public String getBannerInfo() {
+    public String getBannerName() {
         switch (this.bannerType) {
             case GLOSS:
                 return String.format("Gloss Banner (%d mm x %d mm)", super.width, super.height);

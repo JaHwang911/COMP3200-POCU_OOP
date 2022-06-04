@@ -1,14 +1,10 @@
 package academy.pocu.comp2500.assignment2;
 
 public class Product {
-    protected int price;
     protected int width;
     protected int height;
+    protected int price;
     protected DeliveryMethod deliveryMethod = DeliveryMethod.PICKUP;
-
-    public int getPrice() {
-        return this.price;
-    }
 
     public int getWidth() {
         return this.width;
@@ -16,6 +12,10 @@ public class Product {
 
     public int getHeight() {
         return this.height;
+    }
+
+    public int getPrice() {
+        return this.price;
     }
 
     public DeliveryMethod getDeliveryType() {

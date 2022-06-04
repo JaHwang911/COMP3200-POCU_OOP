@@ -42,14 +42,14 @@ public class Calendar extends Product {
         return this.color.getColor();
     }
 
-    public String getCalendarType() {
+    public String getCalendarName() {
         switch (this.calendarType) {
             case WALL:
-                return "Wall";
+                return "Wall Calendar";
             case DESK:
-                return "Desk";
+                return "Desk Calendar";
             case MAGNET:
-                return "Magnet";
+                return "Magnet Calendar";
             default:
                 assert false : "Unknown calendar type";
                 return "";
