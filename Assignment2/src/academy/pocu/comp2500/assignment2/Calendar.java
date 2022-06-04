@@ -66,8 +66,8 @@ public class Calendar extends Product {
     }
 
     public TextAperture getTextAperture(TextAperture aperture) {
-         int index = this.textApertures.indexOf(aperture);
-         return this.textApertures.get(index);
+        int index = this.textApertures.indexOf(aperture);
+        return this.textApertures.get(index);
     }
 
     public boolean addTextAperture(TextAperture aperture) {
