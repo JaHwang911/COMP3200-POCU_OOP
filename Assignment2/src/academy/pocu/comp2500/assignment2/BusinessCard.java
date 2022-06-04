@@ -7,8 +7,8 @@ public class BusinessCard extends Product {
     private final PaperType paperType;
     private final Orientation orientation;
     private final SideType sideType;
-    private final ArrayList<TextAperture> textApertures;
-    private final ArrayList<ImageAperture> imageApertures;
+    private final ArrayList<Aperture> textApertures;
+    private final ArrayList<Aperture> imageApertures;
 
     public BusinessCard(PaperType paperType, SideType sides, Orientation orientation, BusinessCardColor color) {
         super.width = 90;
@@ -85,7 +85,7 @@ public class BusinessCard extends Product {
         return this.textApertures.size();
     }
 
-    public TextAperture getTextAperture(TextAperture aperture) {
+    public Aperture getTextAperture(TextAperture aperture) {
         int index = this.textApertures.indexOf(aperture);
         return this.textApertures.get(index);
     }
@@ -110,7 +110,7 @@ public class BusinessCard extends Product {
         return this.imageApertures.size();
     }
 
-    public ImageAperture getImageAperture(ImageAperture aperture) {
+    public Aperture getImageAperture(ImageAperture aperture) {
         int index = this.imageApertures.indexOf(aperture);
         return this.imageApertures.get(index);
     }

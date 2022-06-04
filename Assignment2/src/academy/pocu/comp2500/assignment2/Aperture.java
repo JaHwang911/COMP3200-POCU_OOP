@@ -6,7 +6,7 @@ public class Aperture {
     private final int width;
     private final int height;
 
-    public Aperture(int x, int y, int width, int height) {
+    protected Aperture(int x, int y, int width, int height) {
         this.posX = x;
         this.posY = y;
         this.width = Math.max(1, width);

@@ -9,17 +9,20 @@ public class Cart {
         this.products = new ArrayList<>();
     }
 
+    public int getProductsCount() {
+        return this.products.size();
+    }
+
+    public ArrayList<Product> getTotalProducts() {
+        return this.products;
+    }
+
     public void addProduct(Product product) {
         this.products.add(product);
     }
 
     public boolean removeProduct(Product product) {
         return this.products.remove(product);
-    }
-
-    public Product getProduct(Product product) {
-        int index = this.products.indexOf(product);
-        return this.products.get(index);
     }
 
     public int getTotalPrice() {

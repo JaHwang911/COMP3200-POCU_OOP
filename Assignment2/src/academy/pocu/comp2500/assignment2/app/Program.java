@@ -15,6 +15,7 @@ public class Program {
 
         testStamp();
         testBusinessCard();
+        testCart();
 
         System.out.println("No prob");
     }
@@ -36,7 +37,6 @@ public class Program {
         assert stamp0.getDeliveryType() == DeliveryMethod.PICKUP;
         stamp0.setDeliveryType(DeliveryMethod.SHIP);
         assert stamp0.getDeliveryType() == DeliveryMethod.SHIP;
-        assert stamp0.getColor().getColor() == red.getColor();
 
         assert stamp1.getWidth() == 50;
         assert stamp1.getHeight() == 20;
@@ -46,7 +46,6 @@ public class Program {
         assert stamp1.getDeliveryType() == DeliveryMethod.PICKUP;
         stamp1.setDeliveryType(DeliveryMethod.SHIP);
         assert stamp1.getDeliveryType() == DeliveryMethod.SHIP;
-        assert stamp1.getColor().getColor() == blue.getColor();
 
         assert stamp2.getWidth() == 70;
         assert stamp2.getHeight() == 40;
@@ -56,7 +55,6 @@ public class Program {
         assert stamp2.getDeliveryType() == DeliveryMethod.PICKUP;
         stamp2.setDeliveryType(DeliveryMethod.SHIP);
         assert stamp2.getDeliveryType() == DeliveryMethod.SHIP;
-        assert stamp2.getColor().getColor() == green.getColor();
     }
 
     private static void testBusinessCard() {
@@ -90,9 +88,42 @@ public class Program {
         assert businessCard0.getPrice() == 130;
     }
 
-    private static void testCalendar() {
-        Calendar calendar0 = new Calendar(CalendarType.WALL, Orientation.PORTRAIT);
-        Calendar calendar1 = new Calendar(CalendarType.DESK, Orientation.PORTRAIT);
-        Calendar calendar2 = new Calendar(CalendarType.MAGNET, Orientation.PORTRAIT);
+    private static void testCart() {
+        Cart cart = new Cart();
+        Stamp stamp0 = new Stamp(StampSize.SMALL, StampColor.RED, "Stamp0");
+        BusinessCard businessCard0 = new BusinessCard(PaperType.LAID, SideType.SINGLE, Orientation.PORTRAIT, BusinessCardColor.IVORY);
+        Banner banner0 = new Banner(BannerType.GLOSS, BannerSize.BANNER_3000X1000, Orientation.PORTRAIT, new Color(0xff, 0xff, 0xff));
+
+        cart.addProduct(stamp0);
+
+        assert cart.getTotalPrice() == 2300;
+        assert cart.getProductsCount() == 1;
+        assert !cart.removeProduct(businessCard0);
+
+        cart.addProduct(businessCard0);
+
+        assert cart.getTotalPrice() == 2420;
+        assert cart.getProductsCount() == 2;
+        assert !cart.removeProduct(banner0);
+
+        var products = cart.getTotalProducts();
+        assert products.size() == 2;
+        int totalPrice = 0;
+
+        for (Product product : products) {
+            totalPrice += product.getPrice();
+        }
+
+        assert totalPrice == 2420;
+
+        assert cart.removeProduct(stamp0);
+        assert cart.getProductsCount() == 1;
+        assert cart.getTotalPrice() == 120;
+
+        assert cart.removeProduct(businessCard0);
+        assert cart.getProductsCount() == 0;
+        assert cart.getTotalPrice() == 0;
+
+        assert products.size() == 0;
     }
 }
