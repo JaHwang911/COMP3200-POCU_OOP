@@ -15,8 +15,8 @@ public class Product {
         return this.height;
     }
 
-    public String getRGB() {
-        return this.color.getRGB();
+    public Color getColor() {
+        return this.color;
     }
 
     public int getPrice() {

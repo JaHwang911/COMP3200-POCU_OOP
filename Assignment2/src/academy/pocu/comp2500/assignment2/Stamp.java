@@ -4,7 +4,17 @@ public class Stamp extends Product {
     private final String text;
 
     public Stamp(StampSize stampSize, StampColor color, String text) {
-        this.text = text;
+        switch (color) {
+            case RED:
+                super.color = new Color(0xFF, 0x00, 0x00);
+                break;
+            case GREEN:
+                super.color = new Color(0x00, 0x80, 0x00);
+                break;
+            case BLUE:
+                super.color = new Color(0x00, 0x00, 0xFF);
+                break;
+        }
 
         switch (stampSize) {
             case SMALL:
@@ -27,17 +37,7 @@ public class Stamp extends Product {
                 break;
         }
 
-        switch (color) {
-            case RED:
-                super.color = new Color(0xFF, 0x00, 0x00);
-                break;
-            case GREEN:
-                super.color = new Color(0x00, 0x80, 0x00);
-                break;
-            case BLUE:
-                super.color = new Color(0x00, 0x00, 0xFF);
-                break;
-        }
+        this.text = text;
     }
 
     public String getStampName() {

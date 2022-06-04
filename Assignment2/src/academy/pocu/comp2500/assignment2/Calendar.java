@@ -10,6 +10,7 @@ public class Calendar extends Product {
 
     public Calendar(CalendarType calendarType, Orientation orientation, Color color) {
         super.color = color;
+
         this.calendarType = calendarType;
         this.orientation = orientation;
         this.textApertures = new HashMap<>();

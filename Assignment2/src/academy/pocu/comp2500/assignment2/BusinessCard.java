@@ -12,6 +12,20 @@ public class BusinessCard extends Product {
     private final HashMap<String, ImageAperture> imageApertures;
 
     public BusinessCard(BusinessCardType businessCardType, SideType sides, Orientation orientation, BusinessCardColor color) {
+        switch (color) {
+            case GRAY:
+                super.color = new Color(0xE6, 0xE6, 0xE6);
+                break;
+            case IVORY:
+                super.color = new Color(0xFF, 0xFF, 0xF0);
+                break;
+            case WHITE:
+                super.color = new Color(0xFF, 0xFF, 0xFF);
+                break;
+            default:
+                assert false : "Unknown color type";
+                break;
+        }
 
         switch (businessCardType) {
             case LINEN:
@@ -36,21 +50,6 @@ public class BusinessCard extends Product {
                 break;
             default:
                 assert false : "Unknown side type";
-                break;
-        }
-
-        switch (color) {
-            case GRAY:
-                super.color = new Color(0xE6, 0xE6, 0xE6);
-                break;
-            case IVORY:
-                super.color = new Color(0xFF, 0xFF, 0xF0);
-                break;
-            case WHITE:
-                super.color = new Color(0xFF, 0xFF, 0xFF);
-                break;
-            default:
-                assert false : "Unknown color type";
                 break;
         }
 

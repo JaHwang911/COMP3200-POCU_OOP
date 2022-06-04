@@ -11,11 +11,6 @@ public class Banner extends Product {
     public Banner(BannerType bannerType, BannerSize bannerSize, Orientation orientation, Color color) {
         super.color = color;
 
-        this.bannerType = bannerType;
-        this.orientation = orientation;
-        this.textApertures = new HashMap<>();
-        this.imageApertures = new HashMap<>();
-
         switch (bannerType) {
             case GLOSS:
                 super.price = 5000;
@@ -53,6 +48,11 @@ public class Banner extends Product {
                 assert false : "Unknown banner size";
                 break;
         }
+
+        this.bannerType = bannerType;
+        this.orientation = orientation;
+        this.textApertures = new HashMap<>();
+        this.imageApertures = new HashMap<>();
     }
 
     public String getBannerName() {

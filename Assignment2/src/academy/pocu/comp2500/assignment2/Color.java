@@ -11,8 +11,16 @@ public class Color {
         this.blue = blue;
     }
 
-    public String getRGB() {
-        return String.format("RGB(%x,%x,%x)", this.red, this.green, this.blue);
+    public int getRed() {
+        return this.red;
+    }
+
+    public int getGreen() {
+        return this.green;
+    }
+
+    public int getBlue() {
+        return this.blue;
     }
 
     public int getColor() {
