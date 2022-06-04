@@ -5,8 +5,8 @@ public class Aperture {
     private final int height;
 
     public Aperture(int width, int height) {
-        this.width = width;
-        this.height = height;
+        this.width = Math.max(1, width);
+        this.height = Math.max(1, height);
     }
 
     public int getWidth() {

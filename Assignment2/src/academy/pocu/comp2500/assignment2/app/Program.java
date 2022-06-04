@@ -10,6 +10,7 @@ public class Program {
         registry.validate();
 
         testStamp();
+        testBusinessCard();
 
         System.out.println("No prob");
     }
@@ -52,6 +53,32 @@ public class Program {
         stamp2.setDeliveryType(DeliveryMethod.SHIP);
         assert stamp2.getDeliveryType() == DeliveryMethod.SHIP;
         assert stamp2.getColor().getColor() == green.getColor();
+    }
+
+    private static void testBusinessCard() {
+        BusinessCard businessCard0 = new BusinessCard(PaperType.LAID, SideType.DOUBLE, Orientation.PORTRAIT, BusinessCardColor.IVORY);
+        TextAperture textAperture0 = new TextAperture(1, 1, "text");
+        TextAperture textAperture1 = new TextAperture(90, 50, "text");
+
+        businessCard0.addTextAperture(-1, 30, textAperture0);
+        assert businessCard0.getTextApertureCount() == 0;
+        assert businessCard0.getPrice() == 120;
+
+        businessCard0.addTextAperture(30, -1, textAperture0);
+        assert businessCard0.getTextApertureCount() == 0;
+        assert businessCard0.getPrice() == 120;
+
+        businessCard0.addTextAperture(90, 50, textAperture0);
+        assert businessCard0.getTextApertureCount() == 0;
+        assert businessCard0.getPrice() == 120;
+
+        businessCard0.addTextAperture(0, 0, textAperture0);
+        assert businessCard0.getTextApertureCount() == 1;
+        assert businessCard0.getPrice() == 125;
+
+        businessCard0.addTextAperture(0, 0, textAperture1);
+        assert businessCard0.getTextApertureCount() == 2;
+        assert businessCard0.getPrice() == 130;
     }
 
     private static void testCalendar() {

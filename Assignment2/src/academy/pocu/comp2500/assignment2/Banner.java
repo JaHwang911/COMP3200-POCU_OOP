@@ -73,6 +73,10 @@ public class Banner extends Product {
         return this.orientation;
     }
 
+    public int getTextApertureCount() {
+        return this.textApertures.size();
+    }
+
     public TextAperture getTextAperture(String text) {
         return this.textApertures.get(text);
     }
@@ -88,6 +92,10 @@ public class Banner extends Product {
         super.price += 5;
 
         return true;
+    }
+
+    public int getImageApertureCount() {
+        return this.imageApertures.size();
     }
 
     public ImageAperture getImageAperture(String imagePath) {

@@ -3,15 +3,16 @@ package academy.pocu.comp2500.assignment2;
 import java.util.HashMap;
 
 public class BusinessCard extends Product {
-    private final BusinessCardType businessCardType;
+    private final PaperType paperType;
     private final Orientation orientation;
     private final SideType sideType;
-    private final int WIDTH = 90;
-    private final int HEIGHT = 50;
     private final HashMap<String, TextAperture> textApertures;
     private final HashMap<String, ImageAperture> imageApertures;
 
-    public BusinessCard(BusinessCardType businessCardType, SideType sides, Orientation orientation, BusinessCardColor color) {
+    public BusinessCard(PaperType paperType, SideType sides, Orientation orientation, BusinessCardColor color) {
+        super.width = 90;
+        super.height = 50;
+
         switch (color) {
             case GRAY:
                 super.color = new Color(0xE6, 0xE6, 0xE6);
@@ -27,7 +28,7 @@ public class BusinessCard extends Product {
                 break;
         }
 
-        switch (businessCardType) {
+        switch (paperType) {
             case LINEN:
                 super.price = 110;
                 break;
@@ -42,18 +43,11 @@ public class BusinessCard extends Product {
                 break;
         }
 
-        switch (sides) {
-            case DOUBLE:
-                super.price += 30;
-                break;
-            case SINGLE:
-                break;
-            default:
-                assert false : "Unknown side type";
-                break;
+        if (sides == SideType.DOUBLE) {
+            super.price += 30;
         }
 
-        this.businessCardType = businessCardType;
+        this.paperType = paperType;
         this.sideType = sides;
         this.orientation = orientation;
         this.textApertures = new HashMap<>();
@@ -61,7 +55,7 @@ public class BusinessCard extends Product {
     }
 
     public String getBusinessCardName() {
-        switch (this.businessCardType) {
+        switch (this.paperType) {
             case LINEN:
                 return "Linen Business Card";
             case LAID:
@@ -74,6 +68,10 @@ public class BusinessCard extends Product {
         }
     }
 
+    public PaperType getPaperType() {
+        return this.paperType;
+    }
+
     public Orientation getOrientation() {
         return this.orientation;
     }
@@ -82,14 +80,18 @@ public class BusinessCard extends Product {
         return this.sideType;
     }
 
+    public int getTextApertureCount() {
+        return this.textApertures.size();
+    }
+
     public TextAperture getTextAperture(String text) {
         return this.textApertures.get(text);
     }
 
-    public boolean addTextApertureToFront(int x, int y, TextAperture aperture) {
-        if (x < 0 || x > this.WIDTH || y < 0 || y > this.HEIGHT) {
+    public boolean addTextAperture(int x, int y, TextAperture aperture) {
+        if (x < 0 || x > super.width || y < 0 || y > super.height) {
             return false;
-        } else if (aperture.getWidth() > this.WIDTH || aperture.getHeight() > this.HEIGHT) {
+        } else if (aperture.getWidth() + x > super.width || aperture.getHeight() + y > super.height) {
             return false;
         }
 
@@ -99,44 +101,18 @@ public class BusinessCard extends Product {
         return true;
     }
 
-    public boolean addTextApertureToBack(int x, int y, TextAperture aperture) {
-        if (x < 0 || x > this.WIDTH || y < 0 || y > this.HEIGHT) {
-            return false;
-        } else if (aperture.getWidth() > this.WIDTH || aperture.getHeight() > this.HEIGHT) {
-            return false;
-        } else if (this.sideType != SideType.DOUBLE) {
-            return false;
-        }
-
-        this.textApertures.put(aperture.getText(), aperture);
-        super.price += 5;
-
-        return true;
+    public int getImageApertureCount() {
+        return this.imageApertures.size();
     }
 
     public ImageAperture getImageAperture(String imagePath) {
         return this.imageApertures.get(imagePath);
     }
 
-    public boolean addImageApertureToFront(int x, int y, ImageAperture aperture) {
-        if (x < 0 || x > this.WIDTH || y < 0 || y > this.HEIGHT) {
+    public boolean addImageAperture(int x, int y, ImageAperture aperture) {
+        if (x < 0 || x > super.width || y < 0 || y > super.height) {
             return false;
-        } else if (aperture.getWidth() > this.WIDTH || aperture.getHeight() > this.HEIGHT) {
-            return false;
-        }
-
-        this.imageApertures.put(aperture.getPath(), aperture);
-        super.price += 5;
-
-        return true;
-    }
-
-    public boolean addImageApertureToBack(int x, int y, ImageAperture aperture) {
-        if (x < 0 || x > this.WIDTH || y < 0 || y > this.HEIGHT) {
-            return false;
-        } else if (aperture.getWidth() > this.WIDTH || aperture.getHeight() > this.HEIGHT) {
-            return false;
-        } else if (this.sideType != SideType.DOUBLE) {
+        } else if (aperture.getWidth() + x > super.width || aperture.getHeight() + y > super.height) {
             return false;
         }
 

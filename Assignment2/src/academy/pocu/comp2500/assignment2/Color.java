@@ -8,7 +8,7 @@ public class Color {
     public Color(int red, int green, int blue) {
         this.red = Math.min(Math.max(0, red), 255);
         this.green = Math.min(Math.max(0, green), 255);
-        this.blue = Math.min(Math.max(0, blue), 255);;
+        this.blue = Math.min(Math.max(0, blue), 255);
     }
 
     public int getRed() {
