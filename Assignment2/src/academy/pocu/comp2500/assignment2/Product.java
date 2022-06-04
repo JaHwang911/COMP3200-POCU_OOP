@@ -10,6 +10,14 @@ public class Product {
         return this.price;
     }
 
+    public int getWidth() {
+        return this.width;
+    }
+
+    public int getHeight() {
+        return this.height;
+    }
+
     public DeliveryMethod getDeliveryType() {
         return this.deliveryMethod;
     }

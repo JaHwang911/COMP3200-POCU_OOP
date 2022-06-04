@@ -56,14 +56,6 @@ public class Calendar extends Product {
         }
     }
 
-    public int getWidth() {
-        return this.width;
-    }
-
-    public int getHeight() {
-        return this.height;
-    }
-
     public Orientation getOrientation() {
         return this.orientation;
     }
