@@ -27,7 +27,9 @@ public class Program {
         assert stamp0.getDeliveryType() == DeliveryMethod.PICKUP;
         stamp0.setDeliveryType(DeliveryMethod.SHIP);
         assert stamp0.getDeliveryType() == DeliveryMethod.SHIP;
-        assert stamp0.getColor() == 0xFF0000;
+        assert stamp0.getRed() == 0xFF;
+        assert stamp0.getGreen() == 0x00;
+        assert stamp0.getBlue() == 0x00;
 
         assert stamp0.getWidth() == 50;
         assert stamp0.getHeight() == 20;
@@ -37,7 +39,9 @@ public class Program {
         assert stamp1.getDeliveryType() == DeliveryMethod.PICKUP;
         stamp1.setDeliveryType(DeliveryMethod.SHIP);
         assert stamp1.getDeliveryType() == DeliveryMethod.SHIP;
-        assert stamp1.getColor() == 0x0000FF;
+        assert stamp0.getRed() == 0x00;
+        assert stamp0.getGreen() == 0x80;
+        assert stamp0.getBlue() == 0x00;
 
         assert stamp0.getWidth() == 70;
         assert stamp0.getHeight() == 40;
@@ -47,7 +51,9 @@ public class Program {
         assert stamp2.getDeliveryType() == DeliveryMethod.PICKUP;
         stamp2.setDeliveryType(DeliveryMethod.SHIP);
         assert stamp2.getDeliveryType() == DeliveryMethod.SHIP;
-        assert stamp2.getColor() == 0x008000;
+        assert stamp0.getRed() == 0x00;
+        assert stamp0.getGreen() == 0x00;
+        assert stamp0.getBlue() == 0xFF;
     }
 
     private static void testCalendar() {

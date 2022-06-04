@@ -1,7 +1,6 @@
 package academy.pocu.comp2500.assignment2;
 
 public class Stamp extends Product {
-    private Color color;
     private final String text;
 
     public Stamp(StampSize stampSize, StampColor color, String text) {
@@ -30,22 +29,21 @@ public class Stamp extends Product {
 
         switch (color) {
             case RED:
-                this.color = new Color(0xFF, 0x00, 0x00);
-                break;
-            case BLUE:
-                this.color = new Color(0x00, 0x00, 0xFF);
+                super.red = 0xFF;
+                super.green = 0x80;
+                super.blue = 0x00;
                 break;
             case GREEN:
-                this.color = new Color(0x00, 0x80, 0x00);
+                super.red = 0x00;
+                super.green = 0x80;
+                super.blue = 0x00;
                 break;
-            default:
-                assert false : "Unknown color type!";
+            case BLUE:
+                super.red = 0x00;
+                super.green = 0x00;
+                super.blue = 0xFF;
                 break;
         }
-    }
-
-    public int getColor() {
-        return this.color.getColor();
     }
 
     public String getStampName() {
