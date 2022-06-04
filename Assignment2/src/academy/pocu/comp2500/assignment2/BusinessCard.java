@@ -85,12 +85,7 @@ public class BusinessCard extends Product {
         return this.textApertures.size();
     }
 
-    public Aperture getTextAperture(TextAperture aperture) {
-        int index = this.textApertures.indexOf(aperture);
-        return this.textApertures.get(index);
-    }
-
-    public boolean addTextAperture(TextAperture aperture) {
+    public boolean addTextAperture(Aperture aperture) {
         int posX = aperture.getPosX();
         int posY = aperture.getPosY();
 
@@ -110,12 +105,7 @@ public class BusinessCard extends Product {
         return this.imageApertures.size();
     }
 
-    public Aperture getImageAperture(ImageAperture aperture) {
-        int index = this.imageApertures.indexOf(aperture);
-        return this.imageApertures.get(index);
-    }
-
-    public boolean addImageAperture(ImageAperture aperture) {
+    public boolean addImageAperture(Aperture aperture) {
         int posX = aperture.getPosX();
         int posY = aperture.getPosY();
 
