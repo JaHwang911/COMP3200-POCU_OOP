@@ -5,13 +5,12 @@ import java.util.HashMap;
 public class Calendar extends Product {
     private final CalendarType calendarType;
     private final Orientation orientation;
-    private final Color color;
     private final HashMap<String, TextAperture> textApertures;
     private final HashMap<String, ImageAperture> imageApertures;
 
     public Calendar(CalendarType calendarType, Orientation orientation, Color color) {
+        super.color = color;
         this.calendarType = calendarType;
-        this.color = color;
         this.orientation = orientation;
         this.textApertures = new HashMap<>();
         this.imageApertures = new HashMap<>();
@@ -36,10 +35,6 @@ public class Calendar extends Product {
                 assert false : "Unknown calendar type";
                 break;
         }
-    }
-
-    public int getColor() {
-        return this.color.getColor();
     }
 
     public String getCalendarName() {

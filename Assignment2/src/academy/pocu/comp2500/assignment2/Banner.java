@@ -5,14 +5,14 @@ import java.util.HashMap;
 public class Banner extends Product {
     private final BannerType bannerType;
     private final Orientation orientation;
-    private final Color color;
     private final HashMap<String, TextAperture> textApertures;
     private final HashMap<String, ImageAperture> imageApertures;
 
     public Banner(BannerType bannerType, BannerSize bannerSize, Orientation orientation, Color color) {
+        super.color = color;
+
         this.bannerType = bannerType;
         this.orientation = orientation;
-        this.color = color;
         this.textApertures = new HashMap<>();
         this.imageApertures = new HashMap<>();
 
@@ -53,10 +53,6 @@ public class Banner extends Product {
                 assert false : "Unknown banner size";
                 break;
         }
-    }
-
-    public int getColor() {
-        return this.color.getColor();
     }
 
     public String getBannerName() {

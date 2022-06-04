@@ -6,7 +6,6 @@ public class BusinessCard extends Product {
     private final BusinessCardType businessCardType;
     private final Orientation orientation;
     private final SideType sideType;
-    private Color color;
     private final int WIDTH = 90;
     private final int HEIGHT = 50;
     private final HashMap<String, TextAperture> textApertures;
@@ -42,13 +41,13 @@ public class BusinessCard extends Product {
 
         switch (color) {
             case GRAY:
-                this.color = new Color(0xE6, 0xE6, 0xE6);
+                super.color = new Color(0xE6, 0xE6, 0xE6);
                 break;
             case IVORY:
-                this.color = new Color(0xFF, 0xFF, 0xF0);
+                super.color = new Color(0xFF, 0xFF, 0xF0);
                 break;
             case WHITE:
-                this.color = new Color(0xFF, 0xFF, 0xFF);
+                super.color = new Color(0xFF, 0xFF, 0xFF);
                 break;
             default:
                 assert false : "Unknown color type";
@@ -60,10 +59,6 @@ public class BusinessCard extends Product {
         this.orientation = orientation;
         this.textApertures = new HashMap<>();
         this.imageApertures = new HashMap<>();
-    }
-
-    public int getColor() {
-        return this.color.getColor();
     }
 
     public String getBusinessCardName() {

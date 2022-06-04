@@ -1,9 +1,7 @@
 package academy.pocu.comp2500.assignment2;
 
 public class Product {
-    protected int red;
-    protected int blue;
-    protected int green;
+    protected Color color;
     protected int width;
     protected int height;
     protected int price;
@@ -17,16 +15,8 @@ public class Product {
         return this.height;
     }
 
-    public int getRed() {
-        return this.red;
-    }
-
-    public int getGreen() {
-        return this.green;
-    }
-
-    public int getBlue() {
-        return this.blue;
+    public String getRGB() {
+        return this.color.getRGB();
     }
 
     public int getPrice() {

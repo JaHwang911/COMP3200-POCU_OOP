@@ -29,19 +29,13 @@ public class Stamp extends Product {
 
         switch (color) {
             case RED:
-                super.red = 0xFF;
-                super.green = 0x80;
-                super.blue = 0x00;
+                super.color = new Color(0xFF, 0x00, 0x00);
                 break;
             case GREEN:
-                super.red = 0x00;
-                super.green = 0x80;
-                super.blue = 0x00;
+                super.color = new Color(0x00, 0x80, 0x00);
                 break;
             case BLUE:
-                super.red = 0x00;
-                super.green = 0x00;
-                super.blue = 0xFF;
+                super.color = new Color(0x00, 0x00, 0xFF);
                 break;
         }
     }
