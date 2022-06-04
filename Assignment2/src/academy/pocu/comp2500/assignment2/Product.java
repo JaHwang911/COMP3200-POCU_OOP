@@ -7,6 +7,9 @@ public class Product {
     protected int price;
     protected DeliveryMethod deliveryMethod = DeliveryMethod.PICKUP;
 
+    protected Product() {
+    }
+
     public int getWidth() {
         return this.width;
     }

@@ -17,6 +17,11 @@ public class Cart {
         return this.products.remove(product);
     }
 
+    public Product getProduct(Product product) {
+        int index = this.products.indexOf(product);
+        return this.products.get(index);
+    }
+
     public int getTotalPrice() {
         int totalPrice = 0;
 

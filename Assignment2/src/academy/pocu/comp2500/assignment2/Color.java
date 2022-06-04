@@ -22,16 +22,4 @@ public class Color {
     public int getBlue() {
         return this.blue;
     }
-
-    public int getColor() {
-        int color = this.red;
-
-        color <<= 8;
-        color += this.green;
-
-        color <<= 8;
-        color += this.blue;
-
-        return color;
-    }
 }
