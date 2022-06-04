@@ -52,8 +52,16 @@ public class Calendar extends Product {
         }
     }
 
+    public CalendarType getCalendarType() {
+        return this.calendarType;
+    }
+
     public Orientation getOrientation() {
         return this.orientation;
+    }
+
+    public int getTextApertureCount() {
+        return this.textApertures.size();
     }
 
     public TextAperture getTextAperture(String text) {
@@ -71,6 +79,10 @@ public class Calendar extends Product {
         super.price += 5;
 
         return true;
+    }
+
+    public int getImageApertureCount() {
+        return this.imageApertures.size();
     }
 
     public ImageAperture getImageAperture(String imagePath) {

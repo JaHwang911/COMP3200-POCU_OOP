@@ -69,6 +69,10 @@ public class Banner extends Product {
         }
     }
 
+    public BannerType getBannerType() {
+        return this.bannerType;
+    }
+
     public Orientation getOrientation() {
         return this.orientation;
     }
