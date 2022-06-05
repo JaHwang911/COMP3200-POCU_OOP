@@ -8,7 +8,7 @@ public class BusinessCard extends Product {
     private final ArrayList<Aperture> textApertures;
     private final ArrayList<Aperture> imageApertures;
 
-    public BusinessCard(PaperType paperType, boolean isDoubleSides, Orientation orientation, BusinessCardColor color) {
+    public BusinessCard(PaperType paperType, SideType sides, Orientation orientation, BusinessCardColor color) {
         super.width = 90;
         super.height = 50;
 
@@ -42,7 +42,7 @@ public class BusinessCard extends Product {
                 break;
         }
 
-        if (isDoubleSides) {
+        if (sides == SideType.DOUBLE) {
             super.price += 30;
         }
 

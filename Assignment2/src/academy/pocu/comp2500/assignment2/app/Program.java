@@ -59,7 +59,7 @@ public class Program {
     }
 
     private static void testBusinessCard() {
-        BusinessCard businessCard0 = new BusinessCard(PaperType.LAID, false, Orientation.PORTRAIT, BusinessCardColor.IVORY);
+        BusinessCard businessCard0 = new BusinessCard(PaperType.LAID, SideType.SINGLE, Orientation.PORTRAIT, BusinessCardColor.IVORY);
 
         TextAperture textAperture0 = new TextAperture(-1, 30, 1, 1, "text");
         TextAperture textAperture1 = new TextAperture(30, -1, 1, 1, "text");
@@ -92,7 +92,7 @@ public class Program {
     private static void testCart() {
         Cart cart = new Cart();
         Stamp stamp0 = new Stamp(StampSize.SMALL, StampColor.RED, "Stamp0");
-        BusinessCard businessCard0 = new BusinessCard(PaperType.LAID, false, Orientation.PORTRAIT, BusinessCardColor.IVORY);
+        BusinessCard businessCard0 = new BusinessCard(PaperType.LAID, SideType.SINGLE, Orientation.PORTRAIT, BusinessCardColor.IVORY);
         Banner banner0 = new Banner(BannerType.GLOSS, BannerSize.BANNER_3000X1000, Orientation.PORTRAIT, new Color(0xff, 0xff, 0xff));
 
         cart.addProduct(stamp0);
