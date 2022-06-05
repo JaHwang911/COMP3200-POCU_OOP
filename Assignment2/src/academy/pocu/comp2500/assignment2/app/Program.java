@@ -16,7 +16,6 @@ public class Program {
         testStamp();
         testBusinessCard();
         testCart();
-        testOddAperture();
 
         System.out.println("No prob");
     }
@@ -25,10 +24,6 @@ public class Program {
         Stamp stamp0 = new Stamp(StampSize.SMALL, StampColor.RED, "Stamp0");
         Stamp stamp1 = new Stamp(StampSize.MEDIUM, StampColor.BLUE, "Stamp1");
         Stamp stamp2 = new Stamp(StampSize.LARGE, StampColor.GREEN, "Stamp2");
-
-        Color red = new Color(1289, -1, -323);
-        Color green = new Color(0x0, 0x80, 0x0);
-        Color blue = new Color(0, 0, 32423);
 
         assert stamp0.getWidth() == 40;
         assert stamp0.getHeight() == 30;
@@ -68,23 +63,23 @@ public class Program {
         TextAperture textAperture3 = new TextAperture(0, 0, 90, 50, "text");
         TextAperture textAperture4 = new TextAperture(89, 49, 1, 1, "text");
 
-        businessCard0.addTextAperture(textAperture0);
+        businessCard0.addAperture(textAperture0);
         assert businessCard0.getTextApertureCount() == 0;
         assert businessCard0.getPrice() == 120;
 
-        businessCard0.addTextAperture(textAperture1);
+        businessCard0.addAperture(textAperture1);
         assert businessCard0.getTextApertureCount() == 0;
         assert businessCard0.getPrice() == 120;
 
-        businessCard0.addTextAperture(textAperture2);
+        businessCard0.addAperture(textAperture2);
         assert businessCard0.getTextApertureCount() == 0;
         assert businessCard0.getPrice() == 120;
 
-        businessCard0.addTextAperture(textAperture3);
+        businessCard0.addAperture(textAperture3);
         assert businessCard0.getTextApertureCount() == 1;
         assert businessCard0.getPrice() == 125;
 
-        businessCard0.addTextAperture(textAperture4);
+        businessCard0.addAperture(textAperture4);
         assert businessCard0.getTextApertureCount() == 2;
         assert businessCard0.getPrice() == 130;
     }
@@ -126,27 +121,5 @@ public class Program {
         assert cart.getTotalPrice() == 0;
 
         assert products.size() == 0;
-    }
-
-    private static void testOddAperture() {
-        Calendar calendar = new Calendar(CalendarType.DESK, Orientation.LANDSCAPE);
-        TextAperture textAperture = new TextAperture(1, 1, 1, 1, "Hi");
-        ImageAperture imageAperture = new ImageAperture(2, 2, 2, 2, "D:");
-
-        assert !calendar.addImageAperture(textAperture);
-        assert calendar.getPrice() == 1000;
-        assert calendar.getImageApertureCount() == 0;
-
-        assert !calendar.addTextAperture(imageAperture);
-        assert calendar.getPrice() == 1000;
-        assert calendar.getTextApertureCount() == 0;
-
-        assert calendar.addTextAperture(textAperture);
-        assert calendar.getPrice() == 1005;
-        assert calendar.getTextApertureCount() == 1;
-
-        assert calendar.addImageAperture(imageAperture);
-        assert calendar.getPrice() == 1010;
-        assert calendar.getImageApertureCount() == 1;
     }
 }

@@ -78,31 +78,31 @@ public class BusinessCard extends Product {
         return this.textApertures.size();
     }
 
-    public boolean addTextAperture(Aperture aperture) {
-        if (!aperture.isAdded(super.width, super.height)) {
-            return false;
-        } else if (aperture.getType() != ApertureType.TEXT) {
-            return false;
-        }
-
-        this.textApertures.add(aperture);
-        super.price += 5;
-
-        return true;
-    }
-
     public int getImageApertureCount() {
         return this.imageApertures.size();
     }
+    public boolean addAperture(Aperture aperture) {
+        int posX = aperture.getPosX();
+        int posY = aperture.getPosY();
 
-    public boolean addImageAperture(Aperture aperture) {
-        if (!aperture.isAdded(super.width, super.height)) {
+        if (posX < 0 || posY < 0) {
             return false;
-        } else if (aperture.getType() != ApertureType.IMAGE) {
+        } else if (posX + aperture.getWidth() > super.width || posY + aperture.getHeight() > super.height) {
             return false;
         }
 
-        this.imageApertures.add(aperture);
+        switch (aperture.getType()) {
+            case TEXT:
+                this.textApertures.add(aperture);
+                break;
+            case IMAGE:
+                this.imageApertures.add(aperture);
+                break;
+            default:
+                assert false : "Unknown aperture type";
+                break;
+        }
+
         super.price += 5;
 
         return true;
