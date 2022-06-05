@@ -28,4 +28,12 @@ public class Aperture {
     public int getHeight() {
         return this.height;
     }
+
+    public boolean isAdded(int width, int height) {
+        if (this.width > width || this.height > height) {
+            return false;
+        }
+
+        return this.posX + this.width <= width && this.posY + this.height <= height;
+    }
 }

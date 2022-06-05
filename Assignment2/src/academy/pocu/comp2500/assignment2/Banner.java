@@ -82,12 +82,7 @@ public class Banner extends Product {
     }
 
     public boolean addTextAperture(Aperture aperture) {
-        int posX = aperture.getPosX();
-        int posY = aperture.getPosY();
-
-        if (posX < 0 || posX > super.width || posY < 0 || posY > super.height) {
-            return false;
-        } else if (aperture.getWidth() + posX > super.width || aperture.getHeight() + posY > super.height) {
+        if (!aperture.isAdded(super.width, super.height)) {
             return false;
         }
 
@@ -102,12 +97,7 @@ public class Banner extends Product {
     }
 
     public boolean addImageAperture(Aperture aperture) {
-        int posX = aperture.getPosX();
-        int posY = aperture.getPosY();
-
-        if (posX < 0 || posX > super.width || posY < 0 || posY > super.height) {
-            return false;
-        } else if (aperture.getWidth() + posX > super.width || aperture.getHeight() + posY > super.height) {
+        if (!aperture.isAdded(super.width, super.height)) {
             return false;
         }
 
