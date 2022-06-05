@@ -16,6 +16,7 @@ public class Program {
         testStamp();
         testBusinessCard();
         testCart();
+        testOddAperture();
 
         System.out.println("No prob");
     }
@@ -125,5 +126,27 @@ public class Program {
         assert cart.getTotalPrice() == 0;
 
         assert products.size() == 0;
+    }
+
+    private static void testOddAperture() {
+        Calendar calendar = new Calendar(CalendarType.DESK, Orientation.LANDSCAPE);
+        TextAperture textAperture = new TextAperture(1, 1, 1, 1, "Hi");
+        ImageAperture imageAperture = new ImageAperture(2, 2, 2, 2, "D:");
+
+        assert !calendar.addImageAperture(textAperture);
+        assert calendar.getPrice() == 1000;
+        assert calendar.getImageApertureCount() == 0;
+
+        assert !calendar.addTextAperture(imageAperture);
+        assert calendar.getPrice() == 1000;
+        assert calendar.getTextApertureCount() == 0;
+
+        assert calendar.addTextAperture(textAperture);
+        assert calendar.getPrice() == 1005;
+        assert calendar.getTextApertureCount() == 1;
+
+        assert calendar.addImageAperture(imageAperture);
+        assert calendar.getPrice() == 1010;
+        assert calendar.getImageApertureCount() == 1;
     }
 }

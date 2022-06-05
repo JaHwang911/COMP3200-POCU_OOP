@@ -67,6 +67,8 @@ public class Calendar extends Product {
     public boolean addTextAperture(Aperture aperture) {
         if (!aperture.isAdded(super.width, super.height)) {
             return false;
+        } else if (aperture.getType() != ApertureType.TEXT) {
+            return false;
         }
 
         this.textApertures.add(aperture);
@@ -81,6 +83,8 @@ public class Calendar extends Product {
 
     public boolean addImageAperture(Aperture aperture) {
         if (!aperture.isAdded(super.width, super.height)) {
+            return false;
+        } else if (aperture.getType() != ApertureType.IMAGE) {
             return false;
         }
 
