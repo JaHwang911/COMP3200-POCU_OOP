@@ -1,7 +1,5 @@
 package academy.pocu.comp2500.assignment2;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 public class CustomizingProduct extends Product {
