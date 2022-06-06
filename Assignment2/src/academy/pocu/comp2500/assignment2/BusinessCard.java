@@ -7,7 +7,7 @@ public class BusinessCard extends Product {
     private final Orientation orientation;
     private final SideType sideType;
 
-    public BusinessCard(PaperType paperType, SideType side, Orientation orientation, BusinessCardColor color) {
+    public BusinessCard(PaperType paperType, SideType sides, Orientation orientation, BusinessCardColor color) {
         super.width = 90;
         super.height = 50;
 
@@ -41,12 +41,12 @@ public class BusinessCard extends Product {
                 break;
         }
 
-        if (side == SideType.DOUBLE) {
+        if (sides == SideType.DOUBLE) {
             super.price += 30;
         }
 
         this.paperType = paperType;
-        this.sideType = side;
+        this.sideType = sides;
         this.orientation = orientation;
     }
 
