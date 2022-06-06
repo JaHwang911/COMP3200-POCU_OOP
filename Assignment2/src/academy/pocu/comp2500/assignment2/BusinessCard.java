@@ -9,7 +9,7 @@ public class BusinessCard extends Product {
     private final ArrayList<Aperture> textApertures;
     private final ArrayList<Aperture> imageApertures;
 
-    public BusinessCard(PaperType paperType, SideType sideType, Orientation orientation, BusinessCardColor color) {
+    public BusinessCard(PaperType paperType, SideType side, Orientation orientation, BusinessCardColor color) {
         super.width = 90;
         super.height = 50;
 
@@ -43,12 +43,12 @@ public class BusinessCard extends Product {
                 break;
         }
 
-        if (sideType == SideType.DOUBLE) {
+        if (side == SideType.DOUBLE) {
             super.price += 30;
         }
 
         this.paperType = paperType;
-        this.sideType = sideType;
+        this.sideType = side;
         this.orientation = orientation;
         this.textApertures = new ArrayList<>();
         this.imageApertures = new ArrayList<>();
