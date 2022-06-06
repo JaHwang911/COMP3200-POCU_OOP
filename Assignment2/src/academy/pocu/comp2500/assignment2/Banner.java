@@ -2,7 +2,6 @@ package academy.pocu.comp2500.assignment2;
 
 public class Banner extends CustomizingProduct {
     private final BannerType bannerType;
-    private final BannerSize bannerSize;
     private final Orientation orientation;
 
     public Banner(BannerType bannerType, BannerSize bannerSize, Orientation orientation, Color color) {
@@ -47,7 +46,6 @@ public class Banner extends CustomizingProduct {
         }
 
         this.bannerType = bannerType;
-        this.bannerSize = bannerSize;
         this.orientation = orientation;
     }
 
@@ -67,10 +65,6 @@ public class Banner extends CustomizingProduct {
 
     public BannerType getBannerType() {
         return this.bannerType;
-    }
-
-    public BannerSize getBannerSize() {
-        return this.bannerSize;
     }
 
     public Orientation getOrientation() {
