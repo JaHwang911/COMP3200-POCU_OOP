@@ -40,7 +40,7 @@ public class Stamp extends Product {
         this.text = text;
     }
 
-    public String getDisplayNmae() {
+    public String getDisplayName() {
         return String.format("Stamp (%d mm x %d mm)", super.width, super.height);
     }
 

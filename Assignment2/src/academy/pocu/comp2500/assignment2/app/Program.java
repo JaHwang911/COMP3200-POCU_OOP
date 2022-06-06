@@ -30,7 +30,7 @@ public class Program {
 
         assert stamp0.getWidth() == 40;
         assert stamp0.getHeight() == 30;
-        assert stamp0.getStampName().equals("Stamp (40 mm x 30 mm)");
+        assert stamp0.getDisplayName().equals("Stamp (40 mm x 30 mm)");
         assert stamp0.getPrice() == 2300;
         assert stamp0.getText().equals("Stamp0");
         assert stamp0.getDeliveryType() == DeliveryMethod.PICKUP;
@@ -39,7 +39,7 @@ public class Program {
 
         assert stamp1.getWidth() == 50;
         assert stamp1.getHeight() == 20;
-        assert stamp1.getStampName().equals("Stamp (50 mm x 20 mm)");
+        assert stamp1.getDisplayName().equals("Stamp (50 mm x 20 mm)");
         assert stamp1.getPrice() == 2300;
         assert stamp1.getText().equals("Stamp1");
         assert stamp1.getDeliveryType() == DeliveryMethod.PICKUP;
@@ -48,7 +48,7 @@ public class Program {
 
         assert stamp2.getWidth() == 70;
         assert stamp2.getHeight() == 40;
-        assert stamp2.getStampName().equals("Stamp (70 mm x 40 mm)");
+        assert stamp2.getDisplayName().equals("Stamp (70 mm x 40 mm)");
         assert stamp2.getPrice() == 2600;
         assert stamp2.getText().equals("Stamp2");
         assert stamp2.getDeliveryType() == DeliveryMethod.PICKUP;

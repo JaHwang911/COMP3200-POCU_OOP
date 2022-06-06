@@ -1,7 +1,5 @@
 package academy.pocu.comp2500.assignment2;
 
-import java.util.ArrayList;
-
 public class BusinessCard extends CustomizingProduct {
     private final PaperType paperType;
     private final SideType sideType;

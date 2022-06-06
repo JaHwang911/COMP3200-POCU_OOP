@@ -1,7 +1,5 @@
 package academy.pocu.comp2500.assignment2;
 
-import java.util.ArrayList;
-
 public class Calendar extends CustomizingProduct {
     private final CalendarType calendarType;
     private final Orientation orientation;

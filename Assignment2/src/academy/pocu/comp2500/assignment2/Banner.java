@@ -1,7 +1,5 @@
 package academy.pocu.comp2500.assignment2;
 
-import java.util.ArrayList;
-
 public class Banner extends CustomizingProduct {
     private final BannerType bannerType;
     private final BannerSize bannerSize;
