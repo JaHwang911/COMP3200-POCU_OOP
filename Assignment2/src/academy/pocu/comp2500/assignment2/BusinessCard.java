@@ -5,10 +5,11 @@ import java.util.ArrayList;
 public class BusinessCard extends Product {
     private final PaperType paperType;
     private final Orientation orientation;
+    private final SideType sideType;
     private final ArrayList<Aperture> textApertures;
     private final ArrayList<Aperture> imageApertures;
 
-    public BusinessCard(PaperType paperType, SideType sides, Orientation orientation, BusinessCardColor color) {
+    public BusinessCard(PaperType paperType, SideType sideType, Orientation orientation, BusinessCardColor color) {
         super.width = 90;
         super.height = 50;
 
@@ -42,11 +43,12 @@ public class BusinessCard extends Product {
                 break;
         }
 
-        if (sides == SideType.DOUBLE) {
+        if (sideType == SideType.DOUBLE) {
             super.price += 30;
         }
 
         this.paperType = paperType;
+        this.sideType = sideType;
         this.orientation = orientation;
         this.textApertures = new ArrayList<>();
         this.imageApertures = new ArrayList<>();
@@ -70,6 +72,10 @@ public class BusinessCard extends Product {
         return this.paperType;
     }
 
+    public SideType getSideType() {
+        return this.sideType;
+    }
+
     public Orientation getOrientation() {
         return this.orientation;
     }
@@ -81,6 +87,7 @@ public class BusinessCard extends Product {
     public int getImageApertureCount() {
         return this.imageApertures.size();
     }
+
     public boolean addAperture(Aperture aperture) {
         int posX = aperture.getPosX();
         int posY = aperture.getPosY();
