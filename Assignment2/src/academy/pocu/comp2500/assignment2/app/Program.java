@@ -3,6 +3,8 @@ package academy.pocu.comp2500.assignment2.app;
 import academy.pocu.comp2500.assignment2.*;
 import academy.pocu.comp2500.assignment2.registry.Registry;
 
+import java.util.ArrayList;
+
 /*
     달력을 흰색으로 하지 않음
 
@@ -16,6 +18,7 @@ public class Program {
         testStamp();
         testBusinessCard();
         testCart();
+        testAddApertures();
 
         System.out.println("No prob");
     }
@@ -121,5 +124,39 @@ public class Program {
         assert cart.getTotalPrice() == 0;
 
         assert products.size() == 0;
+    }
+
+    private static void testAddApertures() {
+        String apertureContent = "text";
+        BusinessCard businessCard = new BusinessCard(PaperType.LAID, SideType.SINGLE, Orientation.LANDSCAPE, BusinessCardColor.IVORY);
+        ArrayList<Aperture> invalidTextApertures = new ArrayList<>();
+        ArrayList<Aperture> validTextApertures = new ArrayList<>();
+
+        invalidTextApertures.add(new TextAperture(-1, 0 ,1, 1, apertureContent));
+        invalidTextApertures.add(new TextAperture(0, -1 ,1, 1, apertureContent));
+        invalidTextApertures.add(new TextAperture(90, 0 ,1, 1, apertureContent));
+        invalidTextApertures.add(new TextAperture(0, 50 ,1, 1, apertureContent));
+        invalidTextApertures.add(new TextAperture(-10, 0 ,10, 10, apertureContent));
+        invalidTextApertures.add(new TextAperture(0, -10 ,10, 10, apertureContent));
+        invalidTextApertures.add(new TextAperture(90, 0 ,10, 10, apertureContent));
+        invalidTextApertures.add(new TextAperture(0, 50 ,10, 10, apertureContent));
+
+        for (Aperture Aperture : invalidTextApertures) {
+            assert !businessCard.addAperture(Aperture);
+            assert businessCard.getPrice() == 120;
+        }
+
+        validTextApertures.add(new TextAperture(0, 0, 1, 1, apertureContent));
+        validTextApertures.add(new TextAperture(89, 49, 1, 1, apertureContent));
+        validTextApertures.add(new TextAperture(-9, -9, 10, 10, apertureContent));
+        validTextApertures.add(new TextAperture(89, 49, 10, 10, apertureContent));
+        validTextApertures.add(new TextAperture(0, 0, 90, 50, apertureContent));
+        validTextApertures.add(new ImageAperture(0, 0, 90, 50, apertureContent));
+
+        for (Aperture Aperture : validTextApertures) {
+            assert businessCard.addAperture(Aperture);
+        }
+
+        assert businessCard.getImageApertureCount() == 6;
     }
 }

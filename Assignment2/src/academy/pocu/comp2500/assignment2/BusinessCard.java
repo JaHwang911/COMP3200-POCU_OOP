@@ -2,10 +2,10 @@ package academy.pocu.comp2500.assignment2;
 
 import java.util.ArrayList;
 
-public class BusinessCard extends Product {
+public class BusinessCard extends CustomizingProduct {
     private final PaperType paperType;
-    private final Orientation orientation;
     private final SideType sideType;
+    private final Orientation orientation;
 
     public BusinessCard(PaperType paperType, SideType sides, Orientation orientation, BusinessCardColor color) {
         super.width = 90;
@@ -74,40 +74,5 @@ public class BusinessCard extends Product {
 
     public Orientation getOrientation() {
         return this.orientation;
-    }
-
-    public int getTextApertureCount() {
-        return super.textApertures.size();
-    }
-
-    public int getImageApertureCount() {
-        return super.imageApertures.size();
-    }
-
-    public boolean addAperture(Aperture aperture) {
-        int posX = aperture.getPosX();
-        int posY = aperture.getPosY();
-
-        if (posX < 0 || posY < 0) {
-            return false;
-        } else if (posX + aperture.getWidth() > super.width || posY + aperture.getHeight() > super.height) {
-            return false;
-        }
-
-        switch (aperture.getType()) {
-            case TEXT:
-                super.textApertures.add(aperture);
-                break;
-            case IMAGE:
-                super.imageApertures.add(aperture);
-                break;
-            default:
-                assert false : "Unknown aperture type";
-                break;
-        }
-
-        super.price += 5;
-
-        return true;
     }
 }

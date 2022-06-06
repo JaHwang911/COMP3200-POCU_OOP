@@ -2,8 +2,9 @@ package academy.pocu.comp2500.assignment2;
 
 import java.util.ArrayList;
 
-public class Banner extends Product {
+public class Banner extends CustomizingProduct {
     private final BannerType bannerType;
+    private final BannerSize bannerSize;
     private final Orientation orientation;
 
     public Banner(BannerType bannerType, BannerSize bannerSize, Orientation orientation, Color color) {
@@ -48,6 +49,7 @@ public class Banner extends Product {
         }
 
         this.bannerType = bannerType;
+        this.bannerSize = bannerSize;
         this.orientation = orientation;
     }
 
@@ -69,42 +71,11 @@ public class Banner extends Product {
         return this.bannerType;
     }
 
+    public BannerSize getBannerSize() {
+        return this.bannerSize;
+    }
+
     public Orientation getOrientation() {
         return this.orientation;
-    }
-
-    public int getTextApertureCount() {
-        return super.textApertures.size();
-    }
-
-    public int getImageApertureCount() {
-        return super.imageApertures.size();
-    }
-
-    public boolean addAperture(Aperture aperture) {
-        int posX = aperture.getPosX();
-        int posY = aperture.getPosY();
-
-        if (posX < 0 || posY < 0) {
-            return false;
-        } else if (posX + aperture.getWidth() > super.width || posY + aperture.getHeight() > super.height) {
-            return false;
-        }
-
-        switch (aperture.getType()) {
-            case TEXT:
-                super.textApertures.add(aperture);
-                break;
-            case IMAGE:
-                super.imageApertures.add(aperture);
-                break;
-            default:
-                assert false : "Unknown aperture type";
-                break;
-        }
-
-        super.price += 5;
-
-        return true;
     }
 }
