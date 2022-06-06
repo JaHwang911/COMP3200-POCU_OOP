@@ -5,8 +5,6 @@ import java.util.ArrayList;
 public class Calendar extends Product {
     private final CalendarType calendarType;
     private final Orientation orientation;
-    private final ArrayList<Aperture> textApertures;
-    private final ArrayList<Aperture> imageApertures;
 
     public Calendar(CalendarType calendarType, Orientation orientation) {
         super.color = new Color(0xFF, 0xFF, 0xFF);
@@ -34,11 +32,9 @@ public class Calendar extends Product {
 
         this.calendarType = calendarType;
         this.orientation = orientation;
-        this.textApertures = new ArrayList<>();
-        this.imageApertures = new ArrayList<>();
     }
 
-    public String getCalendarName() {
+    public String getDisplayName() {
         switch (this.calendarType) {
             case WALL:
                 return "Wall Calendar";
@@ -61,11 +57,11 @@ public class Calendar extends Product {
     }
 
     public int getTextApertureCount() {
-        return this.textApertures.size();
+        return super.textApertures.size();
     }
 
     public int getImageApertureCount() {
-        return this.imageApertures.size();
+        return super.imageApertures.size();
     }
 
     public boolean addAperture(Aperture aperture) {
@@ -80,10 +76,10 @@ public class Calendar extends Product {
 
         switch (aperture.getType()) {
             case TEXT:
-                this.textApertures.add(aperture);
+                super.textApertures.add(aperture);
                 break;
             case IMAGE:
-                this.imageApertures.add(aperture);
+                super.imageApertures.add(aperture);
                 break;
             default:
                 assert false : "Unknown aperture type";
