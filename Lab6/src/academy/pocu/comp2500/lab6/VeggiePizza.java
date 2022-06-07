@@ -7,10 +7,6 @@ public class VeggiePizza extends Pizza {
 
     public VeggiePizza() {
         super(PizzaType.VEGGIE);
-
-        this.toppings.add(Topping.BLACK_OLIVES);
-        this.toppings.add(Topping.RED_ONIONS);
-        this.toppings.add(Topping.GREEN_PEPPERS);
     }
 
     public boolean isValid() {

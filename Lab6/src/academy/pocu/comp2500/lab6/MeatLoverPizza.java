@@ -5,12 +5,6 @@ public class MeatLoverPizza extends Pizza {
 
     public MeatLoverPizza() {
         super(PizzaType.MEAT_LOVER);
-
-        this.toppings.add(Topping.BACON);
-        this.toppings.add(Topping.PEPERONI);
-        this.toppings.add(Topping.HAM);
-        this.toppings.add(Topping.SAUSAGES);
-        this.toppings.add(Topping.CHEDDAR_CHEESE);
     }
 
     public boolean isValid() {

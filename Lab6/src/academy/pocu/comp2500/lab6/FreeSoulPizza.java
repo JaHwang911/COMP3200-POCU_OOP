@@ -25,7 +25,7 @@ public class FreeSoulPizza extends Pizza {
             return false;
         }
 
-        this.toppings.add(topping);
+        super.toppings.add(topping);
 
         if (isMeat(topping)) {
             ++this.meatCount;

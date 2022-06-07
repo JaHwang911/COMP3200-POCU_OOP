@@ -3,11 +3,13 @@ package academy.pocu.comp2500.lab6;
 import java.util.ArrayList;
 
 public class NoHeavyMeal extends Course {
-    private ArrayList<Appetizer> appetizers = new ArrayList<>();
+    private ArrayList<Appetizer> appetizers;
     private Dessert dessert;
 
     public NoHeavyMeal() {
         super(CourseType.NO_HEAVY_MEAL);
+
+        this.appetizers = new ArrayList<>();
     }
 
     public boolean isValid() {

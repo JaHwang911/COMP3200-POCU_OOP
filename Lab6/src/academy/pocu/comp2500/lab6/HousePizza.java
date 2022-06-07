@@ -7,11 +7,6 @@ public class HousePizza extends Pizza {
 
     public HousePizza() {
         super(PizzaType.HOUSE);
-
-        this.toppings.add(Topping.BLACK_OLIVES);
-        this.toppings.add(Topping.RED_ONIONS);
-        this.toppings.add(Topping.GREEN_PEPPERS);
-        this.toppings.add(Topping.MOZZARELLA_CHEESE);
     }
 
     public boolean isValid() {

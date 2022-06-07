@@ -4,7 +4,7 @@ import java.util.ArrayList;
 /*
     디저트는 모든 코스에 포함됨 그 부분만 일반화
     isValid 도 가능 할 듯
- */
+*/
 public class Course extends Menu {
     protected ArrayList<Appetizer> appetizers;
     protected ArrayList<MainCourse> mainCourses;
@@ -13,4 +13,16 @@ public class Course extends Menu {
     protected Course(CourseType type) {
         super(type);
     }
+
+//    public ArrayList<Appetizer> getAppetizers() {
+//        return null;
+//    }
+//
+//    public ArrayList<Dessert> getDesserts() {
+//        return this.desserts;
+//    }
+//
+//    public boolean isValid() {
+//        return true;
+//    }
 }
