@@ -1,61 +1,49 @@
 package academy.pocu.comp2500.lab6;
 
 public class FreeSoulPizza extends Pizza {
-    private static final int MAX_MEAT_COUNT = 2;
-    private static final int MAX_VEGGIE_COUNT = 2;
-
-    private int veggieCount;
-    private int meatCount;
-    private boolean isCheeseAdded;
 
     public FreeSoulPizza() {
         super(PizzaType.FREE_SOUL);
     }
 
-    public boolean isValid() {
-        return this.meatCount == MAX_MEAT_COUNT
-                && this.veggieCount == MAX_VEGGIE_COUNT
-                && this.isCheeseAdded;
-    }
-
     public boolean addTopping(Topping topping) {
-        if ((isMeat(topping) && this.meatCount >= MAX_MEAT_COUNT)
-                || (isVeggie(topping) && this.veggieCount >= MAX_VEGGIE_COUNT)
-                || (isCheese(topping) && this.isCheeseAdded)) {
+        if ((isMeat(topping) && super.meatCount >= MAX_MEAT_COUNT)
+                || (isVeggie(topping) && super.veggieCount >= MAX_VEGGIE_COUNT)
+                || (isCheese(topping) && super.isCheeseAdded)) {
             return false;
         }
 
         super.toppings.add(topping);
 
         if (isMeat(topping)) {
-            ++this.meatCount;
+            ++super.meatCount;
         }
 
         if (isVeggie(topping)) {
-            ++this.veggieCount;
+            ++super.veggieCount;
         }
 
         if (isCheese(topping)) {
-            this.isCheeseAdded = true;
+            super.isCheeseAdded = true;
         }
 
         return true;
     }
 
     public boolean removeTopping(Topping topping) {
-        boolean isRemoved = this.toppings.remove(topping);
+        boolean isRemoved = super.toppings.remove(topping);
 
         if (isRemoved) {
             if (isMeat(topping)) {
-                --this.meatCount;
+                --super.meatCount;
             }
 
             if (isVeggie(topping)) {
-                --this.veggieCount;
+                --super.veggieCount;
             }
 
             if (isCheese(topping)) {
-                this.isCheeseAdded = false;
+                super.isCheeseAdded = false;
             }
         }
 

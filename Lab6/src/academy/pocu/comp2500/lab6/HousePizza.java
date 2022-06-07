@@ -1,16 +1,8 @@
 package academy.pocu.comp2500.lab6;
 
 public class HousePizza extends Pizza {
-    private static final int MAX_MEAT_COUNT = 2;
-
-    private int meatCount;
-
     public HousePizza() {
         super(PizzaType.HOUSE);
-    }
-
-    public boolean isValid() {
-        return this.meatCount == MAX_MEAT_COUNT;
     }
 
     public boolean addBacon() {
@@ -18,16 +10,16 @@ public class HousePizza extends Pizza {
             return false;
         }
 
-        this.toppings.add(Topping.BACON);
-        ++this.meatCount;
+        super.toppings.add(Topping.BACON);
+        ++super.meatCount;
         return true;
     }
 
     public boolean removeBacon() {
-        boolean isRemoved = this.toppings.remove(Topping.BACON);
+        boolean isRemoved = super.toppings.remove(Topping.BACON);
 
         if (isRemoved) {
-            --this.meatCount;
+            --super.meatCount;
         }
 
         return isRemoved;
@@ -38,16 +30,16 @@ public class HousePizza extends Pizza {
             return false;
         }
 
-        this.toppings.add(Topping.PEPERONI);
-        ++this.meatCount;
+        super.toppings.add(Topping.PEPERONI);
+        ++super.meatCount;
         return true;
     }
 
     public boolean removePeperoni() {
-        boolean isRemoved = this.toppings.remove(Topping.PEPERONI);
+        boolean isRemoved = super.toppings.remove(Topping.PEPERONI);
 
         if (isRemoved) {
-            --this.meatCount;
+            --super.meatCount;
         }
 
         return isRemoved;
@@ -58,16 +50,16 @@ public class HousePizza extends Pizza {
             return false;
         }
 
-        this.toppings.add(Topping.SAUSAGES);
-        ++this.meatCount;
+        super.toppings.add(Topping.SAUSAGES);
+        ++super.meatCount;
         return true;
     }
 
     public boolean removeSausages() {
-        boolean isRemoved = this.toppings.remove(Topping.SAUSAGES);
+        boolean isRemoved = super.toppings.remove(Topping.SAUSAGES);
 
         if (isRemoved) {
-            --this.meatCount;
+            --super.meatCount;
         }
 
         return isRemoved;

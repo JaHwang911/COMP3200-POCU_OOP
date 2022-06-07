@@ -1,16 +1,8 @@
 package academy.pocu.comp2500.lab6;
 
 public class VeggiePizza extends Pizza {
-    private static final int MAX_CHEESE_COUNT = 2;
-
-    private int cheeseCount;
-
     public VeggiePizza() {
         super(PizzaType.VEGGIE);
-    }
-
-    public boolean isValid() {
-        return this.cheeseCount == MAX_CHEESE_COUNT;
     }
 
     public boolean addMozzarellaCheese() {
@@ -18,16 +10,16 @@ public class VeggiePizza extends Pizza {
             return false;
         }
 
-        this.toppings.add(Topping.MOZZARELLA_CHEESE);
-        ++this.cheeseCount;
+        super.toppings.add(Topping.MOZZARELLA_CHEESE);
+        ++super.cheeseCount;
         return true;
     }
 
     public boolean removeMozzarellaCheese() {
-        boolean isRemoved = this.toppings.remove(Topping.MOZZARELLA_CHEESE);
+        boolean isRemoved = super.toppings.remove(Topping.MOZZARELLA_CHEESE);
 
         if (isRemoved) {
-            --this.cheeseCount;
+            --super.cheeseCount;
         }
 
         return isRemoved;
@@ -38,16 +30,16 @@ public class VeggiePizza extends Pizza {
             return false;
         }
 
-        this.toppings.add(Topping.CHEDDAR_CHEESE);
-        ++this.cheeseCount;
+        super.toppings.add(Topping.CHEDDAR_CHEESE);
+        ++super.cheeseCount;
         return true;
     }
 
     public boolean removeCheddarCheese() {
-        boolean isRemoved = this.toppings.remove(Topping.CHEDDAR_CHEESE);
+        boolean isRemoved = super.toppings.remove(Topping.CHEDDAR_CHEESE);
 
         if (isRemoved) {
-            --this.cheeseCount;
+            --super.cheeseCount;
         }
 
         return isRemoved;
@@ -58,16 +50,16 @@ public class VeggiePizza extends Pizza {
             return false;
         }
 
-        this.toppings.add(Topping.FETA_CHEESE);
-        ++this.cheeseCount;
+        super.toppings.add(Topping.FETA_CHEESE);
+        ++super.cheeseCount;
         return true;
     }
 
     public boolean removeFetaCheese() {
-        boolean isRemoved = this.toppings.remove(Topping.FETA_CHEESE);
+        boolean isRemoved = super.toppings.remove(Topping.FETA_CHEESE);
 
         if (isRemoved) {
-            --this.cheeseCount;
+            --super.cheeseCount;
         }
 
         return isRemoved;
