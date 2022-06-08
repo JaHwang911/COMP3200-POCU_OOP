@@ -14,11 +14,13 @@ public class NoHeavyMeal extends Course {
 
         this.appetizers.add(appetizer1);
         this.appetizers.add(appetizer2);
+        super.appetizerCount += this.appetizers.size();
     }
 
     public void setDessert(Dessert dessert) {
         this.desserts.clear();
 
         this.desserts.add(dessert);
+        ++super.dessertCount;
     }
 }

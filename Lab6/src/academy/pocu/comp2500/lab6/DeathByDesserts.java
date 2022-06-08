@@ -16,5 +16,7 @@ public class DeathByDesserts extends Course {
         this.desserts.add(dessert2);
         this.desserts.add(dessert3);
         this.desserts.add(dessert4);
+
+        super.dessertCount += this.desserts.size();
     }
 }

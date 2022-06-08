@@ -2,8 +2,32 @@ package academy.pocu.comp2500.lab6;
 
 public class Menu {
     protected final int price;
+    protected final int maxMeatCount;
+    protected final int maxVeggieCount;
+    protected final int maxCheeseCount;
+    protected int meatCount;
+    protected int veggieCount;
+    protected int cheeseCount;
 
-    protected Menu(PizzaType pizzaType) {
+    private final int maxAppetizerCount;
+    private final int maxMainCourseCount;
+    private final int maxDessertCount;
+    protected int appetizerCount;
+    protected int mainCourseCount;
+    protected int dessertCount;
+    private final boolean isPizza;
+
+    protected Menu(PizzaType pizzaType, int maxMeatCount, int maxVeggieCount, int maxCheeseCount) {
+        this.isPizza = true;
+
+        this.maxMeatCount = maxMeatCount;
+        this.maxVeggieCount = maxVeggieCount;
+        this.maxCheeseCount = maxCheeseCount;
+
+        this.maxAppetizerCount = 0;
+        this.maxMainCourseCount = 0;
+        this.maxDessertCount = 0;
+
         switch (pizzaType) {
             case HOUSE:
                 this.price = 20;
@@ -24,7 +48,17 @@ public class Menu {
         }
     }
 
-    protected Menu(CourseType courseType) {
+    protected Menu(CourseType courseType, int maxAppetizerCount, int maxMainCourseCount, int maxDessertCount) {
+        this.isPizza = false;
+
+        this.maxAppetizerCount = maxAppetizerCount;
+        this.maxMainCourseCount = maxMainCourseCount;
+        this.maxDessertCount = maxDessertCount;
+
+        this.maxMeatCount = 0;
+        this.maxVeggieCount = 0;
+        this.maxCheeseCount = 0;
+
         switch (courseType) {
             case NO_HEAVY_MEAL:
                 this.price = 15;
@@ -44,5 +78,17 @@ public class Menu {
 
     public int getPrice() {
         return this.price;
+    }
+
+    public boolean isValid() {
+        if (this.isPizza) {
+            return this.meatCount == this.maxMeatCount
+                    && this.veggieCount == this.maxVeggieCount
+                    && this.cheeseCount == this.maxCheeseCount;
+        }
+
+        return this.appetizerCount == this.maxAppetizerCount
+                && this.mainCourseCount == this.maxMainCourseCount
+                && this.dessertCount == this.maxDessertCount;
     }
 }

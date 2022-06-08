@@ -3,30 +3,15 @@ package academy.pocu.comp2500.lab6;
 import java.util.ArrayList;
 
 public class Pizza extends Menu {
-    protected final int maxMeatCount;
-    protected final int maxVeggieCount;
-    protected final int maxCheeseCount;
-    protected int meatCount;
-    protected int veggieCount;
-    protected int cheeseCount;
     protected final ArrayList<Topping> toppings;
 
 
     protected Pizza(PizzaType type, int maxMeatCount, int maxVeggieCount, int maxCheeseCount) {
-        super(type);
+        super(type, maxMeatCount, maxVeggieCount, maxCheeseCount);
 
-        this.maxMeatCount = maxMeatCount;
-        this.maxVeggieCount = maxVeggieCount;
-        this.maxCheeseCount = maxCheeseCount;
         this.toppings = new ArrayList<>();
 
         setDefaultTopping(type);
-    }
-
-    public boolean isValid() {
-        return this.meatCount == this.maxMeatCount
-                && this.veggieCount == this.maxVeggieCount
-                && this.cheeseCount == this.maxCheeseCount;
     }
 
     public ArrayList<Topping> getToppings() {
@@ -34,7 +19,7 @@ public class Pizza extends Menu {
     }
 
     private void setDefaultTopping(PizzaType type) {
-        switch(type) {
+        switch (type) {
             case HOUSE:
                 this.toppings.add(Topping.BLACK_OLIVES);
                 this.toppings.add(Topping.RED_ONIONS);
