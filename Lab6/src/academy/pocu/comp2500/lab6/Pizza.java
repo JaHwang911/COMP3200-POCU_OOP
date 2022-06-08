@@ -3,30 +3,24 @@ package academy.pocu.comp2500.lab6;
 import java.util.ArrayList;
 
 public class Pizza extends Menu {
-    protected static final int MAX_MEAT_COUNT = 2;
-    protected static final int MAX_VEGGIE_COUNT = 2;
-    protected static final int MAX_CHEESE_COUNT = 2;
-
-    private final PizzaType pizzaType;
-    protected final ArrayList<Topping> toppings;
+    private final int maxMeatCount;
+    private final int maxVeggieCount;
+    private final int maxCheeseCount;
     protected int meatCount;
     protected int veggieCount;
     protected int cheeseCount;
-    protected boolean isVeggieAdded;
-    protected boolean isCheeseAdded;
+    protected final ArrayList<Topping> toppings;
 
-    protected Pizza(PizzaType type) {
+
+    protected Pizza(PizzaType type, int maxMeatCount, int maxVeggieCount, int maxCheeseCount) {
         super(type);
 
-        this.pizzaType = type;
+        this.maxMeatCount = maxMeatCount;
+        this.maxVeggieCount = maxVeggieCount;
+        this.maxCheeseCount = maxCheeseCount;
         this.toppings = new ArrayList<>();
-        this.meatCount = 0;
-        this.veggieCount = 0;
-        this.cheeseCount = 0;
-        this.isVeggieAdded = false;
-        this.isCheeseAdded = false;
 
-        switch (this.pizzaType) {
+        switch (type) {
             case HOUSE:
                 this.toppings.add(Topping.BLACK_OLIVES);
                 this.toppings.add(Topping.RED_ONIONS);
@@ -53,25 +47,13 @@ public class Pizza extends Menu {
         }
     }
 
-    public ArrayList<Topping> getToppings() {
-        return this.toppings;
+    public boolean isValid() {
+        return this.meatCount == this.maxMeatCount
+                && this.veggieCount == this.maxVeggieCount
+                && this.cheeseCount == this.maxCheeseCount;
     }
 
-    public boolean isValid() {
-        switch (this.pizzaType) {
-            case HOUSE:
-                return this.meatCount == MAX_MEAT_COUNT;
-            case MEAT_LOVER:
-                return this.isVeggieAdded;
-            case VEGGIE:
-                return this.cheeseCount == MAX_CHEESE_COUNT;
-            case FREE_SOUL:
-                return this.meatCount == MAX_MEAT_COUNT
-                        && this.veggieCount == MAX_VEGGIE_COUNT
-                        && this.isCheeseAdded;
-            default:
-                assert false : "Unknown pizza type";
-                return false;
-        }
+    public ArrayList<Topping> getToppings() {
+        return this.toppings;
     }
 }

@@ -6,7 +6,7 @@ public class NoHeavyMeal extends Course {
     private static final int MAX_DESSERT_COUNT = 1;
 
     public NoHeavyMeal() {
-        super(CourseType.NO_HEAVY_MEAL, 2, 0, 1);
+        super(CourseType.NO_HEAVY_MEAL, MAX_APPETIZER_COUNT, MAX_MAIN_COURSE_COUNT, MAX_DESSERT_COUNT);
     }
 
     public void setAppetizers(Appetizer appetizer1, Appetizer appetizer2) {

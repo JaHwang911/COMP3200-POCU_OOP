@@ -1,8 +1,12 @@
 package academy.pocu.comp2500.lab6;
 
 public class MeatLoverPizza extends Pizza {
+    private static final int MAX_MEAT_COUNT = 0;
+    private static final int MAX_VEGGIE_COUNT = 1;
+    private static final int MAX_CHEESE_COUNT = 0;
+
     public MeatLoverPizza() {
-        super(PizzaType.MEAT_LOVER);
+        super(PizzaType.MEAT_LOVER, MAX_MEAT_COUNT, MAX_VEGGIE_COUNT, MAX_CHEESE_COUNT);
     }
 
     public boolean addBlackOlives() {
@@ -11,7 +15,7 @@ public class MeatLoverPizza extends Pizza {
         }
 
         super.toppings.add(Topping.BLACK_OLIVES);
-        super.isVeggieAdded = true;
+        ++super.veggieCount;
         return true;
     }
 
@@ -19,7 +23,7 @@ public class MeatLoverPizza extends Pizza {
         boolean isRemoved = super.toppings.remove(Topping.BLACK_OLIVES);
 
         if (isRemoved) {
-            super.isVeggieAdded = false;
+            --super.veggieCount;
         }
 
         return isRemoved;
@@ -31,7 +35,7 @@ public class MeatLoverPizza extends Pizza {
         }
 
         super.toppings.add(Topping.RED_ONIONS);
-        super.isVeggieAdded = true;
+        ++super.veggieCount;
         return true;
     }
 
@@ -39,7 +43,7 @@ public class MeatLoverPizza extends Pizza {
         boolean isRemoved = super.toppings.remove(Topping.RED_ONIONS);
 
         if (isRemoved) {
-            super.isVeggieAdded = false;
+            --super.veggieCount;
         }
 
         return isRemoved;
@@ -51,7 +55,7 @@ public class MeatLoverPizza extends Pizza {
         }
 
         super.toppings.add(Topping.GREEN_PEPPERS);
-        super.isVeggieAdded = true;
+        ++super.veggieCount;
         return true;
     }
 
@@ -59,7 +63,7 @@ public class MeatLoverPizza extends Pizza {
         boolean isRemoved = super.toppings.remove(Topping.GREEN_PEPPERS);
 
         if (isRemoved) {
-            super.isVeggieAdded = false;
+            --super.veggieCount;
         }
 
         return isRemoved;

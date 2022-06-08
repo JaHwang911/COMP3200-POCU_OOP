@@ -1,7 +1,5 @@
 package academy.pocu.comp2500.lab6;
 
-import java.util.ArrayList;
-
 public class DeathByDesserts extends Course {
     private static final int MAX_APPETIZER_COUNT = 0;
     private static final int MAX_MAIN_COURSE_COUNT = 0;
