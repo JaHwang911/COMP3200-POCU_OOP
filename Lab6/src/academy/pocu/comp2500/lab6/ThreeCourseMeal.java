@@ -13,20 +13,17 @@ public class ThreeCourseMeal extends Course {
         super.mainCourses.clear();
 
         super.mainCourses.add(mainCourse);
-        ++super.mainCourseCount;
     }
 
     public void setAppetizer(Appetizer appetizer) {
         super.appetizers.clear();
 
         super.appetizers.add(appetizer);
-        ++super.appetizerCount;
     }
 
     public void setDessert(Dessert dessert) {
         super.desserts.clear();
 
         super.desserts.add(dessert);
-        ++super.dessertCount;
     }
 }

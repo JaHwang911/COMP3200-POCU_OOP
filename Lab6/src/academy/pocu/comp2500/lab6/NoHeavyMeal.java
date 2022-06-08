@@ -10,17 +10,15 @@ public class NoHeavyMeal extends Course {
     }
 
     public void setAppetizers(Appetizer appetizer1, Appetizer appetizer2) {
-        this.appetizers.clear();
+        super.appetizers.clear();
 
-        this.appetizers.add(appetizer1);
-        this.appetizers.add(appetizer2);
-        super.appetizerCount += this.appetizers.size();
+        super.appetizers.add(appetizer1);
+        super.appetizers.add(appetizer2);
     }
 
     public void setDessert(Dessert dessert) {
         this.desserts.clear();
 
         this.desserts.add(dessert);
-        ++super.dessertCount;
     }
 }

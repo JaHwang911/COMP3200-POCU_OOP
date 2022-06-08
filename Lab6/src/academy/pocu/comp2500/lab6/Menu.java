@@ -1,5 +1,7 @@
 package academy.pocu.comp2500.lab6;
 
+import java.util.ArrayList;
+
 public class Menu {
     protected final int price;
     protected final int maxMeatCount;
@@ -12,9 +14,9 @@ public class Menu {
     private final int maxAppetizerCount;
     private final int maxMainCourseCount;
     private final int maxDessertCount;
-    protected int appetizerCount;
-    protected int mainCourseCount;
-    protected int dessertCount;
+    protected ArrayList<Appetizer> appetizers;
+    protected ArrayList<MainCourse> mainCourses;
+    protected ArrayList<Dessert> desserts;
     private final boolean isPizza;
 
     protected Menu(PizzaType pizzaType, int maxMeatCount, int maxVeggieCount, int maxCheeseCount) {
@@ -54,6 +56,9 @@ public class Menu {
         this.maxAppetizerCount = maxAppetizerCount;
         this.maxMainCourseCount = maxMainCourseCount;
         this.maxDessertCount = maxDessertCount;
+        this.appetizers = new ArrayList<>();
+        this.mainCourses = new ArrayList<>();
+        this.desserts = new ArrayList<>();
 
         this.maxMeatCount = 0;
         this.maxVeggieCount = 0;
@@ -87,8 +92,8 @@ public class Menu {
                     && this.cheeseCount == this.maxCheeseCount;
         }
 
-        return this.appetizerCount == this.maxAppetizerCount
-                && this.mainCourseCount == this.maxMainCourseCount
-                && this.dessertCount == this.maxDessertCount;
+        return this.appetizers.size() == this.maxAppetizerCount
+                && this.mainCourses.size() == this.maxMainCourseCount
+                && this.desserts.size() == this.maxDessertCount;
     }
 }
