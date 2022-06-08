@@ -1,42 +1,29 @@
 package academy.pocu.comp2500.lab6;
 
 public class ThreeCourseMeal extends Course {
-    private Appetizer appetizer;
-    private MainCourse mainCourse;
-    private Dessert dessert;
+    private static final int MAX_APPETIZER_COUNT = 1;
+    private static final int MAX_MAIN_COURSE_COUNT = 1;
+    private static final int MAX_DESSERT_COUNT = 1;
 
     public ThreeCourseMeal() {
-        super(CourseType.THREE_COURSE_MEAL);
-    }
-
-    public boolean isValid() {
-        return this.appetizer != null && this.mainCourse != null && this.dessert != null;
-    }
-
-    public Appetizer getAppetizer() {
-        assert (this.appetizer != null) : "call isValid() first!";
-        return this.appetizer;
-    }
-
-    public MainCourse getMainCourse() {
-        assert (this.mainCourse != null) : "call isValid() first!";
-        return this.mainCourse;
-    }
-
-    public Dessert getDessert() {
-        assert (this.dessert != null) : "call isValid() first!";
-        return this.dessert;
+        super(CourseType.THREE_COURSE_MEAL, MAX_APPETIZER_COUNT, MAX_MAIN_COURSE_COUNT, MAX_DESSERT_COUNT);
     }
 
     public void setMainCourse(MainCourse mainCourse) {
-        this.mainCourse = mainCourse;
+        super.mainCourses.clear();
+
+        super.mainCourses.add(mainCourse);
     }
 
     public void setAppetizer(Appetizer appetizer) {
-        this.appetizer = appetizer;
+        super.appetizers.clear();
+
+        super.appetizers.add(appetizer);
     }
 
     public void setDessert(Dessert dessert) {
-        this.dessert = dessert;
+        super.desserts.clear();
+
+        super.desserts.add(dessert);
     }
 }

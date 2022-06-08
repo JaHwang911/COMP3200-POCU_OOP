@@ -1,28 +1,12 @@
 package academy.pocu.comp2500.lab6;
 
-import java.util.ArrayList;
-
 public class NoHeavyMeal extends Course {
-    private ArrayList<Appetizer> appetizers;
-    private Dessert dessert;
+    private static final int MAX_APPETIZER_COUNT = 2;
+    private static final int MAX_MAIN_COURSE_COUNT = 0;
+    private static final int MAX_DESSERT_COUNT = 1;
 
     public NoHeavyMeal() {
-        super(CourseType.NO_HEAVY_MEAL);
-
-        this.appetizers = new ArrayList<>();
-    }
-
-    public boolean isValid() {
-        return this.appetizers.size() == 2 && this.dessert != null;
-    }
-
-    public ArrayList<Appetizer> getAppetizers() {
-        return this.appetizers;
-    }
-
-    public Dessert getDessert() {
-        assert (this.dessert != null) : "call isValid() first!";
-        return this.dessert;
+        super(CourseType.NO_HEAVY_MEAL, 2, 0, 1);
     }
 
     public void setAppetizers(Appetizer appetizer1, Appetizer appetizer2) {
@@ -33,6 +17,8 @@ public class NoHeavyMeal extends Course {
     }
 
     public void setDessert(Dessert dessert) {
-        this.dessert = dessert;
+        this.desserts.clear();
+
+        this.desserts.add(dessert);
     }
 }

@@ -2,11 +2,8 @@ package academy.pocu.comp2500.lab6;
 
 public class Menu {
     protected final int price;
-    private boolean isPizza;
 
     protected Menu(PizzaType pizzaType) {
-        this.isPizza = true;
-
         switch (pizzaType) {
             case HOUSE:
                 this.price = 20;
@@ -28,8 +25,6 @@ public class Menu {
     }
 
     protected Menu(CourseType courseType) {
-        this.isPizza = false;
-
         switch (courseType) {
             case NO_HEAVY_MEAL:
                 this.price = 15;
