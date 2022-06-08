@@ -1,18 +1,14 @@
 package academy.pocu.comp2500.lab6;
 
 public class FreeSoulPizza extends Pizza {
-    private static final int MAX_MEAT_COUNT = 2;
-    private static final int MAX_VEGGIE_COUNT = 2;
-    private static final int MAX_CHEESE_COUNT = 1;
-
     public FreeSoulPizza() {
-        super(PizzaType.FREE_SOUL, MAX_MEAT_COUNT, MAX_VEGGIE_COUNT, MAX_CHEESE_COUNT);
+        super(PizzaType.FREE_SOUL, 2, 2, 1);
     }
 
     public boolean addTopping(Topping topping) {
-        if ((isMeat(topping) && super.meatCount >= MAX_MEAT_COUNT)
-                || (isVeggie(topping) && super.veggieCount >= MAX_VEGGIE_COUNT)
-                || (isCheese(topping) && super.cheeseCount >= MAX_CHEESE_COUNT)) {
+        if ((isMeat(topping) && super.meatCount >= super.maxMeatCount)
+                || (isVeggie(topping) && super.veggieCount >= super.maxVeggieCount)
+                || (isCheese(topping) && super.cheeseCount >= super.maxCheeseCount)) {
             return false;
         }
 

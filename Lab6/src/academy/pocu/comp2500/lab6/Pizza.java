@@ -3,9 +3,9 @@ package academy.pocu.comp2500.lab6;
 import java.util.ArrayList;
 
 public class Pizza extends Menu {
-    private final int maxMeatCount;
-    private final int maxVeggieCount;
-    private final int maxCheeseCount;
+    protected final int maxMeatCount;
+    protected final int maxVeggieCount;
+    protected final int maxCheeseCount;
     protected int meatCount;
     protected int veggieCount;
     protected int cheeseCount;
