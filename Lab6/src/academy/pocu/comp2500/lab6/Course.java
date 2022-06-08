@@ -22,9 +22,9 @@ public class Course extends Menu {
     }
 
     public boolean isValid() {
-        return this.appetizers.size() == maxAppetizerCount
-                && this.mainCourses.size() == maxMainCourseCount
-                && this.desserts.size() == maxDessertCount;
+        return this.appetizers.size() == this.maxAppetizerCount
+                && this.mainCourses.size() == this.maxMainCourseCount
+                && this.desserts.size() == this.maxDessertCount;
     }
 
     public ArrayList<Appetizer> getAppetizers() {
