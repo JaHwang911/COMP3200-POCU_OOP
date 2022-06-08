@@ -3,6 +3,10 @@ package academy.pocu.comp2500.lab6;
 public class VeggiePizza extends Pizza {
     public VeggiePizza() {
         super(PizzaType.VEGGIE, 0, 0, 2);
+
+        super.toppings.add(Topping.BLACK_OLIVES);
+        super.toppings.add(Topping.RED_ONIONS);
+        super.toppings.add(Topping.GREEN_PEPPERS);
     }
 
     public boolean addMozzarellaCheese() {

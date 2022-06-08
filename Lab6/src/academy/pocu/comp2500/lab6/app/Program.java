@@ -145,6 +145,6 @@ public class Program {
             assert (!freeSoulPizza.addTopping(Topping.PEPERONI));
         }
 
-        System.out.println("No prob lab6");
+        System.out.println("Lab6: No prob");
     }
 }

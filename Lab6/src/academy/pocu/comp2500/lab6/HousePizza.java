@@ -3,6 +3,11 @@ package academy.pocu.comp2500.lab6;
 public class HousePizza extends Pizza {
     public HousePizza() {
         super(PizzaType.HOUSE, 2, 0, 0);
+
+        super.toppings.add(Topping.BLACK_OLIVES);
+        super.toppings.add(Topping.RED_ONIONS);
+        super.toppings.add(Topping.GREEN_PEPPERS);
+        super.toppings.add(Topping.MOZZARELLA_CHEESE);
     }
 
     public boolean addBacon() {
