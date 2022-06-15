@@ -20,18 +20,6 @@ public class Program {
         testCart();
         testAddApertures();
 
-        Color red = new Color(0xFF, 0x00, 0x00);
-        Color invalidColor = new Color(0xFF, 0xFF, 0xFF);
-        Stamp stamp0 = new Stamp(StampSize.SMALL, StampColor.RED, "Stamp0");
-
-        Color stampColor = stamp0.getColor();
-        stampColor = invalidColor;
-
-        Color changedStampColor = stamp0.getColor();
-        assert changedStampColor.getRed() == 0xFF;
-        assert changedStampColor.getBlue() == 0xFF;
-        assert changedStampColor.getGreen() == 0xFF;
-
         System.out.println("No prob");
     }
 
@@ -169,6 +157,6 @@ public class Program {
             assert businessCard.addAperture(Aperture);
         }
 
-        assert businessCard.getImageApertureCount() == 6;
+        assert businessCard.getImageApertureCount() == 1;
     }
 }
