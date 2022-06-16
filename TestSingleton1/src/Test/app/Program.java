@@ -20,8 +20,11 @@ public class Program {
         assert config1.getY() == 100;
         assert config1.getWidth() == 600;
         assert config1.getHeight() == 400;
-
         assert config0 == config1;
+
+        Configuration config3 = config0.getInstance();
+
+        assert config3 == config0;
 
         System.out.println("Singleton test No prob");
     }
