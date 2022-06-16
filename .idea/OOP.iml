@@ -11,6 +11,8 @@
       <sourceFolder url="file://$MODULE_DIR$/sample_pocutunes/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/sample_vehicle/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/test_ref_getter/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/TestSingleton" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/TestSingleton/src" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

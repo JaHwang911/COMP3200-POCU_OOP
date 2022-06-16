@@ -20,6 +20,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/OOP.iml" filepath="$PROJECT_DIR$/.idea/OOP.iml" />
       <module fileurl="file://$PROJECT_DIR$/Read/Read.iml" filepath="$PROJECT_DIR$/Read/Read.iml" />
       <module fileurl="file://$PROJECT_DIR$/TestMath/TestMath.iml" filepath="$PROJECT_DIR$/TestMath/TestMath.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TestSingleton1/TestSingleton1.iml" filepath="$PROJECT_DIR$/TestSingleton1/TestSingleton1.iml" />
       <module fileurl="file://$PROJECT_DIR$/testInheritance/testInheritance.iml" filepath="$PROJECT_DIR$/testInheritance/testInheritance.iml" />
     </modules>
   </component>
