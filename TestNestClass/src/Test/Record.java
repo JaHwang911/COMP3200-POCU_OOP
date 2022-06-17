@@ -11,29 +11,25 @@ public class Record {
         ++createdCount;
     }
 
-    public static class Reader {
-        private final Record record;
+    public class Reader {
         private int position = 0;
 
-        public Reader(Record record) {
-            this.record = record;
-        }
-
         public boolean canRead() {
-            return this.position < this.record.rawData.length;
+            return this.position < rawData.length;
         }
 
         public void readByte() {
-            System.out.printf("%c\n", this.record.rawData[position++]);
-        }
-
-        public void accessOuter() {
-            printCreatedCount();
+            System.out.printf("%c\n", rawData[position++]);
         }
     }
 
     private static void printCreatedCount() {
         System.out.printf("Created Count: %d\n", createdCount);
+    }
+
+    public void readRead() {
+        Reader reader= new Reader();
+        reader.readByte();
     }
 
     private void printValid() {

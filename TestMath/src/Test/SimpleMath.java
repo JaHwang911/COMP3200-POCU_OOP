@@ -1,4 +1,4 @@
-package test;
+package Test;
 
 public class SimpleMath {
     public static int abs(int a) {

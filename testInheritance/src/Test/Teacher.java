@@ -1,4 +1,4 @@
-package test;
+package Test;
 
 public class Teacher extends Person {
     public Department department;

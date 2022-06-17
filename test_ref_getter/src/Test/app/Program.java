@@ -1,6 +1,6 @@
-package test.app;
+package Test.app;
 
-import test.*;
+import Test.*;
 
 public class Program {
     public static void main(String[] args) {

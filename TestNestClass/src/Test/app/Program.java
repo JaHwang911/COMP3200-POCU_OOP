@@ -7,17 +7,7 @@ public class Program {
         byte[] data = { 97, 98, 99, 100 };
         Record record = new Record(data);
 
-        Record.Reader reader = new Record.Reader(record);
-        reader.accessOuter();
-
-        assert reader.canRead();
-        reader.readByte();
-        reader.readByte();
-        reader.readByte();
-
-        assert reader.canRead();
-        reader.readByte();
-        assert !reader.canRead();
+        record.readRead();
 
         System.out.println("Nest class no prob");
     }
