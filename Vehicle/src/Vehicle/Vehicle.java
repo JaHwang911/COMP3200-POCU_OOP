@@ -107,7 +107,7 @@ public class Vehicle {
                 assert false : "Unknown speed type";
                 return;
         }
-        
+
         this.fuelGauge -= METER / this.fuelEfficiency * speedWeight;
         this.kilometers += METER;
     }

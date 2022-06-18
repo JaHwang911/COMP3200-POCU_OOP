@@ -4,32 +4,35 @@ public class Record {
     private static int createdCount = 0;
     private final byte[] rawData;
     private int magicNum = 77;
-    private int testNum = 1;
 
     public Record(byte[] rawData) {
         this.rawData = rawData;
         ++createdCount;
     }
 
-    public class Reader {
+    public static class Reader {
+        private Record record;
         private int position = 0;
 
+        public Reader(Record record) {
+            this.record = record;
+        }
+
         public boolean canRead() {
-            return this.position < rawData.length;
+            return this.position < this.record.rawData.length;
         }
 
         public void readByte() {
-            System.out.printf("%c\n", rawData[position++]);
+            System.out.printf("%c\n", this.record.rawData[position++]);
+        }
+
+        public void canAccessOuter() {
+            this.record.printValid();
         }
     }
 
     private static void printCreatedCount() {
         System.out.printf("Created Count: %d\n", createdCount);
-    }
-
-    public void readRead() {
-        Reader reader= new Reader();
-        reader.readByte();
     }
 
     private void printValid() {
