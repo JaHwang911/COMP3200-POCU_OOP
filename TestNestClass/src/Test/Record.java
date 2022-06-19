@@ -1,9 +1,11 @@
 package Test;
 
 public class Record {
-    private static int createdCount = 0;
-    private final byte[] rawData;
-    private int magicNum = 77;
+    protected static int createdCount = 0;
+
+    protected final byte[] rawData;
+    protected int magicNum = 77;
+    private boolean hasReader;
 
     public Record(byte[] rawData) {
         this.rawData = rawData;
@@ -16,6 +18,7 @@ public class Record {
 
         public Reader(Record record) {
             this.record = record;
+            this.record.hasReader = true;
         }
 
         public boolean canRead() {
@@ -29,6 +32,10 @@ public class Record {
         public void canAccessOuter() {
             this.record.printValid();
         }
+    }
+
+    public boolean isHasReader() {
+        return this.hasReader;
     }
 
     private static void printCreatedCount() {
