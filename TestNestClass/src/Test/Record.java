@@ -13,7 +13,7 @@ public class Record {
     }
 
     public static class Reader {
-        private Record record;
+        protected Record record;
         private int position = 0;
 
         public Reader(Record record) {

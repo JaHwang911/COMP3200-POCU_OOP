@@ -23,8 +23,9 @@ public class Program {
     }
 
     private static void testInheritanceNest(byte[] data) {
-        InheritanceRecord inheritanceRecord = new InheritanceRecord(data);
-        InheritanceRecord.Reader reader0 = new Record.Reader(inheritanceRecord);
+        Record record = new Record(data);
+
+        InheritanceRecord reader0 = new InheritanceRecord(record);
 
         testReader(reader0);
     }

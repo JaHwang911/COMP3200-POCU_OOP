@@ -1,9 +1,11 @@
 package Test;
 
-public class InheritanceRecord extends Record {
+public class InheritanceRecord extends Record.Reader {
     private int magicNum = 88;
 
-    public InheritanceRecord(byte[] rawData) {
-        super(rawData);
+    public InheritanceRecord(Record record) {
+        super(record);
     }
+
+    public void getTest() {}
 }
