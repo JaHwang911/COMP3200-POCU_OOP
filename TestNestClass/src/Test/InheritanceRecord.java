@@ -6,6 +6,4 @@ public class InheritanceRecord extends Record.Reader {
     public InheritanceRecord(Record record) {
         super(record);
     }
-
-    public void getTest() {}
 }

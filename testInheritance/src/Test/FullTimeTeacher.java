@@ -1,17 +1,17 @@
 package Test;
 
 public class FullTimeTeacher extends Teacher {
-    private int weeklyHours;
+    private int officeNumber;
 
     public FullTimeTeacher(String firstName, String lastName, Department department) {
         super(firstName, lastName, department);
     }
 
-    public int getWeeklyHours() {
-        return this.weeklyHours;
+    public int getOfficeNumber() {
+        return this.officeNumber;
     }
 
-    public void setWeeklyHours(int hours) {
-        this.weeklyHours = hours;
+    public void setOfficeNumber(int officeNumber) {
+        this.officeNumber = officeNumber;
     }
 }

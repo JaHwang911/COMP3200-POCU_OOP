@@ -1,7 +1,8 @@
 package Test.app;
 
-import Test.InheritanceRecord;
 import Test.Record;
+import Test.InheritanceRecord;
+import Test.NonStaticRecord;
 
 public class Program {
     public static void main(String[] args) {
@@ -9,6 +10,7 @@ public class Program {
 
         testRecord(data);
         testInheritanceNest(data);
+        testNonStaticNested(data);
 
         System.out.println("Nest class no prob");
     }
@@ -39,5 +41,10 @@ public class Program {
         reader.readByte();
 
         assert !reader.canRead();
+    }
+
+    private static void testNonStaticNested(byte[] data) {
+        NonStaticRecord.Reader reader = new NonStaticRecord(data).new Reader();
+        System.out.println(reader.getClass().getName());
     }
 }

@@ -7,6 +7,10 @@ public class Program {
         testStudent();
         testTeacher();
         testGetClass();
+        testTrolling();
+
+        Student student = new Student("Ja", "Hwnag");
+        System.out.println(student.toString());
 
         System.out.println("Inheritance No prob");
     }
@@ -29,6 +33,7 @@ public class Program {
         FullTimeTeacher fullTimeTeacher;
 
         assert teacher0 instanceof PartTimeTeacher;
+        assert person0 instanceof PartTimeTeacher;
 
         if (teacher0 instanceof PartTimeTeacher) {
             fullTimeTeacher = null;
@@ -36,6 +41,7 @@ public class Program {
             fullTimeTeacher = (FullTimeTeacher) teacher0;
         }
 
+        assert fullTimeTeacher == null;
         assert teacher0.getName().equals("Ja Hwang");
     }
 
@@ -51,5 +57,16 @@ public class Program {
         Teacher teacher0 = (Teacher) person0;
 
         assert teacher0.getClass().getName().equals("Test.PartTimeTeacher");
+    }
+
+    private static void testTrolling() {
+        Teacher teacher = new Teacher("harry", "poter", Department.WING);
+        Student student = new Student("Ja", "Hwang");
+
+        assert student.getEmail().equals("jhwang@hogwarts.academy");
+
+        Person person = student;
+        teacher.doMagic(person);
+        assert student.getEmail().equals("troll@voldemort.crew");
     }
 }
