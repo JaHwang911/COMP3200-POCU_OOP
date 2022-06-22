@@ -41,14 +41,6 @@ public class Vehicle {
         return this.engine.getFuelType();
     }
 
-    public int getRpm() {
-        return this.engine.getRpm();
-    }
-
-    public int getMaxRpm() {
-        return this.engine.getMaxRpm();
-    }
-
     public boolean isEngineOn() {
         return this.engine.isEngineOn();
     }
@@ -80,7 +72,7 @@ public class Vehicle {
 
     public void move(SpeedType speedType) {
         if (this.fuelGauge < METER / this.fuelEfficiency || !this.enginePower) {
-            System.out.println("Not enough fuel or start power");
+            System.out.println("Not enough fuel or engine stopped");
             return;
         }
 
