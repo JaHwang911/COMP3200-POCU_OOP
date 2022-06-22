@@ -12,6 +12,8 @@ public class Record {
     }
 
     public static class Reader {
+        private static int magicNum = 7;
+
         protected Record record;
         private int position = 0;
 
@@ -39,6 +41,10 @@ public class Record {
 
     public int readerCount() {
         return this.readerCount;
+    }
+
+    public int accessInnerClass() {
+        return Reader.magicNum;
     }
 
     private static void printCreatedCount() {
