@@ -1,6 +1,6 @@
-package Vehicle;
+package vehicle;
 
-import Vehicle.Engine.Engine;
+import vehicle.Engine.Engine;
 
 public class Motorcycle extends Vehicle {
     private static int count;

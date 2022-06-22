@@ -1,10 +1,10 @@
-package Vehicle.app;
+package vehicle.app;
 
-import Vehicle.Engine.Engine;
-import Vehicle.Engine.EngineType;
-import Vehicle.Engine.FuelType;
-import Vehicle.Motorcycle;
-import Vehicle.SpeedType;
+import vehicle.Engine.Engine;
+import vehicle.Engine.EngineType;
+import vehicle.Engine.FuelType;
+import vehicle.Motorcycle;
+import vehicle.SpeedType;
 
 public class Program {
     public static void main(String[] args) {

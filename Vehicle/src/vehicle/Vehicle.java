@@ -1,7 +1,7 @@
-package Vehicle;
+package vehicle;
 
-import Vehicle.Engine.Engine;
-import Vehicle.Engine.FuelType;
+import vehicle.Engine.Engine;
+import vehicle.Engine.FuelType;
 
 public class Vehicle {
     private static final byte METER = 1;
