@@ -4,8 +4,7 @@ public class Record {
     protected static int createdCount = 0;
 
     protected final byte[] rawData;
-    protected int magicNum = 77;
-    private boolean hasReader;
+    private int readerCount;
 
     public Record(byte[] rawData) {
         this.rawData = rawData;
@@ -18,7 +17,7 @@ public class Record {
 
         public Reader(Record record) {
             this.record = record;
-            this.record.hasReader = true;
+            ++this.record.readerCount;
         }
 
         public boolean canRead() {
@@ -32,10 +31,14 @@ public class Record {
         public void canAccessOuter() {
             this.record.printValid();
         }
+
+        public int createdCount() {
+            return createdCount;
+        }
     }
 
-    public boolean isHasReader() {
-        return this.hasReader;
+    public int readerCount() {
+        return this.readerCount;
     }
 
     private static void printCreatedCount() {

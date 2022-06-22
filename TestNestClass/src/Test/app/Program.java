@@ -17,9 +17,9 @@ public class Program {
 
     private static void testRecord(byte[] data) {
         Record record = new Record(data);
-        assert !record.isHasReader();
+        assert record.readerCount() == 0;
         Record.Reader reader0 = new Record.Reader(record);
-        assert record.isHasReader();
+        assert record.readerCount() == 1;
 
         testReader(reader0);
     }
