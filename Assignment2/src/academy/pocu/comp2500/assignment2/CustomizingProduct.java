@@ -15,18 +15,8 @@ public class CustomizingProduct extends Product {
         return this.textApertures.size();
     }
 
-    public Aperture getTextAperture(Aperture aperture) {
-        int index = this.textApertures.indexOf(aperture);
-        return this.textApertures.get(index);
-    }
-
     public int getImageApertureCount() {
         return this.imageApertures.size();
-    }
-
-    public Aperture getImageAperture(Aperture aperture) {
-        int index = this.imageApertures.indexOf(aperture);
-        return this.imageApertures.get(index);
     }
 
     public boolean addAperture(Aperture aperture) {
