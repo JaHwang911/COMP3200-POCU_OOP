@@ -12,7 +12,6 @@ public class Engine {
     public Engine(EngineType engineType, FuelType fuelType) {
         this.engineType = engineType;
         this.fuelType = fuelType;
-        this.power = false;
 
         switch (this.engineType) {
             case INLINE_ENGINE:
