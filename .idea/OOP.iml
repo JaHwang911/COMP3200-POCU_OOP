@@ -14,6 +14,7 @@
       <sourceFolder url="file://$MODULE_DIR$/TestSingleton" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/TestSingleton/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/COMP2500CodeSamples-master/04/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/test_garden/src" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

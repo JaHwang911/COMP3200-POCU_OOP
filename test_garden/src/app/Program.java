@@ -4,8 +4,13 @@ import gardening.*;
 
 public class Program {
     public static void main(String[] args) {
-        WaterSpray hair = new WaterSpray();
-        Faucet tit = new Faucet();
+        WaterSpray spray = new WaterSpray(5);
 
+        for (int i = 0; i < 5; ++i) {
+            spray.addWater(5);
+        }
+
+        assert spray.getRemainingWaterMl() == 5;
+        System.out.println("NO prob");
     }
 }
