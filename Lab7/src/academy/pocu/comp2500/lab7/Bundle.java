@@ -11,6 +11,10 @@ public class Bundle {
         this.name = name;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
     public boolean add(Book book) {
         return this.books.add(book);
     }
