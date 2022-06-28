@@ -1,10 +1,10 @@
 package academy.pocu.comp2500.lab7;
 
 public class Book {
-    private String title;
-    private Author author;
-    private int publishedYears;
-    private Genre genre;
+    private final String title;
+    private final Author author;
+    private final int publishedYears;
+    private final Genre genre;
 
     public Book(final String title, final Author author, final int publishedYears, final Genre genre) {
         this.title = title;
