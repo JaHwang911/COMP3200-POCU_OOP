@@ -27,7 +27,9 @@ public class ReadingList {
             return true;
         }
 
-        if (!(obj instanceof ReadingList) || this.readingList.size() != ((ReadingList) obj).readingList.size()) {
+        if (!(obj instanceof ReadingList) ||
+                this.readingList.size() != ((ReadingList) obj).readingList.size() ||
+                this.hashCode() != obj.hashCode()) {
             return false;
         }
 

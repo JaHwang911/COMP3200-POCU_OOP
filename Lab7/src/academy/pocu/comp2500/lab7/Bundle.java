@@ -28,7 +28,9 @@ public class Bundle {
             return true;
         }
 
-        if (!(obj instanceof Bundle) || ((Bundle) obj).books.size() != this.books.size()) {
+        if (!(obj instanceof Bundle) ||
+                ((Bundle) obj).books.size() != this.books.size() ||
+                this.hashCode() != obj.hashCode()) {
             return false;
         }
 
