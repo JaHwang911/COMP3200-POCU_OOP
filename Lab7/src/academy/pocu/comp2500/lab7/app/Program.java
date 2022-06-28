@@ -108,9 +108,12 @@ public class Program {
 
         assert bundle0.equals(bundle1);
 
+        Bundle bundle3 = new Bundle("Just");
         HashSet<Bundle> set = new HashSet<>();
         set.add(bundle0);
+
         assert set.contains(bundle1);
+        assert !set.contains(bundle3);
 
         Bundle bundle2 = new Bundle("Coding");
         bundle2.add(book2);

@@ -58,7 +58,7 @@ public class ReadingList {
         int count = 1;
 
         for (Book book : this.readingList) {
-            sb.append(String.format("%d. %s [%s]%s", count++, book.getTitle(), book.getAuthor().getFullName(), System.lineSeparator()));
+            sb.append(String.format("%d. %s%s", count++, book.toString(), System.lineSeparator()));
         }
 
         return sb.toString();

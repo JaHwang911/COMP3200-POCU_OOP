@@ -30,7 +30,13 @@ public class Author {
         return author.getFullName().equals(this.getFullName());
     }
 
+    @Override
     public int hashCode() {
         return this.firstName.hashCode() ^ (this.lastName.hashCode() << 16);
+    }
+
+    @Override
+    public String toString() {
+        return this.getFullName();
     }
 }

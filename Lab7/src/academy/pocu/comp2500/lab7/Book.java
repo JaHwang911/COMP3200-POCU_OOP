@@ -47,6 +47,7 @@ public class Book {
                 && this.genre == book.genre;
     }
 
+    @Override
     public int hashCode() {
         int hash = 17;
         hash = hash * 31 + this.title.hashCode();
@@ -55,5 +56,10 @@ public class Book {
         hash = hash * 31 + this.genre.hashCode();
 
         return hash;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s [%s]", this.title, this.author.getFullName());
     }
 }
