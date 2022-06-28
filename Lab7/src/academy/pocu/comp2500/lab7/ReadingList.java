@@ -36,7 +36,7 @@ public class ReadingList {
         ReadingList readingList = (ReadingList) obj;
 
         for (int i = 0; i < this.readingList.size(); ++i) {
-            if (this.readingList.get(i) != readingList.readingList.get(i)) {
+            if (!this.readingList.get(i).equals(readingList.readingList.get(i))) {
                 return false;
             }
         }
@@ -48,7 +48,7 @@ public class ReadingList {
         int hash = 17;
 
         for (Book book : this.readingList) {
-            hash = hash * 31 + (book.hashCode() << 16);
+            hash = hash * 31 + book.hashCode();
         }
 
         hash = hash * 31 + this.name.hashCode();

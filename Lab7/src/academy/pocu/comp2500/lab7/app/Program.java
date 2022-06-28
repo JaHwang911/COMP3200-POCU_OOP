@@ -276,6 +276,7 @@ public class Program {
         Book book1 = new Book("Intro to Professional Programming", author1, 2016, Genre.SUSPENSE);
         Book book2 = new Book("Mathematics for Software Engineering", author2, 2016, Genre.SUSPENSE);
         Book book3 = new Book("Unreal", author0, 2028, Genre.SUSPENSE);
+        Book book100 = new Book("Hello Coding", author0, 2016, Genre.SUSPENSE);
 
         ReadingList list0 = new ReadingList("Programming");
         ReadingList list1 = new ReadingList("Programming");
@@ -307,10 +308,10 @@ public class Program {
         list3.add(book2);
         list3.add(book3);
 
-        list4.add(book3);
-        list4.add(book2);
+        list4.add(book100);
         list4.add(book1);
-        list4.add(book0);
+        list4.add(book2);
+        list4.add(book3);
 
         assert !list3.equals(list4);
     }
