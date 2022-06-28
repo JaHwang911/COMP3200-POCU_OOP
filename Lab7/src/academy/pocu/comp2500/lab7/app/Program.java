@@ -275,8 +275,11 @@ public class Program {
         Book book0 = new Book("Hello Coding", author0, 2016, Genre.SUSPENSE);
         Book book1 = new Book("Intro to Professional Programming", author1, 2016, Genre.SUSPENSE);
         Book book2 = new Book("Mathematics for Software Engineering", author2, 2016, Genre.SUSPENSE);
+        Book book3 = new Book("Unreal", author0, 2028, Genre.SUSPENSE);
 
         ReadingList list0 = new ReadingList("Programming");
+        ReadingList list1 = new ReadingList("Programming");
+
         list0.add(book0);
         list0.add(book1);
         list0.add(book2);
@@ -284,7 +287,6 @@ public class Program {
 
         System.out.println(list0.toString());
 
-        ReadingList list1 = new ReadingList("Programming");
         list1.add(book0);
         list1.add(book1);
         list1.add(book2);
@@ -296,5 +298,20 @@ public class Program {
         set.add(list0);
 
         assert set.contains(list1);
+
+        ReadingList list3 = new ReadingList("Game");
+        ReadingList list4 = new ReadingList("Game");
+
+        list3.add(book0);
+        list3.add(book1);
+        list3.add(book2);
+        list3.add(book3);
+
+        list4.add(book3);
+        list4.add(book2);
+        list4.add(book1);
+        list4.add(book0);
+
+        assert !list3.equals(list4);
     }
 }

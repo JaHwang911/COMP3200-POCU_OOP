@@ -46,11 +46,12 @@ public class ReadingList {
 
     public int hashCode() {
         int hash = 17;
-        hash = hash * 31 + this.name.hashCode();
 
         for (Book book : this.readingList) {
-            hash = hash * 31 + book.hashCode();
+            hash = hash * 31 + (book.hashCode() << 16);
         }
+
+        hash = hash * 31 + this.name.hashCode();
 
         return hash;
     }
