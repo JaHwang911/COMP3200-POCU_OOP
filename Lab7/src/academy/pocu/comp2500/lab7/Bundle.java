@@ -25,11 +25,19 @@ public class Bundle {
             return true;
         }
 
-        if (!(obj instanceof Bundle)) {
+        if (!(obj instanceof Bundle) || ((Bundle) obj).books.size() != this.books.size()) {
             return false;
         }
 
-        return (this.hashCode() == obj.hashCode());
+        Bundle bundle = (Bundle) obj;
+
+        for (Book book : this.books) {
+            if (!bundle.books.contains(book)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     @Override
