@@ -22,6 +22,37 @@ public class ReadingList {
         return this.readingList.remove(book);
     }
 
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof ReadingList) || this.readingList.size() != ((ReadingList) obj).readingList.size()) {
+            return false;
+        }
+
+        ReadingList readingList = (ReadingList) obj;
+
+        for (int i = 0; i < this.readingList.size(); ++i) {
+            if (this.readingList.get(i) != readingList.readingList.get(i)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public int hashCode() {
+        int hash = 17;
+        hash = hash * 31 + this.name.hashCode();
+
+        for (Book book : this.readingList) {
+            hash = hash * 31 + book.hashCode();
+        }
+
+        return hash;
+    }
+
     public String toString() {
         StringBuilder sb = new StringBuilder();
         int count = 1;

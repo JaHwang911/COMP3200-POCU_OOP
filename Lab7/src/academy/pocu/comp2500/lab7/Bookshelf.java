@@ -12,7 +12,7 @@ public class Bookshelf {
     }
 
     public boolean add(Book book) {
-        if (this.books.contains(book)) {
+        if (this.books.size() >= this.capacity) {
             return false;
         }
 

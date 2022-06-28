@@ -5,7 +5,6 @@ import java.util.HashSet;
 public class Bundle {
     private final String name;
     private final HashSet<Book> books = new HashSet<>();
-    private int hash;
 
     public Bundle(final String name) {
         this.name = name;

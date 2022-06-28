@@ -71,6 +71,10 @@ public class Program {
 
         assert bundle0.equals(bundle1);
 
+        HashSet<Bundle> set = new HashSet<>();
+        set.add(bundle0);
+        assert set.contains(bundle1);
+
         Bundle bundle2 = new Bundle("Coding");
         bundle2.add(book2);
 
@@ -78,11 +82,6 @@ public class Program {
     }
 
     private static void testReadingList() {
-//        1. Hello Coding [Pope Kim]
-//        2. Intro to Professional Programming [Jane Doe]
-//        3. Mathematics for Software Engineering [John Smith]
-//        4. Hello Coding [Pope Kim]
-
         Author author0 = new Author("Pope", "Kim");
         Author author1 = new Author("Jane", "Doe");
         Author author2 = new Author("John", "Smith");
@@ -91,11 +90,25 @@ public class Program {
         Book book1 = new Book("Intro to Professional Programming", author1, 2016, Genre.SUSPENSE);
         Book book2 = new Book("Mathematics for Software Engineering", author2, 2016, Genre.SUSPENSE);
 
-        ReadingList list = new ReadingList("Programming");
-        list.add(book0);
-        list.add(book1);
-        list.add(book2);
+        ReadingList list0 = new ReadingList("Programming");
+        list0.add(book0);
+        list0.add(book1);
+        list0.add(book2);
+        list0.add(book0);
 
-        System.out.println(list.toString());
+        System.out.println(list0.toString());
+
+        ReadingList list1 = new ReadingList("Programming");
+        list1.add(book0);
+        list1.add(book1);
+        list1.add(book2);
+        list1.add(book0);
+
+        assert list0.equals(list1);
+
+        HashSet<ReadingList> set = new HashSet<>();
+        set.add(list0);
+
+        assert set.contains(list1);
     }
 }
