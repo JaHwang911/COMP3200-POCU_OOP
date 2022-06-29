@@ -313,6 +313,6 @@ public class Program {
         list4.add(book2);
         list4.add(book3);
 
-        assert !list3.equals(list4);
+        assert list3.equals(list4);
     }
 }

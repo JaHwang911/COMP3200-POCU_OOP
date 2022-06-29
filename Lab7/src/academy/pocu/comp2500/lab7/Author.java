@@ -25,9 +25,7 @@ public class Author {
             return false;
         }
 
-        Author author = (Author) obj;
-
-        return author.getFullName().equals(this.getFullName());
+        return true;
     }
 
     @Override

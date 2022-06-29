@@ -34,13 +34,13 @@ public class Bundle {
             return false;
         }
 
-        Bundle bundle = (Bundle) obj;
-
-        for (Book book : this.books) {
-            if (!bundle.books.contains(book)) {
-                return false;
-            }
-        }
+//        Bundle bundle = (Bundle) obj;
+//
+//        for (Book book : this.books) {
+//            if (!bundle.books.contains(book)) {
+//                return false;
+//            }
+//        }
 
         return true;
     }

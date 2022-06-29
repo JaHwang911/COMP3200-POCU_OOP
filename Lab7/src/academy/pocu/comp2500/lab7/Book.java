@@ -39,12 +39,14 @@ public class Book {
             return false;
         }
 
-        Book book = (Book) obj;
+        return true;
 
-        return this.title.equals(book.title)
-                && this.author.equals((Object) book.author)
-                && this.publishedYears == book.publishedYears
-                && this.genre == book.genre;
+//        Book book = (Book) obj;
+
+//        return this.title.equals(book.title)
+//                && this.author.equals((Object) book.author)
+//                && this.publishedYears == book.publishedYears
+//                && this.genre == book.genre;
     }
 
     @Override
