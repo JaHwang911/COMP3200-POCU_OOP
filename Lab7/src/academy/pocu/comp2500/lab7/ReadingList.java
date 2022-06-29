@@ -33,14 +33,6 @@ public class ReadingList {
             return false;
         }
 
-//        ReadingList readingList = (ReadingList) obj;
-//
-//        for (int i = 0; i < this.readingList.size(); ++i) {
-//            if (!this.readingList.get(i).equals(readingList.readingList.get(i))) {
-//                return false;
-//            }
-//        }
-
         return true;
     }
 
