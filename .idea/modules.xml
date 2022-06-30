@@ -26,6 +26,7 @@
       <module fileurl="file://$PROJECT_DIR$/TestArgs/TestArgs.iml" filepath="$PROJECT_DIR$/TestArgs/TestArgs.iml" />
       <module fileurl="file://$PROJECT_DIR$/TestMath/TestMath.iml" filepath="$PROJECT_DIR$/TestMath/TestMath.iml" />
       <module fileurl="file://$PROJECT_DIR$/TestNestClass/TestNestClass.iml" filepath="$PROJECT_DIR$/TestNestClass/TestNestClass.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TestOverriding/TestOverriding.iml" filepath="$PROJECT_DIR$/TestOverriding/TestOverriding.iml" />
       <module fileurl="file://$PROJECT_DIR$/TestSingleton1/TestSingleton1.iml" filepath="$PROJECT_DIR$/TestSingleton1/TestSingleton1.iml" />
       <module fileurl="file://$PROJECT_DIR$/Vehicle/Vehicle.iml" filepath="$PROJECT_DIR$/Vehicle/Vehicle.iml" />
       <module fileurl="file://$PROJECT_DIR$/testInheritance/testInheritance.iml" filepath="$PROJECT_DIR$/testInheritance/testInheritance.iml" />
