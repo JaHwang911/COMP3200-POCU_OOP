@@ -1,6 +1,6 @@
 package academy.pocu.comp2500.assignment3;
 
-public class Marine extends Unit implements IMoveable {
+public class Marine extends Unit implements IMovable {
     private static final int MAX_HP = 35;
     private static final int AP = 6;
     private static final char SYMBOL = 'M';
@@ -15,6 +15,7 @@ public class Marine extends Unit implements IMoveable {
 
     @Override
     public AttackIntent attack() {
+        // 이 안에서 어떤 놈 공격 할 건지 확인하는 메서드를 만들고 그 메서드는 적 위치를 반환
         return null;
     }
 
