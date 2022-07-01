@@ -6,6 +6,6 @@ public class Animal {
     }
 
     private void print() {
-        
+
     }
 }

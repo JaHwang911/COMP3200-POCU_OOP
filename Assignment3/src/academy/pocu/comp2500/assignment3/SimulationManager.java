@@ -22,6 +22,7 @@ public class SimulationManager {
     }
 
     public void spawn(Unit unit) {
+        unit.onSpawn();
         this.units.add(unit);
     }
 

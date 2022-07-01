@@ -1,6 +1,6 @@
 package academy.pocu.comp2500.assignment3;
 
-public class Marine extends Unit {
+public class Marine extends Unit implements IMoveable {
     private static final int MAX_HP = 35;
     private static final int AP = 6;
     private static final char SYMBOL = 'M';
@@ -15,6 +15,10 @@ public class Marine extends Unit {
 
     @Override
     public AttackIntent attack() {
-        return super.attack();
+        return null;
+    }
+
+    public void move() {
+        return;
     }
 }
