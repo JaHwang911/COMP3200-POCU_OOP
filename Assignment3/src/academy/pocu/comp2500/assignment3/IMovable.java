@@ -1,5 +1,5 @@
 package academy.pocu.comp2500.assignment3;
 
 public interface IMovable {
-    void move();
+    void move(IntVector2D enemyPosition);
 }

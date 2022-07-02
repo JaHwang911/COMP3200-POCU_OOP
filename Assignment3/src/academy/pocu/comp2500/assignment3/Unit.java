@@ -1,10 +1,12 @@
 package academy.pocu.comp2500.assignment3;
 
+import java.util.ArrayList;
+
 public abstract class Unit {
-    private int hp;
-    private final int ap;
-    private IntVector2D position;
-    private final char symbol;
+    protected int hp;
+    protected final int ap;
+    protected IntVector2D position;
+    protected final char symbol;
     private boolean spawn;
 
     public Unit(final IntVector2D position, final int hp, final int ap, final char symbol) {
@@ -28,9 +30,11 @@ public abstract class Unit {
 
     public abstract AttackIntent attack();
 
-    public void onAttacked(int damage) {
-        this.hp -= Math.min(damage, this.hp);
-    }
+    public abstract void onAttacked(int damage);
+
+    public abstract void move(int x, int y);
+
+    public abstract Turn think(ArrayList<Unit> units);
 
     public void onSpawn() {
         this.spawn = true;
@@ -39,4 +43,10 @@ public abstract class Unit {
     public char getSymbol() {
         return this.symbol;
     }
+
+    public abstract byte getVision();
+
+    public abstract AttackableTarget getAttackableTarget();
+
+    public abstract UnitType getUnitType();
 }
