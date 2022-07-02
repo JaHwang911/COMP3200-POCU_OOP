@@ -25,7 +25,7 @@ public class IntVector2D {
         this.y = y;
     }
 
-    public int getDistance(IntVector2D vector) {
-        return Math.abs(this.x - vector.x) + Math.abs(this.y - vector.y);
+    public int getDistance(IntVector2D position) {
+        return Math.abs(this.x - position.x) + Math.abs(this.y - position.y);
     }
 }

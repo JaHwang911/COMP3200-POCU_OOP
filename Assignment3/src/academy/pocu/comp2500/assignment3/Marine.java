@@ -11,7 +11,8 @@ public class Marine extends Unit {
     private static final UnitType UNIT_TYPE = UnitType.GROUND;
     private static final AttackableTarget ATTACKABLE_TARGET = AttackableTarget.ALL;
 
-    private IntVector2D attackPosition;
+    private ActionType action = ActionType.NONE;
+    private Unit target;
 
     public Marine(IntVector2D position) {
         super(position, MAX_HP, AP, SYMBOL);
@@ -34,20 +35,92 @@ public class Marine extends Unit {
     }
 
     public AttackIntent attack() {
-        assert attackPosition != null;
-
-        return new AttackIntent(this, attackPosition);
+        return new AttackIntent(this, this.target.getPosition());
     }
 
-    public void move(int x, int y) {
-        this.position.setX(this.position.getX() + x);
-        this.position.setY(this.position.getY() + y);
+    public void move() {
+        int distanceY = this.position.getY() - this.target.position.getY();
+        int distanceX = distanceY == 0 ? this.position.getX() - this.target.position.getX() : 0;
+
+        this.position.setY(distanceY * -1);
+        this.position.setX(distanceX * -1);
     }
 
-    public Turn think(ArrayList<Unit> units) {
-        /*
-        이번 턴 만약에 공격이라면
-         */
-        return null;
+    public void decideAction(ArrayList<Unit> units) {
+        if (units.size() == 0) {
+            this.action = ActionType.NONE;
+            return;
+        }
+
+        this.action = ActionType.MOVE;
+
+        for (Unit unit : units) {
+            int distance = this.position.getDistance(unit.position);
+
+            if (distance == 1) {
+                this.action = ActionType.ATTACK;
+                return;
+            }
+        }
+    }
+
+    public void think(ArrayList<Unit> units) {
+        this.target = null;
+
+        switch (this.action) {
+            case MOVE:
+                int maxDistance = 22;
+
+                for (Unit unit : units) {
+                    int distance = this.position.getDistance(unit.position);
+
+                    if (maxDistance > distance) {
+                        this.target = unit;
+                        continue;
+                    }
+
+                    if (maxDistance == distance) {
+                        this.target = this.target.getHp() > unit.getHp() ? unit : this.target;
+                    }
+                }
+                break;
+            case ATTACK:
+                for (Unit unit : units) {
+                    int distance = this.position.getDistance(unit.position);
+
+                    if (distance == 0) {
+                        this.target = unit;
+                        return;
+                    }
+
+                    if (distance == 1) {
+                        if (this.target == null || this.target.getHp() > unit.getHp()) {
+                            this.target = unit;
+                        }
+                    }
+                }
+                break;
+            case NONE:
+                break;
+            default:
+                assert false : "Unknown action type";
+                break;
+        }
+    }
+
+    public void action() {
+        switch (this.action) {
+            case MOVE:
+                move();
+                break;
+            case ATTACK:
+                attack();
+                break;
+            case NONE:
+                break;
+            default:
+                assert false : "Unknown action type";
+                break;
+        }
     }
 }

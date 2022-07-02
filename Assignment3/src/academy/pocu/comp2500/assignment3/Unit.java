@@ -28,14 +28,6 @@ public abstract class Unit {
         return this.ap;
     }
 
-    public abstract AttackIntent attack();
-
-    public abstract void onAttacked(int damage);
-
-    public abstract void move(int x, int y);
-
-    public abstract Turn think(ArrayList<Unit> units);
-
     public void onSpawn() {
         this.spawn = true;
     }
@@ -49,4 +41,16 @@ public abstract class Unit {
     public abstract AttackableTarget getAttackableTarget();
 
     public abstract UnitType getUnitType();
+
+    public abstract AttackIntent attack();
+
+    public abstract void onAttacked(int damage);
+
+    public abstract void move();
+
+    public abstract void think(ArrayList<Unit> units);
+
+    public abstract void decideAction(ArrayList<Unit> units);
+
+    public abstract void action();
 }

@@ -8,15 +8,17 @@ import academy.pocu.comp2500.assignment3.Unit;
 import java.util.ArrayList;
 
 public class Program {
+    //TODO 미사일 터렛 만들고 적들의 hp가 같을 때 북동남서로 확인 후 공격 테스트 확인
 
     public static void main(String[] args) {
+        testPrintMap();
         testVisible();
 
         System.out.println("No prob: assignment 3");
     }
 
     private static void testPrintMap() {
-        System.out.print("Test print map: ");
+        SimulationManager.clear();
 
         Unit u0 = new Marine(new IntVector2D(0, 0));
         Unit u1 = new Marine(new IntVector2D(1, 1));
@@ -40,11 +42,10 @@ public class Program {
         }
 
         simulationManger.printMap();
-        System.out.println("Ok");
     }
 
     private static void testVisible() {
-        System.out.print("Test visible unit: ");
+        SimulationManager.clear();
         SimulationManager simulationManger = SimulationManager.getInstance();
 
         Unit u0 = new Marine(new IntVector2D(7, 4));
@@ -64,7 +65,11 @@ public class Program {
 
         assert visibleUnits.size() == 1;
         assert visibleUnits.get(0) == u1;
+    }
 
-        System.out.println("Ok");
+    private static void testMarine() {
+        SimulationManager.clear();
+        SimulationManager simulationManger = SimulationManager.getInstance();
+
     }
 }

@@ -1,6 +1,6 @@
 package academy.pocu.comp2500.assignment3;
 
-public enum Turn {
+public enum ActionType {
     NONE,
     ATTACK,
     MOVE
