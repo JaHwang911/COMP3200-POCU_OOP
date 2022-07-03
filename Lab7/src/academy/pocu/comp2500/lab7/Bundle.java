@@ -3,6 +3,7 @@ package academy.pocu.comp2500.lab7;
 import java.util.HashSet;
 
 public class Bundle {
+    private static final int MAX_BUNDLE_COUNT = 4;
     private final String name;
     private final HashSet<Book> books = new HashSet<>();
 
@@ -15,6 +16,10 @@ public class Bundle {
     }
 
     public boolean add(Book book) {
+        if (books.size() >= MAX_BUNDLE_COUNT) {
+            return false;
+        }
+
         return this.books.add(book);
     }
 
