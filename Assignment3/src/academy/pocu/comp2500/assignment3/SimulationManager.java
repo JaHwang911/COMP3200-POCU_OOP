@@ -2,7 +2,7 @@ package academy.pocu.comp2500.assignment3;
 
 import java.util.ArrayList;
 
-public class SimulationManager {
+public final class SimulationManager {
     private static final int NUM_COLUMNS = 16;
     private static final int NUM_ROWS = 8;
     private static SimulationManager instance;
@@ -54,17 +54,11 @@ public class SimulationManager {
     }
 
     public void update() {
-        for (Unit unit : this.units) {
-            unit.decideAction(checkVisibleEnemy(unit));
-        }
 
-        for (Unit unit : this.units) {
-            unit.action();
-        }
     }
 
     @Deprecated
-    public ArrayList<Unit> visibleEnemy(Unit unit) {
+    public Unit[][] visibleEnemy(Unit unit) {
         return checkVisibleEnemy(unit);
     }
 
@@ -84,6 +78,35 @@ public class SimulationManager {
         System.out.println("================");
     }
 
+    private Unit[][] checkVisibleEnemy(Unit unit) {
+        final int currentPositionX = unit.getPosition().getX();
+        final int currentPositionY = unit.getPosition().getY();
+        final int vision = unit.getVision();
+        final int visibleArea = vision * 2 + 1;
+
+        Unit[][] ret = new Unit[visibleArea][visibleArea];
+
+        int startPosX = Math.max(0, currentPositionX - vision);
+        int startPosY = Math.max(0, currentPositionY - vision);
+        int maxVisibleX = Math.min(NUM_COLUMNS, currentPositionX + vision);
+        int maxVisibleY = Math.min(NUM_ROWS, currentPositionY + vision);
+
+        int countY = 0;
+
+        for (int i = startPosY; i < maxVisibleY; ++i) {
+            int countX = 0;
+
+            for (int j = startPosX; j < maxVisibleX; ++j) {
+                ret[countY][countX++] = this.unitPositions[i][j];
+            }
+
+            countY++;
+        }
+
+        return ret;
+    }
+
+    /*
     private ArrayList<Unit> checkVisibleEnemy(Unit unit) {
         ArrayList<Unit> ret = new ArrayList<>();
 
@@ -131,7 +154,7 @@ public class SimulationManager {
 
         return ret;
     }
-
+    */
     public static void clear() {
         instance = null;
     }

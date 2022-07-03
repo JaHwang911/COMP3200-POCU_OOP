@@ -45,12 +45,4 @@ public abstract class Unit {
     public abstract AttackIntent attack();
 
     public abstract void onAttacked(int damage);
-
-    public abstract void move();
-
-    public abstract void think(ArrayList<Unit> units);
-
-    public abstract void decideAction(ArrayList<Unit> units);
-
-    public abstract void action();
 }

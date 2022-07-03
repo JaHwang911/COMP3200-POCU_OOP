@@ -8,10 +8,13 @@ import academy.pocu.comp2500.assignment3.Unit;
 import java.util.ArrayList;
 
 public class Program {
-    //TODO 미사일 터렛 만들고 적들의 hp가 같을 때 북동남서로 확인 후 공격 테스트 확인
+    //TODO
+    // 1. 공격 대상 북, 동, 남, 서로 확인하기
+    // 2. 움직일 곳
+    // 3. onSpawn() registerXXX
 
     public static void main(String[] args) {
-        testPrintMap();
+//        testPrintMap();
         testVisible();
 
         System.out.println("No prob: assignment 3");
@@ -63,8 +66,15 @@ public class Program {
 
         var visibleUnits = simulationManger.visibleEnemy(u0);
 
-        assert visibleUnits.size() == 1;
-        assert visibleUnits.get(0) == u1;
+        for (int i = 0; i < 5; ++i) {
+            for (int j = 0; j < 5; ++j) {
+                char sign = visibleUnits[i][j] == null ? 'X' : 'O';
+
+                System.out.printf("%c", sign);
+            }
+
+            System.out.println();
+        }
     }
 
     private static void testMarine() {
