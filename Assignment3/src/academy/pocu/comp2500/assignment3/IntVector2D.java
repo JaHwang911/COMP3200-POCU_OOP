@@ -28,4 +28,12 @@ public class IntVector2D {
     public int getDistance(IntVector2D position) {
         return Math.abs(this.x - position.x) + Math.abs(this.y - position.y);
     }
+
+    public boolean isSamePosition(IntVector2D position) {
+        return (this.x == position.x && this.y == position.y);
+    }
+
+    public boolean isSamePosition(int x, int y) {
+        return (this.x == x && this.y == y);
+    }
 }

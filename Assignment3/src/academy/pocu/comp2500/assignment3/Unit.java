@@ -7,7 +7,7 @@ public abstract class Unit {
     protected final int ap;
     protected IntVector2D position;
     protected final char symbol;
-    private boolean spawn;
+    protected final IntVector2D nullPosition = new IntVector2D(-1, -1);
 
     public Unit(final IntVector2D position, final int hp, final int ap, final char symbol) {
         this.position = position;
@@ -28,13 +28,11 @@ public abstract class Unit {
         return this.ap;
     }
 
-    public void onSpawn() {
-        this.spawn = true;
-    }
-
     public char getSymbol() {
         return this.symbol;
     }
+
+    public abstract void onSpawn();
 
     public abstract byte getVision();
 

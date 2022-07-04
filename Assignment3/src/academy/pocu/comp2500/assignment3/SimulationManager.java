@@ -7,10 +7,11 @@ public final class SimulationManager {
     private static final int NUM_ROWS = 8;
     private static SimulationManager instance;
 
-    private ArrayList<Unit> units = new ArrayList<>();
-    private ArrayList<IThinkable> thinkableUnits = new ArrayList<>();
-    private ArrayList<IMovable> movableUnits = new ArrayList<>();
-    private Unit[][] unitPositions = new Unit[NUM_ROWS][NUM_COLUMNS];;
+    private final ArrayList<Unit> units = new ArrayList<>();
+    private final ArrayList<IThinkable> thinkableUnits = new ArrayList<>();
+    private final ArrayList<IMovable> movableUnits = new ArrayList<>();
+    private final ArrayList<ICollisionEventListener> listeners = new ArrayList<>();
+    private final ArrayList<Unit>[][] unitPositions = new ArrayList[NUM_ROWS][NUM_COLUMNS];
 
     private SimulationManager() {
     }
@@ -31,34 +32,79 @@ public final class SimulationManager {
         unit.onSpawn();
         this.units.add(unit);
 
-        try {
-            this.thinkableUnits.add((IThinkable) unit);
-            this.movableUnits.add((IMovable) unit);
-        } catch(ClassCastException e) {
-        }
-
         IntVector2D pos = unit.getPosition();
-        this.unitPositions[pos.getY()][pos.getX()] = unit;
+        this.unitPositions[pos.getY()][pos.getX()].add(unit);
     }
 
     public void registerThinkable(Unit thinkable) {
-
+        this.thinkableUnits.add((IThinkable) thinkable);
     }
 
     public void registerMovable(Unit movable) {
-
+        this.movableUnits.add((IMovable) movable);
     }
 
     public void registerCollisionEventListener(Unit listener) {
-
+        this.listeners.add((ICollisionEventListener) listener);
     }
 
     public void update() {
+        for (IThinkable unit : this.thinkableUnits) {
+            unit.think(checkVisibleEnemy((Unit) unit));
+        }
 
+        for (IMovable unit : this.movableUnits) {
+            IntVector2D currentPosition = ((Unit) unit).getPosition();
+            this.unitPositions[currentPosition.getY()][currentPosition.getX()].remove(unit);
+
+            unit.move();
+            currentPosition = ((Unit) unit).getPosition();
+            this.unitPositions[currentPosition.getY()][currentPosition.getX()].add((Unit) unit);
+        }
+
+        for (ICollisionEventListener unit : this.listeners) {
+            unit.collisionListener();
+        }
+
+        for (Unit unit : this.units) {
+            AttackIntent attackIntent = unit.attack();
+            IntVector2D attackPosition = attackIntent.getPosition();
+            int damage = attackIntent.getDamage();
+
+            if (attackPosition.isSamePosition(-1, -1)) {
+                continue;
+            }
+
+            ArrayList<Unit> targets = this.unitPositions[attackPosition.getY()][attackPosition.getX()];
+
+            if (targets == null) {
+                continue;
+            }
+
+            UnitType attackableType = attackIntent.getAttackedUnitType();
+
+            for (Unit target : targets) {
+                if (attackableType == UnitType.UNKNOWN || attackableType == target.getUnitType()) {
+                    if (unit == target) {
+                        continue;
+                    }
+
+                    target.onAttacked(damage);
+                }
+            }
+        }
+    }
+
+    public ArrayList<Unit> getUnitInPosition(int x, int y) {
+        return this.unitPositions[y][x];
+    }
+
+    public static void clear() {
+        instance = null;
     }
 
     @Deprecated
-    public Unit[][] visibleEnemy(Unit unit) {
+    public ArrayList<Unit> visibleEnemy(Unit unit) {
         return checkVisibleEnemy(unit);
     }
 
@@ -78,6 +124,7 @@ public final class SimulationManager {
         System.out.println("================");
     }
 
+    /*
     private Unit[][] checkVisibleEnemy(Unit unit) {
         final int currentPositionX = unit.getPosition().getX();
         final int currentPositionY = unit.getPosition().getY();
@@ -105,8 +152,8 @@ public final class SimulationManager {
 
         return ret;
     }
+    */
 
-    /*
     private ArrayList<Unit> checkVisibleEnemy(Unit unit) {
         ArrayList<Unit> ret = new ArrayList<>();
 
@@ -121,10 +168,10 @@ public final class SimulationManager {
 
         for (int i = startPosY; i < maxVisibleY; ++i) {
             for (int j = startPosX; j < maxVisibleX; ++j) {
-                Unit enemy = this.unitPositions[i][j];
+                ArrayList<Unit> enemy = this.unitPositions[i][j];
 
-                if (enemy != null && !unit.equals(enemy)) {
-                    ret.add(enemy);
+                if (enemy != null) {
+                    ret.addAll(enemy);
                 }
             }
         }
@@ -153,9 +200,5 @@ public final class SimulationManager {
         }
 
         return ret;
-    }
-    */
-    public static void clear() {
-        instance = null;
     }
 }

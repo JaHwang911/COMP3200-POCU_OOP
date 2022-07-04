@@ -66,20 +66,12 @@ public class Program {
 
         var visibleUnits = simulationManger.visibleEnemy(u0);
 
-        for (int i = 0; i < 5; ++i) {
-            for (int j = 0; j < 5; ++j) {
-                char sign = visibleUnits[i][j] == null ? 'X' : 'O';
-
-                System.out.printf("%c", sign);
-            }
-
-            System.out.println();
-        }
+        assert visibleUnits.size() == 1;
+        assert visibleUnits.get(0) == u1;
     }
 
     private static void testMarine() {
         SimulationManager.clear();
         SimulationManager simulationManger = SimulationManager.getInstance();
-
     }
 }
