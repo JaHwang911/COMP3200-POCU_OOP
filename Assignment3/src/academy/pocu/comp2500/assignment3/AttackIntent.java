@@ -34,4 +34,8 @@ public class AttackIntent {
                 return null;
         }
     }
+
+    public byte getAoe() {
+        return this.attacker.getAoe();
+    }
 }

@@ -36,13 +36,68 @@ public abstract class Unit {
 
     public abstract boolean isAlive();
 
+    public abstract UnitType getUnitType();
+
     public abstract byte getVision();
 
-    public abstract AttackableTarget getAttackableTarget();
+    public abstract byte getAoe();
 
-    public abstract UnitType getUnitType();
+    public abstract AttackableTarget getAttackableTarget();
 
     public abstract AttackIntent attack();
 
     public abstract void onAttacked(int damage);
+
+    protected IntVector2D searchClockwise(int distance) {
+        SimulationManager instance = SimulationManager.getInstance();
+        final int currentPositionX = this.position.getX();
+        final int currentPositionY = this.position.getY();
+        int x = currentPositionX;
+        int y = currentPositionY - distance;
+        ArrayList<Unit> tmpUnits;
+
+        for (; y <= currentPositionY; ++y) {
+            tmpUnits = instance.getPositionUnitOrNull(x++, y);
+
+            if (tmpUnits.size() > 0) {
+                return new IntVector2D(tmpUnits.get(0).position.getX(), tmpUnits.get(0).position.getY());
+            }
+        }
+
+        x = currentPositionX + distance - 1;
+        y = currentPositionY + 1;
+
+        for (; y <= currentPositionY + distance; ++y) {
+            tmpUnits = instance.getPositionUnitOrNull(x--, y);
+
+            if (tmpUnits != null && tmpUnits.size() > 0) {
+                return new IntVector2D(tmpUnits.get(0).position.getX(), tmpUnits.get(0).position.getY());
+            }
+        }
+
+        x = currentPositionX - 1;
+        y = currentPositionY + distance - 1;
+
+        for (; y >= currentPositionY; --y) {
+            tmpUnits = instance.getPositionUnitOrNull(x--, y);
+
+            if (tmpUnits.size() > 0) {
+                return new IntVector2D(tmpUnits.get(0).position.getX(), tmpUnits.get(0).position.getY());
+            }
+        }
+
+        x = currentPositionX - distance + 1;
+        y = currentPositionY - 1;
+
+        for (; y > currentPositionY - distance; --y) {
+            tmpUnits = instance.getPositionUnitOrNull(x++, y);
+
+            if (tmpUnits.size() > 0) {
+                return new IntVector2D(tmpUnits.get(0).position.getX(), tmpUnits.get(0).position.getY());
+            }
+        }
+
+        assert false : "wrong check clockwise";
+        return null;
+    }
 }

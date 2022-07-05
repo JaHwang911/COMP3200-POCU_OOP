@@ -43,6 +43,14 @@ public final class SimulationManager {
         this.unitPositions.get(pos.getY()).get(pos.getX()).add(unit);
     }
 
+    public int getNumColumns() {
+        return NUM_COLUMNS;
+    }
+
+    public int getNumRows() {
+        return NUM_ROWS;
+    }
+
     public void deleteUnit(Unit unit) {
         this.units.remove(unit);
     }
@@ -77,7 +85,6 @@ public final class SimulationManager {
             this.unitPositions.get(currentPosition.getY()).get(currentPosition.getX()).remove(unit);
 
             unit.move();
-            currentPosition = ((Unit) unit).getPosition();
             this.unitPositions.get(currentPosition.getY()).get(currentPosition.getX()).add((Unit) unit);
         }
 
@@ -113,11 +120,20 @@ public final class SimulationManager {
             }
         }
 
+        ArrayList<Unit> removedUnit = new ArrayList<>();
+
         for (Unit unit : this.units) {
             if (!unit.isAlive()) {
+                removedUnit.add(unit);
                 this.unitPositions.get(unit.getPosition().getY()).get(unit.getPosition().getX()).remove(unit);
             }
         }
+
+        for (Unit unit : removedUnit) {
+            this.units.remove(unit);
+        }
+
+        removedUnit = null;
     }
 
     public static void clear() {
@@ -143,6 +159,14 @@ public final class SimulationManager {
         }
 
         System.out.println("================");
+    }
+
+    public ArrayList<Unit> getPositionUnitOrNull(int x, int y) {
+        if (x >= NUM_COLUMNS || y >= NUM_ROWS) {
+            return null;
+        }
+
+        return this.unitPositions.get(y).get(x);
     }
 
     /*
@@ -184,8 +208,8 @@ public final class SimulationManager {
 
         int startPosX = Math.max(0, myPositionX - vision);
         int startPosY = Math.max(0, myPositionY - vision);
-        int maxVisibleX = Math.min(NUM_COLUMNS, myPositionX + vision);
-        int maxVisibleY = Math.min(NUM_ROWS, myPositionY + vision);
+        int maxVisibleX = Math.min(NUM_COLUMNS - 1, myPositionX + vision);
+        int maxVisibleY = Math.min(NUM_ROWS - 1, myPositionY + vision);
 
         for (int i = startPosY; i <= maxVisibleY; ++i) {
             for (int j = startPosX; j <= maxVisibleX; ++j) {
