@@ -34,6 +34,8 @@ public abstract class Unit {
 
     public abstract void onSpawn();
 
+    public abstract boolean isAlive();
+
     public abstract byte getVision();
 
     public abstract AttackableTarget getAttackableTarget();

@@ -1,7 +1,6 @@
 package academy.pocu.comp2500.assignment3;
 
 import java.util.ArrayList;
-import java.util.InvalidPropertiesFormatException;
 
 public class Marine extends Unit implements IMovable, IThinkable {
     private static final int MAX_HP = 35;
@@ -14,6 +13,7 @@ public class Marine extends Unit implements IMovable, IThinkable {
 
     private IntVector2D attackPosition = super.nullPosition;
     private IntVector2D movePosition = super.nullPosition;
+    private SimulationManager instance;
 
     public Marine(IntVector2D position) {
         super(position, MAX_HP, AP, SYMBOL);
@@ -40,8 +40,21 @@ public class Marine extends Unit implements IMovable, IThinkable {
     }
 
     public void onSpawn() {
-        SimulationManager.getInstance().registerThinkable(this);
-        SimulationManager.getInstance().registerMovable(this);
+        this.instance = SimulationManager.getInstance();
+        this.instance.registerThinkable(this);
+        this.instance.registerMovable(this);
+    }
+
+    public boolean isAlive() {
+        if (this.hp == 0) {
+            this.instance.deleteThinkable(this);
+            this.instance.deleteMovable(this);
+            this.instance.deleteUnit(this);
+
+            return false;
+        }
+
+        return this.hp > 0;
     }
 
     public void move() {
@@ -49,14 +62,25 @@ public class Marine extends Unit implements IMovable, IThinkable {
             return;
         }
 
-        int distanceY = this.position.getY() - this.movePosition.getY();
-        int distanceX = distanceY == 0 ? this.position.getX() - this.movePosition.getX() : 0;
+        final int currentY = this.position.getY();
+        final int currentX = this.position.getX();
+        int movePointY = 0;
+        int movePointX = 0;
+        
+        if (currentY != this.movePosition.getY()) {
+            movePointY = currentY - this.movePosition.getY() > 0 ? -1 : 1;
+        }
 
-        this.position.setY(distanceY * -1);
-        this.position.setX(distanceX * -1);
+        if (movePointY == 0) {
+            movePointX = currentX - this.movePosition.getX() > 0 ? -1 : 1;
+        }
+
+        this.position.setY(currentY + movePointY);
+        this.position.setX(currentX + movePointX);
     }
 
     public void think(ArrayList<Unit> units) {
+        units.remove(this);
         this.attackPosition = super.nullPosition;
         this.movePosition = super.nullPosition;
 
@@ -93,7 +117,7 @@ public class Marine extends Unit implements IMovable, IThinkable {
             }
 
             if (attackableUnits.size() == 1) {
-                this.attackPosition = target.getPosition();
+                this.attackPosition = new IntVector2D(target.getPosition().getX(), target.getPosition().getY());
                 return;
             }
 
@@ -101,7 +125,7 @@ public class Marine extends Unit implements IMovable, IThinkable {
                 Unit tmpUnit = attackableUnits.get(i);
 
                 if (this.position.isSamePosition(tmpUnit.position)) {
-                    this.attackPosition = tmpUnit.position;
+                    this.attackPosition = new IntVector2D(target.getPosition().getX(), target.getPosition().getY());
                     return;
                 }
             }
@@ -124,7 +148,7 @@ public class Marine extends Unit implements IMovable, IThinkable {
             for (IntVector2D direction : directions) {
                 for (Unit unit : attackableUnits) {
                     if (direction.isSamePosition(unit.getPosition())) {
-                        this.attackPosition = unit.position;
+                        this.attackPosition = new IntVector2D(target.getPosition().getX(), target.getPosition().getY());
                         return;
                     }
                 }
@@ -142,23 +166,44 @@ public class Marine extends Unit implements IMovable, IThinkable {
             해병이 시야 안에서 적을 찾지 못한 경우, 현재 타일에서 움직이지 않습니다.
          */
 
-        Unit target = null;
-        int maxDistance = 22;
+        ArrayList<Unit> targets = new ArrayList<>();
+        int maxDistance = this.position.getDistance(units.get(0).getPosition());
+        targets.add(units.get(0));
 
-        for (Unit unit : units) {
+        for (int i = 1; i < units.size(); ++i) {
+            Unit unit = units.get(i);
             int distance = this.position.getDistance(unit.position);
 
             if (maxDistance > distance) {
-                target = unit;
+                maxDistance = distance;
+                targets.clear();
+                targets.add(unit);
                 continue;
             }
 
-            if (maxDistance == distance && target != null) {
-                target = target.getHp() > unit.getHp() ? unit : target;
+            if (maxDistance == distance) {
+                Unit tmpTarget = targets.get(0);
+
+                if (tmpTarget.hp > unit.hp) {
+                    targets.clear();
+                }
+
+                targets.add(unit);
             }
         }
+        Unit target = null;
 
-        assert target != null;
-        this.movePosition = target.getPosition();
+        if (targets.size() == 1) {
+            target = targets.get(0);
+            this.movePosition = new IntVector2D(target.getPosition().getX(), target.getPosition().getY());
+            return;
+        }
+
+        final int currentPositionX = this.getPosition().getX();
+        final int currentPositionY = this.getPosition().getY();
+        // 시계 방향 검색
+
+//        target = target.getHp() > unit.getHp() ? unit : target;
+        this.movePosition = new IntVector2D(target.getPosition().getX(), target.getPosition().getY());
     }
 }
