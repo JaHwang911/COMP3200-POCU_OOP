@@ -117,7 +117,7 @@ public final class SimulationManager {
                 int endAoeRangeY = Math.min(NUM_ROWS - 1, attackPosition.getY() + aoe);
 
                 for (int i = startAoeRangeY; i <= endAoeRangeY; ++i) {
-                    for(int j = startAoeRangeX; j <= endAoeRangeX; ++j) {
+                    for (int j = startAoeRangeX; j <= endAoeRangeX; ++j) {
                         aoeTargets.addAll(getPositionUnitOrNull(j, i));
                     }
                 }
