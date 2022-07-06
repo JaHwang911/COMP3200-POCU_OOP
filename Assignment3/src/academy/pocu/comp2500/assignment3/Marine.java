@@ -13,6 +13,7 @@ public class Marine extends Unit implements IMovable, IThinkable {
 
     private IntVector2D attackPosition;
     private IntVector2D movePosition;
+    private final ArrayList<IntVector2D> attackablePositions;
     private SimulationManager instance;
 
     public Marine(IntVector2D position) {
@@ -20,6 +21,7 @@ public class Marine extends Unit implements IMovable, IThinkable {
 
         this.attackPosition = super.nullPosition;
         this.movePosition = super.nullPosition;
+        this.attackablePositions = new ArrayList<>();
     }
 
     public UnitType getUnitType() {
@@ -81,10 +83,10 @@ public class Marine extends Unit implements IMovable, IThinkable {
             movePointX = currentX - this.movePosition.getX() > 0 ? -1 : 1;
         }
 
-        this.position.setY(currentY + movePointY);
-        this.position.setX(currentX + movePointX);
+        this.position = new IntVector2D(currentX + movePointX, currentY + movePointY);
     }
 
+    // 매개변수도 없애고 이동이 필요할 때 호출 하는 방법으로
     public void think(ArrayList<Unit> units) {
         units.remove(this);
 
@@ -97,63 +99,61 @@ public class Marine extends Unit implements IMovable, IThinkable {
 
         ArrayList<Unit> attackableUnits = new ArrayList<>();
 
-        for (Unit unit : units) {
-            int distance = this.position.getDistance(unit.position);
+        for (IntVector2D position : this.attackablePositions) {
+            ArrayList<Unit> tmp = this.instance.getPositionUnitOrNull(position.getX(), position.getY());
 
-            if (distance <= 1) {
-                attackableUnits.add(unit);
+            if (tmp == null || tmp.size() == 0) {
+                continue;
             }
+
+            attackableUnits.addAll(tmp);
         }
 
         if (attackableUnits.size() > 0) {
-            Unit target = attackableUnits.get(0);
+            ArrayList<Unit> removed = new ArrayList<>();
+            int maxHp = Integer.MAX_VALUE;
+
+            // set minimum hp
+            for (Unit unit : attackableUnits) {
+                if (maxHp > unit.getHp()) {
+                    maxHp = unit.getHp();
+                }
+            }
+
+            // check over minimum hp
+            for (Unit unit : attackableUnits) {
+                if (maxHp < unit.getHp()) {
+                    removed.add(unit);
+                }
+            }
+
+            for (Unit unit : removed) {
+                attackableUnits.remove(unit);
+            }
+
+            removed = null;
+
+            IntVector2D samePosition = new IntVector2D(attackableUnits.get(0).position.getX(), attackableUnits.get(0).position.getY());
+
+            if (attackableUnits.size() == 1) {
+                this.attackPosition = samePosition;
+                return;
+            }
 
             for (int i = 1; i < attackableUnits.size(); ++i) {
                 Unit tmpTarget = attackableUnits.get(i);
 
-                if (target.getHp() > tmpTarget.getHp()) {
-                    attackableUnits.remove(target);
-                    target = tmpTarget;
+                if (!tmpTarget.position.isSamePosition(samePosition)) {
+                    break;
                 }
-            }
 
-            if (attackableUnits.size() == 1) {
-                this.attackPosition = new IntVector2D(target.position.getX(), target.position.getY());
-                return;
-            }
-
-            for (int i = 0; i < attackableUnits.size(); ++i) {
-                Unit tmpUnit = attackableUnits.get(i);
-
-                if (this.position.isSamePosition(tmpUnit.position)) {
-                    this.attackPosition = new IntVector2D(target.position.getX(), target.position.getY());
+                if (i == attackableUnits.size() - 1 && tmpTarget.position.isSamePosition(samePosition)) {
+                    this.attackPosition = new IntVector2D(samePosition.getX(), samePosition.getY());
                     return;
                 }
             }
 
-            // check attackable direction
-            final int currentPositionX = this.getPosition().getX();
-            final int currentPositionY = this.getPosition().getY();
-
-            IntVector2D north = new IntVector2D(currentPositionX, currentPositionY - 1);
-            IntVector2D east = new IntVector2D(currentPositionX + 1, currentPositionY);
-            IntVector2D south = new IntVector2D(currentPositionX, currentPositionY + 1);
-            IntVector2D west = new IntVector2D(currentPositionX - 1, currentPositionY);
-
-            ArrayList<IntVector2D> directions = new ArrayList<>(4);
-            directions.add(north);
-            directions.add(east);
-            directions.add(south);
-            directions.add(west);
-
-            for (IntVector2D direction : directions) {
-                for (Unit unit : attackableUnits) {
-                    if (direction.isSamePosition(unit.getPosition())) {
-                        this.attackPosition = new IntVector2D(target.position.getX(), target.position.getY());
-                        return;
-                    }
-                }
-            }
+            this.attackPosition = samePosition;
         }
 
         assert attackableUnits.size() == 0;
@@ -194,5 +194,18 @@ public class Marine extends Unit implements IMovable, IThinkable {
         // check clockwise
         this.movePosition = searchClockwise(maxDistance);
         assert !this.movePosition.isSamePosition(nullPosition);
+    }
+
+    private void setAttakablePositions() {
+        this.attackablePositions.clear();
+
+        int curX = this.position.getX();
+        int curY = this.position.getY();
+
+        this.attackablePositions.add(new IntVector2D(curX, curY));
+        this.attackablePositions.add(new IntVector2D(curX, curY - 1));
+        this.attackablePositions.add(new IntVector2D(curX + 1, curY));
+        this.attackablePositions.add(new IntVector2D(curX, curY + 1));
+        this.attackablePositions.add(new IntVector2D(curX - 1, curY));
     }
 }

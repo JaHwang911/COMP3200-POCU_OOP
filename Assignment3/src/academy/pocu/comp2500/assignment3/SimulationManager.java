@@ -51,10 +51,6 @@ public final class SimulationManager {
         return NUM_ROWS;
     }
 
-    public void deleteUnit(Unit unit) {
-        this.units.remove(unit);
-    }
-
     public void registerThinkable(IThinkable unit) {
         this.thinkableUnits.add(unit);
     }
@@ -75,6 +71,10 @@ public final class SimulationManager {
         this.listeners.add((ICollisionEventListener) listener);
     }
 
+    public void deleteCollisionEventListener(ICollisionEventListener unit) {
+        this.listeners.remove(unit);
+    }
+
     public void update() {
         for (IThinkable unit : this.thinkableUnits) {
             unit.think(checkVisibleEnemy((Unit) unit));
@@ -85,6 +85,7 @@ public final class SimulationManager {
             this.unitPositions.get(currentPosition.getY()).get(currentPosition.getX()).remove(unit);
 
             unit.move();
+            currentPosition = ((Unit) unit).getPosition();
             this.unitPositions.get(currentPosition.getY()).get(currentPosition.getX()).add((Unit) unit);
         }
 
@@ -95,28 +96,54 @@ public final class SimulationManager {
         for (Unit unit : this.units) {
             AttackIntent attackIntent = unit.attack();
             IntVector2D attackPosition = attackIntent.getPosition();
-            int damage = attackIntent.getDamage();
 
             if (attackPosition.isSamePosition(-1, -1)) {
                 continue;
             }
 
             ArrayList<Unit> targets = this.unitPositions.get(attackPosition.getY()).get(attackPosition.getX());
+            ArrayList<Unit> aoeTargets = null;
+
+            int damage = attackIntent.getDamage();
+            int aoe = attackIntent.getAoe();
+
+            if (aoe > 0) {
+                aoeTargets = new ArrayList<>();
+                int startAoeRangeX = Math.min(0, attackPosition.getX() - aoe);
+                int startAoeRangeY = Math.max(0, attackPosition.getY() - aoe);
+                int endAoeRangeX = Math.min(NUM_COLUMNS - 1, attackPosition.getX() + aoe);
+                int endAoeRangeY = Math.min(NUM_ROWS - 1, attackPosition.getY() + aoe);
+
+                for (int i = startAoeRangeY; i <= endAoeRangeY; ++i) {
+                    for(int j = startAoeRangeX; j <= endAoeRangeX; ++j) {
+                        aoeTargets.addAll(this.unitPositions.get(i).get(j));
+                    }
+                }
+            }
 
             if (targets == null) {
+                if (aoeTargets == null) {
+                    continue;
+                }
+
+                onAttackedAoe(aoeTargets, attackIntent);
                 continue;
             }
 
-            UnitType attackableType = attackIntent.getAttackedUnitType();
+            UnitType attackableUnitType = attackIntent.getAttackedUnitType();
 
             for (Unit target : targets) {
-                if (attackableType == UnitType.UNKNOWN || attackableType == target.getUnitType()) {
+                if (attackableUnitType == UnitType.UNKNOWN || attackableUnitType == target.getUnitType()) {
                     if (unit == target) {
                         continue;
                     }
 
                     target.onAttacked(damage);
                 }
+            }
+
+            if (aoeTargets != null) {
+                onAttackedAoe(aoeTargets, attackIntent);
             }
         }
 
@@ -140,33 +167,41 @@ public final class SimulationManager {
         instance = null;
     }
 
-    @Deprecated
-    public ArrayList<Unit> visibleEnemy(Unit unit) {
-        return checkVisibleEnemy(unit);
-    }
-
-    public void printMap() {
-        System.out.println("================");
-
-        for (int i = 0; i < NUM_ROWS; ++i) {
-            for (int j = 0; j < NUM_COLUMNS; ++j) {
-                char sign = this.unitPositions.get(i).get(j) == null ? 'X' : 'O';
-
-                System.out.printf("%c", sign);
-            }
-
-            System.out.println();
-        }
-
-        System.out.println("================");
-    }
-
     public ArrayList<Unit> getPositionUnitOrNull(int x, int y) {
         if (x >= NUM_COLUMNS || y >= NUM_ROWS) {
             return null;
         }
 
-        return this.unitPositions.get(y).get(x);
+        ArrayList<Unit> ret = new ArrayList<>();
+
+        for (Unit unit : this.unitPositions.get(y).get(x)) {
+            if (this.listeners.contains(unit)) {
+                continue;
+            }
+
+            ret.add(unit);
+        }
+
+        return ret;
+    }
+
+    private void onAttackedAoe(ArrayList<Unit> aoeTargets, AttackIntent attackIntent) {
+        UnitType attackableUnitType = attackIntent.getAttackedUnitType();
+
+        for (Unit target : aoeTargets) {
+            if (target == null) {
+                continue;
+            }
+
+            if (attackableUnitType == UnitType.UNKNOWN || attackableUnitType == target.getUnitType()) {
+                int targetPositionX = Math.abs(target.getPosition().getX() - attackIntent.getPosition().getX());
+                int targetPositionY = Math.abs(target.getPosition().getY() - attackIntent.getPosition().getY());
+                int distance = Math.max(targetPositionX, targetPositionY);
+                int aoeDamage = attackIntent.getDamage() * (1 - distance / (attackIntent.getAoe() + 1));
+
+                target.onAttacked(aoeDamage);
+            }
+        }
     }
 
     /*
@@ -240,6 +275,10 @@ public final class SimulationManager {
 
         for (Unit u : ret) {
             if (u.getUnitType() != visibleType) {
+                ret.remove(u);
+            }
+
+            if (this.listeners.contains(u)) {
                 ret.remove(u);
             }
         }

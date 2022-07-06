@@ -9,11 +9,8 @@ import java.util.ArrayList;
 
 public class Program {
     //TODO
-    // 1. 공격 대상 북, 동, 남, 서로 확인하기
-    // 2. 움직일 곳
-    // 3. onSpawn() registerXXX
-    // 4. 전차 움직임
-    // 5. Aoe 적용
+    // 1. 레이스 움직임
+    // 2. 탱크 레이스 공격 모두 같은 위치일 때
 
     public static void main(String[] args) {
         testMarine();
@@ -32,6 +29,7 @@ public class Program {
         Unit u3 = new Marine(new IntVector2D(13, 7));
         Unit u4 = new Marine(new IntVector2D(11, 6));
         Unit u5 = new Marine(new IntVector2D(9, 7));
+        Unit u6 = new Tank(new IntVector2D(1, 6));
 
         ArrayList<Unit> units = new ArrayList<>();
         units.add(u0);
@@ -40,6 +38,7 @@ public class Program {
         units.add(u3);
         units.add(u4);
         units.add(u5);
+        units.add(u6);
 
         for (Unit unit : units) {
             simulationManager.spawn(unit);
@@ -50,7 +49,7 @@ public class Program {
             clearConsole();
             visualizer.visualize(i, simulationManager.getUnits());
             simulationManager.update();
-//            continueOnEnter();
+            continueOnEnter();
         }
     }
 
@@ -59,8 +58,8 @@ public class Program {
         SimulationManager.clear();
         SimulationManager simulationManager = SimulationManager.getInstance();
 
-        Unit u0 = new Tank(new IntVector2D(11, 7));
-        Unit u1 = new Marine(new IntVector2D(10, 5));
+        Unit u0 = new Tank(new IntVector2D(14, 7));
+        Unit u1 = new Marine(new IntVector2D(11, 6));
 
         ArrayList<Unit> units = new ArrayList<>();
         units.add(u0);

@@ -2,7 +2,7 @@ package academy.pocu.comp2500.assignment3;
 
 import java.util.ArrayList;
 
-public class Tank extends Unit implements IThinkable, IMovable{
+public class Tank extends Unit implements IThinkable, IMovable {
     private static final char SYMBOL = 'T';
     private static final UnitType UNIT_TYPE = UnitType.GROUND;
     private static final byte VISION = 3;
@@ -16,7 +16,7 @@ public class Tank extends Unit implements IThinkable, IMovable{
     private IntVector2D movePosition;
     private boolean isSiegeMode;
     private boolean moveRight;
-    private ArrayList<IntVector2D> attackablePoint;
+    private final ArrayList<IntVector2D> attackablePositions;
     private SimulationManager instance;
 
     public Tank(IntVector2D position) {
@@ -24,7 +24,7 @@ public class Tank extends Unit implements IThinkable, IMovable{
 
         this.attackPosition = super.nullPosition;
         this.movePosition = super.nullPosition;
-        this.attackablePoint = new ArrayList<>(ATTACKABLE_POINT_COUNT);
+        this.attackablePositions = new ArrayList<>(ATTACKABLE_POINT_COUNT);
         this.moveRight = true;
     }
 
@@ -89,8 +89,7 @@ public class Tank extends Unit implements IThinkable, IMovable{
             movePointX = currentX - this.movePosition.getX() > 0 ? -1 : 1;
         }
 
-        this.position.setY(currentY + movePointY);
-        this.position.setX(currentX + movePointX);
+        this.position = new IntVector2D(currentX + movePointX, currentY + movePointY);
 
         if (this.position.getX() == instance.getNumColumns() - 1) {
             this.moveRight = false;
@@ -115,53 +114,77 @@ public class Tank extends Unit implements IThinkable, IMovable{
             return;
         }
 
+        setAttakablePositions();
         ArrayList<Unit> attackableUnits = new ArrayList<>();
 
-        setAttakablePoints();
-
-        for (IntVector2D point : this.attackablePoint) {
-            ArrayList<Unit> tmp = this.instance.getPositionUnitOrNull(point.getX(), point.getY());
+        for (IntVector2D position : this.attackablePositions) {
+            ArrayList<Unit> tmp = this.instance.getPositionUnitOrNull(position.getX(), position.getY());
 
             if (tmp == null || tmp.size() == 0) {
                 continue;
             }
 
-            attackableUnits.addAll(tmp);
+            for (Unit unit : tmp) {
+                if (unit.getUnitType() == UnitType.GROUND) {
+                    attackableUnits.add(unit);
+                }
+            }
         }
 
         if (attackableUnits.size() > 0) {
             assert this.isSiegeMode;
 
-            Unit target = attackableUnits.get(0);
+            ArrayList<Unit> removed = new ArrayList<>();
+            int maxHp = Integer.MAX_VALUE;
+
+            // set minimum hp
+            for (Unit unit : attackableUnits) {
+                if (maxHp > unit.getHp()) {
+                    maxHp = unit.getHp();
+                }
+            }
+
+            // check over minimum hp
+            for (Unit unit : attackableUnits) {
+                if (maxHp < unit.getHp()) {
+                    removed.add(unit);
+                }
+            }
+
+            for (Unit unit : removed) {
+                attackableUnits.remove(unit);
+            }
+
+            removed = null;
+
+            IntVector2D samePosition = new IntVector2D(attackableUnits.get(0).position.getX(), attackableUnits.get(0).position.getY());
+
+            if (attackableUnits.size() == 1) {
+                this.attackPosition = samePosition;
+                return;
+            }
 
             for (int i = 1; i < attackableUnits.size(); ++i) {
                 Unit tmpTarget = attackableUnits.get(i);
 
-                if (target.getHp() > tmpTarget.getHp()) {
-                    attackableUnits.remove(target);
-                    target = tmpTarget;
+                if (!tmpTarget.position.isSamePosition(samePosition)) {
+                    break;
                 }
-            }
 
-            if (attackableUnits.size() == 1) {
-                this.attackPosition = new IntVector2D(target.position.getX(), target.position.getY());
-                return;
+                if (i == attackableUnits.size() - 1 && tmpTarget.position.isSamePosition(samePosition)) {
+                    this.attackPosition = new IntVector2D(samePosition.getX(), samePosition.getY());
+                    return;
+                }
             }
 
             // check attackable direction
-            for (IntVector2D point : this.attackablePoint) {
-                ArrayList<Unit> tmp = this.instance.getPositionUnitOrNull(point.getX(), point.getY());
-
-                if (tmp == null || tmp.size() == 0) {
-                    continue;
-                }
-
-                this.attackPosition = point;
-            }
+            this.attackPosition = samePosition;
+            return;
         }
 
         assert attackableUnits.size() == 0;
-        if (units.size() > 0) {
+
+        if (this.isSiegeMode) {
             return;
         }
 
@@ -182,21 +205,23 @@ public class Tank extends Unit implements IThinkable, IMovable{
         this.movePosition = new IntVector2D(0, this.position.getY());
     }
 
-    private void setAttakablePoints() {
+    private void setAttakablePositions() {
+        this.attackablePositions.clear();
+
         int curX = this.position.getX();
         int curY = this.position.getY();
 
-        this.attackablePoint.add(new IntVector2D(curX, curY - 2));
-        this.attackablePoint.add(new IntVector2D(curX + 1, curY - 2));
-        this.attackablePoint.add(new IntVector2D(curX + 2, curY - 1));
-        this.attackablePoint.add(new IntVector2D(curX + 2, curY));
-        this.attackablePoint.add(new IntVector2D(curX + 2, curY + 1));
-        this.attackablePoint.add(new IntVector2D(curX + 1, curY + 2));
-        this.attackablePoint.add(new IntVector2D(curX, curY + 2));
-        this.attackablePoint.add(new IntVector2D(curX - 1, curY + 2));
-        this.attackablePoint.add(new IntVector2D(curX - 2, curY + 1));
-        this.attackablePoint.add(new IntVector2D(curX - 2, curY));
-        this.attackablePoint.add(new IntVector2D(curX - 2, curY - 1));
-        this.attackablePoint.add(new IntVector2D(curX - 1, curY - 2));
+        this.attackablePositions.add(new IntVector2D(curX, curY - 2));
+        this.attackablePositions.add(new IntVector2D(curX + 1, curY - 2));
+        this.attackablePositions.add(new IntVector2D(curX + 2, curY - 1));
+        this.attackablePositions.add(new IntVector2D(curX + 2, curY));
+        this.attackablePositions.add(new IntVector2D(curX + 2, curY + 1));
+        this.attackablePositions.add(new IntVector2D(curX + 1, curY + 2));
+        this.attackablePositions.add(new IntVector2D(curX, curY + 2));
+        this.attackablePositions.add(new IntVector2D(curX - 1, curY + 2));
+        this.attackablePositions.add(new IntVector2D(curX - 2, curY + 1));
+        this.attackablePositions.add(new IntVector2D(curX - 2, curY));
+        this.attackablePositions.add(new IntVector2D(curX - 2, curY - 1));
+        this.attackablePositions.add(new IntVector2D(curX - 1, curY - 2));
     }
 }
