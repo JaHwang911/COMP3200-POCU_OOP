@@ -17,27 +17,11 @@ public class Marine extends Unit implements IMovable, IThinkable {
     private SimulationManager instance;
 
     public Marine(IntVector2D position) {
-        super(position, MAX_HP, AP, SYMBOL);
+        super(position, SYMBOL, UNIT_TYPE, VISION, AOE, AP, MAX_HP, ATTACKABLE_TARGET);
 
         this.attackPosition = super.nullPosition;
         this.movePosition = super.nullPosition;
         this.attackablePositions = new ArrayList<>();
-    }
-
-    public UnitType getUnitType() {
-        return UNIT_TYPE;
-    }
-
-    public byte getVision() {
-        return VISION;
-    }
-
-    public AttackableTarget getAttackableTarget() {
-        return ATTACKABLE_TARGET;
-    }
-
-    public byte getAoe() {
-        return AOE;
     }
 
     public void onAttacked(int damage) {
@@ -86,10 +70,7 @@ public class Marine extends Unit implements IMovable, IThinkable {
         this.position = new IntVector2D(currentX + movePointX, currentY + movePointY);
     }
 
-    // 매개변수도 없애고 이동이 필요할 때 호출 하는 방법으로
     public void think(ArrayList<Unit> units) {
-        units.remove(this);
-
         this.attackPosition = super.nullPosition;
         this.movePosition = super.nullPosition;
 
@@ -97,6 +78,7 @@ public class Marine extends Unit implements IMovable, IThinkable {
             return;
         }
 
+        setAttakablePositions();
         ArrayList<Unit> attackableUnits = new ArrayList<>();
 
         for (IntVector2D position : this.attackablePositions) {
@@ -109,91 +91,81 @@ public class Marine extends Unit implements IMovable, IThinkable {
             attackableUnits.addAll(tmp);
         }
 
+        attackableUnits.remove(this);
+
         if (attackableUnits.size() > 0) {
-            ArrayList<Unit> removed = new ArrayList<>();
-            int maxHp = Integer.MAX_VALUE;
+            compareHp(attackableUnits);
 
-            // set minimum hp
-            for (Unit unit : attackableUnits) {
-                if (maxHp > unit.getHp()) {
-                    maxHp = unit.getHp();
-                }
-            }
-
-            // check over minimum hp
-            for (Unit unit : attackableUnits) {
-                if (maxHp < unit.getHp()) {
-                    removed.add(unit);
-                }
-            }
-
-            for (Unit unit : removed) {
-                attackableUnits.remove(unit);
-            }
-
-            removed = null;
-
-            IntVector2D samePosition = new IntVector2D(attackableUnits.get(0).position.getX(), attackableUnits.get(0).position.getY());
-
-            if (attackableUnits.size() == 1) {
-                this.attackPosition = samePosition;
-                return;
-            }
-
-            for (int i = 1; i < attackableUnits.size(); ++i) {
-                Unit tmpTarget = attackableUnits.get(i);
-
-                if (!tmpTarget.position.isSamePosition(samePosition)) {
-                    break;
-                }
-
-                if (i == attackableUnits.size() - 1 && tmpTarget.position.isSamePosition(samePosition)) {
-                    this.attackPosition = new IntVector2D(samePosition.getX(), samePosition.getY());
-                    return;
-                }
-            }
-
-            this.attackPosition = samePosition;
+            this.attackPosition = new IntVector2D(attackableUnits.get(0).position.getX(), attackableUnits.get(0).position.getY());
+            return;
         }
 
         assert attackableUnits.size() == 0;
 
+        ArrayList<Unit> removed = new ArrayList<>();
         ArrayList<Unit> targets = new ArrayList<>();
         int maxDistance = this.position.getDistance(units.get(0).getPosition());
-        targets.add(units.get(0));
 
-        for (int i = 1; i < units.size(); ++i) {
-            Unit unit = units.get(i);
+        for (Unit unit : units) {
             int distance = this.position.getDistance(unit.position);
 
             if (maxDistance > distance) {
                 maxDistance = distance;
-                targets.clear();
-                targets.add(unit);
-                continue;
             }
 
-            if (maxDistance == distance) {
-                Unit tmpTarget = targets.get(0);
+            targets.add(unit);
+        }
 
-                if (tmpTarget.hp > unit.hp) {
-                    targets.clear();
-                } else if (tmpTarget.position.isSamePosition(unit.position)) {
-                    continue;
-                }
+        for (Unit unit : targets) {
+            int distance = this.position.getDistance(unit.position);
 
-                targets.add(unit);
+            if (maxDistance < distance) {
+                removed.add(unit);
             }
         }
 
+        for (Unit unit : removed) {
+            targets.remove(unit);
+        }
+
+        compareHp(targets);
+
+        IntVector2D targetPosition = new IntVector2D(targets.get(0).position.getX(), targets.get(0).position.getY());
+
         if (targets.size() == 1) {
-            this.movePosition = new IntVector2D(targets.get(0).position.getX(), targets.get(0).position.getY());
+            this.movePosition = targetPosition;
             return;
+        }
+
+        for (int i = 1; i < targets.size(); ++i) {
+            Unit tmpTarget = targets.get(i);
+
+            if (!tmpTarget.position.isSamePosition(targetPosition)) {
+                break;
+            }
+
+            if (i == targets.size() - 1 && tmpTarget.position.isSamePosition(targetPosition)) {
+                this.attackPosition = new IntVector2D(targetPosition.getX(), targetPosition.getY());
+                return;
+            }
         }
 
         // check clockwise
         this.movePosition = searchClockwise(maxDistance);
         assert !this.movePosition.isSamePosition(nullPosition);
+    }
+
+    private void compareHp(ArrayList<Unit> outUnits) {
+        int maxHp = Integer.MAX_VALUE;
+
+        for (Unit unit : outUnits) {
+            if (maxHp > unit.getHp()) {
+                maxHp = unit.getHp();
+            }
+        }
+
+        final int minimumHp = maxHp;
+        outUnits.removeIf(unit -> (unit.getHp() > minimumHp));
     }
 
     private void setAttakablePositions() {

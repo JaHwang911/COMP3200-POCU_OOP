@@ -12,28 +12,15 @@ public class Mine extends Unit implements ICollisionEventListener {
     private static final AttackableTarget ATTACKABLE_TARGET = AttackableTarget.GROUND;
 
     private SimulationManager instance;
-    private int maxCollisionCount;
+    private IntVector2D attackPosition;
+    private final int maxCollisionCount;
     private int collisionCount;
 
-    public Mine(IntVector2D position, int count) {
-        super(position, MAX_HP, AP, SYMBOL);
-        this.maxCollisionCount = count;
-    }
+    public Mine(IntVector2D position, int maxCollisionCount) {
+        super(position, SYMBOL, UNIT_TYPE, VISION, AOE, AP, MAX_HP, ATTACKABLE_TARGET);
 
-    public UnitType getUnitType() {
-        return UNIT_TYPE;
-    }
-
-    public byte getVision() {
-        return VISION;
-    }
-
-    public AttackableTarget getAttackableTarget() {
-        return ATTACKABLE_TARGET;
-    }
-
-    public byte getAoe() {
-        return AOE;
+        this.maxCollisionCount = maxCollisionCount;
+        this.attackPosition = super.nullPosition;
     }
 
     public void onAttacked(int damage) {
@@ -41,8 +28,11 @@ public class Mine extends Unit implements ICollisionEventListener {
     }
 
     public AttackIntent attack() {
-        onAttacked(1);
-        return new AttackIntent(this, new IntVector2D(this.position.getX(), this.position.getY()));
+        if (this.collisionCount >= this.maxCollisionCount) {
+            onAttacked(this.hp);
+        }
+
+        return new AttackIntent(this, new IntVector2D(this.attackPosition.getX(), this.attackPosition.getY()));
     }
 
     public void onSpawn() {
@@ -61,6 +51,17 @@ public class Mine extends Unit implements ICollisionEventListener {
     }
 
     public void collisionListener() {
+        ArrayList<Unit> positionUnits = this.instance.getPositionUnitOrNull(this.position.getX(), this.position.getY());
 
+        if (positionUnits == null) {
+            return;
+        }
+
+        positionUnits.removeIf(unit -> (unit.unitType == UnitType.AIR));
+        this.collisionCount += positionUnits.size();
+
+        if (this.collisionCount >= this.maxCollisionCount) {
+            this.attackPosition = new IntVector2D(this.position.getX(), this.position.getY());
+        }
     }
 }

@@ -101,27 +101,37 @@ public final class SimulationManager {
                 continue;
             }
 
-            ArrayList<Unit> targets = this.unitPositions.get(attackPosition.getY()).get(attackPosition.getX());
+            ArrayList<Unit> targets = new ArrayList<>();
             ArrayList<Unit> aoeTargets = null;
+
+            targets.addAll(getPositionUnitOrNull(attackPosition.getX(), attackPosition.getY()));
 
             int damage = attackIntent.getDamage();
             int aoe = attackIntent.getAoe();
 
             if (aoe > 0) {
                 aoeTargets = new ArrayList<>();
-                int startAoeRangeX = Math.min(0, attackPosition.getX() - aoe);
+                int startAoeRangeX = Math.max(0, attackPosition.getX() - aoe);
                 int startAoeRangeY = Math.max(0, attackPosition.getY() - aoe);
                 int endAoeRangeX = Math.min(NUM_COLUMNS - 1, attackPosition.getX() + aoe);
                 int endAoeRangeY = Math.min(NUM_ROWS - 1, attackPosition.getY() + aoe);
 
                 for (int i = startAoeRangeY; i <= endAoeRangeY; ++i) {
                     for(int j = startAoeRangeX; j <= endAoeRangeX; ++j) {
-                        aoeTargets.addAll(this.unitPositions.get(i).get(j));
+                        aoeTargets.addAll(getPositionUnitOrNull(j, i));
+                    }
+                }
+
+                if (aoeTargets.size() > 0) {
+                    aoeTargets.removeIf(u -> (u.position.isSamePosition(attackPosition)));
+
+                    if (attackIntent.getAttackedUnitType() != UnitType.UNKNOWN) {
+                        aoeTargets.removeIf(u -> (u.unitType != attackIntent.getAttackedUnitType()));
                     }
                 }
             }
 
-            if (targets == null) {
+            if (targets.size() == 0) {
                 if (aoeTargets == null) {
                     continue;
                 }
@@ -168,7 +178,7 @@ public final class SimulationManager {
     }
 
     public ArrayList<Unit> getPositionUnitOrNull(int x, int y) {
-        if (x >= NUM_COLUMNS || y >= NUM_ROWS) {
+        if (x >= NUM_COLUMNS || y >= NUM_ROWS || x < 0 || y < 0) {
             return null;
         }
 
@@ -187,12 +197,9 @@ public final class SimulationManager {
 
     private void onAttackedAoe(ArrayList<Unit> aoeTargets, AttackIntent attackIntent) {
         UnitType attackableUnitType = attackIntent.getAttackedUnitType();
+        IntVector2D currentPosition = attackIntent.getPosition();
 
         for (Unit target : aoeTargets) {
-            if (target == null) {
-                continue;
-            }
-
             if (attackableUnitType == UnitType.UNKNOWN || attackableUnitType == target.getUnitType()) {
                 int targetPositionX = Math.abs(target.getPosition().getX() - attackIntent.getPosition().getX());
                 int targetPositionY = Math.abs(target.getPosition().getY() - attackIntent.getPosition().getY());
@@ -203,36 +210,6 @@ public final class SimulationManager {
             }
         }
     }
-
-    /*
-    private ArrayList<Unit>[][] checkVisibleEnemy(Unit unit) {
-        final int currentPositionX = unit.getPosition().getX();
-        final int currentPositionY = unit.getPosition().getY();
-        final int vision = unit.getVision();
-        final int visibleArea = vision * 2 + 1;
-
-        Unit[][] ret = new Unit[visibleArea][visibleArea];
-
-        int startPosX = Math.max(0, currentPositionX - vision);
-        int startPosY = Math.max(0, currentPositionY - vision);
-        int maxVisibleX = Math.min(NUM_COLUMNS, currentPositionX + vision);
-        int maxVisibleY = Math.min(NUM_ROWS, currentPositionY + vision);
-
-        int countY = 0;
-
-        for (int i = startPosY; i < maxVisibleY; ++i) {
-            int countX = 0;
-
-            for (int j = startPosX; j < maxVisibleX; ++j) {
-                ret[countY][countX++] = this.unitPositions[i][j];
-            }
-
-            countY++;
-        }
-
-        return ret;
-    }
-    */
 
     private ArrayList<Unit> checkVisibleEnemy(Unit unit) {
         ArrayList<Unit> ret = new ArrayList<>();
@@ -256,6 +233,9 @@ public final class SimulationManager {
             }
         }
 
+        ret.remove(unit);
+        ret.removeIf(u -> (this.listeners.contains(u)));
+
         UnitType visibleType;
 
         switch (unit.getAttackableTarget()) {
@@ -273,15 +253,7 @@ public final class SimulationManager {
                 return null;
         }
 
-        for (Unit u : ret) {
-            if (u.getUnitType() != visibleType) {
-                ret.remove(u);
-            }
-
-            if (this.listeners.contains(u)) {
-                ret.remove(u);
-            }
-        }
+        ret.removeIf(u -> (u.getUnitType() != visibleType));
 
         return ret;
     }

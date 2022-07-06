@@ -16,26 +16,10 @@ public class Turret extends Unit implements IThinkable {
     private SimulationManager instance;
 
     public Turret(IntVector2D position) {
-        super(position, MAX_HP, AP, SYMBOL);
+        super(position, SYMBOL, UNIT_TYPE, VISION, AOE, AP, MAX_HP, ATTACKABLE_TARGET);
 
         this.attackPosition = super.nullPosition;
         this.attackablePositions = new ArrayList<>();
-    }
-
-    public UnitType getUnitType() {
-        return UNIT_TYPE;
-    }
-
-    public byte getVision() {
-        return VISION;
-    }
-
-    public AttackableTarget getAttackableTarget() {
-        return ATTACKABLE_TARGET;
-    }
-
-    public byte getAoe() {
-        return AOE;
     }
 
     public void onAttacked(int damage) {
@@ -62,8 +46,6 @@ public class Turret extends Unit implements IThinkable {
     }
 
     public void think(ArrayList<Unit> units) {
-        units.remove(this);
-
         this.attackPosition = super.nullPosition;
 
         if (units.size() == 0) {
@@ -109,29 +91,7 @@ public class Turret extends Unit implements IThinkable {
 
             removed = null;
 
-            IntVector2D samePosition = new IntVector2D(attackableUnits.get(0).position.getX(), attackableUnits.get(0).position.getY());
-
-            if (attackableUnits.size() == 1) {
-                this.attackPosition = samePosition;
-                return;
-            }
-
-            for (int i = 1; i < attackableUnits.size(); ++i) {
-                Unit tmpTarget = attackableUnits.get(i);
-
-                if (!tmpTarget.position.isSamePosition(samePosition)) {
-                    break;
-                }
-
-                if (i == attackableUnits.size() - 1 && tmpTarget.position.isSamePosition(samePosition)) {
-                    this.attackPosition = new IntVector2D(samePosition.getX(), samePosition.getY());
-                    return;
-                }
-            }
-
-            // Attack this position
-            // attack clockwise
-            this.attackPosition = samePosition;
+            this.attackPosition = new IntVector2D(attackableUnits.get(0).position.getX(), attackableUnits.get(0).position.getY());
         }
     }
 

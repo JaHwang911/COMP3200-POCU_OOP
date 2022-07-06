@@ -20,29 +20,12 @@ public class Tank extends Unit implements IThinkable, IMovable {
     private SimulationManager instance;
 
     public Tank(IntVector2D position) {
-        super(position, MAX_HP, AP, SYMBOL);
+        super(position, SYMBOL, UNIT_TYPE, VISION, AOE, AP, MAX_HP, ATTACKABLE_TARGET);
 
         this.attackPosition = super.nullPosition;
         this.movePosition = super.nullPosition;
         this.attackablePositions = new ArrayList<>(ATTACKABLE_POINT_COUNT);
         this.moveRight = true;
-    }
-
-    public byte getVision() {
-        return VISION;
-    }
-
-    public UnitType getUnitType() {
-        return UNIT_TYPE;
-    }
-
-
-    public AttackableTarget getAttackableTarget() {
-        return ATTACKABLE_TARGET;
-    }
-
-    public byte getAoe() {
-        return AOE;
     }
 
     public void onAttacked(int damage) {
@@ -99,8 +82,6 @@ public class Tank extends Unit implements IThinkable, IMovable {
     }
 
     public void think(ArrayList<Unit> units) {
-        units.remove(this);
-
         this.attackPosition = super.nullPosition;
         this.movePosition = super.nullPosition;
 
@@ -131,6 +112,8 @@ public class Tank extends Unit implements IThinkable, IMovable {
             }
         }
 
+        attackableUnits.remove(this);
+
         if (attackableUnits.size() > 0) {
             assert this.isSiegeMode;
 
@@ -157,28 +140,7 @@ public class Tank extends Unit implements IThinkable, IMovable {
 
             removed = null;
 
-            IntVector2D samePosition = new IntVector2D(attackableUnits.get(0).position.getX(), attackableUnits.get(0).position.getY());
-
-            if (attackableUnits.size() == 1) {
-                this.attackPosition = samePosition;
-                return;
-            }
-
-            for (int i = 1; i < attackableUnits.size(); ++i) {
-                Unit tmpTarget = attackableUnits.get(i);
-
-                if (!tmpTarget.position.isSamePosition(samePosition)) {
-                    break;
-                }
-
-                if (i == attackableUnits.size() - 1 && tmpTarget.position.isSamePosition(samePosition)) {
-                    this.attackPosition = new IntVector2D(samePosition.getX(), samePosition.getY());
-                    return;
-                }
-            }
-
-            // check attackable direction
-            this.attackPosition = samePosition;
+            this.attackPosition = new IntVector2D(attackableUnits.get(0).position.getX(), attackableUnits.get(0).position.getY());
             return;
         }
 

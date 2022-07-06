@@ -20,29 +20,13 @@ public class Wraith extends Unit implements IThinkable, IMovable {
     private boolean attacked;
 
     public Wraith(IntVector2D position) {
-        super(position, MAX_HP, AP, SYMBOL);
+        super(position, SYMBOL, UNIT_TYPE, VISION, AOE, AP, MAX_HP, ATTACKABLE_TARGET);
 
         this.startPosition = position;
         this.attackPosition = super.nullPosition;
         this.movePosition = super.nullPosition;
         this.attackablePositions = new ArrayList<>();
         this.hasShield = true;
-    }
-
-    public UnitType getUnitType() {
-        return UNIT_TYPE;
-    }
-
-    public byte getVision() {
-        return VISION;
-    }
-
-    public AttackableTarget getAttackableTarget() {
-        return ATTACKABLE_TARGET;
-    }
-
-    public byte getAoe() {
-        return AOE;
     }
 
     public void onAttacked(int damage) {
@@ -102,8 +86,6 @@ public class Wraith extends Unit implements IThinkable, IMovable {
     }
 
     public void think(ArrayList<Unit> units) {
-        units.remove(this);
-
         this.attackPosition = super.nullPosition;
         this.movePosition = super.nullPosition;
 
@@ -129,6 +111,8 @@ public class Wraith extends Unit implements IThinkable, IMovable {
             }
         }
 
+        attackableUnits.remove(this);
+
         if (attackableUnits.size() == 0) {
             for (IntVector2D position : this.attackablePositions) {
                 ArrayList<Unit> tmp = instance.getPositionUnitOrNull(position.getX(), position.getY());
@@ -141,71 +125,18 @@ public class Wraith extends Unit implements IThinkable, IMovable {
             }
         }
 
+        attackableUnits.remove(this);
+
         if (attackableUnits.size() > 0) {
-            ArrayList<Unit> removed = new ArrayList<>();
-            int maxHp = Integer.MAX_VALUE;
+            compareHp(attackableUnits);
 
-            // set minimum hp
-            for (Unit unit : attackableUnits) {
-                if (maxHp > unit.getHp()) {
-                    maxHp = unit.getHp();
-                }
-            }
-
-            // check over minimum hp
-            for (Unit unit : attackableUnits) {
-                if (maxHp < unit.getHp()) {
-                    removed.add(unit);
-                }
-            }
-
-            for (Unit unit : removed) {
-                attackableUnits.remove(unit);
-            }
-
-            removed = null;
-
-            IntVector2D samePosition = new IntVector2D(attackableUnits.get(0).position.getX(), attackableUnits.get(0).position.getY());
-
-            if (attackableUnits.size() == 1) {
-                this.attackPosition = samePosition;
-                return;
-            }
-
-            for (int i = 1; i < attackableUnits.size(); ++i) {
-                Unit tmpTarget = attackableUnits.get(i);
-
-                if (!tmpTarget.position.isSamePosition(samePosition)) {
-                    break;
-                }
-
-                if (i == attackableUnits.size() - 1 && tmpTarget.position.isSamePosition(samePosition)) {
-                    this.attackPosition = new IntVector2D(samePosition.getX(), samePosition.getY());
-                    return;
-                }
-            }
-
-            // Attack this position
-            // attack clockwise
-            this.attackPosition = samePosition;
+            this.attackPosition = new IntVector2D(attackableUnits.get(0).position.getX(), attackableUnits.get(0).position.getY());
             return;
         }
 
         assert attackableUnits.size() == 0;
 
-        /*
-        다음은 망령이 시야 안에서 적을 발견할 경우 따르는 이동 규칙입니다. (역시 우선순위 순)
-            공중 유닛들을 따라갈 후보로 선택. 선택할 공중 유닛이 없다면 지상 유닛들을 선택
-            가장 가까이 있는 유닛 쪽으로 이동
-            가장 약한 유닛 쪽으로 이동
-            북쪽에 있는 유닛 쪽으로 이동. 북쪽에 유닛이 없다면 시계 방향으로 검색하다 찾은 유닛 쪽으로 이동
-            이동할 때는 언제나 y축을 따라 이동하는 게 우선입니다.
-
-            망령이 시야 안에서 적을 찾지 못한 경우, 자기의 처음 위치 쪽으로 이동해야 합니다. 이때 역시 y축을 따라 먼저 이동합니다.
-         */
-
         ArrayList<Unit> targets = new ArrayList<>();
-        ArrayList<Unit> removed = new ArrayList<>();
 
         for (Unit unit : units) {
             if (unit.getUnitType() == UnitType.AIR) {
@@ -217,39 +148,58 @@ public class Wraith extends Unit implements IThinkable, IMovable {
             targets.addAll(units);
         }
 
-        int maxDistance = this.position.getDistance(targets.get(0).getPosition());
+        int minDistance = this.position.getDistance(targets.get(0).getPosition());
 
         for (Unit unit : targets) {
             int distance = this.position.getDistance(unit.position);
 
-            if (maxDistance > distance) {
-                maxDistance = distance;
+            if (minDistance > distance) {
+                minDistance = distance;
             }
         }
 
-        for (Unit unit : targets) {
-            int distance = this.position.getDistance(unit.position);
+        final int minimumDistance = minDistance;
 
-            if (maxDistance < distance) {
-                removed.add(unit);
-            }
-        }
+        targets.removeIf(unit -> (minimumDistance < this.position.getDistance(unit.position)));
+        compareHp(targets);
 
-        for (Unit unit : removed) {
-            targets.remove(unit);
-        }
-
-        removed = null;
+        IntVector2D targetPosition = new IntVector2D(targets.get(0).position.getX(), targets.get(0).position.getY());
 
         if (targets.size() == 1) {
-            this.movePosition = new IntVector2D(targets.get(0).getPosition().getX(), targets.get(0).getPosition().getY());
+            this.movePosition = targetPosition;
             return;
         }
 
+        for (int i = 1; i < targets.size(); ++i) {
+            Unit tmpTarget = targets.get(i);
+
+            if (!tmpTarget.position.isSamePosition(targetPosition)) {
+                break;
+            }
+
+            if (i == targets.size() - 1 && tmpTarget.position.isSamePosition(targetPosition)) {
+                this.attackPosition = new IntVector2D(targetPosition.getX(), targetPosition.getY());
+                return;
+            }
+        }
+
         // check clockwise
-        // 남은 유닛이 지상과 공중이 섞여있을 때 문제 될 수 있음
-        this.movePosition = searchClockwise(maxDistance);
+        // searchClockwise가 남은 유닛이 지상과 공중이 섞여있을 때 문제 될 수 있음
+        this.movePosition = searchClockwise(minDistance);
         assert !this.movePosition.isSamePosition(nullPosition);
+    }
+
+    private void compareHp(ArrayList<Unit> outUnits) {
+        int maxHp = Integer.MAX_VALUE;
+
+        for (Unit unit : outUnits) {
+            if (maxHp > unit.getHp()) {
+                maxHp = unit.getHp();
+            }
+        }
+
+        final int minimumHp = maxHp;
+        outUnits.removeIf(unit -> (unit.getHp() > minimumHp));
     }
 
     private void setAttakablePositions() {

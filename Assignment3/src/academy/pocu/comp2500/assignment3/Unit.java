@@ -7,42 +7,58 @@ public abstract class Unit {
     protected final int ap;
     protected IntVector2D position;
     protected final char symbol;
+    protected final UnitType unitType;
+    protected final byte vision;
+    protected final byte aoe;
+    protected final AttackableTarget attackableTargetType;
     protected final IntVector2D nullPosition = new IntVector2D(-1, -1);
 
-    public Unit(final IntVector2D position, final int hp, final int ap, final char symbol) {
+    public Unit(final IntVector2D position, final char symbol, final UnitType unitType, final byte vision, final byte aoe, final int ap, final int hp, final AttackableTarget attackableTarget) {
         this.position = position;
-        this.hp = hp;
-        this.ap = ap;
         this.symbol = symbol;
+        this.unitType = unitType;
+        this.vision = vision;
+        this.aoe = aoe;
+        this.ap = ap;
+        this.hp = hp;
+        this.attackableTargetType = attackableTarget;
     }
 
     public IntVector2D getPosition() {
         return this.position;
     }
 
-    public int getHp() {
-        return this.hp;
+    public char getSymbol() {
+        return this.symbol;
+    }
+
+    public UnitType getUnitType() {
+        return this.unitType;
+    }
+
+    public byte getVision() {
+        return this.vision;
+    }
+
+    public byte getAoe() {
+        return this.aoe;
     }
 
     public int getAp() {
         return this.ap;
     }
 
-    public char getSymbol() {
-        return this.symbol;
+    public int getHp() {
+        return this.hp;
+    }
+
+    public AttackableTarget getAttackableTarget() {
+        return this.attackableTargetType;
     }
 
     public abstract void onSpawn();
 
     public abstract boolean isAlive();
-
-    public abstract UnitType getUnitType();
-
-    public abstract byte getVision();
-
-    public abstract byte getAoe();
-
-    public abstract AttackableTarget getAttackableTarget();
 
     public abstract AttackIntent attack();
 
