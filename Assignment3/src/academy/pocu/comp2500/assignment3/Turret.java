@@ -13,7 +13,6 @@ public class Turret extends Unit implements IThinkable {
 
     private IntVector2D attackPosition;
     private final ArrayList<IntVector2D> attackablePositions;
-    private SimulationManager instance;
 
     public Turret(IntVector2D position) {
         super(position, SYMBOL, UNIT_TYPE, VISION, AOE, AP, MAX_HP, ATTACKABLE_TARGET);
@@ -33,13 +32,12 @@ public class Turret extends Unit implements IThinkable {
     }
 
     public void onSpawn() {
-        this.instance = SimulationManager.getInstance();
-        this.instance.registerThinkable(this);
+        SimulationManager.getInstance().registerThinkable(this);
     }
 
     public boolean isAlive() {
         if (this.hp == 0) {
-            this.instance.deleteThinkable(this);
+            SimulationManager.getInstance().deleteThinkable(this);
 
             return false;
         }
@@ -58,7 +56,7 @@ public class Turret extends Unit implements IThinkable {
         ArrayList<Unit> attackableUnits = new ArrayList<>();
 
         for (IntVector2D position : this.attackablePositions) {
-            ArrayList<Unit> tmp = this.instance.getPositionUnitOrNull(position.getX(), position.getY());
+            ArrayList<Unit> tmp = SimulationManager.getInstance().getPositionUnitOrNull(position.getX(), position.getY());
 
             if (tmp == null || tmp.size() == 0) {
                 continue;

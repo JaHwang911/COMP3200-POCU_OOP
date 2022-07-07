@@ -17,7 +17,6 @@ public class Tank extends Unit implements IThinkable, IMovable {
     private boolean isSiegeMode;
     private boolean moveRight;
     private final ArrayList<IntVector2D> attackablePositions;
-    private SimulationManager instance;
 
     public Tank(IntVector2D position) {
         super(position, SYMBOL, UNIT_TYPE, VISION, AOE, AP, MAX_HP, ATTACKABLE_TARGET);
@@ -40,15 +39,14 @@ public class Tank extends Unit implements IThinkable, IMovable {
     }
 
     public void onSpawn() {
-        this.instance = SimulationManager.getInstance();
-        this.instance.registerThinkable(this);
-        this.instance.registerMovable(this);
+        SimulationManager.getInstance().registerThinkable(this);
+        SimulationManager.getInstance().registerMovable(this);
     }
 
     public boolean isAlive() {
         if (this.hp == 0) {
-            this.instance.deleteThinkable(this);
-            this.instance.deleteMovable(this);
+            SimulationManager.getInstance().deleteThinkable(this);
+            SimulationManager.getInstance().deleteMovable(this);
 
             return false;
         }
@@ -93,7 +91,7 @@ public class Tank extends Unit implements IThinkable, IMovable {
             return;
         }
 
-        if (units.size() > 0 && !this.isSiegeMode) {
+        if (!this.isSiegeMode) {
             this.isSiegeMode = true;
             return;
         }
@@ -102,7 +100,7 @@ public class Tank extends Unit implements IThinkable, IMovable {
         ArrayList<Unit> attackableUnits = new ArrayList<>();
 
         for (IntVector2D position : this.attackablePositions) {
-            ArrayList<Unit> tmp = this.instance.getPositionUnitOrNull(position.getX(), position.getY());
+            ArrayList<Unit> tmp = SimulationManager.getInstance().getPositionUnitOrNull(position.getX(), position.getY());
 
             if (tmp == null || tmp.size() == 0) {
                 continue;

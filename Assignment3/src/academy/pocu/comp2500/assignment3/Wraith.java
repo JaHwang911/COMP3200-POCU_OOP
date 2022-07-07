@@ -11,7 +11,6 @@ public class Wraith extends Unit implements IThinkable, IMovable {
     private static final int MAX_HP = 80;
     private static final AttackableTarget ATTACKABLE_TARGET = AttackableTarget.ALL;
 
-    private SimulationManager instance;
     private final IntVector2D startPosition;
     private IntVector2D attackPosition;
     private IntVector2D movePosition;
@@ -45,16 +44,15 @@ public class Wraith extends Unit implements IThinkable, IMovable {
     }
 
     public void onSpawn() {
-        this.instance = SimulationManager.getInstance();
-        this.instance.registerThinkable(this);
-        this.instance.registerMovable(this);
+        SimulationManager.getInstance().registerThinkable(this);
+        SimulationManager.getInstance().registerMovable(this);
     }
 
     public boolean isAlive() {
         // 실수로 프레임이 끝나는 부분이 아닌 곳에서 호출하면 레이스의 쉴드에 문제 생김 어떻게 해결?
         if (this.hp == 0) {
-            this.instance.deleteThinkable(this);
-            this.instance.deleteMovable(this);
+            SimulationManager.getInstance().deleteThinkable(this);
+            SimulationManager.getInstance().deleteMovable(this);
 
             return false;
         }
@@ -101,7 +99,7 @@ public class Wraith extends Unit implements IThinkable, IMovable {
         ArrayList<Unit> attackableUnits = new ArrayList<>();
 
         for (IntVector2D position : this.attackablePositions) {
-            ArrayList<Unit> tmp = this.instance.getPositionUnitOrNull(position.getX(), position.getY());
+            ArrayList<Unit> tmp = SimulationManager.getInstance().getPositionUnitOrNull(position.getX(), position.getY());
 
             if (tmp == null || tmp.size() == 0) {
                 continue;
@@ -118,7 +116,7 @@ public class Wraith extends Unit implements IThinkable, IMovable {
 
         if (attackableUnits.size() == 0) {
             for (IntVector2D position : this.attackablePositions) {
-                ArrayList<Unit> tmp = instance.getPositionUnitOrNull(position.getX(), position.getY());
+                ArrayList<Unit> tmp = SimulationManager.getInstance().getPositionUnitOrNull(position.getX(), position.getY());
 
                 if (tmp == null || tmp.size() == 0) {
                     continue;

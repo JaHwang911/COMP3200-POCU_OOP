@@ -8,4 +8,12 @@ public class Schedule {
         this.tick = tick;
         this.tickWhile = tickWhile;
     }
+
+    public int getOnTickCount() {
+        return this.tick;
+    }
+
+    public int getTickWhile() {
+        return this.tickWhile;
+    }
 }

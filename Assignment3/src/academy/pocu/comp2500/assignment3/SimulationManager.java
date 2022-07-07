@@ -23,9 +23,9 @@ public final class SimulationManager {
         }
     }
 
-//    public static void clear() {
-//        instance = null;
-//    }
+    public static void clear() {
+        instance = null;
+    }
 
     public static SimulationManager getInstance() {
         if (instance == null) {

@@ -11,7 +11,6 @@ public class SmartMine extends Unit implements IThinkable, ICollisionEventListen
     private static final int MAX_HP = 1;
     private static final AttackableTarget ATTACKABLE_TARGET = AttackableTarget.GROUND;
 
-    private SimulationManager instance;
     private final int maxCollisionCount;
     private int collisionCount;
     private final int maxDetectedUnit;
@@ -38,14 +37,13 @@ public class SmartMine extends Unit implements IThinkable, ICollisionEventListen
     }
 
     public void onSpawn() {
-        this.instance = SimulationManager.getInstance();
-        this.instance.registerThinkable(this);
-        this.instance.registerCollisionEventListener(this);
+        SimulationManager.getInstance().registerThinkable(this);
+        SimulationManager.getInstance().registerCollisionEventListener(this);
     }
 
     public boolean isAlive() {
         if (this.hp == 0) {
-            this.instance.deleteThinkable(this);
+            SimulationManager.getInstance().deleteThinkable(this);
 
             return false;
         }
@@ -62,7 +60,7 @@ public class SmartMine extends Unit implements IThinkable, ICollisionEventListen
     }
 
     public void collisionListener() {
-        ArrayList<Unit> positionUnits = this.instance.getPositionUnitOrNull(this.position.getX(), this.position.getY());
+        ArrayList<Unit> positionUnits = SimulationManager.getInstance().getPositionUnitOrNull(this.position.getX(), this.position.getY());
 
         if (positionUnits == null) {
             return;

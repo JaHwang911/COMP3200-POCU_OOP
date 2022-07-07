@@ -11,8 +11,6 @@ public class Destroyer extends Unit {
     private static final int MAX_HP = Integer.MAX_VALUE;
     private static final AttackableTarget ATTACKABLE_TARGET = AttackableTarget.ALL;
 
-    private SimulationManager instance;
-
     public Destroyer(IntVector2D position) {
         super(position, SYMBOL, UNIT_TYPE, VISION, AOE, AP, MAX_HP, ATTACKABLE_TARGET);
     }
@@ -22,7 +20,7 @@ public class Destroyer extends Unit {
     }
 
     public AttackIntent attack() {
-        ArrayList<Unit> allUnits = instance.getUnits();
+        ArrayList<Unit> allUnits = SimulationManager.getInstance().getUnits();
 
         for (Unit unit : allUnits) {
             int damage = unit.getHp();
@@ -33,7 +31,6 @@ public class Destroyer extends Unit {
     }
 
     public void onSpawn() {
-        this.instance = SimulationManager.getInstance();
     }
 
     public boolean isAlive() {

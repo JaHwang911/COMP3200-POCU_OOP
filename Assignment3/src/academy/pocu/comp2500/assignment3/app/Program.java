@@ -21,7 +21,7 @@ public class Program {
 //        testMarine();
 //        testTank();
 //        testDestroyer();
-        testMarineDiceFiveTurret();
+//        testMarineDiceFiveTurret();
 //        testWraithDiceFiveTurret();
 //        testMine();
 //        testWraithAttackAir();
