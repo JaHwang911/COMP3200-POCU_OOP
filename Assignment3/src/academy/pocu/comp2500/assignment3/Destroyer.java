@@ -29,7 +29,7 @@ public class Destroyer extends Unit {
             unit.onAttacked(damage);
         }
 
-        return new AttackIntent(this, super.nullPosition);
+        return new AttackIntent(this, new IntVector2D(-1, -1));
     }
 
     public void onSpawn() {

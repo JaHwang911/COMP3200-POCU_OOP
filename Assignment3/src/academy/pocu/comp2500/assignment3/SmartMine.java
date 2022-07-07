@@ -11,16 +11,15 @@ public class SmartMine extends Unit implements IThinkable, ICollisionEventListen
     private static final int MAX_HP = 1;
     private static final AttackableTarget ATTACKABLE_TARGET = AttackableTarget.GROUND;
 
-    private IntVector2D attackPosition;
     private SimulationManager instance;
     private final int maxCollisionCount;
     private int collisionCount;
     private final int maxDetectedUnit;
+    private int detectedUnit;
 
     public SmartMine(IntVector2D position, int maxCollisionCount, int maxDetectedUnit) {
         super(position, SYMBOL, UNIT_TYPE, VISION, AOE, AP, MAX_HP, ATTACKABLE_TARGET);
 
-        this.attackPosition = super.nullPosition;
         this.maxCollisionCount = maxCollisionCount;
         this.maxDetectedUnit = maxDetectedUnit;
     }
@@ -30,11 +29,12 @@ public class SmartMine extends Unit implements IThinkable, ICollisionEventListen
     }
 
     public AttackIntent attack() {
-        if (this.attackPosition.isSamePosition(this.position)) {
-            onAttacked(this.hp);
+        if (this.collisionCount < this.maxCollisionCount && this.detectedUnit < this.maxDetectedUnit) {
+            return new AttackIntent(this, new IntVector2D(-1, -1));
         }
 
-        return new AttackIntent(this, this.attackPosition);
+        onAttacked(this.hp);
+        return new AttackIntent(this, new IntVector2D(this.position.getX(), this.position.getY()));
     }
 
     public void onSpawn() {
@@ -54,15 +54,11 @@ public class SmartMine extends Unit implements IThinkable, ICollisionEventListen
     }
 
     public void think(ArrayList<Unit> units) {
-        this.attackPosition = super.nullPosition;
-
         if (units.size() == 0) {
             return;
         }
 
-        if (units.size() >= this.maxDetectedUnit) {
-            this.attackPosition = new IntVector2D(this.position.getX(), this.position.getY());
-        }
+        this.detectedUnit = units.size();
     }
 
     public void collisionListener() {
@@ -74,9 +70,5 @@ public class SmartMine extends Unit implements IThinkable, ICollisionEventListen
 
         positionUnits.removeIf(unit -> (unit.unitType == UnitType.AIR));
         this.collisionCount += positionUnits.size();
-
-        if (this.collisionCount >= this.maxCollisionCount) {
-            this.attackPosition = new IntVector2D(this.position.getX(), this.position.getY());
-        }
     }
 }

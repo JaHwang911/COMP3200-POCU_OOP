@@ -22,8 +22,6 @@ public class Tank extends Unit implements IThinkable, IMovable {
     public Tank(IntVector2D position) {
         super(position, SYMBOL, UNIT_TYPE, VISION, AOE, AP, MAX_HP, ATTACKABLE_TARGET);
 
-        this.attackPosition = super.nullPosition;
-        this.movePosition = super.nullPosition;
         this.attackablePositions = new ArrayList<>(ATTACKABLE_POINT_COUNT);
         this.moveRight = true;
     }
@@ -34,6 +32,10 @@ public class Tank extends Unit implements IThinkable, IMovable {
     }
 
     public AttackIntent attack() {
+        if (this.attackPosition == null) {
+            return new AttackIntent(this, new IntVector2D(-1, -1));
+        }
+
         return new AttackIntent(this, this.attackPosition);
     }
 
@@ -55,7 +57,7 @@ public class Tank extends Unit implements IThinkable, IMovable {
     }
 
     public void move() {
-        if (this.movePosition.isSamePosition(super.nullPosition)) {
+        if (this.movePosition == null) {
             return;
         }
 
@@ -72,9 +74,10 @@ public class Tank extends Unit implements IThinkable, IMovable {
             movePointX = currentX - this.movePosition.getX() > 0 ? -1 : 1;
         }
 
-        this.position = new IntVector2D(currentX + movePointX, currentY + movePointY);
+        this.position.setX(currentX + movePointX);
+        this.position.setY(currentY + movePointY);
 
-        if (this.position.getX() == instance.getNumColumns() - 1) {
+        if (this.position.getX() == 15) {
             this.moveRight = false;
         } else if (this.position.getX() == 0) {
             this.moveRight = true;
@@ -82,8 +85,8 @@ public class Tank extends Unit implements IThinkable, IMovable {
     }
 
     public void think(ArrayList<Unit> units) {
-        this.attackPosition = super.nullPosition;
-        this.movePosition = super.nullPosition;
+        this.attackPosition = null;
+        this.movePosition = null;
 
         if (units.size() == 0) {
             setMovePosition();
@@ -117,28 +120,16 @@ public class Tank extends Unit implements IThinkable, IMovable {
         if (attackableUnits.size() > 0) {
             assert this.isSiegeMode;
 
-            ArrayList<Unit> removed = new ArrayList<>();
-            int maxHp = Integer.MAX_VALUE;
+            int minHp = Integer.MAX_VALUE;
 
-            // set minimum hp
             for (Unit unit : attackableUnits) {
-                if (maxHp > unit.getHp()) {
-                    maxHp = unit.getHp();
+                if (minHp > unit.getHp()) {
+                    minHp = unit.getHp();
                 }
             }
 
-            // check over minimum hp
-            for (Unit unit : attackableUnits) {
-                if (maxHp < unit.getHp()) {
-                    removed.add(unit);
-                }
-            }
-
-            for (Unit unit : removed) {
-                attackableUnits.remove(unit);
-            }
-
-            removed = null;
+            final int minimumHp = minHp;
+            attackableUnits.removeIf(unit -> (unit.getHp() > minimumHp));
 
             this.attackPosition = new IntVector2D(attackableUnits.get(0).position.getX(), attackableUnits.get(0).position.getY());
             return;
@@ -160,7 +151,7 @@ public class Tank extends Unit implements IThinkable, IMovable {
         }
 
         if (this.moveRight) {
-            this.movePosition = new IntVector2D(instance.getNumColumns() - 1, this.position.getY());
+            this.movePosition = new IntVector2D(15, this.position.getY());
             return;
         }
 

@@ -19,8 +19,6 @@ public class Marine extends Unit implements IMovable, IThinkable {
     public Marine(IntVector2D position) {
         super(position, SYMBOL, UNIT_TYPE, VISION, AOE, AP, MAX_HP, ATTACKABLE_TARGET);
 
-        this.attackPosition = super.nullPosition;
-        this.movePosition = super.nullPosition;
         this.attackablePositions = new ArrayList<>();
     }
 
@@ -29,6 +27,10 @@ public class Marine extends Unit implements IMovable, IThinkable {
     }
 
     public AttackIntent attack() {
+        if (this.attackPosition == null) {
+            return new AttackIntent(this, new IntVector2D(-1, -1));
+        }
+
         return new AttackIntent(this, this.attackPosition);
     }
 
@@ -50,7 +52,7 @@ public class Marine extends Unit implements IMovable, IThinkable {
     }
 
     public void move() {
-        if (this.movePosition.isSamePosition(super.nullPosition)) {
+        if (this.movePosition == null) {
             return;
         }
 
@@ -67,12 +69,13 @@ public class Marine extends Unit implements IMovable, IThinkable {
             movePointX = currentX - this.movePosition.getX() > 0 ? -1 : 1;
         }
 
-        this.position = new IntVector2D(currentX + movePointX, currentY + movePointY);
+        this.position.setX(currentX + movePointX);
+        this.position.setY(currentY + movePointY);
     }
 
     public void think(ArrayList<Unit> units) {
-        this.attackPosition = super.nullPosition;
-        this.movePosition = super.nullPosition;
+        this.attackPosition = null;
+        this.movePosition = null;
 
         if (units.size() == 0) {
             return;
@@ -152,19 +155,18 @@ public class Marine extends Unit implements IMovable, IThinkable {
 
         // check clockwise
         this.movePosition = searchClockwise(maxDistance);
-        assert !this.movePosition.isSamePosition(nullPosition);
     }
 
     private void compareHp(ArrayList<Unit> outUnits) {
-        int maxHp = Integer.MAX_VALUE;
+        int minHp = Integer.MAX_VALUE;
 
         for (Unit unit : outUnits) {
-            if (maxHp > unit.getHp()) {
-                maxHp = unit.getHp();
+            if (minHp > unit.getHp()) {
+                minHp = unit.getHp();
             }
         }
 
-        final int minimumHp = maxHp;
+        final int minimumHp = minHp;
         outUnits.removeIf(unit -> (unit.getHp() > minimumHp));
     }
 

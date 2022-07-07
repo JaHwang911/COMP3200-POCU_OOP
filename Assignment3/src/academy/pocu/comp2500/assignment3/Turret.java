@@ -18,7 +18,6 @@ public class Turret extends Unit implements IThinkable {
     public Turret(IntVector2D position) {
         super(position, SYMBOL, UNIT_TYPE, VISION, AOE, AP, MAX_HP, ATTACKABLE_TARGET);
 
-        this.attackPosition = super.nullPosition;
         this.attackablePositions = new ArrayList<>();
     }
 
@@ -27,6 +26,9 @@ public class Turret extends Unit implements IThinkable {
     }
 
     public AttackIntent attack() {
+        if (this.attackPosition == null) {
+            return new AttackIntent(this, new IntVector2D(-1, -1));
+        }
         return new AttackIntent(this, this.attackPosition);
     }
 
@@ -46,7 +48,7 @@ public class Turret extends Unit implements IThinkable {
     }
 
     public void think(ArrayList<Unit> units) {
-        this.attackPosition = super.nullPosition;
+        this.attackPosition = null;
 
         if (units.size() == 0) {
             return;
@@ -70,26 +72,16 @@ public class Turret extends Unit implements IThinkable {
         }
 
         if (attackableUnits.size() > 0) {
-            ArrayList<Unit> removed = new ArrayList<>();
-            int maxHp = Integer.MAX_VALUE;
+            int minHp = Integer.MAX_VALUE;
 
             for (Unit unit : attackableUnits) {
-                if (maxHp > unit.getHp()) {
-                    maxHp = unit.getHp();
+                if (minHp > unit.getHp()) {
+                    minHp = unit.getHp();
                 }
             }
 
-            for (Unit unit : attackableUnits) {
-                if (maxHp < unit.getHp()) {
-                    removed.add(unit);
-                }
-            }
-
-            for (Unit unit : removed) {
-                attackableUnits.remove(unit);
-            }
-
-            removed = null;
+            final int minimumHp = minHp;
+            attackableUnits.removeIf(unit -> (unit.getHp() > minimumHp));
 
             this.attackPosition = new IntVector2D(attackableUnits.get(0).position.getX(), attackableUnits.get(0).position.getY());
         }

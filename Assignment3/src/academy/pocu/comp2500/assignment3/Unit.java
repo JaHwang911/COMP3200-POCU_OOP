@@ -5,13 +5,12 @@ import java.util.ArrayList;
 public abstract class Unit {
     protected int hp;
     protected final int ap;
-    protected IntVector2D position;
+    protected final IntVector2D position;
     protected final char symbol;
     protected final UnitType unitType;
     protected final byte vision;
     protected final byte aoe;
     protected final AttackableTarget attackableTargetType;
-    protected final IntVector2D nullPosition = new IntVector2D(-1, -1);
 
     public Unit(final IntVector2D position, final char symbol, final UnitType unitType, final byte vision, final byte aoe, final int ap, final int hp, final AttackableTarget attackableTarget) {
         this.position = position;

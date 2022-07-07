@@ -12,7 +12,6 @@ public class Mine extends Unit implements ICollisionEventListener {
     private static final AttackableTarget ATTACKABLE_TARGET = AttackableTarget.GROUND;
 
     private SimulationManager instance;
-    private IntVector2D attackPosition;
     private final int maxCollisionCount;
     private int collisionCount;
 
@@ -20,7 +19,6 @@ public class Mine extends Unit implements ICollisionEventListener {
         super(position, SYMBOL, UNIT_TYPE, VISION, AOE, AP, MAX_HP, ATTACKABLE_TARGET);
 
         this.maxCollisionCount = maxCollisionCount;
-        this.attackPosition = super.nullPosition;
     }
 
     public void onAttacked(int damage) {
@@ -28,11 +26,12 @@ public class Mine extends Unit implements ICollisionEventListener {
     }
 
     public AttackIntent attack() {
-        if (this.collisionCount >= this.maxCollisionCount) {
-            onAttacked(this.hp);
+        if (this.collisionCount < this.maxCollisionCount) {
+            return new AttackIntent(this, new IntVector2D(-1, -1));
         }
 
-        return new AttackIntent(this, new IntVector2D(this.attackPosition.getX(), this.attackPosition.getY()));
+        onAttacked(this.hp);
+        return new AttackIntent(this, new IntVector2D(this.position.getX(), this.position.getY()));
     }
 
     public void onSpawn() {
@@ -59,9 +58,5 @@ public class Mine extends Unit implements ICollisionEventListener {
 
         positionUnits.removeIf(unit -> (unit.unitType == UnitType.AIR));
         this.collisionCount += positionUnits.size();
-
-        if (this.collisionCount >= this.maxCollisionCount) {
-            this.attackPosition = new IntVector2D(this.position.getX(), this.position.getY());
-        }
     }
 }

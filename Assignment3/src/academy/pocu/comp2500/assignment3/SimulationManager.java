@@ -42,14 +42,6 @@ public final class SimulationManager {
         this.unitPositions.get(unit.getPosition().getY()).get(unit.getPosition().getX()).add(unit);
     }
 
-    public int getNumColumns() {
-        return NUM_COLUMNS;
-    }
-
-    public int getNumRows() {
-        return NUM_ROWS;
-    }
-
     public void registerThinkable(IThinkable thinkable) {
         this.thinkable.add(thinkable);
     }

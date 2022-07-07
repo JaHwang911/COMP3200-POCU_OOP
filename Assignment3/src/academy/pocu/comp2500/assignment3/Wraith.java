@@ -23,8 +23,6 @@ public class Wraith extends Unit implements IThinkable, IMovable {
         super(position, SYMBOL, UNIT_TYPE, VISION, AOE, AP, MAX_HP, ATTACKABLE_TARGET);
 
         this.startPosition = position;
-        this.attackPosition = super.nullPosition;
-        this.movePosition = super.nullPosition;
         this.attackablePositions = new ArrayList<>();
         this.hasShield = true;
     }
@@ -39,6 +37,10 @@ public class Wraith extends Unit implements IThinkable, IMovable {
     }
 
     public AttackIntent attack() {
+        if (this.attackPosition == null) {
+            return new AttackIntent(this, new IntVector2D(-1, -1));
+        }
+
         return new AttackIntent(this, this.attackPosition);
     }
 
@@ -65,7 +67,7 @@ public class Wraith extends Unit implements IThinkable, IMovable {
     }
 
     public void move() {
-        if (this.movePosition.isSamePosition(super.nullPosition)) {
+        if (this.movePosition == null) {
             return;
         }
 
@@ -82,12 +84,13 @@ public class Wraith extends Unit implements IThinkable, IMovable {
             movePointX = currentX - this.movePosition.getX() > 0 ? -1 : 1;
         }
 
-        this.position = new IntVector2D(currentX + movePointX, currentY + movePointY);
+        this.position.setX(currentX + movePointX);
+        this.position.setY(currentY + movePointY);
     }
 
     public void think(ArrayList<Unit> units) {
-        this.attackPosition = super.nullPosition;
-        this.movePosition = super.nullPosition;
+        this.attackPosition = null;
+        this.movePosition = null;
 
         if (units.size() == 0) {
             this.movePosition = this.startPosition;
@@ -186,19 +189,18 @@ public class Wraith extends Unit implements IThinkable, IMovable {
         // check clockwise
         // searchClockwise가 남은 유닛이 지상과 공중이 섞여있을 때 문제 될 수 있음
         this.movePosition = searchClockwise(minDistance);
-        assert !this.movePosition.isSamePosition(nullPosition);
     }
 
     private void compareHp(ArrayList<Unit> outUnits) {
-        int maxHp = Integer.MAX_VALUE;
+        int minHp = Integer.MAX_VALUE;
 
         for (Unit unit : outUnits) {
-            if (maxHp > unit.getHp()) {
-                maxHp = unit.getHp();
+            if (minHp > unit.getHp()) {
+                minHp = unit.getHp();
             }
         }
 
-        final int minimumHp = maxHp;
+        final int minimumHp = minHp;
         outUnits.removeIf(unit -> (unit.getHp() > minimumHp));
     }
 
