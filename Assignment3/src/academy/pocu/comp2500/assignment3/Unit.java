@@ -23,6 +23,17 @@ public abstract class Unit {
         this.attackableTargetType = attackableTarget;
     }
 
+    public void printAttackedInfo(int damage, Unit attackerInfo) {
+        var tmp = SimulationManager.getInstance().getUnits();
+        int AttackerNum = tmp.indexOf(attackerInfo);
+        int myNum = tmp.indexOf(this);
+        System.out.printf("%d", AttackerNum);
+        System.out.printf("%c(%d, %d) -> ", attackerInfo.getSymbol(), attackerInfo.getPosition().getX(), attackerInfo.getPosition().getY());
+        System.out.printf("%d", myNum);
+        System.out.printf("%c(%d, %d): ", this.symbol, this.position.getX(), this.position.getY());
+        System.out.printf("%d%s", damage, System.lineSeparator());
+    }
+
     public IntVector2D getPosition() {
         return this.position;
     }
@@ -62,4 +73,5 @@ public abstract class Unit {
     public abstract AttackIntent attack();
 
     public abstract void onAttacked(int damage);
+    public abstract void onAttacked(int damage, Unit attackerInfo);
 }

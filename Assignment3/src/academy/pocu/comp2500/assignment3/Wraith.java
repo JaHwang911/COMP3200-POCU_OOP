@@ -36,6 +36,16 @@ public class Wraith extends Unit implements IThinkable, IMovable {
         super.hp = Math.max(0, this.hp - damage);
     }
 
+    public void onAttacked(int damage, Unit attackerInfo) {
+        printAttackedInfo(damage, attackerInfo);
+        if (this.hasShield) {
+            this.attacked = true;
+            return;
+        }
+
+        super.hp = Math.max(0, this.hp - damage);
+    }
+
     public AttackIntent attack() {
         if (this.attackPosition == null) {
             return new AttackIntent(this, new IntVector2D(-1, -1));

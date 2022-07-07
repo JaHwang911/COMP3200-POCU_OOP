@@ -19,12 +19,17 @@ public class Destroyer extends Unit {
         super.hp -= 1;
     }
 
+    public void onAttacked(int damage, Unit attackerInfo) {
+        printAttackedInfo(damage, attackerInfo);
+        super.hp -= 1;
+    }
+
     public AttackIntent attack() {
         ArrayList<Unit> allUnits = SimulationManager.getInstance().getUnits();
 
         for (Unit unit : allUnits) {
             int damage = unit.getHp();
-            unit.onAttacked(damage);
+            unit.onAttacked(damage, this);
         }
 
         return new AttackIntent(this, new IntVector2D(-1, -1));

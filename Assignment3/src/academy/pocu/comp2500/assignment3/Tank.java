@@ -26,6 +26,14 @@ public class Tank extends Unit implements IThinkable, IMovable {
     }
 
     public void onAttacked(int damage) {
+
+        damage = this.isSiegeMode ? damage * 2 : damage;
+        super.hp = Math.max(0, this.hp - damage);
+    }
+
+    public void onAttacked(int damage, Unit attackerInfo) {
+        printAttackedInfo(damage, attackerInfo);
+
         damage = this.isSiegeMode ? damage * 2 : damage;
         super.hp = Math.max(0, this.hp - damage);
     }

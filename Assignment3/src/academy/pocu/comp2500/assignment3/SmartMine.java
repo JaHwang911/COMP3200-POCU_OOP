@@ -27,12 +27,17 @@ public class SmartMine extends Unit implements IThinkable, ICollisionEventListen
         super.hp = Math.max(0, this.hp - damage);
     }
 
+    public void onAttacked(int damage, Unit attackerInfo) {
+        printAttackedInfo(damage, attackerInfo);
+        super.hp = Math.max(0, this.hp - damage);
+    }
+
     public AttackIntent attack() {
         if (this.collisionCount < this.maxCollisionCount && this.detectedUnit < this.maxDetectedUnit) {
             return new AttackIntent(this, new IntVector2D(-1, -1));
         }
 
-        onAttacked(this.hp);
+        onAttacked(this.hp, this);
         return new AttackIntent(this, new IntVector2D(this.position.getX(), this.position.getY()));
     }
 

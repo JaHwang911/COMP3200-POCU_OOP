@@ -149,7 +149,7 @@ public final class SimulationManager {
                         continue;
                     }
 
-                    target.onAttacked(damage);
+                    target.onAttacked(damage, attackIntent.getAttacker());
                 }
             }
 
@@ -202,9 +202,10 @@ public final class SimulationManager {
                 int targetPositionX = Math.abs(target.getPosition().getX() - attackIntent.getPosition().getX());
                 int targetPositionY = Math.abs(target.getPosition().getY() - attackIntent.getPosition().getY());
                 int distance = Math.max(targetPositionX, targetPositionY);
-                int aoeDamage = attackIntent.getDamage() * (1 - distance / (attackIntent.getAoe() + 1));
 
-                target.onAttacked(aoeDamage);
+                double aoeDamage = attackIntent.getDamage() * (1 - distance / (attackIntent.getAoe() + 1.0));
+
+                target.onAttacked((int) aoeDamage, attackIntent.getAttacker());
             }
         }
     }

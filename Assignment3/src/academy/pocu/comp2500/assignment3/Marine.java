@@ -25,6 +25,11 @@ public class Marine extends Unit implements IMovable, IThinkable {
         super.hp = Math.max(0, this.hp - damage);
     }
 
+    public void onAttacked(int damage, Unit attackerInfo) {
+        printAttackedInfo(damage, attackerInfo);
+        super.hp = Math.max(0, this.hp - damage);
+    }
+
     public AttackIntent attack() {
         if (this.attackPosition == null) {
             return new AttackIntent(this, new IntVector2D(-1, -1));
