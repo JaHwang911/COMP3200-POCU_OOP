@@ -59,7 +59,6 @@ public class Marine extends Unit implements IMovable, IThinkable {
             return;
         }
 
-
         final int currentY = this.position.getY();
         final int currentX = this.position.getX();
         int movePointY = 0;
@@ -198,18 +197,16 @@ public class Marine extends Unit implements IMovable, IThinkable {
     }
 
     private IntVector2D searchClockwise(int distance) {
-        SimulationManager instance = SimulationManager.getInstance();
         final int currentPositionX = this.position.getX();
         final int currentPositionY = this.position.getY();
         int x = currentPositionX;
         int y = currentPositionY - distance;
-        ArrayList<Unit> tmpUnits;
 
         for (; y <= currentPositionY; ++y) {
-            tmpUnits = instance.getPositionUnitOrNull(this, x++, y);
+            var tmp = SimulationManager.getInstance().getPositionUnitOrNull(this, x++, y);
 
-            if (tmpUnits.size() > 0) {
-                return new IntVector2D(tmpUnits.get(0).position.getX(), tmpUnits.get(0).position.getY());
+            if (tmp != null && tmp.size() > 0) {
+                return new IntVector2D(tmp.get(0).position.getX(), tmp.get(0).position.getY());
             }
         }
 
@@ -217,10 +214,10 @@ public class Marine extends Unit implements IMovable, IThinkable {
         y = currentPositionY + 1;
 
         for (; y <= currentPositionY + distance; ++y) {
-            tmpUnits = instance.getPositionUnitOrNull(this, x--, y);
+            var tmp = SimulationManager.getInstance().getPositionUnitOrNull(this, x++, y);
 
-            if (tmpUnits != null && tmpUnits.size() > 0) {
-                return new IntVector2D(tmpUnits.get(0).position.getX(), tmpUnits.get(0).position.getY());
+            if (tmp != null && tmp.size() > 0) {
+                return new IntVector2D(tmp.get(0).position.getX(), tmp.get(0).position.getY());
             }
         }
 
@@ -228,10 +225,10 @@ public class Marine extends Unit implements IMovable, IThinkable {
         y = currentPositionY + distance - 1;
 
         for (; y >= currentPositionY; --y) {
-            tmpUnits = instance.getPositionUnitOrNull(this, x--, y);
+            var tmp = SimulationManager.getInstance().getPositionUnitOrNull(this, x++, y);
 
-            if (tmpUnits.size() > 0) {
-                return new IntVector2D(tmpUnits.get(0).position.getX(), tmpUnits.get(0).position.getY());
+            if (tmp != null && tmp.size() > 0) {
+                return new IntVector2D(tmp.get(0).position.getX(), tmp.get(0).position.getY());
             }
         }
 
@@ -239,14 +236,14 @@ public class Marine extends Unit implements IMovable, IThinkable {
         y = currentPositionY - 1;
 
         for (; y > currentPositionY - distance; --y) {
-            tmpUnits = instance.getPositionUnitOrNull(this, x++, y);
+            var tmp = SimulationManager.getInstance().getPositionUnitOrNull(this, x++, y);
 
-            if (tmpUnits.size() > 0) {
-                return new IntVector2D(tmpUnits.get(0).position.getX(), tmpUnits.get(0).position.getY());
+            if (tmp != null && tmp.size() > 0) {
+                return new IntVector2D(tmp.get(0).position.getX(), tmp.get(0).position.getY());
             }
         }
 
-        assert false : "wrong check clockwise";
+        assert false : "Wrong Clockwise";
         return null;
     }
 }

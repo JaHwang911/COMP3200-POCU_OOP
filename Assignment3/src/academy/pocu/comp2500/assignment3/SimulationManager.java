@@ -44,7 +44,7 @@ public final class SimulationManager {
         int posX = unit.getPosition().getX();
         int posY = unit.getPosition().getY();
 
-        if (posX >= NUM_COLUMNS || posX < 0 || posY >= NUM_ROWS || posY < 0) {
+        if (posX >= NUM_COLUMNS || posY >= NUM_ROWS || posX < 0 || posY < 0) {
             return;
         }
 
@@ -154,10 +154,6 @@ public final class SimulationManager {
 
             for (Unit target : targets) {
                 if (attackableUnitType == UnitType.UNKNOWN || attackableUnitType == target.getUnitType()) {
-                    if (unit == target) {
-                        continue;
-                    }
-
                     target.onAttacked(damage, attackIntent.getAttacker());
                 }
             }

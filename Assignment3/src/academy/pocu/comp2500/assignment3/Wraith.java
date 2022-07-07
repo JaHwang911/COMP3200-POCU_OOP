@@ -235,18 +235,18 @@ public class Wraith extends Unit implements IThinkable, IMovable {
     }
 
     private IntVector2D searchClockwise(int distance) {
-        SimulationManager instance = SimulationManager.getInstance();
+        IntVector2D ret = null;
         final int currentPositionX = this.position.getX();
         final int currentPositionY = this.position.getY();
         int x = currentPositionX;
         int y = currentPositionY - distance;
-        ArrayList<Unit> tmpUnits;
+        ArrayList<Unit> units = new ArrayList<>();
 
         for (; y <= currentPositionY; ++y) {
-            tmpUnits = instance.getPositionUnitOrNull(this, x++, y);
+            var tmp = SimulationManager.getInstance().getPositionUnitOrNull(this, x++, y);
 
-            if (tmpUnits.size() > 0) {
-                return new IntVector2D(tmpUnits.get(0).position.getX(), tmpUnits.get(0).position.getY());
+            if (tmp != null && tmp.size() > 0) {
+                units.addAll(tmp);
             }
         }
 
@@ -254,10 +254,10 @@ public class Wraith extends Unit implements IThinkable, IMovable {
         y = currentPositionY + 1;
 
         for (; y <= currentPositionY + distance; ++y) {
-            tmpUnits = instance.getPositionUnitOrNull(this, x--, y);
+            var tmp = SimulationManager.getInstance().getPositionUnitOrNull(this, x++, y);
 
-            if (tmpUnits != null && tmpUnits.size() > 0) {
-                return new IntVector2D(tmpUnits.get(0).position.getX(), tmpUnits.get(0).position.getY());
+            if (tmp != null && tmp.size() > 0) {
+                units.addAll(tmp);
             }
         }
 
@@ -265,10 +265,10 @@ public class Wraith extends Unit implements IThinkable, IMovable {
         y = currentPositionY + distance - 1;
 
         for (; y >= currentPositionY; --y) {
-            tmpUnits = instance.getPositionUnitOrNull(this, x--, y);
+            var tmp = SimulationManager.getInstance().getPositionUnitOrNull(this, x++, y);
 
-            if (tmpUnits.size() > 0) {
-                return new IntVector2D(tmpUnits.get(0).position.getX(), tmpUnits.get(0).position.getY());
+            if (tmp != null && tmp.size() > 0) {
+                units.addAll(tmp);
             }
         }
 
@@ -276,14 +276,26 @@ public class Wraith extends Unit implements IThinkable, IMovable {
         y = currentPositionY - 1;
 
         for (; y > currentPositionY - distance; --y) {
-            tmpUnits = instance.getPositionUnitOrNull(this, x++, y);
+            var tmp = SimulationManager.getInstance().getPositionUnitOrNull(this, x++, y);
 
-            if (tmpUnits.size() > 0) {
-                return new IntVector2D(tmpUnits.get(0).position.getX(), tmpUnits.get(0).position.getY());
+            if (tmp != null && tmp.size() > 0) {
+                units.addAll(tmp);
             }
         }
 
-        assert false : "wrong check clockwise";
-        return null;
+        assert units.size() > 0;
+
+        for (Unit unit : units) {
+            if (unit.unitType == UnitType.AIR) {
+                ret = new IntVector2D(unit.position.getX(), unit.position.getY());
+                break;
+            }
+        }
+
+        if (ret == null) {
+            ret = new IntVector2D(units.get(0).position.getX(), units.get(0).position.getY());
+        }
+
+        return ret;
     }
 }
