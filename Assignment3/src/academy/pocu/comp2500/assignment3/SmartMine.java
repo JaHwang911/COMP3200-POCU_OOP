@@ -64,7 +64,7 @@ public class SmartMine extends Unit implements IThinkable, ICollisionEventListen
         this.detectedUnit = units.size();
     }
 
-    public void collisionListen() {
+    public void collisionEventListen() {
         ArrayList<Unit> positionUnits = SimulationManager.getInstance().getPositionUnitOrNull(this, this.position.getX(), this.position.getY());
 
         if (positionUnits == null) {

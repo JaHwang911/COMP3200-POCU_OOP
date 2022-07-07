@@ -91,7 +91,7 @@ public final class SimulationManager {
         }
 
         for (ICollisionEventListener unit : this.subscriber) {
-            unit.collisionListen();
+            unit.collisionEventListen();
         }
 
         for (Unit unit : this.units) {
