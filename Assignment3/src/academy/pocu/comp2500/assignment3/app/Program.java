@@ -21,11 +21,11 @@ public class Program {
 //        testMarine();
 //        testTank();
 //        testDestroyer();
-//        testMarineDiceFiveTurret();
+        testMarineDiceFiveTurret();
 //        testWraithDiceFiveTurret();
 //        testMine();
 //        testWraithAttackAir();
-        testManyMine();
+//        testManyMine();
 
         Registry registry = new Registry();
         App app = new App(registry);

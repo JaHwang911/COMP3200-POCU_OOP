@@ -23,6 +23,10 @@ public final class SimulationManager {
         }
     }
 
+//    public static void clear() {
+//        instance = null;
+//    }
+
     public static SimulationManager getInstance() {
         if (instance == null) {
             instance = new SimulationManager();
@@ -162,10 +166,6 @@ public final class SimulationManager {
         }
 
         removedUnit = null;
-    }
-
-    public static void clear() {
-        instance = null;
     }
 
     public ArrayList<Unit> getPositionUnitOrNull(int x, int y) {
