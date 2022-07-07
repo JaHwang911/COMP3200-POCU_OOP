@@ -149,7 +149,7 @@ public final class SimulationManager {
                         continue;
                     }
 
-                    target.onAttacked(damage, attackIntent.getAttacker());
+                    target.onAttacked(damage);
                 }
             }
 
@@ -207,7 +207,7 @@ public final class SimulationManager {
 
                 double aoeDamage = attackIntent.getDamage() * (1 - distance / (attackIntent.getAoe() + 1.0));
 
-                target.onAttacked((int) aoeDamage, attackIntent.getAttacker());
+                target.onAttacked((int) aoeDamage);
             }
         }
     }

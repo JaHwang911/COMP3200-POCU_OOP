@@ -29,7 +29,7 @@ public class Destroyer extends Unit {
 
         for (Unit unit : allUnits) {
             int damage = unit.getHp();
-            unit.onAttacked(damage, this);
+            unit.onAttacked(damage);
         }
 
         return new AttackIntent(this, new IntVector2D(-1, -1));
