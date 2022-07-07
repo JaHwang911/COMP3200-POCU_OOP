@@ -56,7 +56,7 @@ public class Turret extends Unit implements IThinkable {
         ArrayList<Unit> attackableUnits = new ArrayList<>();
 
         for (IntVector2D position : this.attackablePositions) {
-            ArrayList<Unit> tmp = SimulationManager.getInstance().getPositionUnitOrNull(position.getX(), position.getY());
+            ArrayList<Unit> tmp = SimulationManager.getInstance().getPositionUnitOrNull(this, position.getX(), position.getY());
 
             if (tmp == null || tmp.size() == 0) {
                 continue;

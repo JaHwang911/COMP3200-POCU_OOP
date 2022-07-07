@@ -17,7 +17,8 @@ public class Program {
     public static void main(String[] args) {
         // 스마트 마인 테스트
         // 레이스 이동 테스트
-//        testOfficial();
+//        testOfficial0();
+        testOfficial1();
 //        testMarine();
 //        testTank();
 //        testDestroyer();
@@ -26,6 +27,7 @@ public class Program {
 //        testMine();
 //        testWraithAttackAir();
 //        testManyMine();
+//        testTankAttackAir();
 
         Registry registry = new Registry();
         App app = new App(registry);
@@ -34,7 +36,7 @@ public class Program {
         System.out.println("No prob: assignment 3");
     }
 
-    private static void testOfficial() {
+    private static void testOfficial0() {
         SimulationManager.clear();
         SimulationManager simulationManager = SimulationManager.getInstance();
 
@@ -53,6 +55,48 @@ public class Program {
         units.add(u3);
         units.add(u4);
         units.add(u5);
+
+        startSimulation(units, 10);
+    }
+
+    private static void testOfficial1() {
+        SimulationManager.clear();
+        SimulationManager simulationManager = SimulationManager.getInstance();
+
+        Unit u0 = new Tank(new IntVector2D(0, 2));
+        Unit u1 = new Tank(new IntVector2D(0, 6));
+        Unit u2 = new Mine(new IntVector2D(9, 7), 2);
+        Unit u3 = new Mine(new IntVector2D(3, 3), 1);
+        Unit u4 = new Mine(new IntVector2D(7, 0), 4);
+        Unit u5 = new Mine(new IntVector2D(4, 3), 4);
+        Unit u6 = new Mine(new IntVector2D(1, 4), 4);
+        Unit u7 = new Mine(new IntVector2D(6, 3), 4);
+        Unit u8 = new Mine(new IntVector2D(14, 3), 2);
+        Unit u9 = new Mine(new IntVector2D(12, 1), 1);
+        Unit u10 = new Mine(new IntVector2D(0, 3), 2);
+        Unit u11 = new Mine(new IntVector2D(9, 1), 4);
+        Unit u12 = new Mine(new IntVector2D(6, 3), 3);
+        Unit u13 = new Mine(new IntVector2D(0, 5), 3);
+        Unit u14 = new Mine(new IntVector2D(15, 2), 3);
+        Unit u15 = new Mine(new IntVector2D(2, 6), 2);
+
+        ArrayList<Unit> units = new ArrayList<>();
+        units.add(u0);
+        units.add(u1);
+        units.add(u2);
+        units.add(u3);
+        units.add(u4);
+        units.add(u5);
+        units.add(u6);
+        units.add(u7);
+        units.add(u8);
+        units.add(u9);
+        units.add(u10);
+        units.add(u11);
+        units.add(u12);
+        units.add(u13);
+        units.add(u14);
+        units.add(u15);
 
         startSimulation(units, 10);
     }
@@ -213,6 +257,24 @@ public class Program {
         units.add(u2);
         units.add(u3);
         units.add(u4);
+
+        startSimulation(units, 10);
+    }
+
+    private static void testTankAttackAir() {
+        clearConsole();
+        SimulationManager.clear();
+        SimulationManager simulationManager = SimulationManager.getInstance();
+        Unit u0 = new Wraith(new IntVector2D(7, 4));
+        Unit u1 = new Wraith(new IntVector2D(6, 4));
+        Unit u2 = new Turret(new IntVector2D(7, 4));
+        Unit u3 = new Tank(new IntVector2D(5, 4));
+
+        ArrayList<Unit> units = new ArrayList<>();
+        units.add(u0);
+        units.add(u1);
+        units.add(u2);
+        units.add(u3);
 
         startSimulation(units, 10);
     }

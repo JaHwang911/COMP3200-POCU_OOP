@@ -47,8 +47,8 @@ public class Mine extends Unit implements ICollisionEventListener {
         return this.hp > 0;
     }
 
-    public void collisionListener() {
-        ArrayList<Unit> positionUnits = SimulationManager.getInstance().getPositionUnitOrNull(this.position.getX(), this.position.getY());
+    public void collisionListen() {
+        ArrayList<Unit> positionUnits = SimulationManager.getInstance().getPositionUnitOrNull(this, this.position.getX(), this.position.getY());
 
         if (positionUnits == null) {
             return;

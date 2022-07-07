@@ -100,7 +100,7 @@ public class Wraith extends Unit implements IThinkable, IMovable {
         ArrayList<Unit> attackableUnits = new ArrayList<>();
 
         for (IntVector2D position : this.attackablePositions) {
-            ArrayList<Unit> tmp = SimulationManager.getInstance().getPositionUnitOrNull(position.getX(), position.getY());
+            ArrayList<Unit> tmp = SimulationManager.getInstance().getPositionUnitOrNull(this, position.getX(), position.getY());
 
             if (tmp == null || tmp.size() == 0) {
                 continue;
@@ -113,11 +113,9 @@ public class Wraith extends Unit implements IThinkable, IMovable {
             }
         }
 
-        attackableUnits.remove(this);
-
         if (attackableUnits.size() == 0) {
             for (IntVector2D position : this.attackablePositions) {
-                ArrayList<Unit> tmp = SimulationManager.getInstance().getPositionUnitOrNull(position.getX(), position.getY());
+                ArrayList<Unit> tmp = SimulationManager.getInstance().getPositionUnitOrNull(this, position.getX(), position.getY());
 
                 if (tmp == null || tmp.size() == 0) {
                     continue;
@@ -126,8 +124,6 @@ public class Wraith extends Unit implements IThinkable, IMovable {
                 attackableUnits.addAll(tmp);
             }
         }
-
-        attackableUnits.remove(this);
 
         if (attackableUnits.size() > 0) {
             compareHp(attackableUnits);

@@ -2,7 +2,7 @@ package academy.pocu.comp2500.lab8;
 
 import java.util.ArrayList;
 
-public class Sprinkler extends SmartDevice {
+public class Sprinkler  {
     private ArrayList<Schedule> schedules;
 
     public void addSchedule(Schedule schedule) {
