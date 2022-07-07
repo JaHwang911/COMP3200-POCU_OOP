@@ -149,7 +149,7 @@ public final class SimulationManager {
                         continue;
                     }
 
-                    target.onAttacked(damage);
+                    target.onAttacked(damage, attackIntent.getAttacker());
                 }
             }
 
@@ -170,8 +170,6 @@ public final class SimulationManager {
         for (Unit unit : removedUnit) {
             this.units.remove(unit);
         }
-
-        removedUnit = null;
     }
 
     public ArrayList<Unit> getPositionUnitOrNull(Unit unitOrNull, int x, int y) {
@@ -207,7 +205,7 @@ public final class SimulationManager {
 
                 double aoeDamage = attackIntent.getDamage() * (1 - distance / (attackIntent.getAoe() + 1.0));
 
-                target.onAttacked((int) aoeDamage);
+                target.onAttacked((int) aoeDamage, attackIntent.getAttacker());
             }
         }
     }
@@ -250,7 +248,6 @@ public final class SimulationManager {
                 break;
             default:
                 assert false : "Unknown attackable type";
-                visibleType = null;
                 return null;
         }
 

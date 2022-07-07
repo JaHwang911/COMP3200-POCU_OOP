@@ -154,7 +154,7 @@ public class Program {
         Unit u2 = new Marine(new IntVector2D(9, 3));
         Unit u3 = new Marine(new IntVector2D(14, 0));
         Unit u4 = new Tank(new IntVector2D(11, 1));
-        Unit u5 = new Tank(new IntVector2D(14, 7));
+        Unit u5 = new Tank(new IntVector2D(15, 7));
         Unit u6 = new Marine(new IntVector2D(2, 4));
         Unit u7 = new Mine(new IntVector2D(0, 3), 4);
         Unit u8 = new Mine(new IntVector2D(3, 2), 3);
@@ -378,7 +378,7 @@ public class Program {
             clearConsole();
             visualizer.visualize(i, simulationManager.getUnits());
             simulationManager.update();
-            continueOnEnter();
+//            continueOnEnter();
         }
     }
 

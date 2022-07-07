@@ -22,7 +22,7 @@ public class Tank extends Unit implements IThinkable, IMovable {
         super(position, SYMBOL, UNIT_TYPE, VISION, AOE, AP, MAX_HP, ATTACKABLE_TARGET);
 
         this.attackablePositions = new ArrayList<>(ATTACKABLE_POINT_COUNT);
-        this.moveRight = true;
+        this.moveRight = position.getX() < 15 ? true : false;
     }
 
     public void onAttacked(int damage) {
