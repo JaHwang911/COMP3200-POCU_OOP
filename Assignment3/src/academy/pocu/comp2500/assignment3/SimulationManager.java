@@ -11,6 +11,7 @@ public final class SimulationManager {
     private final ArrayList<IThinkable> thinkable = new ArrayList<>();
     private final ArrayList<IMovable> movable = new ArrayList<>();
     private final ArrayList<ICollisionEventListener> subscriber = new ArrayList<>();
+    private final ArrayList<Unit> destroyers = new ArrayList<>();
     private final ArrayList<ArrayList<ArrayList<Unit>>> unitPositions = new ArrayList<>();
 
     private SimulationManager() {
@@ -74,6 +75,14 @@ public final class SimulationManager {
 
     public void deleteCollisionEventListener(ICollisionEventListener listener) {
         this.subscriber.remove(listener);
+    }
+
+    public void registerDestroyer(Unit unit) {
+        this.destroyers.add(unit);
+    }
+
+    public ArrayList<Unit> getDestroyers() {
+        return this.destroyers;
     }
 
     public void update() {

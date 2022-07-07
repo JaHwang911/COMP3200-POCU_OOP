@@ -20,7 +20,7 @@ public class Program {
 //        testOfficial0();
 //        testOfficial1();
 //        testOfficial2();
-        testOfficial3();
+//        testOfficial3();
 //        testMarine();
 //        testTank();
 //        testDestroyer();
@@ -29,7 +29,7 @@ public class Program {
 //        testMine();
 //        testWraithAttackAir();
 //        testManyMine();
-//        testTankAttackAir();
+        testTankAttackAir();
 
         Registry registry = new Registry();
         App app = new App(registry);
@@ -348,23 +348,27 @@ public class Program {
         startSimulation(units, 10);
     }
 
+     */
+
     private static void testTankAttackAir() {
         clearConsole();
         SimulationManager.clear();
         SimulationManager simulationManager = SimulationManager.getInstance();
         Unit u0 = new Wraith(new IntVector2D(7, 4));
         Unit u1 = new Wraith(new IntVector2D(6, 4));
-        Unit u2 = new Turret(new IntVector2D(7, 4));
+        Unit u2 = new Marine(new IntVector2D(7, 4));
         Unit u3 = new Tank(new IntVector2D(5, 4));
+        Unit u4 = new Turret(new IntVector2D(8, 4));
 
         ArrayList<Unit> units = new ArrayList<>();
         units.add(u0);
         units.add(u1);
         units.add(u2);
         units.add(u3);
+        units.add(u4);
 
         startSimulation(units, 10);
-    } */
+    }
 
     private static void startSimulation(ArrayList<Unit> units, int frame) {
         SimulationManager simulationManager = SimulationManager.getInstance();
@@ -378,7 +382,7 @@ public class Program {
             clearConsole();
             visualizer.visualize(i, simulationManager.getUnits());
             simulationManager.update();
-//            continueOnEnter();
+            continueOnEnter();
         }
     }
 

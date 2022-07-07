@@ -26,6 +26,7 @@ public class Destroyer extends Unit {
 
     public AttackIntent attack() {
         ArrayList<Unit> allUnits = SimulationManager.getInstance().getUnits();
+        ArrayList<Unit> allDestroyer = SimulationManager.getInstance().getDestroyers();
 
         allUnits.remove(this);
 
@@ -34,10 +35,15 @@ public class Destroyer extends Unit {
             unit.onAttacked(damage);
         }
 
+        for (Unit unit : allDestroyer) {
+            unit.hp = 0;
+        }
+
         return new AttackIntent(this, new IntVector2D(-1, -1));
     }
 
     public void onSpawn() {
+        SimulationManager.getInstance().registerDestroyer(this);
     }
 
     public boolean isAlive() {
