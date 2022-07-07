@@ -40,9 +40,6 @@ public final class SimulationManager {
     }
 
     public void spawn(Unit unit) {
-        unit.onSpawn();
-        this.units.add(unit);
-
         int posX = unit.getPosition().getX();
         int posY = unit.getPosition().getY();
 
@@ -50,6 +47,8 @@ public final class SimulationManager {
             return;
         }
 
+        unit.onSpawn();
+        this.units.add(unit);
         this.unitPositions.get(unit.getPosition().getY()).get(unit.getPosition().getX()).add(unit);
     }
 
@@ -104,10 +103,9 @@ public final class SimulationManager {
             }
 
             ArrayList<Unit> targets = new ArrayList<>();
-            ArrayList<Unit> tmp = this.unitPositions.get(attackPosition.getX()).get(attackPosition.getY());
             ArrayList<Unit> aoeTargets = null;
 
-            targets.addAll(tmp);
+            targets.addAll(getPositionUnitOrNull(attackIntent.getAttacker(), attackPosition.getX(), attackPosition.getY()));
 
             int damage = attackIntent.getDamage();
             int aoe = attackIntent.getAoe();
