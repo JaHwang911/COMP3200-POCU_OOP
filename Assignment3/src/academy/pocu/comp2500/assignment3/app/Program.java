@@ -18,13 +18,13 @@ public class Program {
         // 스마트 마인 테스트
         // 레이스 이동 테스트
         testOfficial();
-        testMarine();
-        testTank();
-        testDestroyer();
-        testMarineDiceFiveTurret();
-        testWraithDiceFiveTurret();
-        testMine();
-        testWraithAttackAir();
+//        testMarine();
+//        testTank();
+//        testDestroyer();
+//        testMarineDiceFiveTurret();
+//        testWraithDiceFiveTurret();
+//        testMine();
+//        testWraithAttackAir();
 
         Registry registry = new Registry();
         App app = new App(registry);
@@ -208,7 +208,7 @@ public class Program {
             clearConsole();
             visualizer.visualize(i, simulationManager.getUnits());
             simulationManager.update();
-//            continueOnEnter();
+            continueOnEnter();
         }
     }
 

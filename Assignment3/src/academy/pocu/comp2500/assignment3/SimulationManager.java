@@ -8,9 +8,9 @@ public final class SimulationManager {
     private static SimulationManager instance;
 
     private final ArrayList<Unit> units = new ArrayList<>();
-    private final ArrayList<IThinkable> thinkableUnits = new ArrayList<>();
-    private final ArrayList<IMovable> movableUnits = new ArrayList<>();
-    private final ArrayList<ICollisionEventListener> listeners = new ArrayList<>();
+    private final ArrayList<IThinkable> thinkable = new ArrayList<>();
+    private final ArrayList<IMovable> movable = new ArrayList<>();
+    private final ArrayList<ICollisionEventListener> subscriber = new ArrayList<>();
     private final ArrayList<ArrayList<ArrayList<Unit>>> unitPositions = new ArrayList<>();
 
     private SimulationManager() {
@@ -37,10 +37,9 @@ public final class SimulationManager {
 
     public void spawn(Unit unit) {
         unit.onSpawn();
+        
         this.units.add(unit);
-
-        IntVector2D pos = unit.getPosition();
-        this.unitPositions.get(pos.getY()).get(pos.getX()).add(unit);
+        this.unitPositions.get(unit.getPosition().getY()).get(unit.getPosition().getX()).add(unit);
     }
 
     public int getNumColumns() {
@@ -52,35 +51,35 @@ public final class SimulationManager {
     }
 
     public void registerThinkable(IThinkable unit) {
-        this.thinkableUnits.add(unit);
+        this.thinkable.add(unit);
     }
 
     public void deleteThinkable(IThinkable unit) {
-        this.thinkableUnits.remove(unit);
+        this.thinkable.remove(unit);
     }
 
     public void registerMovable(IMovable unit) {
-        this.movableUnits.add(unit);
+        this.movable.add(unit);
     }
 
     public void deleteMovable(IMovable unit) {
-        this.movableUnits.remove(unit);
+        this.movable.remove(unit);
     }
 
     public void registerCollisionEventListener(Unit listener) {
-        this.listeners.add((ICollisionEventListener) listener);
+        this.subscriber.add((ICollisionEventListener) listener);
     }
 
     public void deleteCollisionEventListener(ICollisionEventListener unit) {
-        this.listeners.remove(unit);
+        this.subscriber.remove(unit);
     }
 
     public void update() {
-        for (IThinkable unit : this.thinkableUnits) {
+        for (IThinkable unit : this.thinkable) {
             unit.think(checkVisibleEnemy((Unit) unit));
         }
 
-        for (IMovable unit : this.movableUnits) {
+        for (IMovable unit : this.movable) {
             IntVector2D currentPosition = ((Unit) unit).getPosition();
             this.unitPositions.get(currentPosition.getY()).get(currentPosition.getX()).remove(unit);
 
@@ -89,7 +88,7 @@ public final class SimulationManager {
             this.unitPositions.get(currentPosition.getY()).get(currentPosition.getX()).add((Unit) unit);
         }
 
-        for (ICollisionEventListener unit : this.listeners) {
+        for (ICollisionEventListener unit : this.subscriber) {
             unit.collisionListener();
         }
 
@@ -185,7 +184,7 @@ public final class SimulationManager {
         ArrayList<Unit> ret = new ArrayList<>();
 
         for (Unit unit : this.unitPositions.get(y).get(x)) {
-            if (this.listeners.contains(unit)) {
+            if (this.subscriber.contains(unit)) {
                 continue;
             }
 
@@ -234,7 +233,7 @@ public final class SimulationManager {
         }
 
         ret.remove(unit);
-        ret.removeIf(u -> (this.listeners.contains(u)));
+        ret.removeIf(u -> (this.subscriber.contains(u)));
 
         UnitType visibleType;
 
