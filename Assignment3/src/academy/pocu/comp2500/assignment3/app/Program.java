@@ -17,7 +17,7 @@ public class Program {
     public static void main(String[] args) {
         // 스마트 마인 테스트
         // 레이스 이동 테스트
-        testOfficial();
+//        testOfficial();
 //        testMarine();
 //        testTank();
 //        testDestroyer();
@@ -25,6 +25,7 @@ public class Program {
 //        testWraithDiceFiveTurret();
 //        testMine();
 //        testWraithAttackAir();
+        testManyMine();
 
         Registry registry = new Registry();
         App app = new App(registry);
@@ -190,6 +191,26 @@ public class Program {
 
         ArrayList<Unit> units = new ArrayList<>();
         units.add(u0);
+        units.add(u3);
+        units.add(u4);
+
+        startSimulation(units, 10);
+    }
+
+    private static void testManyMine() {
+        clearConsole();
+        SimulationManager.clear();
+        SimulationManager simulationManager = SimulationManager.getInstance();
+        Unit u0 = new Mine(new IntVector2D(7, 4), 3);
+        Unit u1 = new Mine(new IntVector2D(7, 4), 3);
+        Unit u2 = new Mine(new IntVector2D(7, 4), 3);
+        Unit u3 = new Mine(new IntVector2D(7, 4), 3);
+        Unit u4 = new Mine(new IntVector2D(7, 4),3 );
+
+        ArrayList<Unit> units = new ArrayList<>();
+        units.add(u0);
+        units.add(u1);
+        units.add(u2);
         units.add(u3);
         units.add(u4);
 

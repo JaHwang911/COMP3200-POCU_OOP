@@ -196,7 +196,6 @@ public final class SimulationManager {
 
     private void onAttackedAoe(ArrayList<Unit> aoeTargets, AttackIntent attackIntent) {
         UnitType attackableUnitType = attackIntent.getAttackedUnitType();
-        IntVector2D currentPosition = attackIntent.getPosition();
 
         for (Unit target : aoeTargets) {
             if (attackableUnitType == UnitType.UNKNOWN || attackableUnitType == target.getUnitType()) {
