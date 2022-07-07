@@ -105,7 +105,7 @@ public final class SimulationManager {
             ArrayList<Unit> targets = new ArrayList<>();
             ArrayList<Unit> aoeTargets = null;
 
-            targets.addAll(getPositionUnitOrNull(attackIntent.getAttacker(), attackPosition.getX(), attackPosition.getY()));
+            targets.addAll(getPositionUnitOrNull(null, attackPosition.getX(), attackPosition.getY()));
 
             int damage = attackIntent.getDamage();
             int aoe = attackIntent.getAoe();
@@ -119,7 +119,7 @@ public final class SimulationManager {
 
                 for (int i = startAoeRangeY; i <= endAoeRangeY; ++i) {
                     for (int j = startAoeRangeX; j <= endAoeRangeX; ++j) {
-                        aoeTargets.addAll(getPositionUnitOrNull(attackIntent.getAttacker(), j, i));
+                        aoeTargets.addAll(getPositionUnitOrNull(null, j, i));
                     }
                 }
 
@@ -174,7 +174,7 @@ public final class SimulationManager {
         removedUnit = null;
     }
 
-    public ArrayList<Unit> getPositionUnitOrNull(Unit unit, int x, int y) {
+    public ArrayList<Unit> getPositionUnitOrNull(Unit unitOrNull, int x, int y) {
         if (x >= NUM_COLUMNS || y >= NUM_ROWS || x < 0 || y < 0) {
             return null;
         }
@@ -182,14 +182,16 @@ public final class SimulationManager {
         ArrayList<Unit> ret = new ArrayList<>();
 
         for (Unit enemy : this.unitPositions.get(y).get(x)) {
-            if (!this.subscriber.contains(unit) && this.subscriber.contains(enemy)) {
+            if (!this.subscriber.contains(unitOrNull) &&
+                    this.subscriber.contains(enemy) &&
+                    unitOrNull != null) {
                 continue;
             }
 
             ret.add(enemy);
         }
 
-        ret.remove(unit);
+        ret.remove(unitOrNull);
 
         return ret;
     }
