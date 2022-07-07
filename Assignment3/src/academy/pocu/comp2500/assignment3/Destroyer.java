@@ -29,6 +29,7 @@ public class Destroyer extends Unit {
         ArrayList<Unit> allDestroyer = SimulationManager.getInstance().getDestroyers();
 
         allUnits.remove(this);
+        allDestroyer.remove(this);
 
         for (Unit unit : allUnits) {
             int damage = unit.getHp();
