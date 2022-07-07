@@ -50,28 +50,28 @@ public final class SimulationManager {
         return NUM_ROWS;
     }
 
-    public void registerThinkable(IThinkable unit) {
-        this.thinkable.add(unit);
+    public void registerThinkable(IThinkable thinkable) {
+        this.thinkable.add(thinkable);
     }
 
-    public void deleteThinkable(IThinkable unit) {
-        this.thinkable.remove(unit);
+    public void deleteThinkable(IThinkable thinkable) {
+        this.thinkable.remove(thinkable);
     }
 
-    public void registerMovable(IMovable unit) {
-        this.movable.add(unit);
+    public void registerMovable(IMovable movable) {
+        this.movable.add(movable);
     }
 
-    public void deleteMovable(IMovable unit) {
-        this.movable.remove(unit);
+    public void deleteMovable(IMovable movable) {
+        this.movable.remove(movable);
     }
 
     public void registerCollisionEventListener(Unit listener) {
         this.subscriber.add((ICollisionEventListener) listener);
     }
 
-    public void deleteCollisionEventListener(ICollisionEventListener unit) {
-        this.subscriber.remove(unit);
+    public void deleteCollisionEventListener(ICollisionEventListener listener) {
+        this.subscriber.remove(listener);
     }
 
     public void update() {
