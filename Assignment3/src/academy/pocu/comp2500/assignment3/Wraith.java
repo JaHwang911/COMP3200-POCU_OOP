@@ -21,7 +21,8 @@ public class Wraith extends Unit implements IThinkable, IMovable {
     public Wraith(IntVector2D position) {
         super(position, SYMBOL, UNIT_TYPE, VISION, AOE, AP, MAX_HP, ATTACKABLE_TARGET);
 
-        this.startPosition = position;
+
+        this.startPosition = new IntVector2D(position.getX(), position.getY());
         this.attackablePositions = new ArrayList<>();
         this.hasShield = true;
     }

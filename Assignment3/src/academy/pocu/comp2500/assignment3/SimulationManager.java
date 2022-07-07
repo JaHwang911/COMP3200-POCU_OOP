@@ -41,8 +41,15 @@ public final class SimulationManager {
 
     public void spawn(Unit unit) {
         unit.onSpawn();
-        
         this.units.add(unit);
+
+        int posX = unit.getPosition().getX();
+        int posY = unit.getPosition().getY();
+
+        if (posX >= NUM_COLUMNS || posX < 0 || posY >= NUM_ROWS || posY < 0) {
+            return;
+        }
+
         this.unitPositions.get(unit.getPosition().getY()).get(unit.getPosition().getX()).add(unit);
     }
 
