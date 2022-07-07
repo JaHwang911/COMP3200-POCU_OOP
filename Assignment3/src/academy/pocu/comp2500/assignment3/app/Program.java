@@ -141,7 +141,7 @@ public class Program {
         units.add(u14);
         units.add(u15);
 
-        startSimulation(units, 2);
+        startSimulation(units, 26);
     }
 
     private static void testDestroyer() {
@@ -334,7 +334,7 @@ public class Program {
             clearConsole();
             visualizer.visualize(i, simulationManager.getUnits());
             simulationManager.update();
-            continueOnEnter();
+//            continueOnEnter();
         }
     }
 

@@ -73,11 +73,23 @@ public class Tank extends Unit implements IThinkable, IMovable {
         int movePointX = 0;
 
         if (currentY != this.movePosition.getY()) {
-            movePointY = currentY - this.movePosition.getY() > 0 ? -1 : 1;
+            int diff = currentY - this.movePosition.getY();
+
+            if (diff > 0) {
+                movePointY = -1;
+            } else if (diff < 0) {
+                movePointY = 1;
+            }
         }
 
         if (movePointY == 0) {
-            movePointX = currentX - this.movePosition.getX() > 0 ? -1 : 1;
+            int diff = currentX - this.movePosition.getX();
+
+            if (diff > 0) {
+                movePointX = -1;
+            } else if (diff < 0) {
+                movePointX = 1;
+            }
         }
 
         this.position.setX(currentX + movePointX);

@@ -25,9 +25,9 @@ public abstract class Unit {
 
     public void printAttackedInfo(int damage, Unit attackerInfo) {
         var tmp = SimulationManager.getInstance().getUnits();
-        int AttackerNum = tmp.indexOf(attackerInfo);
+        int attackerNum = tmp.indexOf(attackerInfo);
         int myNum = tmp.indexOf(this);
-        System.out.printf("%d", AttackerNum);
+        System.out.printf("%d", attackerNum);
         System.out.printf("%c(%d, %d) -> ", attackerInfo.getSymbol(), attackerInfo.getPosition().getX(), attackerInfo.getPosition().getY());
         System.out.printf("%d", myNum);
         System.out.printf("%c(%d, %d): ", this.symbol, this.position.getX(), this.position.getY());
