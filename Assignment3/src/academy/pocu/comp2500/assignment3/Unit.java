@@ -72,7 +72,7 @@ public abstract class Unit {
         ArrayList<Unit> tmpUnits;
 
         for (; y <= currentPositionY; ++y) {
-            tmpUnits = instance.getPositionUnitOrNull(null, x++, y);
+            tmpUnits = instance.getPositionUnitOrNull(this, x++, y);
 
             if (tmpUnits.size() > 0) {
                 return new IntVector2D(tmpUnits.get(0).position.getX(), tmpUnits.get(0).position.getY());
@@ -83,7 +83,7 @@ public abstract class Unit {
         y = currentPositionY + 1;
 
         for (; y <= currentPositionY + distance; ++y) {
-            tmpUnits = instance.getPositionUnitOrNull(null, x--, y);
+            tmpUnits = instance.getPositionUnitOrNull(this, x--, y);
 
             if (tmpUnits != null && tmpUnits.size() > 0) {
                 return new IntVector2D(tmpUnits.get(0).position.getX(), tmpUnits.get(0).position.getY());
@@ -94,7 +94,7 @@ public abstract class Unit {
         y = currentPositionY + distance - 1;
 
         for (; y >= currentPositionY; --y) {
-            tmpUnits = instance.getPositionUnitOrNull(null, x--, y);
+            tmpUnits = instance.getPositionUnitOrNull(this, x--, y);
 
             if (tmpUnits.size() > 0) {
                 return new IntVector2D(tmpUnits.get(0).position.getX(), tmpUnits.get(0).position.getY());
@@ -105,7 +105,7 @@ public abstract class Unit {
         y = currentPositionY - 1;
 
         for (; y > currentPositionY - distance; --y) {
-            tmpUnits = instance.getPositionUnitOrNull(null, x++, y);
+            tmpUnits = instance.getPositionUnitOrNull(this, x++, y);
 
             if (tmpUnits.size() > 0) {
                 return new IntVector2D(tmpUnits.get(0).position.getX(), tmpUnits.get(0).position.getY());

@@ -104,9 +104,10 @@ public final class SimulationManager {
             }
 
             ArrayList<Unit> targets = new ArrayList<>();
+            ArrayList<Unit> tmp = this.unitPositions.get(attackPosition.getX()).get(attackPosition.getY());
             ArrayList<Unit> aoeTargets = null;
 
-            targets.addAll(getPositionUnitOrNull(attackIntent.getAttacker(), attackPosition.getX(), attackPosition.getY()));
+            targets.addAll(tmp);
 
             int damage = attackIntent.getDamage();
             int aoe = attackIntent.getAoe();
