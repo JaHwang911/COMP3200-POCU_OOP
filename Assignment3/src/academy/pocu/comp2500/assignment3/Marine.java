@@ -197,16 +197,18 @@ public class Marine extends Unit implements IMovable, IThinkable {
     }
 
     private IntVector2D searchClockwise(int distance) {
+        IntVector2D ret = null;
         final int currentPositionX = this.position.getX();
         final int currentPositionY = this.position.getY();
         int x = currentPositionX;
         int y = currentPositionY - distance;
+        ArrayList<Unit> units = new ArrayList<>();
 
         for (; y <= currentPositionY; ++y) {
             var tmp = SimulationManager.getInstance().getPositionUnitOrNull(this, x++, y);
 
             if (tmp != null && tmp.size() > 0) {
-                return new IntVector2D(tmp.get(0).position.getX(), tmp.get(0).position.getY());
+                units.addAll(tmp);
             }
         }
 
@@ -214,10 +216,10 @@ public class Marine extends Unit implements IMovable, IThinkable {
         y = currentPositionY + 1;
 
         for (; y <= currentPositionY + distance; ++y) {
-            var tmp = SimulationManager.getInstance().getPositionUnitOrNull(this, x++, y);
+            var tmp = SimulationManager.getInstance().getPositionUnitOrNull(this, x--, y);
 
             if (tmp != null && tmp.size() > 0) {
-                return new IntVector2D(tmp.get(0).position.getX(), tmp.get(0).position.getY());
+                units.addAll(tmp);
             }
         }
 
@@ -225,10 +227,10 @@ public class Marine extends Unit implements IMovable, IThinkable {
         y = currentPositionY + distance - 1;
 
         for (; y >= currentPositionY; --y) {
-            var tmp = SimulationManager.getInstance().getPositionUnitOrNull(this, x++, y);
+            var tmp = SimulationManager.getInstance().getPositionUnitOrNull(this, x--, y);
 
             if (tmp != null && tmp.size() > 0) {
-                return new IntVector2D(tmp.get(0).position.getX(), tmp.get(0).position.getY());
+                units.addAll(tmp);
             }
         }
 
@@ -239,11 +241,15 @@ public class Marine extends Unit implements IMovable, IThinkable {
             var tmp = SimulationManager.getInstance().getPositionUnitOrNull(this, x++, y);
 
             if (tmp != null && tmp.size() > 0) {
-                return new IntVector2D(tmp.get(0).position.getX(), tmp.get(0).position.getY());
+                units.addAll(tmp);
             }
         }
 
-        assert false : "Wrong Clockwise";
-        return null;
+        assert units.size() > 0;
+        compareHp(units);
+
+        ret = new IntVector2D(units.get(0).position.getX(), units.get(0).position.getY());
+
+        return ret;
     }
 }

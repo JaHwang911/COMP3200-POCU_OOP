@@ -235,22 +235,22 @@ public class Program {
         SimulationManager.clear();
         SimulationManager simulationManager = SimulationManager.getInstance();
 
-        Unit u0 = new Marine(new IntVector2D(6, 3));
-        Unit u1 = new SmartMine(new IntVector2D(7, 1), 3, 2);
-        Unit u2 = new Turret(new IntVector2D(6, 3));
+        Unit u0 = new Tank(new IntVector2D(7, 3));
+        Unit u1 = new Marine(new IntVector2D(0, 1));
+        Unit u2 = new Wraith(new IntVector2D(0, 3));
         Unit u3 = new Wraith(new IntVector2D(2, 0));
-        Unit u4 = new Tank(new IntVector2D(6, 0));
-        Unit u5 = new SmartMine(new IntVector2D(4, 0), 4, 2);
-        Unit u6 = new SmartMine(new IntVector2D(0, 2), 1, 3);
-        Unit u7 = new Marine(new IntVector2D(5, 3));
-        Unit u8 = new SmartMine(new IntVector2D(4, 1), 4, 1);
-        Unit u9 = new Mine(new IntVector2D(1, 0), 2);
-        Unit u10 = new SmartMine(new IntVector2D(5, 1), 1, 1);
-        Unit u11 = new Wraith(new IntVector2D(7, 1));
-        Unit u12 = new Wraith(new IntVector2D(4, 0));
-        Unit u13 = new Turret(new IntVector2D(5, 3));
-        Unit u14 = new Turret(new IntVector2D(1, 3));
-        Unit u15 = new Mine(new IntVector2D(6, 1), 4);
+        Unit u4 = new Marine(new IntVector2D(7, 1));
+        Unit u5 = new SmartMine(new IntVector2D(6, 1), 1, 2);
+        Unit u6 = new Tank(new IntVector2D(4, 3));
+        Unit u7 = new Tank(new IntVector2D(2, 2));
+        Unit u8 = new Turret(new IntVector2D(4, 0));
+        Unit u9 = new Marine(new IntVector2D(5, 2));
+        Unit u10 = new Wraith(new IntVector2D(7,1 ));
+        Unit u11 = new Turret(new IntVector2D(1, 2));
+        Unit u12 = new Marine(new IntVector2D(3, 2));
+        Unit u13 = new Marine(new IntVector2D(2, 0));
+        Unit u14 = new Wraith(new IntVector2D(4, 0));
+        Unit u15 = new Marine(new IntVector2D(4, 1));
 
         ArrayList<Unit> units = new ArrayList<>();
         units.add(u0);
@@ -270,7 +270,7 @@ public class Program {
         units.add(u14);
         units.add(u15);
 
-        startSimulation(units, 8);
+        startSimulation(units, 1);
     }
 
     /*
@@ -433,9 +433,6 @@ public class Program {
 
         startSimulation(units, 10);
     }
-
-     */
-
     private static void testTankAttackAir() {
         clearConsole();
         SimulationManager.clear();
@@ -455,6 +452,7 @@ public class Program {
 
         startSimulation(units, 10);
     }
+     */
 
     private static void startSimulation(ArrayList<Unit> units, int frame) {
         SimulationManager simulationManager = SimulationManager.getInstance();
@@ -468,7 +466,7 @@ public class Program {
             clearConsole();
             visualizer.visualize(i, simulationManager.getUnits());
             simulationManager.update();
-            continueOnEnter();
+//            continueOnEnter();
         }
     }
 
