@@ -7,7 +7,6 @@ public class Sprinkler extends SmartDevice implements ISprayable {
 
     private final ArrayList<Schedule> schedules;
     private Schedule scheduleInProgress;
-    private Planter planter;
 
     public Sprinkler() {
         this.schedules = new ArrayList<>();
@@ -19,7 +18,6 @@ public class Sprinkler extends SmartDevice implements ISprayable {
 
     @Override
     public void installedPlanter(Planter planter) {
-        this.planter = planter;
         planter.installSprayable(this);
     }
 
@@ -50,17 +48,13 @@ public class Sprinkler extends SmartDevice implements ISprayable {
             super.isOn = true;
             super.tickLastUpdate = super.tickCount;
         }
-
-        if (super.isOn) {
-            spray();
-        }
     }
 
-    public void spray() {
-        if (this.planter == null) {
-            return;
-        }
+    public void spray(Planter planter) {
+        onTick();
 
-        this.planter.addWater(WATER_PER_TICK);
+        if (this.isOn) {
+            planter.addWater(WATER_PER_TICK);
+        }
     }
 }

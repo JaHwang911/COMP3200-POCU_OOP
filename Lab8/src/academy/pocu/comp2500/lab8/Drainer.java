@@ -1,10 +1,9 @@
 package academy.pocu.comp2500.lab8;
 
-public class Drainer extends SmartDevice implements IDetectable {
+public class Drainer extends SmartDevice implements IDrainable, IWaterDetectable {
     private static final int DRAINING_PER_TICK = 7;
 
     private final int maxWaterAmount;
-    private Planter planter;
 
     public Drainer(int maxWaterAmount) {
         this.maxWaterAmount = maxWaterAmount;
@@ -15,20 +14,24 @@ public class Drainer extends SmartDevice implements IDetectable {
     }
 
     public void installedPlanter(Planter planter) {
-        this.planter = planter;
         planter.installDetectable(this);
+        planter.installDrainable(this);
     }
 
-    public void detected() {
+    public void drain(Planter planter) {
+        if (super.isOn) {
+            planter.subWater(DRAINING_PER_TICK);
+        }
+    }
+
+    public void detect(final int waterLevel) {
         onTick();
 
-        if (this.planter != null && this.planter.getWaterAmount() >= maxWaterAmount) {
+        if (waterLevel >= maxWaterAmount) {
             if (!super.isOn) {
                 super.isOn = true;
                 super.tickLastUpdate = super.tickCount;
             }
-
-            this.planter.subWater(DRAINING_PER_TICK);
         } else if (super.isOn) {
             super.isOn = false;
             super.tickLastUpdate = super.tickCount;

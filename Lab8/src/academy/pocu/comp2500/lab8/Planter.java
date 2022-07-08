@@ -4,15 +4,15 @@ import java.util.ArrayList;
 
 public class Planter {
     private int waterAmount;
-    private final ArrayList<SmartDevice> devices;
     private final ArrayList<ISprayable> sprayable;
-    private final ArrayList<IDetectable> detectable;
+    private final ArrayList<IWaterDetectable> detectable;
+    private final ArrayList<IDrainable> drainable;
 
     public Planter(int waterAmount) {
         this.waterAmount = waterAmount;
-        this.devices = new ArrayList<>();
         this.sprayable = new ArrayList<>();
         this.detectable = new ArrayList<>();
+        this.drainable = new ArrayList<>();
     }
 
     public int getWaterAmount() {
@@ -28,7 +28,6 @@ public class Planter {
     }
 
     public void installSmartDevice(SmartDevice smartDevice) {
-        this.devices.add(smartDevice);
         smartDevice.installedPlanter(this);
     }
 
@@ -36,18 +35,25 @@ public class Planter {
         this.sprayable.add(device);
     }
 
-    public void installDetectable(IDetectable device) {
-        this.devices.remove(device);
+    public void installDetectable(IWaterDetectable device) {
         this.detectable.add(device);
     }
 
+    public void installDrainable(IDrainable device) {
+        this.drainable.add(device);
+    }
+
     public void tick() {
-        for (IDetectable device : this.detectable) {
-            device.detected();
+        for (IWaterDetectable device : this.detectable) {
+            device.detect(this.waterAmount);
         }
 
-        for (SmartDevice device : this.devices) {
-            device.onTick();
+        for (IDrainable device : this.drainable) {
+            device.drain(this);
+        }
+
+        for (ISprayable device : this.sprayable) {
+            device.spray(this);
         }
 
         this.waterAmount = Math.max(0, this.waterAmount - 2);

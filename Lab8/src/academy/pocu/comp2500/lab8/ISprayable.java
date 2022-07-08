@@ -1,5 +1,5 @@
 package academy.pocu.comp2500.lab8;
 
 public interface ISprayable {
-    void spray();
+    void spray(Planter planter);
 }
