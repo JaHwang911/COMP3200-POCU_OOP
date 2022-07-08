@@ -70,8 +70,8 @@ public final class SimulationManager {
         this.movable.remove(movable);
     }
 
-    public void registerCollisionEventListener(Unit listener) {
-        this.subscriber.add((ICollisionEventListener) listener);
+    public void registerCollisionEventListener(ICollisionEventListener listener) {
+        this.subscriber.add(listener);
     }
 
     public void deleteCollisionEventListener(ICollisionEventListener listener) {

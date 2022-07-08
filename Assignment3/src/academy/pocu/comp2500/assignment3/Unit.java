@@ -1,7 +1,5 @@
 package academy.pocu.comp2500.assignment3;
 
-import java.util.ArrayList;
-
 public abstract class Unit {
     protected int hp;
     protected final int ap;
