@@ -19,7 +19,8 @@ public class Program {
         Test8();
         Test9();
         Test10();
-//        Test11();
+        Test11();
+        testOfficial1();
 
         System.out.println("No prob: lab 8");
     }
@@ -77,6 +78,29 @@ public class Program {
             }
         }
     }
+
+    public static void testOfficial1() {
+        Planter planter = new Planter(27);
+        Drainer drainer = new Drainer(53);
+        Sprinkler sprinkler = new Sprinkler();
+
+        sprinkler.addSchedule(new Schedule(0, 2));
+        sprinkler.addSchedule(new Schedule(15, 4));
+        sprinkler.addSchedule(new Schedule(30, 4));
+        sprinkler.addSchedule(new Schedule(40, 2));
+        sprinkler.addSchedule(new Schedule(48, 10));
+        sprinkler.addSchedule(new Schedule(64, 7));
+        sprinkler.addSchedule(new Schedule(72, 5));
+        sprinkler.addSchedule(new Schedule(91, 9));
+
+        planter.installSmartDevice(drainer);
+        planter.installSmartDevice(sprinkler);
+
+        for (int i = 0 ; i < 1; ++i) {
+            planter.tick();
+        }
+    }
+
     public static void Test1() {
         Sprinkler sprinkler = new Sprinkler();
 

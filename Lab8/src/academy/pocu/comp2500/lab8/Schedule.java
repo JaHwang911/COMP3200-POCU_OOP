@@ -18,10 +18,6 @@ public class Schedule {
     }
 
     public int getOffTickCount() {
-        if (this.tick == 0) {
-            return this.tick + this.tickWhile + 1;
-        }
-
         return this.tick + this.tickWhile;
     }
 }
