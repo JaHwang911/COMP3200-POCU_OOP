@@ -22,7 +22,7 @@ public class Program {
 //        testOfficial2();
 //        testOfficial3();
 //        testOfficial4();
-        testOfficial5();
+//        testOfficial5();
 //        testMarine();
 //        testTank();
 //        testDestroyer();
@@ -32,6 +32,7 @@ public class Program {
 //        testWraithAttackAir();
 //        testManyMine();
 //        testTankAttackAir();
+        testMarineDiceFiveTurret();
 
         Registry registry = new Registry();
         App app = new App(registry);
@@ -279,6 +280,26 @@ public class Program {
         startSimulation(units, 3);
     }
 
+    private static void testMarineDiceFiveTurret() {
+        clearConsole();
+        SimulationManager.clear();
+        SimulationManager simulationManager = SimulationManager.getInstance();
+        Unit u0 = new Marine(new IntVector2D(7, 4));
+        Unit u1 = new Turret(new IntVector2D(5, 2));
+        Unit u2 = new Turret(new IntVector2D(9, 2));
+        Unit u3 = new Turret(new IntVector2D(5, 6));
+        Unit u4 = new Turret(new IntVector2D(9, 6));
+
+        ArrayList<Unit> units = new ArrayList<>();
+        units.add(u0);
+        units.add(u1);
+        units.add(u2);
+        units.add(u3);
+        units.add(u4);
+
+        startSimulation(units, 5);
+    }
+
     /*
     private static void testDestroyer() {
         SimulationManager.clear();
@@ -342,26 +363,6 @@ public class Program {
         units.add(u1);
 
         startSimulation(units, 10);
-    }
-
-    private static void testMarineDiceFiveTurret() {
-        clearConsole();
-        SimulationManager.clear();
-        SimulationManager simulationManager = SimulationManager.getInstance();
-        Unit u0 = new Marine(new IntVector2D(6, 4));
-        Unit u1 = new Turret(new IntVector2D(4, 2));
-        Unit u2 = new Turret(new IntVector2D(8, 2));
-        Unit u3 = new Turret(new IntVector2D(4, 6));
-        Unit u4 = new Turret(new IntVector2D(8, 6));
-
-        ArrayList<Unit> units = new ArrayList<>();
-        units.add(u0);
-        units.add(u1);
-        units.add(u2);
-        units.add(u3);
-        units.add(u4);
-
-        startSimulation(units, 20);
     }
 
     private static void testWraithDiceFiveTurret() {

@@ -198,47 +198,26 @@ public class Marine extends Unit implements IMovable, IThinkable {
 
     private IntVector2D searchClockwise(int distance) {
         IntVector2D ret = null;
-        final int currentPositionX = this.position.getX();
-        final int currentPositionY = this.position.getY();
-        int x = currentPositionX;
-        int y = currentPositionY - distance;
         ArrayList<Unit> units = new ArrayList<>();
+        ArrayList<IntVector2D> vectors;
 
-        for (; y <= currentPositionY; ++y) {
-            var tmp = SimulationManager.getInstance().getPositionUnitOrNull(this, x++, y);
-
-            if (tmp != null && tmp.size() > 0) {
-                units.addAll(tmp);
-            }
+        switch (distance) {
+            case 2:
+                vectors = getDistance2Vectors();
+                break;
+            case 3:
+                vectors = getDistance3Vectors();
+                break;
+            case 4:
+                vectors = getDistance4Vectors();
+                break;
+            default:
+                assert false : "Out of vision range";
+                return null;
         }
 
-        x = currentPositionX + distance - 1;
-        y = currentPositionY + 1;
-
-        for (; y <= currentPositionY + distance; ++y) {
-            var tmp = SimulationManager.getInstance().getPositionUnitOrNull(this, x--, y);
-
-            if (tmp != null && tmp.size() > 0) {
-                units.addAll(tmp);
-            }
-        }
-
-        x = currentPositionX - 1;
-        y = currentPositionY + distance - 1;
-
-        for (; y >= currentPositionY; --y) {
-            var tmp = SimulationManager.getInstance().getPositionUnitOrNull(this, x--, y);
-
-            if (tmp != null && tmp.size() > 0) {
-                units.addAll(tmp);
-            }
-        }
-
-        x = currentPositionX - distance + 1;
-        y = currentPositionY - 1;
-
-        for (; y > currentPositionY - distance; --y) {
-            var tmp = SimulationManager.getInstance().getPositionUnitOrNull(this, x++, y);
+        for (IntVector2D vector : vectors) {
+            var tmp = SimulationManager.getInstance().getPositionUnitOrNull(this, vector.getX(), vector.getY());
 
             if (tmp != null && tmp.size() > 0) {
                 units.addAll(tmp);
@@ -251,5 +230,78 @@ public class Marine extends Unit implements IMovable, IThinkable {
         ret = new IntVector2D(units.get(0).position.getX(), units.get(0).position.getY());
 
         return ret;
+    }
+
+    private ArrayList<IntVector2D> getDistance2Vectors() {
+        final int maxVectorsNum = 8;
+        final int currentPositionX = this.position.getX();
+        final int currentPositionY = this.position.getY();
+
+        IntVector2D vector0 = new IntVector2D(currentPositionX, currentPositionY - 2);
+        IntVector2D vector1 = new IntVector2D(currentPositionX + 1, currentPositionY - 1);
+        IntVector2D vector2 = new IntVector2D(currentPositionX + 2, currentPositionY);
+        IntVector2D vector3 = new IntVector2D(currentPositionX + 1, currentPositionY + 1);
+        IntVector2D vector4 = new IntVector2D(currentPositionX, currentPositionY + 2);
+        IntVector2D vector5 = new IntVector2D(currentPositionX - 1, currentPositionY + 1);
+        IntVector2D vector6 = new IntVector2D(currentPositionX - 2, currentPositionY);
+        IntVector2D vector7 = new IntVector2D(currentPositionX - 1, currentPositionY - 1);
+
+        ArrayList<IntVector2D> vectors = new ArrayList<>(maxVectorsNum);
+        vectors.add(vector0);
+        vectors.add(vector1);
+        vectors.add(vector2);
+        vectors.add(vector3);
+        vectors.add(vector4);
+        vectors.add(vector5);
+        vectors.add(vector6);
+        vectors.add(vector7);
+
+        return vectors;
+    }
+
+    private ArrayList<IntVector2D> getDistance3Vectors() {
+        final int maxVectorsNum = 8;
+        final int currentPositionX = this.position.getX();
+        final int currentPositionY = this.position.getY();
+
+        IntVector2D vector0 = new IntVector2D(currentPositionX + 1, currentPositionY - 2);
+        IntVector2D vector1 = new IntVector2D(currentPositionX + 2, currentPositionY - 1);
+        IntVector2D vector2 = new IntVector2D(currentPositionX + 2, currentPositionY + 1);
+        IntVector2D vector3 = new IntVector2D(currentPositionX + 1, currentPositionY + 2);
+        IntVector2D vector4 = new IntVector2D(currentPositionX - 1, currentPositionY + 2);
+        IntVector2D vector5 = new IntVector2D(currentPositionX - 2, currentPositionY + 1);
+        IntVector2D vector6 = new IntVector2D(currentPositionX - 2, currentPositionY - 1);
+        IntVector2D vector7 = new IntVector2D(currentPositionX - 1, currentPositionY - 2);
+
+        ArrayList<IntVector2D> vectors = new ArrayList<>(maxVectorsNum);
+        vectors.add(vector0);
+        vectors.add(vector1);
+        vectors.add(vector2);
+        vectors.add(vector3);
+        vectors.add(vector4);
+        vectors.add(vector5);
+        vectors.add(vector6);
+        vectors.add(vector7);
+
+        return vectors;
+    }
+
+    private ArrayList<IntVector2D> getDistance4Vectors() {
+        final int maxVectorsNum = 4;
+        final int currentPositionX = this.position.getX();
+        final int currentPositionY = this.position.getY();
+
+        IntVector2D vector0 = new IntVector2D(currentPositionX + 2, currentPositionY - 2);
+        IntVector2D vector1 = new IntVector2D(currentPositionX + 2, currentPositionY + 2);
+        IntVector2D vector2 = new IntVector2D(currentPositionX - 2, currentPositionY + 2);
+        IntVector2D vector3 = new IntVector2D(currentPositionX - 2, currentPositionY - 2);
+
+        ArrayList<IntVector2D> vectors = new ArrayList<>(maxVectorsNum);
+        vectors.add(vector0);
+        vectors.add(vector1);
+        vectors.add(vector2);
+        vectors.add(vector3);
+
+        return vectors;
     }
 }

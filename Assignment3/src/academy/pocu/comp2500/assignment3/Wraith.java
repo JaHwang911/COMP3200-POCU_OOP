@@ -234,7 +234,7 @@ public class Wraith extends Unit implements IThinkable, IMovable {
         this.attackablePositions.add(new IntVector2D(curX - 1, curY));
     }
 
-    private IntVector2D searchClockwise(int distance) {
+    /*private IntVector2D searchClockwise(int distance) {
         IntVector2D ret = null;
         final int currentPositionX = this.position.getX();
         final int currentPositionY = this.position.getY();
@@ -299,5 +299,201 @@ public class Wraith extends Unit implements IThinkable, IMovable {
         }
 
         return ret;
+    }*/
+
+    private IntVector2D searchClockwise(int distance) {
+        IntVector2D ret = null;
+        ArrayList<Unit> units = new ArrayList<>();
+        ArrayList<IntVector2D> vectors;
+
+        switch (distance) {
+            case 2:
+                vectors = getDistance2Vectors();
+                break;
+            case 3:
+                vectors = getDistance3Vectors();
+                break;
+            case 4:
+                vectors = getDistance4Vectors();
+                break;
+            case 5:
+                vectors = getDistance5Vectors();
+                break;
+            case 6:
+                vectors = getDistance6Vectors();
+                break;
+            default:
+                assert false : "Out of vision range";
+                return null;
+        }
+
+        for (IntVector2D vector : vectors) {
+            var tmp = SimulationManager.getInstance().getPositionUnitOrNull(this, vector.getX(), vector.getY());
+
+            if (tmp != null && tmp.size() > 0) {
+                units.addAll(tmp);
+            }
+        }
+
+        assert units.size() > 0;
+
+        for (Unit unit : units) {
+            if (unit.unitType == UnitType.AIR) {
+                ret = new IntVector2D(unit.position.getX(), unit.position.getY());
+                break;
+            }
+        }
+
+        compareHp(units);
+
+        if (ret == null) {
+            ret = new IntVector2D(units.get(0).position.getX(), units.get(0).position.getY());
+        }
+
+        return ret;
+    }
+
+    private ArrayList<IntVector2D> getDistance2Vectors() {
+        final int maxVectorsNum = 8;
+        final int currentPositionX = this.position.getX();
+        final int currentPositionY = this.position.getY();
+
+        IntVector2D vector0 = new IntVector2D(currentPositionX, currentPositionY - 2);
+        IntVector2D vector1 = new IntVector2D(currentPositionX + 1, currentPositionY - 1);
+        IntVector2D vector2 = new IntVector2D(currentPositionX + 2, currentPositionY);
+        IntVector2D vector3 = new IntVector2D(currentPositionX + 1, currentPositionY + 1);
+        IntVector2D vector4 = new IntVector2D(currentPositionX, currentPositionY + 2);
+        IntVector2D vector5 = new IntVector2D(currentPositionX - 1, currentPositionY + 1);
+        IntVector2D vector6 = new IntVector2D(currentPositionX - 2, currentPositionY);
+        IntVector2D vector7 = new IntVector2D(currentPositionX - 1, currentPositionY - 1);
+
+        ArrayList<IntVector2D> vectors = new ArrayList<>(maxVectorsNum);
+        vectors.add(vector0);
+        vectors.add(vector1);
+        vectors.add(vector2);
+        vectors.add(vector3);
+        vectors.add(vector4);
+        vectors.add(vector5);
+        vectors.add(vector6);
+        vectors.add(vector7);
+
+        return vectors;
+    }
+
+    private ArrayList<IntVector2D> getDistance3Vectors() {
+        final int maxVectorsNum = 12;
+        final int currentPositionX = this.position.getX();
+        final int currentPositionY = this.position.getY();
+
+        IntVector2D vector0 = new IntVector2D(currentPositionX, currentPositionY - 3);
+        IntVector2D vector1 = new IntVector2D(currentPositionX + 1, currentPositionY - 2);
+        IntVector2D vector2 = new IntVector2D(currentPositionX + 2, currentPositionY - 1);
+        IntVector2D vector3 = new IntVector2D(currentPositionX + 3, currentPositionY);
+        IntVector2D vector4 = new IntVector2D(currentPositionX + 2, currentPositionY + 1);
+        IntVector2D vector5 = new IntVector2D(currentPositionX + 1, currentPositionY + 2);
+        IntVector2D vector6 = new IntVector2D(currentPositionX, currentPositionY + 3);
+        IntVector2D vector7 = new IntVector2D(currentPositionX - 1, currentPositionY + 2);
+        IntVector2D vector8 = new IntVector2D(currentPositionX - 2, currentPositionY + 1);
+        IntVector2D vector9 = new IntVector2D(currentPositionX - 3, currentPositionY);
+        IntVector2D vector10 = new IntVector2D(currentPositionX - 2, currentPositionY - 1);
+        IntVector2D vector11 = new IntVector2D(currentPositionX - 1, currentPositionY - 2);
+
+
+        ArrayList<IntVector2D> vectors = new ArrayList<>(maxVectorsNum);
+        vectors.add(vector0);
+        vectors.add(vector1);
+        vectors.add(vector2);
+        vectors.add(vector3);
+        vectors.add(vector4);
+        vectors.add(vector5);
+        vectors.add(vector6);
+        vectors.add(vector7);
+        vectors.add(vector8);
+        vectors.add(vector9);
+        vectors.add(vector10);
+        vectors.add(vector11);
+
+        return vectors;
+    }
+
+    private ArrayList<IntVector2D> getDistance4Vectors() {
+        final int maxVectorsNum = 12;
+        final int currentPositionX = this.position.getX();
+        final int currentPositionY = this.position.getY();
+
+        IntVector2D vector0 = new IntVector2D(currentPositionX + 1, currentPositionY - 3);
+        IntVector2D vector1 = new IntVector2D(currentPositionX + 2, currentPositionY - 2);
+        IntVector2D vector2 = new IntVector2D(currentPositionX + 3, currentPositionY - 1);
+        IntVector2D vector3 = new IntVector2D(currentPositionX + 3, currentPositionY + 1);
+        IntVector2D vector4 = new IntVector2D(currentPositionX + 2, currentPositionY + 2);
+        IntVector2D vector5 = new IntVector2D(currentPositionX + 1, currentPositionY + 3);
+        IntVector2D vector6 = new IntVector2D(currentPositionX - 1, currentPositionY + 3);
+        IntVector2D vector7 = new IntVector2D(currentPositionX - 2, currentPositionY + 2);
+        IntVector2D vector8 = new IntVector2D(currentPositionX - 3, currentPositionY + 1);
+        IntVector2D vector9 = new IntVector2D(currentPositionX - 3, currentPositionY - 1);
+        IntVector2D vector10 = new IntVector2D(currentPositionX - 2, currentPositionY - 2);
+        IntVector2D vector11 = new IntVector2D(currentPositionX - 1, currentPositionY - 3);
+
+        ArrayList<IntVector2D> vectors = new ArrayList<>(maxVectorsNum);
+        vectors.add(vector0);
+        vectors.add(vector1);
+        vectors.add(vector2);
+        vectors.add(vector3);
+        vectors.add(vector4);
+        vectors.add(vector5);
+        vectors.add(vector6);
+        vectors.add(vector7);
+        vectors.add(vector8);
+        vectors.add(vector9);
+        vectors.add(vector10);
+        vectors.add(vector11);
+
+        return vectors;
+    }
+
+    private ArrayList<IntVector2D> getDistance5Vectors() {
+        final int maxVectorsNum = 8;
+        final int currentPositionX = this.position.getX();
+        final int currentPositionY = this.position.getY();
+
+        IntVector2D vector0 = new IntVector2D(currentPositionX + 2, currentPositionY - 3);
+        IntVector2D vector1 = new IntVector2D(currentPositionX + 3, currentPositionY - 2);
+        IntVector2D vector2 = new IntVector2D(currentPositionX + 3, currentPositionY + 2);
+        IntVector2D vector3 = new IntVector2D(currentPositionX + 2, currentPositionY + 3);
+        IntVector2D vector4 = new IntVector2D(currentPositionX - 2, currentPositionY + 3);
+        IntVector2D vector5 = new IntVector2D(currentPositionX - 3, currentPositionY + 2);
+        IntVector2D vector6 = new IntVector2D(currentPositionX - 3, currentPositionY - 2);
+        IntVector2D vector7 = new IntVector2D(currentPositionX - 2, currentPositionY - 3);
+
+        ArrayList<IntVector2D> vectors = new ArrayList<>(maxVectorsNum);
+        vectors.add(vector0);
+        vectors.add(vector1);
+        vectors.add(vector2);
+        vectors.add(vector3);
+        vectors.add(vector4);
+        vectors.add(vector5);
+        vectors.add(vector6);
+        vectors.add(vector7);
+
+        return vectors;
+    }
+
+    private ArrayList<IntVector2D> getDistance6Vectors() {
+        final int maxVectorsNum = 4;
+        final int currentPositionX = this.position.getX();
+        final int currentPositionY = this.position.getY();
+
+        IntVector2D vector0 = new IntVector2D(currentPositionX + 3, currentPositionY - 3);
+        IntVector2D vector1 = new IntVector2D(currentPositionX + 3, currentPositionY + 3);
+        IntVector2D vector2 = new IntVector2D(currentPositionX - 3, currentPositionY + 3);
+        IntVector2D vector3 = new IntVector2D(currentPositionX - 3, currentPositionY - 3);
+
+        ArrayList<IntVector2D> vectors = new ArrayList<>(maxVectorsNum);
+        vectors.add(vector0);
+        vectors.add(vector1);
+        vectors.add(vector2);
+        vectors.add(vector3);
+
+        return vectors;
     }
 }
