@@ -256,7 +256,7 @@ public class Program {
         Unit u12 = new Tank(new IntVector2D(3, 3));
         Unit u13 = new Mine(new IntVector2D(6, 2), 3);
         Unit u14 = new SmartMine(new IntVector2D(7, 3), 1, 2);
-        Unit u15 = new Mine(new IntVector2D(5, 3), 3);
+        Unit u15 = new Destroyer(new IntVector2D(15, 7));
 
         ArrayList<Unit> units = new ArrayList<>();
         units.add(u0);
@@ -276,7 +276,7 @@ public class Program {
         units.add(u14);
         units.add(u15);
 
-        startSimulation(units, 1);
+        startSimulation(units, 3);
     }
 
     /*

@@ -78,14 +78,6 @@ public final class SimulationManager {
         this.subscriber.remove(listener);
     }
 
-    public void registerDestroyer(Unit unit) {
-        this.destroyers.add(unit);
-    }
-
-    public ArrayList<Unit> getDestroyers() {
-        return this.destroyers;
-    }
-
     public void update() {
         for (IThinkable unit : this.thinkable) {
             unit.think(checkVisibleEnemy((Unit) unit));
