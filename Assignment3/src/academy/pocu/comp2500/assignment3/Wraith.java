@@ -285,14 +285,14 @@ public class Wraith extends Unit implements IThinkable, IMovable {
 
         assert units.size() > 0;
 
-        compareHp(units);
-
         for (Unit unit : units) {
             if (unit.unitType == UnitType.AIR) {
                 ret = new IntVector2D(unit.position.getX(), unit.position.getY());
                 break;
             }
         }
+
+        compareHp(units);
 
         if (ret == null) {
             ret = new IntVector2D(units.get(0).position.getX(), units.get(0).position.getY());
