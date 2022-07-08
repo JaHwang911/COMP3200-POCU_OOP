@@ -16,4 +16,12 @@ public class Schedule {
     public int getTickWhile() {
         return this.tickWhile;
     }
+
+    public int getOffTickCount() {
+        if (this.tick == 0) {
+            return this.tick + this.tickWhile + 1;
+        }
+
+        return this.tick + this.tickWhile;
+    }
 }

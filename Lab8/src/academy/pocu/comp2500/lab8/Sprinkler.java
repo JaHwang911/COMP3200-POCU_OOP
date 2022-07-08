@@ -26,30 +26,33 @@ public class Sprinkler extends SmartDevice implements ISprayable {
     public void onTick() {
         ++super.tickCount;
 
-        if (this.scheduleInProgress != null) {
-            if (getTicksSinceLastUpdate() == this.scheduleInProgress.getTickWhile()) {
-                super.isOn = false;
-                this.schedules.remove(this.scheduleInProgress);
-                this.scheduleInProgress = null;
-                super.tickLastUpdate = super.tickCount;
-
-                return;
-            }
-
-            spray();
+        if (this.scheduleInProgress == null && this.schedules.size() > 0) {
+            this.scheduleInProgress = this.schedules.get(0);
+        } else if (this.schedules.size() == 0) {
             return;
         }
 
-        for (Schedule schedule : this.schedules) {
-            if (super.tickCount == schedule.getOnTickCount() ||
-                    super.tickCount == 1 && schedule.getOnTickCount() == 0) {
-                super.isOn = true;
+        if (super.tickCount == this.scheduleInProgress.getOffTickCount()) {
+            if (super.isOn) {
+                super.isOn = false;
                 super.tickLastUpdate = super.tickCount;
-                this.scheduleInProgress = schedule;
-                spray();
-
-                break;
             }
+
+            this.schedules.remove(this.scheduleInProgress);
+            this.scheduleInProgress = null;
+            this.schedules.removeIf(schedule -> (schedule.getOffTickCount() <= super.tickCount));
+
+            return;
+        }
+
+        if (super.tickCount == scheduleInProgress.getOnTickCount() ||
+                super.tickCount == 1 && scheduleInProgress.getOnTickCount() == 0) {
+            super.isOn = true;
+            super.tickLastUpdate = super.tickCount;
+        }
+
+        if (super.isOn) {
+            spray();
         }
     }
 
