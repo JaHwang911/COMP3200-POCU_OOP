@@ -233,7 +233,7 @@ public class Marine extends Unit implements IMovable, IThinkable {
     }
 
     private ArrayList<IntVector2D> getDistance2Vectors() {
-        final int maxVectorsNum = 8;
+        final int MAX_VECTORS_NUM = 8;
         final int currentPositionX = this.position.getX();
         final int currentPositionY = this.position.getY();
 
@@ -246,7 +246,7 @@ public class Marine extends Unit implements IMovable, IThinkable {
         IntVector2D vector6 = new IntVector2D(currentPositionX - 2, currentPositionY);
         IntVector2D vector7 = new IntVector2D(currentPositionX - 1, currentPositionY - 1);
 
-        ArrayList<IntVector2D> vectors = new ArrayList<>(maxVectorsNum);
+        ArrayList<IntVector2D> vectors = new ArrayList<>(MAX_VECTORS_NUM);
         vectors.add(vector0);
         vectors.add(vector1);
         vectors.add(vector2);
@@ -260,7 +260,7 @@ public class Marine extends Unit implements IMovable, IThinkable {
     }
 
     private ArrayList<IntVector2D> getDistance3Vectors() {
-        final int maxVectorsNum = 8;
+        final int MAX_VECTORS_NUM = 8;
         final int currentPositionX = this.position.getX();
         final int currentPositionY = this.position.getY();
 
@@ -273,7 +273,7 @@ public class Marine extends Unit implements IMovable, IThinkable {
         IntVector2D vector6 = new IntVector2D(currentPositionX - 2, currentPositionY - 1);
         IntVector2D vector7 = new IntVector2D(currentPositionX - 1, currentPositionY - 2);
 
-        ArrayList<IntVector2D> vectors = new ArrayList<>(maxVectorsNum);
+        ArrayList<IntVector2D> vectors = new ArrayList<>(MAX_VECTORS_NUM);
         vectors.add(vector0);
         vectors.add(vector1);
         vectors.add(vector2);
@@ -287,7 +287,7 @@ public class Marine extends Unit implements IMovable, IThinkable {
     }
 
     private ArrayList<IntVector2D> getDistance4Vectors() {
-        final int maxVectorsNum = 4;
+        final int MAX_VECTORS_NUM = 4;
         final int currentPositionX = this.position.getX();
         final int currentPositionY = this.position.getY();
 
@@ -296,7 +296,7 @@ public class Marine extends Unit implements IMovable, IThinkable {
         IntVector2D vector2 = new IntVector2D(currentPositionX - 2, currentPositionY + 2);
         IntVector2D vector3 = new IntVector2D(currentPositionX - 2, currentPositionY - 2);
 
-        ArrayList<IntVector2D> vectors = new ArrayList<>(maxVectorsNum);
+        ArrayList<IntVector2D> vectors = new ArrayList<>(MAX_VECTORS_NUM);
         vectors.add(vector0);
         vectors.add(vector1);
         vectors.add(vector2);

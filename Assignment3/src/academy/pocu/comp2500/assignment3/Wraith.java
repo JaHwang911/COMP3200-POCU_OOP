@@ -354,7 +354,7 @@ public class Wraith extends Unit implements IThinkable, IMovable {
     }
 
     private ArrayList<IntVector2D> getDistance2Vectors() {
-        final int maxVectorsNum = 8;
+        final int MAX_VECTORS_NUM = 8;
         final int currentPositionX = this.position.getX();
         final int currentPositionY = this.position.getY();
 
@@ -367,7 +367,7 @@ public class Wraith extends Unit implements IThinkable, IMovable {
         IntVector2D vector6 = new IntVector2D(currentPositionX - 2, currentPositionY);
         IntVector2D vector7 = new IntVector2D(currentPositionX - 1, currentPositionY - 1);
 
-        ArrayList<IntVector2D> vectors = new ArrayList<>(maxVectorsNum);
+        ArrayList<IntVector2D> vectors = new ArrayList<>(MAX_VECTORS_NUM);
         vectors.add(vector0);
         vectors.add(vector1);
         vectors.add(vector2);
@@ -381,7 +381,7 @@ public class Wraith extends Unit implements IThinkable, IMovable {
     }
 
     private ArrayList<IntVector2D> getDistance3Vectors() {
-        final int maxVectorsNum = 12;
+        final int MAX_VECTORS_NUM = 12;
         final int currentPositionX = this.position.getX();
         final int currentPositionY = this.position.getY();
 
@@ -399,7 +399,7 @@ public class Wraith extends Unit implements IThinkable, IMovable {
         IntVector2D vector11 = new IntVector2D(currentPositionX - 1, currentPositionY - 2);
 
 
-        ArrayList<IntVector2D> vectors = new ArrayList<>(maxVectorsNum);
+        ArrayList<IntVector2D> vectors = new ArrayList<>(MAX_VECTORS_NUM);
         vectors.add(vector0);
         vectors.add(vector1);
         vectors.add(vector2);
@@ -417,7 +417,7 @@ public class Wraith extends Unit implements IThinkable, IMovable {
     }
 
     private ArrayList<IntVector2D> getDistance4Vectors() {
-        final int maxVectorsNum = 12;
+        final int MAX_VECTORS_NUM = 12;
         final int currentPositionX = this.position.getX();
         final int currentPositionY = this.position.getY();
 
@@ -434,7 +434,7 @@ public class Wraith extends Unit implements IThinkable, IMovable {
         IntVector2D vector10 = new IntVector2D(currentPositionX - 2, currentPositionY - 2);
         IntVector2D vector11 = new IntVector2D(currentPositionX - 1, currentPositionY - 3);
 
-        ArrayList<IntVector2D> vectors = new ArrayList<>(maxVectorsNum);
+        ArrayList<IntVector2D> vectors = new ArrayList<>(MAX_VECTORS_NUM);
         vectors.add(vector0);
         vectors.add(vector1);
         vectors.add(vector2);
@@ -452,7 +452,7 @@ public class Wraith extends Unit implements IThinkable, IMovable {
     }
 
     private ArrayList<IntVector2D> getDistance5Vectors() {
-        final int maxVectorsNum = 8;
+        final int MAX_VECTORS_NUM = 8;
         final int currentPositionX = this.position.getX();
         final int currentPositionY = this.position.getY();
 
@@ -465,7 +465,7 @@ public class Wraith extends Unit implements IThinkable, IMovable {
         IntVector2D vector6 = new IntVector2D(currentPositionX - 3, currentPositionY - 2);
         IntVector2D vector7 = new IntVector2D(currentPositionX - 2, currentPositionY - 3);
 
-        ArrayList<IntVector2D> vectors = new ArrayList<>(maxVectorsNum);
+        ArrayList<IntVector2D> vectors = new ArrayList<>(MAX_VECTORS_NUM);
         vectors.add(vector0);
         vectors.add(vector1);
         vectors.add(vector2);
@@ -479,7 +479,7 @@ public class Wraith extends Unit implements IThinkable, IMovable {
     }
 
     private ArrayList<IntVector2D> getDistance6Vectors() {
-        final int maxVectorsNum = 4;
+        final int MAX_VECTORS_NUM = 4;
         final int currentPositionX = this.position.getX();
         final int currentPositionY = this.position.getY();
 
@@ -488,7 +488,7 @@ public class Wraith extends Unit implements IThinkable, IMovable {
         IntVector2D vector2 = new IntVector2D(currentPositionX - 3, currentPositionY + 3);
         IntVector2D vector3 = new IntVector2D(currentPositionX - 3, currentPositionY - 3);
 
-        ArrayList<IntVector2D> vectors = new ArrayList<>(maxVectorsNum);
+        ArrayList<IntVector2D> vectors = new ArrayList<>(MAX_VECTORS_NUM);
         vectors.add(vector0);
         vectors.add(vector1);
         vectors.add(vector2);
