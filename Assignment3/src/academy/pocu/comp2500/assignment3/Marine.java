@@ -161,7 +161,7 @@ public class Marine extends Unit implements IMovable, IThinkable {
             }
 
             if (i == targets.size() - 1 && tmpTarget.position.isSamePosition(targetPosition)) {
-                this.attackPosition = new IntVector2D(targetPosition.getX(), targetPosition.getY());
+                this.movePosition = new IntVector2D(targetPosition.getX(), targetPosition.getY());
                 return;
             }
         }

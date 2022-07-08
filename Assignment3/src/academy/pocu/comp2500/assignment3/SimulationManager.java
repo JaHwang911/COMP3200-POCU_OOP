@@ -49,6 +49,7 @@ public final class SimulationManager {
         }
 
         unit.onSpawn();
+        unit.setNumber(this.units.size());
         this.units.add(unit);
         this.unitPositions.get(unit.getPosition().getY()).get(unit.getPosition().getX()).add(unit);
     }

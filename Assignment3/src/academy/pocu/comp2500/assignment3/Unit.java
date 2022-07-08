@@ -11,6 +11,7 @@ public abstract class Unit {
     protected final byte vision;
     protected final byte aoe;
     protected final AttackableTarget attackableTargetType;
+    protected int number;
 
     public Unit(final IntVector2D position, final char symbol, final UnitType unitType, final byte vision, final byte aoe, final int ap, final int hp, final AttackableTarget attackableTarget) {
         this.position = position;
@@ -23,13 +24,16 @@ public abstract class Unit {
         this.attackableTargetType = attackableTarget;
     }
 
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
     public void printAttackedInfo(int damage, Unit attackerInfo) {
-        var tmp = SimulationManager.getInstance().getUnits();
-        int attackerNum = tmp.indexOf(attackerInfo);
-        int myNum = tmp.indexOf(this);
-        System.out.printf("%d", attackerNum);
+        int attackerNum = attackerInfo.number;
+        int myNum = this.number;
+        System.out.printf("%X:", attackerNum);
         System.out.printf("%c(%d, %d) -> ", attackerInfo.getSymbol(), attackerInfo.getPosition().getX(), attackerInfo.getPosition().getY());
-        System.out.printf("%d", myNum);
+        System.out.printf("%X:", myNum);
         System.out.printf("%c(%d, %d): ", this.symbol, this.position.getX(), this.position.getY());
         System.out.printf("%d%s", damage, System.lineSeparator());
     }

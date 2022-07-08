@@ -198,7 +198,7 @@ public class Wraith extends Unit implements IThinkable, IMovable {
             }
 
             if (i == targets.size() - 1 && tmpTarget.position.isSamePosition(targetPosition)) {
-                this.attackPosition = new IntVector2D(targetPosition.getX(), targetPosition.getY());
+                this.movePosition = new IntVector2D(targetPosition.getX(), targetPosition.getY());
                 return;
             }
         }
@@ -254,7 +254,7 @@ public class Wraith extends Unit implements IThinkable, IMovable {
         y = currentPositionY + 1;
 
         for (; y <= currentPositionY + distance; ++y) {
-            var tmp = SimulationManager.getInstance().getPositionUnitOrNull(this, x++, y);
+            var tmp = SimulationManager.getInstance().getPositionUnitOrNull(this, x--, y);
 
             if (tmp != null && tmp.size() > 0) {
                 units.addAll(tmp);
@@ -265,7 +265,7 @@ public class Wraith extends Unit implements IThinkable, IMovable {
         y = currentPositionY + distance - 1;
 
         for (; y >= currentPositionY; --y) {
-            var tmp = SimulationManager.getInstance().getPositionUnitOrNull(this, x++, y);
+            var tmp = SimulationManager.getInstance().getPositionUnitOrNull(this, x--, y);
 
             if (tmp != null && tmp.size() > 0) {
                 units.addAll(tmp);
