@@ -22,7 +22,7 @@ public class Program {
 //        testOfficial2();
 //        testOfficial3();
 //        testOfficial4();
-//        testOfficial5();
+        testOfficial5();
 //        testMarine();
 //        testTank();
 //        testDestroyer();
@@ -32,7 +32,7 @@ public class Program {
 //        testWraithAttackAir();
 //        testManyMine();
 //        testTankAttackAir();
-        testMarineDiceFiveTurret();
+//        testMarineDiceFiveTurret();
 
         Registry registry = new Registry();
         App app = new App(registry);
@@ -194,70 +194,25 @@ public class Program {
         SimulationManager.clear();
         SimulationManager simulationManager = SimulationManager.getInstance();
 
-        Unit u0 = new Marine(new IntVector2D(0, 2));
-        Unit u1 = new Marine(new IntVector2D(2, 7));
-        Unit u2 = new Wraith(new IntVector2D(7, 4));
-        Unit u3 = new Tank(new IntVector2D(10, 5));
+        Unit u0 = new Turret(new IntVector2D(7, 4));
+        Unit u1 = new Wraith(new IntVector2D(9, 2));
+        Unit u2 = new Marine(new IntVector2D(2, 1));
+        Unit u3 = new Wraith(new IntVector2D(2, 7));
 
-        Unit u4 = new Marine(new IntVector2D(2, 6));
-        Unit u5 = new Tank(new IntVector2D(12, 4));
-        Unit u6 = new Wraith(new IntVector2D(5, 5));
-        Unit u7 = new Wraith(new IntVector2D(4, 1));
+        Unit u4 = new Turret(new IntVector2D(11, 6));
+        Unit u5 = new Wraith(new IntVector2D(2, 1));
+        Unit u6 = new Wraith(new IntVector2D(9, 5));
+        Unit u7 = new Tank(new IntVector2D(1, 0));
 
-        Unit u8 = new Marine(new IntVector2D(5, 2));
-        Unit u9 = new Wraith(new IntVector2D(12, 7));
-        Unit u10 = new Mine(new IntVector2D(13, 3), 2);
-        Unit u11 = new Turret(new IntVector2D(2, 7));
+        Unit u8 = new Wraith(new IntVector2D(8, 3));
+        Unit u9 = new Turret(new IntVector2D(2, 0));
+        Unit u10 = new Tank(new IntVector2D(14, 2));
+        Unit u11 = new SmartMine(new IntVector2D(9, 0), 2, 3);
 
-        Unit u12 = new Mine(new IntVector2D(14, 5), 3);
-        Unit u13 = new Turret(new IntVector2D(9, 1));
-        Unit u14 = new SmartMine(new IntVector2D(5, 5), 2, 2);
-        Unit u15 = new SmartMine(new IntVector2D(12, 0), 4, 3);
-
-        ArrayList<Unit> units = new ArrayList<>();
-        units.add(u0);
-        units.add(u1);
-        units.add(u2);
-        units.add(u3);
-        units.add(u4);
-        units.add(u5);
-        units.add(u6);
-        units.add(u7);
-        units.add(u8);
-        units.add(u9);
-        units.add(u10);
-        units.add(u11);
-        units.add(u12);
-        units.add(u13);
-        units.add(u14);
-        units.add(u15);
-
-        startSimulation(units, 2);
-    }
-
-    private static void testOfficial5() {
-        SimulationManager.clear();
-        SimulationManager simulationManager = SimulationManager.getInstance();
-
-        Unit u0 = new Wraith(new IntVector2D(5, 2));
-        Unit u1 = new Mine(new IntVector2D(7, 1), 4);
-        Unit u2 = new Wraith(new IntVector2D(5, 1));
-        Unit u3 = new Mine(new IntVector2D(1, 1), 1);
-
-        Unit u4 = new Marine(new IntVector2D(1, 3));
-        Unit u5 = new SmartMine(new IntVector2D(5, 1), 4, 1);
-        Unit u6 = new Marine(new IntVector2D(0, 2));
-        Unit u7 = new Wraith(new IntVector2D(2,0));
-
-        Unit u8 = new Wraith(new IntVector2D(6, 0));
-        Unit u9 = new Turret(new IntVector2D(5, 0));
-        Unit u10 = new SmartMine(new IntVector2D(0, 1), 1, 2);
-        Unit u11 = new Mine(new IntVector2D(6, 1), 3);
-
-        Unit u12 = new Tank(new IntVector2D(3, 3));
-        Unit u13 = new Mine(new IntVector2D(6, 2), 3);
-        Unit u14 = new SmartMine(new IntVector2D(7, 3), 1, 2);
-        Unit u15 = new Destroyer(new IntVector2D(15, 7));
+        Unit u12 = new Mine(new IntVector2D(1, 6), 4);
+        Unit u13 = new Wraith(new IntVector2D(0, 5));
+        Unit u14 = new Wraith(new IntVector2D(5, 6));
+        Unit u15 = new Wraith(new IntVector2D(9, 7));
 
         ArrayList<Unit> units = new ArrayList<>();
         units.add(u0);
@@ -278,6 +233,51 @@ public class Program {
         units.add(u15);
 
         startSimulation(units, 3);
+    }
+
+    private static void testOfficial5() {
+        SimulationManager.clear();
+        SimulationManager simulationManager = SimulationManager.getInstance();
+
+        Unit u0 = new Wraith(new IntVector2D(5, 2));
+        Unit u1 = new Mine(new IntVector2D(7, 1), 4);
+        Unit u2 = new Wraith(new IntVector2D(5, 1));
+        Unit u3 = new Mine(new IntVector2D(1, 1), 1);
+
+        Unit u4 = new Marine(new IntVector2D(1, 3));
+        Unit u5 = new SmartMine(new IntVector2D(5, 1), 4, 1);
+        Unit u6 = new Marine(new IntVector2D(0, 2));
+        Unit u7 = new Wraith(new IntVector2D(2, 0));
+
+        Unit u8 = new Wraith(new IntVector2D(6, 0));
+        Unit u9 = new Turret(new IntVector2D(5, 0));
+        Unit u10 = new SmartMine(new IntVector2D(0, 1), 1, 2);
+        Unit u11 = new Mine(new IntVector2D(6, 1), 3);
+
+        Unit u12 = new Tank(new IntVector2D(3, 3));
+        Unit u13 = new Mine(new IntVector2D(6, 2), 3);
+        Unit u14 = new SmartMine(new IntVector2D(7, 3), 1, 2);
+        Unit u15 = new Mine(new IntVector2D(5, 3), 3);
+
+        ArrayList<Unit> units = new ArrayList<>();
+        units.add(u0);
+        units.add(u1);
+        units.add(u2);
+        units.add(u3);
+        units.add(u4);
+        units.add(u5);
+        units.add(u6);
+        units.add(u7);
+        units.add(u8);
+        units.add(u9);
+        units.add(u10);
+        units.add(u11);
+        units.add(u12);
+        units.add(u13);
+        units.add(u14);
+        units.add(u15);
+
+        startSimulation(units, 1);
     }
 
     private static void testMarineDiceFiveTurret() {
