@@ -3,7 +3,7 @@ package academy.pocu.comp2500.lab8;
 import java.util.ArrayList;
 
 public class Sprinkler extends SmartDevice implements ISprayable {
-    private static final int WATER_PER_TICK = 15;
+    private static final int WATER_AMOUNT_PER_TICK = 15;
 
     private final ArrayList<Schedule> schedules;
     private Schedule scheduleInProgress;
@@ -43,12 +43,10 @@ public class Sprinkler extends SmartDevice implements ISprayable {
             this.schedules.remove(this.scheduleInProgress);
             this.scheduleInProgress = null;
             this.schedules.removeIf(schedule -> (schedule.getOffTickCount() <= super.tickCount));
-
             return;
         }
 
-        if (super.tickCount == scheduleInProgress.getOnTickCount() ||
-                super.tickCount == 1 && scheduleInProgress.getOnTickCount() == 0) {
+        if (super.tickCount == scheduleInProgress.getOnTickCount()) {
             super.isOn = true;
             super.tickLastUpdate = super.tickCount;
         }
@@ -58,7 +56,7 @@ public class Sprinkler extends SmartDevice implements ISprayable {
         onTick();
 
         if (this.isOn) {
-            planter.addWater(WATER_PER_TICK);
+            planter.addWater(WATER_AMOUNT_PER_TICK);
         }
     }
 }

@@ -18,12 +18,6 @@ public class Drainer extends SmartDevice implements IDrainable, IWaterDetectable
         planter.installDrainable(this);
     }
 
-    public void drain(Planter planter) {
-        if (super.isOn) {
-            planter.subWater(DRAINING_PER_TICK);
-        }
-    }
-
     public void detect(final int waterLevel) {
         onTick();
 
@@ -35,6 +29,12 @@ public class Drainer extends SmartDevice implements IDrainable, IWaterDetectable
         } else if (super.isOn) {
             super.isOn = false;
             super.tickLastUpdate = super.tickCount;
+        }
+    }
+
+    public void drain(Planter planter) {
+        if (super.isOn) {
+            planter.subWater(DRAINING_PER_TICK);
         }
     }
 }
