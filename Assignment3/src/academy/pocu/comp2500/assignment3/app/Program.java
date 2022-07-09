@@ -42,8 +42,8 @@ public class Program {
     }
 
     private static void testOfficial0() {
-        SimulationManager.clear();
         SimulationManager simulationManager = SimulationManager.getInstance();
+        simulationManager.clear();
 
         Unit u0 = new Mine(new IntVector2D(12, 1), 2);
         Unit u1 = new Marine(new IntVector2D(0, 5));
@@ -65,8 +65,8 @@ public class Program {
     }
 
     private static void testOfficial1() {
-        SimulationManager.clear();
         SimulationManager simulationManager = SimulationManager.getInstance();
+        simulationManager.clear();
 
         Unit u0 = new Tank(new IntVector2D(0, 2));
         Unit u1 = new Tank(new IntVector2D(0, 6));
@@ -107,8 +107,8 @@ public class Program {
     }
 
     private static void testOfficial2() {
-        SimulationManager.clear();
         SimulationManager simulationManager = SimulationManager.getInstance();
+        simulationManager.clear();
 
         Unit u0 = new Turret(new IntVector2D(6, 0));
         Unit u1 = new Wraith(new IntVector2D(5, 2));
@@ -149,8 +149,8 @@ public class Program {
     }
 
     private static void testOfficial3() {
-        SimulationManager.clear();
         SimulationManager simulationManager = SimulationManager.getInstance();
+        simulationManager.clear();
 
         Unit u0 = new Wraith(new IntVector2D(8, 7));
         Unit u1 = new Wraith(new IntVector2D(2, 7));
@@ -191,8 +191,8 @@ public class Program {
     }
 
     private static void testOfficial4() {
-        SimulationManager.clear();
         SimulationManager simulationManager = SimulationManager.getInstance();
+        simulationManager.clear();
 
         Unit u0 = new Turret(new IntVector2D(7, 4));
         Unit u1 = new Wraith(new IntVector2D(9, 2));
@@ -236,8 +236,8 @@ public class Program {
     }
 
     private static void testOfficial5() {
-        SimulationManager.clear();
         SimulationManager simulationManager = SimulationManager.getInstance();
+        simulationManager.clear();
 
         Unit u0 = new Wraith(new IntVector2D(5, 2));
         Unit u1 = new Mine(new IntVector2D(7, 1), 4);
@@ -281,9 +281,8 @@ public class Program {
     }
 
     private static void testMarineDiceFiveTurret() {
-        clearConsole();
-        SimulationManager.clear();
         SimulationManager simulationManager = SimulationManager.getInstance();
+        simulationManager.clear();
         Unit u0 = new Marine(new IntVector2D(7, 4));
         Unit u1 = new Turret(new IntVector2D(5, 2));
         Unit u2 = new Turret(new IntVector2D(9, 2));
