@@ -15,5 +15,5 @@ public abstract class SmartDevice {
         return this.tickCount - this.tickLastUpdate;
     }
 
-    public abstract void installedPlanter(Planter planter);
+    public abstract void register(Planter planter);
 }

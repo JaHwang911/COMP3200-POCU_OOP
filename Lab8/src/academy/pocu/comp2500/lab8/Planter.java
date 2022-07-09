@@ -28,7 +28,7 @@ public class Planter {
     }
 
     public void installSmartDevice(SmartDevice smartDevice) {
-        smartDevice.installedPlanter(this);
+        smartDevice.register(this);
     }
 
     public void installSprayable(ISprayable device) {

@@ -13,7 +13,7 @@ public class Drainer extends SmartDevice implements IDrainable, IWaterDetectable
         ++super.tickCount;
     }
 
-    public void installedPlanter(Planter planter) {
+    public void register(Planter planter) {
         planter.installDetectable(this);
         planter.installDrainable(this);
     }

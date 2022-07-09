@@ -21,7 +21,7 @@ public class Sprinkler extends SmartDevice implements ISprayable {
     }
 
     @Override
-    public void installedPlanter(Planter planter) {
+    public void register(Planter planter) {
         planter.installSprayable(this);
     }
 
