@@ -171,7 +171,7 @@ public final class SimulationManager {
         }
     }
 
-    public ArrayList<Unit> getPositionUnitOrNull(Unit unitOrNull, int x, int y) {
+    public ArrayList<Unit> getPositionUnitOrNull(Unit unit, int x, int y) {
         if (x >= NUM_COLUMNS || y >= NUM_ROWS || x < 0 || y < 0) {
             return null;
         }
@@ -179,16 +179,15 @@ public final class SimulationManager {
         ArrayList<Unit> ret = new ArrayList<>();
 
         for (Unit enemy : this.unitPositions.get(y).get(x)) {
-            if (!this.subscriber.contains(unitOrNull) &&
-                    this.subscriber.contains(enemy) &&
-                    unitOrNull != null) {
+            if (!this.subscriber.contains(unit) &&
+                    this.subscriber.contains(enemy)) {
                 continue;
             }
 
             ret.add(enemy);
         }
 
-        ret.remove(unitOrNull);
+        ret.remove(unit);
 
         return ret;
     }
