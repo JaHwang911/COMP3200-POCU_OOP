@@ -107,7 +107,7 @@ public final class SimulationManager {
             ArrayList<Unit> targets = new ArrayList<>();
             ArrayList<Unit> aoeTargets = null;
 
-            targets.addAll(getPositionUnitOrNull(null, attackPosition.getX(), attackPosition.getY()));
+            targets.addAll(getPositionUnitOrNull(attackPosition.getX(), attackPosition.getY()));
             targets.remove(unit);
 
             int damage = attackIntent.getDamage();
@@ -122,7 +122,7 @@ public final class SimulationManager {
 
                 for (int i = startAoeRangeY; i <= endAoeRangeY; ++i) {
                     for (int j = startAoeRangeX; j <= endAoeRangeX; ++j) {
-                        aoeTargets.addAll(getPositionUnitOrNull(null, j, i));
+                        aoeTargets.addAll(getPositionUnitOrNull(j, i));
                     }
                 }
 
@@ -251,6 +251,18 @@ public final class SimulationManager {
         }
 
         ret.removeIf(u -> (u.getUnitType() != visibleType));
+
+        return ret;
+    }
+
+    private ArrayList<Unit> getPositionUnitOrNull(int x, int y) {
+        if (x >= NUM_COLUMNS || y >= NUM_ROWS || x < 0 || y < 0) {
+            return null;
+        }
+
+        ArrayList<Unit> ret = new ArrayList<>();
+
+        ret.addAll(this.unitPositions.get(y).get(y));
 
         return ret;
     }
