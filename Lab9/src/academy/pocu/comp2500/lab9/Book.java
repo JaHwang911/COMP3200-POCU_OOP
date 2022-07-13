@@ -1,4 +1,4 @@
-package academy.pocu.comp2500;
+package academy.pocu.comp2500.lab9;
 
 import java.util.UUID;
 
@@ -29,10 +29,5 @@ public final class Book {
 
     public UUID getSku() {
         return this.sku;
-    }
-
-    @Override
-    public int hashCode() {
-        return this.sku.toString().hashCode();
     }
 }

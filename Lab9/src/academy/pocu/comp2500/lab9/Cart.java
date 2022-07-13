@@ -1,10 +1,9 @@
-package academy.pocu.comp2500;
+package academy.pocu.comp2500.lab9;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 public final class Cart {
-    private ArrayList<Book> books = new ArrayList<>();
+    private final ArrayList<Book> books = new ArrayList<>();
 
     public Book getBookOrNull(Book book) {
         int index = this.books.indexOf(book);
@@ -42,7 +41,7 @@ public final class Cart {
         return sum;
     }
 
-    public int getTotalPrice(BuyOneGetOneFree pricingModel) {
-        return 0;
+    public int getTotalPrice(IPricingModel pricingModel) {
+        return pricingModel.getTotalPrice(this.books);
     }
 }
