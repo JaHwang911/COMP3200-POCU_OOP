@@ -14,6 +14,7 @@ public class Program {
         testSkyIsTheLimit();
         testSimplePricing();
         test5();
+        test();
 
         System.out.println("No prob: lab 9");
     }
@@ -145,10 +146,10 @@ public class Program {
         assert (pricingModel.getTotalPrice(books)) == 81;
 
         pricingModel = new SkyIsTheLimit(40);
-        assert (pricingModel.getTotalPrice(books)) == 65;
+        assert (pricingModel.getTotalPrice(books) == 65);
 
         pricingModel = new SkyIsTheLimit(60);
-        assert (pricingModel.getTotalPrice(books)) == 65;
+        assert (pricingModel.getTotalPrice(books) == 65);
     }
 
     private static void testSimplePricing() {
@@ -204,4 +205,35 @@ public class Program {
         assert (model2.getTotalPrice(books2) == 100);
     }
 
+    private static void test() {
+        Book book0 = new Book(UUID.randomUUID(), "Hello", 12345677, 1991);
+        Book book1 = new Book(UUID.randomUUID(), "Hello", 12345677, 1995);
+        Book book2 = new Book(UUID.randomUUID(), "Hello", 12345677, 1996);
+        Book book3 = new Book(UUID.randomUUID(), "Hello", 12345677, 2011);
+        Book book4 = new Book(UUID.randomUUID(), "Hello", 12345677, 2003);
+        Book book5 = new Book(UUID.randomUUID(), "Hello", 12345677, 2001);
+
+        ArrayList<Book> books = new ArrayList<>();
+        books.add(book0);
+        books.add(book1);
+        books.add(book2);
+        books.add(book3);
+        books.add(book4);
+        books.add(book5);
+
+        SkyIsTheLimit pricingModel = new SkyIsTheLimit(74074070);
+        int price = pricingModel.getTotalPrice(books);
+        System.out.println(price);
+        assert (price == 74074062);
+
+        pricingModel = new SkyIsTheLimit(74074062);
+        price = pricingModel.getTotalPrice(books);
+        System.out.println(price);
+        assert (price == 61728384);
+
+        pricingModel = new SkyIsTheLimit(74074060);
+        price = pricingModel.getTotalPrice(books);
+        System.out.println(price);
+        assert (price == 61728384);
+    }
 }
