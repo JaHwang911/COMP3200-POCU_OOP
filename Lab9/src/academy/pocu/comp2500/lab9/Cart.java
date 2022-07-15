@@ -5,10 +5,8 @@ import java.util.ArrayList;
 public final class Cart {
     private final ArrayList<Book> books = new ArrayList<>();
 
-    public Book getBookOrNull(Book book) {
-        int index = this.books.indexOf(book);
-
-        if (index < 0) {
+    public Book getBookOrNull(final int index) {
+        if (this.books.size() <= index) {
             return null;
         }
 
@@ -27,18 +25,14 @@ public final class Cart {
         this.books.add(book);
     }
 
-    public boolean remove(Book book) {
-        return this.books.remove(book);
-    }
-
-    public int getTotalPrice() {
-        int sum = 0;
-
-        for (Book book : this.books) {
-            sum += book.getPrice();
+    public boolean remove(final int index) {
+        if (this.books.size() <= index) {
+            return false;
         }
 
-        return sum;
+        this.books.remove(index);
+
+        return true;
     }
 
     public int getTotalPrice(IPricingModel pricingModel) {
