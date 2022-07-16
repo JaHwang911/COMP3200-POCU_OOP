@@ -11,7 +11,6 @@ public final class SimulationManager {
     private final ArrayList<IThinkable> thinkable = new ArrayList<>();
     private final ArrayList<IMovable> movable = new ArrayList<>();
     private final ArrayList<ICollisionEventListener> subscriber = new ArrayList<>();
-    private final ArrayList<Unit> destroyers = new ArrayList<>();
     private final ArrayList<ArrayList<ArrayList<Unit>>> unitPositions = new ArrayList<>();
 
     private SimulationManager() {
