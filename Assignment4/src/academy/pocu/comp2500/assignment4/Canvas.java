@@ -22,6 +22,14 @@ public final class Canvas {
         }
     }
 
+    public int getWidth() {
+        return this.width;
+    }
+
+    public int getHeight() {
+        return this.height;
+    }
+
     public void drawPixel(int x, int y, char character) {
         if (!checkRange(x, y)) {
             return;

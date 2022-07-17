@@ -1,16 +1,14 @@
 package academy.pocu.comp2500.assignment4;
 
-public class DrawPixelCommand implements ICommand {
-    private Canvas canvas;
+public class ToUpperCommand implements ICommand {
     private final int x;
     private final int y;
-    private final char character;
     private boolean canUndo;
+    private Canvas canvas;
 
-    public DrawPixelCommand(int x, int y, char character) {
+    public ToUpperCommand(int x, int y) {
         this.x = x;
         this.y = y;
-        this.character = character;
     }
 
     public boolean execute(Canvas canvas) {
@@ -18,9 +16,14 @@ public class DrawPixelCommand implements ICommand {
             return false;
         }
 
-        this.canvas = canvas;
+        char origin = canvas.getPixel(x, y);
 
-        canvas.drawPixel(x, y, character);
+        if (origin < 'a' || origin > 'z') {
+            return false;
+        }
+
+        canvas.toUpper(this.x, this.y);
+        this.canvas = canvas;
         canUndo = true;
 
         return true;
@@ -31,7 +34,7 @@ public class DrawPixelCommand implements ICommand {
             return false;
         }
 
-        canvas.drawPixel(this.x, this.y, ' ');
+        canvas.toLower(x, y);
         canUndo = false;
 
         assert !canUndo;
@@ -43,7 +46,7 @@ public class DrawPixelCommand implements ICommand {
             return false;
         }
 
-        canvas.drawPixel(x, y, character);
+        canvas.toUpper(x, y);
         canUndo = true;
 
         assert canUndo;

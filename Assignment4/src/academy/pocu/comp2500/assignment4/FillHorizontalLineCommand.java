@@ -1,26 +1,23 @@
 package academy.pocu.comp2500.assignment4;
 
-public class DrawPixelCommand implements ICommand {
-    private Canvas canvas;
-    private final int x;
+public class FillHorizontalLineCommand implements ICommand {
     private final int y;
     private final char character;
     private boolean canUndo;
+    private Canvas canvas;
 
-    public DrawPixelCommand(int x, int y, char character) {
-        this.x = x;
+    public FillHorizontalLineCommand(int y, char character) {
         this.y = y;
         this.character = character;
     }
 
     public boolean execute(Canvas canvas) {
-        if (x < 0 || x >= canvas.getWidth() || y < 0 || y >= canvas.getHeight()) {
+        if (y < 0 || y >= canvas.getHeight()) {
             return false;
         }
 
+        canvas.fillHorizontalLine(y, character);
         this.canvas = canvas;
-
-        canvas.drawPixel(x, y, character);
         canUndo = true;
 
         return true;
@@ -31,7 +28,7 @@ public class DrawPixelCommand implements ICommand {
             return false;
         }
 
-        canvas.drawPixel(this.x, this.y, ' ');
+        canvas.fillHorizontalLine(y, ' ');
         canUndo = false;
 
         assert !canUndo;
@@ -43,7 +40,7 @@ public class DrawPixelCommand implements ICommand {
             return false;
         }
 
-        canvas.drawPixel(x, y, character);
+        canvas.fillHorizontalLine(y, character);
         canUndo = true;
 
         assert canUndo;
