@@ -3,11 +3,12 @@ package academy.pocu.comp2500.lab10;
 import academy.pocu.comp2500.lab10.pocuflix.ResultBase;
 import academy.pocu.comp2500.lab10.pocuflix.ResultCode;
 
-public class CacheResult extends ResultBase {
+public class CachedResult extends ResultBase {
     private int currentCount;
 
-    public CacheResult(int expireCount) {
+    public CachedResult(int expireCount) {
         super(ResultCode.NOT_MODIFIED);
+
         this.currentCount = expireCount;
     }
 

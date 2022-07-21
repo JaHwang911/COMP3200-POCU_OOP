@@ -23,14 +23,16 @@ public class MovieStore implements IRequestHandler {
     }
 
     public boolean remove(int index) {
-        if (index > this.moviesString.size()) {
+        if (index >= this.moviesString.size()) {
             return false;
         }
 
         this.movies.remove(this.moviesString.get(index));
+        this.moviesString.remove(index);
         return true;
     }
 
+    @Override
     public ResultBase handle(Request request) {
         assert this.movies.size() == this.moviesString.size();
 

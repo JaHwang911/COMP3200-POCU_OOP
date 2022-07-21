@@ -22,4 +22,36 @@ public final class Request {
     public void setUser(User user) {
         this.user = user;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof Request) || this.hashCode() != obj.hashCode()) {
+            return false;
+        }
+
+        Request other = (Request) obj;
+
+        if (this.user == null || other.user == null) {
+            return this.movieTitle.equals(other.movieTitle);
+        }
+
+        return this.movieTitle.equals(other.movieTitle) && this.user.equals(other.user);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 17;
+
+        hash = hash * 31 + this.movieTitle.hashCode();
+
+        if (this.user != null) {
+            hash = hash * 31 + this.user.hashCode();
+        }
+
+        return hash;
+    }
 }
