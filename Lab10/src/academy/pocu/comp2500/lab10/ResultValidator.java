@@ -4,13 +4,13 @@ import academy.pocu.comp2500.lab10.pocuflix.ResultBase;
 import academy.pocu.comp2500.lab10.pocuflix.ResultCode;
 
 public class ResultValidator {
-    private final ResultCode resultCode;
+    private final ResultBase resultbase;
 
     public ResultValidator(ResultBase resultBase) {
-        this.resultCode = resultBase.getCode();
+        this.resultbase = resultBase;
     }
 
     public boolean isValid(ResultCode resultCode) {
-        return (this.resultCode == resultCode);
+        return (this.resultbase.getCode() == resultCode);
     }
 }

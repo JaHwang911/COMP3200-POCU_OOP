@@ -10,7 +10,7 @@ public class CacheMiddleware implements IRequestHandler {
     private final int expireCount;
     private final HashMap<Request, CachedResult> cached;
 
-    public CacheMiddleware(IRequestHandler handler, int expireCount){
+    public CacheMiddleware(IRequestHandler handler, int expireCount) {
         this.handler = handler;
         this.expireCount = expireCount;
         this.cached = new HashMap<>();
