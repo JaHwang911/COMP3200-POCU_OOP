@@ -13,6 +13,10 @@ public class ResultValidator {
     }
 
     public boolean isValid(ResultCode resultCode) {
+        if (this.resultbase.getCode() != resultCode) {
+            return false;
+        }
+
         switch (resultCode) {
             case OK:
                 return this.resultbase instanceof OkResult;
