@@ -317,15 +317,6 @@ public class Program {
         result = cacheMiddleware.handle(request1);
         validator = new ResultValidator(result);
         assert (validator.isValid(ResultCode.SERVICE_UNAVAILABLE));
-
-
-
-
-
-// ===========================================
-// CacheMiddleware channing test
-// ===========================================
-
     }
 
     private static void testCacheMiddlewareChanning() {
