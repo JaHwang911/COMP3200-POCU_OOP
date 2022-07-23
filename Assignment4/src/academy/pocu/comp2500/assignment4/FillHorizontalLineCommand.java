@@ -6,44 +6,44 @@ public class FillHorizontalLineCommand implements ICommand {
     private boolean canUndo;
     private Canvas canvas;
 
-    public FillHorizontalLineCommand(int y, char character) {
+    public FillHorizontalLineCommand(final int y, final char character) {
         this.y = y;
         this.character = character;
     }
 
     public boolean execute(Canvas canvas) {
-        if (y < 0 || y >= canvas.getHeight()) {
+        if (this.y < 0 || this.y >= canvas.getHeight()) {
             return false;
         }
 
-        canvas.fillHorizontalLine(y, character);
+        canvas.fillHorizontalLine(this.y, this.character);
         this.canvas = canvas;
-        canUndo = true;
+        this.canUndo = true;
 
         return true;
     }
 
     public boolean undo() {
-        if (!canUndo) {
+        if (!this.canUndo) {
             return false;
         }
 
-        canvas.fillHorizontalLine(y, ' ');
-        canUndo = false;
+        this.canvas.fillHorizontalLine(this.y, ' ');
+        this.canUndo = false;
 
-        assert !canUndo;
+        assert !this.canUndo;
         return true;
     }
 
     public boolean redo() {
-        if (canUndo || canvas == null) {
+        if (this.canUndo || this.canvas == null) {
             return false;
         }
 
-        canvas.fillHorizontalLine(y, character);
-        canUndo = true;
+        this.canvas.fillHorizontalLine(this.y, this.character);
+        this.canUndo = true;
 
-        assert canUndo;
+        assert this.canUndo;
         return true;
     }
 }

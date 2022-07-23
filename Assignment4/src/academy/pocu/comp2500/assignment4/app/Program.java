@@ -2,9 +2,18 @@ package academy.pocu.comp2500.assignment4.app;
 
 import academy.pocu.comp2500.assignment4.Canvas;
 
+import java.util.LinkedList;
+
 public class Program {
 
     public static void main(String[] args) {
+        LinkedList<Integer> nums = new LinkedList<>();
+        nums.add(1);
+        nums.add(2);
+        nums.add(3);
+
+        System.out.println(nums.getLast());
+
         Canvas canvas = new Canvas(10, 10);
         canvas.drawPixel(0, 0, '*');
         canvas.drawPixel(1, 2, '$');

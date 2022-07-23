@@ -2,15 +2,14 @@ package academy.pocu.comp2500.assignment4;
 
 import java.util.ArrayList;
 
-public final class Canvas {
-    private final int width;
-    private final int height;
-    private final ArrayList<ArrayList<Character>> canvas;
+public class Canvas {
+    protected final int width;
+    protected final int height;
+    protected final ArrayList<ArrayList<Character>> canvas;
 
-    public Canvas(int width, int height) {
+    public Canvas(final int width, final int height) {
         this.width = width;
         this.height = height;
-
         this.canvas = new ArrayList<>(height);
 
         for (int i = 0; i < height; ++i) {
@@ -30,7 +29,7 @@ public final class Canvas {
         return this.height;
     }
 
-    public void drawPixel(int x, int y, char character) {
+    public void drawPixel(final int x, final int y, final char character) {
         if (!checkRange(x, y)) {
             return;
         }
@@ -38,11 +37,11 @@ public final class Canvas {
         this.canvas.get(y).set(x, character);
     }
 
-    public char getPixel(int x, int y) {
+    public char getPixel(final int x, final int y) {
         return this.canvas.get(y).get(x);
     }
 
-    public boolean increasePixel(int x, int y) {
+    public boolean increasePixel(final int x, final int y) {
         if (!checkRange(x, y)) {
             return false;
         }
@@ -58,7 +57,7 @@ public final class Canvas {
         return true;
     }
 
-    public boolean decreasePixel(int x, int y) {
+    public boolean decreasePixel(final int x, final int y) {
         if (!checkRange(x, y)) {
             return false;
         }
@@ -74,7 +73,7 @@ public final class Canvas {
         return true;
     }
 
-    public void toUpper(int x, int y) {
+    public void toUpper(final int x, final int y) {
         if (!checkRange(x, y)) {
             return;
         }
@@ -89,7 +88,7 @@ public final class Canvas {
         this.canvas.get(y).set(x, (char) (origin ^ bitmask));
     }
 
-    public void toLower(int x, int y) {
+    public void toLower(final int x, final int y) {
         if (!checkRange(x, y)) {
             return;
         }
@@ -104,7 +103,7 @@ public final class Canvas {
         this.canvas.get(y).set(x, (char) (origin ^ bitmask));
     }
 
-    public void fillHorizontalLine(int y, char character) {
+    public void fillHorizontalLine(final int y, final char character) {
         if (y < 0 || y >= this.height) {
             return;
         }
@@ -114,7 +113,7 @@ public final class Canvas {
         }
     }
 
-    public void fillVerticalLine(int x, char character) {
+    public void fillVerticalLine(final int x, final char character) {
         if (x < 0 || x >= this.width) {
             return;
         }
@@ -164,7 +163,7 @@ public final class Canvas {
         return sb.toString();
     }
 
-    private boolean checkRange(int x, int y) {
+    protected boolean checkRange(final int x, final int y) {
         return (x >= 0 && x < this.width && y >= 0 && y < this.height);
     }
 }
