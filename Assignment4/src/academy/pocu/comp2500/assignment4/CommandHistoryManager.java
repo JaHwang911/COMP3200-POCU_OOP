@@ -20,6 +20,8 @@ public class CommandHistoryManager {
         }
 
         this.undo.push(command);
+        this.redo.clear();
+
         return true;
     }
 

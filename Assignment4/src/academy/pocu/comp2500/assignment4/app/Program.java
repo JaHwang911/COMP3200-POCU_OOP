@@ -1,19 +1,20 @@
 package academy.pocu.comp2500.assignment4.app;
 
-import academy.pocu.comp2500.assignment4.Canvas;
+import academy.pocu.comp2500.assignment4.*;
 
 import java.util.LinkedList;
 
 public class Program {
-
+    //TODO
+    // Canvas 애초에 LinkedList로 만들어야 맞을 듯 왜냐
     public static void main(String[] args) {
-        LinkedList<Integer> nums = new LinkedList<>();
-        nums.add(1);
-        nums.add(2);
-        nums.add(3);
+        testCanvas();
+        testCommandHistoryManager0();
 
-        System.out.println(nums.getLast());
+        System.out.println("No prob: assignment4");
+    }
 
+    private static void testCanvas() {
         Canvas canvas = new Canvas(10, 10);
         canvas.drawPixel(0, 0, '*');
         canvas.drawPixel(1, 2, '$');
@@ -29,6 +30,7 @@ public class Program {
         assert (canvas.getPixel(0, 0) == '*');
         assert (canvas.getPixel(1, 2) == '$');
         assert (canvas.getPixel(0, 1) == '&');
+        assert (canvas.getPixel(7, 7) == '~');
         assert (canvas.getPixel(9, 9) == 'a');
 
         assert !canvas.increasePixel(10, 10);
@@ -42,14 +44,12 @@ public class Program {
         assert (canvas.getPixel(9, 9) == 'a');
 
         canvas.fillHorizontalLine(0, '$');
-        canvas.fillHorizontalLine(0, (char) 127);
 
         for (int i = 0; i < 10; ++i) {
             assert canvas.getPixel(i, 0) == '$';
         }
 
         canvas.fillVerticalLine(0, '*');
-        canvas.fillVerticalLine(0, (char) 127);
 
         for (int i = 0; i < 10; ++i) {
             assert canvas.getPixel(0, i) == '*';
@@ -76,8 +76,139 @@ public class Program {
         System.out.println(canvas.getDrawing());
 
         canvas.clear();
+        assert testClearCanvas(canvas);
+
+        System.out.println(canvas.getDrawing());
+    }
+
+    private static void testCommandHistoryManager0() {
+        Canvas canvas = new Canvas(10, 10);
+        CommandHistoryManager manager = new CommandHistoryManager(canvas);
+
+        assert !manager.canUndo();
+        assert !manager.canRedo();
+        assert !manager.undo();
+        assert !manager.redo();
+
+        assert manager.execute(new DrawPixelCommand(0, 0, 'a'));
+        assert (canvas.getPixel(0, 0) == 'a');
+        assert manager.undo();
+        assert (canvas.getPixel(0, 0) == ' ');
+        assert manager.redo();
+        assert (canvas.getPixel(0, 0) == 'a');
+
+        assert manager.execute(new IncreasePixelCommand(0, 0));
+        assert (canvas.getPixel(0, 0) == 'b');
+        assert manager.undo();
+        assert (canvas.getPixel(0, 0) == 'a');
+        assert manager.redo();
+        assert (canvas.getPixel(0, 0) == 'b');
+
+        assert manager.execute(new DecreasePixelCommand(0, 0));
+        assert (canvas.getPixel(0, 0) == 'a');
+        assert manager.undo();
+        assert (canvas.getPixel(0, 0) == 'b');
+        assert manager.redo();
+        assert (canvas.getPixel(0, 0) == 'a');
+
+        assert manager.execute(new ToUpperCommand(0, 0));
+        assert (canvas.getPixel(0, 0) == 'A');
+        assert manager.undo();
+        assert (canvas.getPixel(0, 0) == 'a');
+        assert manager.redo();
+        assert (canvas.getPixel(0, 0) == 'A');
+
+        assert manager.execute(new ToLowerCommand(0, 0));
+        assert (canvas.getPixel(0, 0) == 'a');
+        assert manager.undo();
+        assert (canvas.getPixel(0, 0) == 'A');
+        assert manager.redo();
+        assert (canvas.getPixel(0, 0) == 'a');
+
+        assert manager.execute(new FillHorizontalLineCommand(0, 'a'));
+        for (int i = 0; i < canvas.getWidth(); ++i) {
+            assert (canvas.getPixel(i, 0) == 'a');
+        }
+
+        assert manager.undo();
+        for (int i = 1; i < canvas.getWidth(); ++i) {
+            assert (canvas.getPixel(i, 0) == ' ');
+        }
+
+
+        assert (canvas.getPixel(0, 0) == 'A');
+        assert manager.redo();
+        assert (canvas.getPixel(0, 0) == 'a');
+    }
+
+    private static void testCommandHistoryManager1() {
+        Canvas canvas = new Canvas(10, 10);
+        CommandHistoryManager manager = new CommandHistoryManager(canvas);
+
+        assert manager.execute(new DrawPixelCommand(0, 0, '*'));
+        assert manager.execute(new DrawPixelCommand(1, 2, '$'));
+        assert manager.execute(new DrawPixelCommand(0, 1, '&'));
+        assert manager.execute(new DrawPixelCommand(9, 9, 'a'));
+        assert manager.execute(new DrawPixelCommand(7, 7, '~'));
+
+        canvas.drawPixel(10, 10, 'X');
+        canvas.drawPixel(-1, -1, 'X');
+        canvas.drawPixel(11, 11, 'X');
+
+        assert !manager.execute(new DrawPixelCommand(10, 10, 'X'));
+        assert !manager.execute(new DrawPixelCommand(-1, -1, 'X'));
+        assert !manager.execute(new DrawPixelCommand(11, 11, 'X'));
+
+        assert (canvas.getPixel(0, 0) == '*');
+        assert (canvas.getPixel(1, 2) == '$');
+        assert (canvas.getPixel(0, 1) == '&');
+        assert (canvas.getPixel(9, 9) == 'a');
+        assert (canvas.getPixel(7, 7) == '~');
+
+        assert manager.canUndo();
+        assert !manager.canRedo();
+
+        assert manager.undo();
+        assert manager.canRedo();
+
+        assert (canvas.getPixel(7, 7) == ' ');
+
+        assert manager.redo();
+
+        assert (canvas.getPixel(7, 7) == '~');
+
+        assert manager.undo();
+        assert manager.undo();
+        assert manager.undo();
+        assert manager.undo();
+        assert manager.undo();
+        assert !manager.undo();
+
         System.out.println(canvas.getDrawing());
 
-        System.out.println("No prob: assignment4");
+        assert testClearCanvas(canvas);
+
+        assert !manager.canUndo();
+
+        assert manager.redo();
+        assert manager.redo();
+        assert manager.redo();
+        assert manager.redo();
+        assert manager.redo();
+        assert !manager.redo();
+
+        System.out.println(canvas.getDrawing());
+    }
+
+    private static boolean testClearCanvas(Canvas canvas) {
+        for (int i = 0; i < canvas.getHeight(); ++i) {
+            for (int j = 0; j < canvas.getWidth(); ++j) {
+                if (canvas.getPixel(j, i) != ' ') {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 }
