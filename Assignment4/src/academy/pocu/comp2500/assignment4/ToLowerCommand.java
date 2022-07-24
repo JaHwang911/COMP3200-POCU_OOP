@@ -12,44 +12,44 @@ public class ToLowerCommand implements ICommand {
     }
 
     public boolean execute(Canvas canvas) {
-        if (x < 0 || x >= canvas.getWidth() || y < 0 || y >= canvas.getHeight()) {
+        if (this.x < 0 || this.x >= canvas.getWidth() ||
+                this.y < 0 || this.y >= canvas.getHeight() ||
+                this.canvas != null) {
             return false;
         }
 
-        char origin = canvas.getPixel(x, y);
+        char origin = canvas.getPixel(this.x, this.y);
 
         if (origin < 'A' || origin > 'Z') {
             return false;
         }
 
-        canvas.toLower(x, y);
+        canvas.toLower(this.x, this.y);
         this.canvas = canvas;
-        canUndo = true;
+        this.canUndo = true;
 
         return true;
     }
 
     public boolean undo() {
-        if (!canUndo) {
+        if (!this.canUndo) {
             return false;
         }
 
-        canvas.toUpper(x, y);
-        canUndo = false;
+        this.canvas.toUpper(this.x, this.y);
+        this.canUndo = false;
 
-        assert !canUndo;
         return true;
     }
 
     public boolean redo() {
-        if (canUndo || canvas == null) {
+        if (this.canUndo || this.canvas == null) {
             return false;
         }
 
-        canvas.toLower(x, y);
-        canUndo = true;
+        this.canvas.toLower(this.x, this.y);
+        this.canUndo = true;
 
-        assert canUndo;
         return true;
     }
 }

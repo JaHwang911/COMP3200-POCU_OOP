@@ -12,11 +12,11 @@ public class ToUpperCommand implements ICommand {
     }
 
     public boolean execute(Canvas canvas) {
-        if (x < 0 || x >= canvas.getWidth() || y < 0 || y >= canvas.getHeight()) {
+        if (this.x < 0 || this.x >= canvas.getWidth() || this.y < 0 || this.y >= canvas.getHeight()) {
             return false;
         }
 
-        char origin = canvas.getPixel(x, y);
+        char origin = canvas.getPixel(this.x, this.y);
 
         if (origin < 'a' || origin > 'z') {
             return false;
@@ -24,32 +24,30 @@ public class ToUpperCommand implements ICommand {
 
         canvas.toUpper(this.x, this.y);
         this.canvas = canvas;
-        canUndo = true;
+        this.canUndo = true;
 
         return true;
     }
 
     public boolean undo() {
-        if (!canUndo) {
+        if (!this.canUndo) {
             return false;
         }
 
-        canvas.toLower(x, y);
-        canUndo = false;
+        this.canvas.toLower(this.x, this.y);
+        this.canUndo = false;
 
-        assert !canUndo;
         return true;
     }
 
     public boolean redo() {
-        if (canUndo || canvas == null) {
+        if (this.canUndo || this.canvas == null) {
             return false;
         }
 
-        canvas.toUpper(x, y);
-        canUndo = true;
+        this.canvas.toUpper(this.x, this.y);
+        this.canUndo = true;
 
-        assert canUndo;
         return true;
     }
 }

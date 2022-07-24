@@ -1,22 +1,21 @@
 package academy.pocu.comp2500.assignment4;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Canvas {
     protected final int width;
     protected final int height;
-    protected final ArrayList<ArrayList<Character>> canvas;
+    private final char[][] canvas;
 
     public Canvas(final int width, final int height) {
         this.width = width;
         this.height = height;
-        this.canvas = new ArrayList<>(height);
+        this.canvas = new char[height][width];
 
         for (int i = 0; i < height; ++i) {
-            this.canvas.add(new ArrayList<>(width));
-
             for (int j = 0; j < width; ++j) {
-                this.canvas.get(i).add(' ');
+                this.canvas[i][j] = ' ';
             }
         }
     }
@@ -34,11 +33,11 @@ public class Canvas {
             return;
         }
 
-        this.canvas.get(y).set(x, character);
+        this.canvas[y][x] = character;
     }
 
-    public char getPixel(final int x, final int y) {
-        return this.canvas.get(y).get(x);
+    public char getPixel(int x, int y) {
+        return this.canvas[y][x];
     }
 
     public boolean increasePixel(final int x, final int y) {
@@ -46,14 +45,13 @@ public class Canvas {
             return false;
         }
 
-        char origin = this.canvas.get(y).get(x);
+        char origin = this.canvas[y][x];
 
-        if ((int) origin == '~') {
+        if (origin == '~') {
             return false;
         }
 
-        this.canvas.get(y).set(x, ++origin);
-
+        ++this.canvas[y][x];
         return true;
     }
 
@@ -62,14 +60,13 @@ public class Canvas {
             return false;
         }
 
-        char origin = this.canvas.get(y).get(x);
+        char origin = this.canvas[y][x];
 
         if ((int) origin == ' ') {
             return false;
         }
 
-        this.canvas.get(y).set(x, --origin);
-
+        --this.canvas[y][x];
         return true;
     }
 
@@ -78,14 +75,14 @@ public class Canvas {
             return;
         }
 
-        char origin = this.canvas.get(y).get(x);
+        char origin = this.canvas[y][x];
 
         if (origin < 'a' || origin > 'z') {
             return;
         }
 
         char bitmask = 32;
-        this.canvas.get(y).set(x, (char) (origin ^ bitmask));
+        this.canvas[y][x] = (char) (origin ^ bitmask);
     }
 
     public void toLower(final int x, final int y) {
@@ -93,14 +90,14 @@ public class Canvas {
             return;
         }
 
-        char origin = this.canvas.get(y).get(x);
+        char origin = this.canvas[y][x];
 
         if (origin < 'A' || origin > 'Z') {
             return;
         }
 
         char bitmask = 32;
-        this.canvas.get(y).set(x, (char) (origin ^ bitmask));
+        this.canvas[y][x] = (char) (origin ^ bitmask);
     }
 
     public void fillHorizontalLine(final int y, final char character) {
@@ -109,7 +106,7 @@ public class Canvas {
         }
 
         for (int i = 0; i < this.width; ++i) {
-            this.canvas.get(y).set(i, character);
+            this.canvas[y][i] = character;
         }
     }
 
@@ -119,14 +116,14 @@ public class Canvas {
         }
 
         for (int i = 0; i < this.height; ++i) {
-            this.canvas.get(i).set(x, character);
+            this.canvas[i][x] = character;
         }
     }
 
     public void clear() {
         for (int i = 0; i < this.height; ++i) {
             for (int j = 0; j < this.width; ++j) {
-                this.canvas.get(i).set(j, ' ');
+                this.canvas[i][j] = ' ';
             }
         }
     }
@@ -146,7 +143,7 @@ public class Canvas {
             sb.append('|');
 
             for (int j = 0; j < this.width; ++j) {
-                sb.append(this.canvas.get(i).get(j));
+                sb.append(this.canvas[i][j]);
             }
 
             sb.append('|');

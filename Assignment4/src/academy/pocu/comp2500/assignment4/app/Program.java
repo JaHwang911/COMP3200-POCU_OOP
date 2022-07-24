@@ -2,14 +2,11 @@ package academy.pocu.comp2500.assignment4.app;
 
 import academy.pocu.comp2500.assignment4.*;
 
-import java.util.LinkedList;
-
 public class Program {
-    //TODO
-    // Canvas 애초에 LinkedList로 만들어야 맞을 듯 왜냐
+
     public static void main(String[] args) {
         testCanvas();
-        testCommandHistoryManager0();
+//        testCommandHistoryManager0();
 
         System.out.println("No prob: assignment4");
     }
@@ -85,6 +82,10 @@ public class Program {
         Canvas canvas = new Canvas(10, 10);
         CommandHistoryManager manager = new CommandHistoryManager(canvas);
 
+        manager.execute(new DrawPixelCommand(0, 0, 'a'));
+        manager.execute(new FillHorizontalLineCommand(0, 'a'));
+        manager.undo();
+
         assert !manager.canUndo();
         assert !manager.canRedo();
         assert !manager.undo();
@@ -134,7 +135,6 @@ public class Program {
         for (int i = 1; i < canvas.getWidth(); ++i) {
             assert (canvas.getPixel(i, 0) == ' ');
         }
-
 
         assert (canvas.getPixel(0, 0) == 'A');
         assert manager.redo();

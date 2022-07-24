@@ -5,6 +5,7 @@ public class FillVerticalLineCommand implements ICommand {
     private final char character;
     private boolean canUndo;
     private Canvas canvas;
+    private char[] originCharacters;
 
     public FillVerticalLineCommand(final int x, final char character) {
         this.x = x;
@@ -12,8 +13,14 @@ public class FillVerticalLineCommand implements ICommand {
     }
 
     public boolean execute(Canvas canvas) {
-        if (this.x < 0 || this.x >= canvas.getWidth()) {
+        if (this.x < 0 || this.x >= canvas.getWidth() || this.canvas != null) {
             return false;
+        }
+
+        this.originCharacters = new char[canvas.getHeight()];
+
+        for (int i = 0; i < canvas.getHeight(); ++i) {
+            this.originCharacters[i] = canvas.getPixel(this.x, i);
         }
 
         canvas.fillVerticalLine(this.x, this.character);
@@ -28,10 +35,12 @@ public class FillVerticalLineCommand implements ICommand {
             return false;
         }
 
-        this.canvas.fillVerticalLine(this.x, ' ');
+        for (int i = 0; i < this.canvas.getHeight(); ++i) {
+            this.canvas.drawPixel(this.x, i, this.originCharacters[i]);
+        }
+
         this.canUndo = false;
 
-        assert !this.canUndo;
         return true;
     }
 
@@ -43,7 +52,6 @@ public class FillVerticalLineCommand implements ICommand {
         this.canvas.fillVerticalLine(this.x, this.character);
         this.canUndo = true;
 
-        assert this.canUndo;
         return true;
     }
 }
