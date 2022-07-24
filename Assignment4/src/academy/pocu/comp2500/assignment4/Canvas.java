@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Canvas {
-    protected final int width;
-    protected final int height;
+    private final int width;
+    private final int height;
     private final char[][] canvas;
 
     public Canvas(final int width, final int height) {
@@ -160,7 +160,7 @@ public class Canvas {
         return sb.toString();
     }
 
-    protected boolean checkRange(final int x, final int y) {
+    private boolean checkRange(final int x, final int y) {
         return (x >= 0 && x < this.width && y >= 0 && y < this.height);
     }
 }

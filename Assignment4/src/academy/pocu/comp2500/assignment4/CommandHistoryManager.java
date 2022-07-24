@@ -14,7 +14,7 @@ public class CommandHistoryManager {
     }
 
     public boolean execute(final ICommand command) {
-        if (!command.execute(this.canvas)) {
+        if (this.undo.contains(command) || this.redo.contains(command) || !command.execute(this.canvas)) {
             return false;
         }
 
@@ -33,9 +33,7 @@ public class CommandHistoryManager {
     }
 
     public boolean undo() {
-        if (!canUndo()) {
-            return false;
-        }
+        assert canUndo() : "Call canUndo()";
 
         ICommand command = this.undo.pop();
 
@@ -46,9 +44,7 @@ public class CommandHistoryManager {
     }
 
     public boolean redo() {
-        if (!canRedo()) {
-            return false;
-        }
+        assert canRedo() : "Call canRedo()";
 
         ICommand command = this.redo.pop();
 
