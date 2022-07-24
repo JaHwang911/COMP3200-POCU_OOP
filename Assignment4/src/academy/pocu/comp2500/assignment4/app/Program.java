@@ -6,7 +6,7 @@ public class Program {
 
     public static void main(String[] args) {
         testCanvas();
-//        testCommandHistoryManager0();
+        testCommandHistoryManager0();
 
         System.out.println("No prob: assignment4");
     }
@@ -82,10 +82,6 @@ public class Program {
         Canvas canvas = new Canvas(10, 10);
         CommandHistoryManager manager = new CommandHistoryManager(canvas);
 
-        manager.execute(new DrawPixelCommand(0, 0, 'a'));
-        manager.execute(new FillHorizontalLineCommand(0, 'a'));
-        manager.undo();
-
         assert !manager.canUndo();
         assert !manager.canRedo();
         assert !manager.undo();
@@ -132,13 +128,15 @@ public class Program {
         }
 
         assert manager.undo();
+        assert (canvas.getPixel(0, 0) == 'a');
         for (int i = 1; i < canvas.getWidth(); ++i) {
             assert (canvas.getPixel(i, 0) == ' ');
         }
 
-        assert (canvas.getPixel(0, 0) == 'A');
         assert manager.redo();
-        assert (canvas.getPixel(0, 0) == 'a');
+        for (int i = 0; i < canvas.getWidth(); ++i) {
+            assert (canvas.getPixel(i, 0) == 'a');
+        }
     }
 
     private static void testCommandHistoryManager1() {
