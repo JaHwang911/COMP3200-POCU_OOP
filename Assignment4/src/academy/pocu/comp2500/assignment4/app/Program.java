@@ -12,29 +12,39 @@ public class Program {
 //        testOverdrawAnalyzer();
 //        testCommandHistoryManagerCanvas0();
 //        testCommandHistoryManagerOverdrawAnalyzer0();
-        testOfficial1();
+        testOfficial0();
 
         System.out.println("No prob: assignment4");
     }
 
     private static void testOfficial0() {
-        Canvas canvas = new Canvas(25, 30);
+        OverdrawAnalyzer canvas = new OverdrawAnalyzer(25, 30);
         CommandHistoryManager manager = new CommandHistoryManager(canvas);
-        ArrayList<ICommand> commands = new ArrayList<>();
 
-        manager.execute(new FillHorizontalLineCommand(4, '\\'));
-        manager.execute(new FillVerticalLineCommand(3, '4'));
         manager.execute(new ClearCommand());
-        manager.execute(new ToLowerCommand(15, 3));
-        manager.execute(new FillHorizontalLineCommand(14, ' '));
+        manager.execute(new FillVerticalLineCommand(1, '.'));
+        manager.execute(new IncreasePixelCommand(0, 3));
+        manager.execute(new ToUpperCommand(1, 0));
+        manager.execute(new FillHorizontalLineCommand(4, 'X'));
+        manager.execute(new FillHorizontalLineCommand(4, 'V'));
+        manager.execute(new FillVerticalLineCommand(4, 't'));
+        manager.execute(new IncreasePixelCommand(4, 2));
         manager.redo();
-        manager.execute(new ToLowerCommand(20, 3));
-        manager.execute(new ClearCommand());
-        manager.execute(new FillHorizontalLineCommand(19, 'm'));
-        manager.execute(new DecreasePixelCommand(18, 2));
-        manager.execute(new ToUpperCommand(13, 6));
-        manager.execute(new FillVerticalLineCommand(26, 'I'));
+        manager.execute(new ToLowerCommand(2, 3));
+        manager.execute(new IncreasePixelCommand(0, 0));
+        manager.redo();
+        manager.execute(new FillVerticalLineCommand(2, 'm'));
+        manager.undo();
+        manager.execute(new ToLowerCommand(0, 4));
+        manager.execute(new ToLowerCommand(1, 0));
+        manager.execute(new DrawPixelCommand(3, 1, 'o'));
+        manager.undo();
+        manager.execute(new FillVerticalLineCommand(2, 'y'));
+        manager.execute(new FillHorizontalLineCommand(1, 'A'));
 
+        var real = canvas.getPixelHistory(0, 0);
+        assert (real.size() == 1);
+        assert (real.getFirst() == '!');
     }
 
     private static void testOfficial1() {

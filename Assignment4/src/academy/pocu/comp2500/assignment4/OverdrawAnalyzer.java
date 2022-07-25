@@ -25,7 +25,7 @@ public final class OverdrawAnalyzer extends Canvas {
     }
 
     public int getOverdrawCount(int x, int y) {
-        return this.pixelHistorys.get(y).get(x).size() - 1;
+        return this.pixelHistorys.get(y).get(x).size();
     }
 
     public int getOverdrawCount() {
@@ -33,7 +33,7 @@ public final class OverdrawAnalyzer extends Canvas {
 
         for (int i = 0; i < super.getHeight(); ++i) {
             for (int j = 0; j < super.getWidth(); ++j) {
-                int overDrawCount = this.pixelHistorys.get(i).get(j).size() - 1;
+                int overDrawCount = this.pixelHistorys.get(i).get(j).size();
 
                 if (overDrawCount > 0) {
                     totalCount += overDrawCount;
@@ -83,6 +83,7 @@ public final class OverdrawAnalyzer extends Canvas {
 
         if (pixelHistory.size() == 0) {
             pixelHistory.add((char) (' ' + 1));
+            return true;
         }
 
         char origin = pixelHistory.getLast();
