@@ -21,29 +21,26 @@ public class Program {
         OverdrawAnalyzer canvas = new OverdrawAnalyzer(25, 30);
         CommandHistoryManager manager = new CommandHistoryManager(canvas);
 
-        manager.execute(new FillVerticalLineCommand(1, '3'));
-        manager.execute(new ToUpperCommand(3, 0));
-        manager.execute(new ClearCommand());
-        manager.execute(new FillHorizontalLineCommand(0, 'J'));
-        manager.execute(new ToLowerCommand(3, 2));
-        manager.execute(new ClearCommand());
-        manager.execute(new FillHorizontalLineCommand(1, 'G'));
-        manager.undo();
-        manager.undo();
-        manager.execute(new DecreasePixelCommand(2, 3));
-        manager.execute(new FillHorizontalLineCommand(4, 'V'));
+        manager.execute(new FillHorizontalLineCommand(0, 'z'));
         manager.redo();
-        manager.execute(new ToLowerCommand(1, 0));
-        manager.redo();
-        manager.execute(new FillHorizontalLineCommand(4, 't'));
-        manager.execute(new IncreasePixelCommand(3, 2));
-        manager.execute(new DrawPixelCommand(3, 0, '_'));
+        manager.execute(new ToLowerCommand(1, 4));
+        manager.execute(new FillVerticalLineCommand(2, ' '));
+        manager.execute(new IncreasePixelCommand(1, 4));
         manager.execute(new ClearCommand());
+        manager.execute(new DrawPixelCommand(1, 1, 'Z'));
+        manager.execute(new ToLowerCommand(3, 1));
+        manager.execute(new ToUpperCommand(1, 0));
+        manager.execute(new ToLowerCommand(3, 3));
+        manager.execute(new ClearCommand());
+        manager.execute(new FillVerticalLineCommand(0, 'K'));
+        manager.execute(new FillVerticalLineCommand(0, 'I'));
+        manager.execute(new FillVerticalLineCommand(4, ','));
+        manager.execute(new IncreasePixelCommand(3, 0));
+        manager.execute(new ToLowerCommand(4, 3));
+        manager.execute(new DecreasePixelCommand(1, 1));
         manager.redo();
-        manager.execute(new IncreasePixelCommand(1, 2));
-
-        var real = canvas.getPixelHistory(0, 2);
-        assert (real.size() == 0);
+        manager.execute(new DecreasePixelCommand(0, 3));
+        manager.execute(new DecreasePixelCommand(4, 4));
     }
 
     private static void testOfficial1() {
