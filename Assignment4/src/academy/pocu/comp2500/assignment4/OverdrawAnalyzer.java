@@ -62,6 +62,10 @@ public final class OverdrawAnalyzer extends Canvas {
         LinkedList<Character> pixelHistory = this.pixelHistorys.get(y).get(x);
 
         if (pixelHistory.size() == 0) {
+            if (character == ' ') {
+                return;
+            }
+
             pixelHistory.add(character);
             return;
         }

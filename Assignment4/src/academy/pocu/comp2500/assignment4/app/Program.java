@@ -21,30 +21,29 @@ public class Program {
         OverdrawAnalyzer canvas = new OverdrawAnalyzer(25, 30);
         CommandHistoryManager manager = new CommandHistoryManager(canvas);
 
+        manager.execute(new FillVerticalLineCommand(1, '3'));
+        manager.execute(new ToUpperCommand(3, 0));
         manager.execute(new ClearCommand());
-        manager.execute(new FillVerticalLineCommand(1, '.'));
-        manager.execute(new IncreasePixelCommand(0, 3));
-        manager.execute(new ToUpperCommand(1, 0));
-        manager.execute(new FillHorizontalLineCommand(4, 'X'));
+        manager.execute(new FillHorizontalLineCommand(0, 'J'));
+        manager.execute(new ToLowerCommand(3, 2));
+        manager.execute(new ClearCommand());
+        manager.execute(new FillHorizontalLineCommand(1, 'G'));
+        manager.undo();
+        manager.undo();
+        manager.execute(new DecreasePixelCommand(2, 3));
         manager.execute(new FillHorizontalLineCommand(4, 'V'));
-        manager.execute(new FillVerticalLineCommand(4, 't'));
-        manager.execute(new IncreasePixelCommand(4, 2));
         manager.redo();
-        manager.execute(new ToLowerCommand(2, 3));
-        manager.execute(new IncreasePixelCommand(0, 0));
-        manager.redo();
-        manager.execute(new FillVerticalLineCommand(2, 'm'));
-        manager.undo();
-        manager.execute(new ToLowerCommand(0, 4));
         manager.execute(new ToLowerCommand(1, 0));
-        manager.execute(new DrawPixelCommand(3, 1, 'o'));
-        manager.undo();
-        manager.execute(new FillVerticalLineCommand(2, 'y'));
-        manager.execute(new FillHorizontalLineCommand(1, 'A'));
+        manager.redo();
+        manager.execute(new FillHorizontalLineCommand(4, 't'));
+        manager.execute(new IncreasePixelCommand(3, 2));
+        manager.execute(new DrawPixelCommand(3, 0, '_'));
+        manager.execute(new ClearCommand());
+        manager.redo();
+        manager.execute(new IncreasePixelCommand(1, 2));
 
-        var real = canvas.getPixelHistory(0, 0);
-        assert (real.size() == 1);
-        assert (real.getFirst() == '!');
+        var real = canvas.getPixelHistory(0, 2);
+        assert (real.size() == 0);
     }
 
     private static void testOfficial1() {
