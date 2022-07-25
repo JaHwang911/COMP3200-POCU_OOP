@@ -8,40 +8,44 @@ import java.util.LinkedList;
 public class Program {
 
     public static void main(String[] args) {
-        testCanvas();
-        testWiki0();
-        testOverdrawAnalyzer();
-        testCommandHistoryManagerCanvas0();
-        testCommandHistoryManagerOverdrawAnalyzer0();
+//        testCanvas();
+//        testOverdrawAnalyzer();
+//        testCommandHistoryManagerCanvas0();
+//        testCommandHistoryManagerOverdrawAnalyzer0();
+        testOfficial1();
 
         System.out.println("No prob: assignment4");
     }
 
-    private static void testWiki0() {
-        Canvas canvas = new Canvas(20, 10);
-        CommandHistoryManager chm = new CommandHistoryManager(canvas);
-        ArrayList<ICommand> commandList = new ArrayList<>();
-        commandList.add(new DrawPixelCommand(1, 2, '3'));
-        commandList.add(new DecreasePixelCommand(1, 2));
-        commandList.add(new IncreasePixelCommand(1, 2));
-        commandList.add(new FillHorizontalLineCommand(3, 'h'));
-        commandList.add(new FillVerticalLineCommand(3, 'h'));
-        commandList.add(new ToUpperCommand(3, 2));
-        commandList.add(new ToLowerCommand(3, 2));
-        commandList.add(new ClearCommand());
-        for (ICommand command : commandList) {
-            assert (chm.execute(command) == true);
-            assert (chm.undo() == true);
-            assert (chm.redo() == true);
-            canvas.drawPixel(9, 9, '5');
-            assert (chm.undo() == false);
-            canvas.drawPixel(9, 9, ' ');
-            assert (chm.undo() == true);
-            canvas.drawPixel(9, 9, '5');
-            assert (chm.redo() == false);
-            canvas.drawPixel(9, 9, ' ');
-            assert (chm.redo() == true);
-        }
+    private static void testOfficial0() {
+        Canvas canvas = new Canvas(25, 30);
+        CommandHistoryManager manager = new CommandHistoryManager(canvas);
+        ArrayList<ICommand> commands = new ArrayList<>();
+
+        manager.execute(new FillHorizontalLineCommand(4, '\\'));
+        manager.execute(new FillVerticalLineCommand(3, '4'));
+        manager.execute(new ClearCommand());
+        manager.execute(new ToLowerCommand(15, 3));
+        manager.execute(new FillHorizontalLineCommand(14, ' '));
+        manager.redo();
+        manager.execute(new ToLowerCommand(20, 3));
+        manager.execute(new ClearCommand());
+        manager.execute(new FillHorizontalLineCommand(19, 'm'));
+        manager.execute(new DecreasePixelCommand(18, 2));
+        manager.execute(new ToUpperCommand(13, 6));
+        manager.execute(new FillVerticalLineCommand(26, 'I'));
+
+    }
+
+    private static void testOfficial1() {
+        Canvas canvas = new Canvas(25, 30);
+        CommandHistoryManager manager = new CommandHistoryManager(canvas);
+
+        manager.execute(new FillVerticalLineCommand(21, '8'));
+        manager.execute(new FillHorizontalLineCommand(10, '#'));
+        manager.execute(new ToLowerCommand(5, 1));
+        manager.redo();
+        manager.undo();
     }
 
     private static void testCanvas() {

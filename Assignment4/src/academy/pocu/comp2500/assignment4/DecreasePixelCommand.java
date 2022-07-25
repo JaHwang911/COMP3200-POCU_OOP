@@ -19,7 +19,9 @@ public class DecreasePixelCommand implements ICommand {
             return false;
         }
 
-        canvas.decreasePixel(this.x, this.y);
+        if (!canvas.decreasePixel(this.x, this.y)) {
+            return false;
+        }
 
         this.canvas = canvas;
         this.canUndo = true;

@@ -19,7 +19,9 @@ public class IncreasePixelCommand implements ICommand {
             return false;
         }
 
-        canvas.increasePixel(this.x, this.y);
+        if (!canvas.increasePixel(this.x, this.y)) {
+            return false;
+        }
 
         this.canvas = canvas;
         this.canUndo = true;
