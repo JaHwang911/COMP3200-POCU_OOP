@@ -13,6 +13,7 @@ public class FillHorizontalLineCommand implements ICommand {
         this.character = character;
     }
 
+    @Override
     public boolean execute(Canvas canvas) {
         if (this.y < 0 || this.y >= canvas.getHeight() || this.canvas != null) {
             return false;
@@ -37,6 +38,7 @@ public class FillHorizontalLineCommand implements ICommand {
         return true;
     }
 
+    @Override
     public boolean undo() {
         if (!this.canUndo) {
             return false;
@@ -57,9 +59,16 @@ public class FillHorizontalLineCommand implements ICommand {
         return true;
     }
 
+    @Override
     public boolean redo() {
         if (this.canUndo || this.canvas == null) {
             return false;
+        }
+
+        for (int i = 0; i < canvas.getWidth(); ++i) {
+            if (this.originCharacters[i] != this.canvas.getPixel(i, this.y)) {
+                return false;
+            }
         }
 
         this.canvas.fillHorizontalLine(this.y, this.character);
