@@ -31,7 +31,7 @@ public class DrawPixelCommand implements ICommand {
     }
 
     public boolean undo() {
-        if (!this.canUndo) {
+        if (!this.canUndo || this.canvas.getPixel(this.x, this.y) != this.character) {
             return false;
         }
 

@@ -4,6 +4,7 @@ public class DecreasePixelCommand implements ICommand {
     private final int x;
     private final int y;
     private boolean canUndo;
+    private char updatedCharacter;
     private Canvas canvas;
 
     public DecreasePixelCommand(int x, int y) {
@@ -18,14 +19,17 @@ public class DecreasePixelCommand implements ICommand {
             return false;
         }
 
+        canvas.decreasePixel(this.x, this.y);
+
         this.canvas = canvas;
         this.canUndo = true;
+        this.updatedCharacter = canvas.getPixel(this.x, this.y);
 
-        return canvas.decreasePixel(x, y);
+        return true;
     }
 
     public boolean undo() {
-        if (!this.canUndo) {
+        if (!this.canUndo || this.canvas.getPixel(this.x, this.y) != this.updatedCharacter) {
             return false;
         }
 
