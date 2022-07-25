@@ -18,29 +18,32 @@ public class Program {
     }
 
     private static void testOfficial0() {
-        OverdrawAnalyzer canvas = new OverdrawAnalyzer(25, 30);
+        OverdrawAnalyzer canvas = new OverdrawAnalyzer(5, 5);
         CommandHistoryManager manager = new CommandHistoryManager(canvas);
 
-        manager.execute(new FillHorizontalLineCommand(0, 'z'));
-        manager.redo();
-        manager.execute(new ToLowerCommand(1, 4));
-        manager.execute(new FillVerticalLineCommand(2, ' '));
-        manager.execute(new IncreasePixelCommand(1, 4));
-        manager.execute(new ClearCommand());
-        manager.execute(new DrawPixelCommand(1, 1, 'Z'));
-        manager.execute(new ToLowerCommand(3, 1));
-        manager.execute(new ToUpperCommand(1, 0));
-        manager.execute(new ToLowerCommand(3, 3));
-        manager.execute(new ClearCommand());
-        manager.execute(new FillVerticalLineCommand(0, 'K'));
-        manager.execute(new FillVerticalLineCommand(0, 'I'));
-        manager.execute(new FillVerticalLineCommand(4, ','));
-        manager.execute(new IncreasePixelCommand(3, 0));
+        manager.execute(new ToUpperCommand(2, 0));
+        manager.execute(new ToUpperCommand(0, 1));
         manager.execute(new ToLowerCommand(4, 3));
-        manager.execute(new DecreasePixelCommand(1, 1));
-        manager.redo();
-        manager.execute(new DecreasePixelCommand(0, 3));
+        manager.execute(new FillHorizontalLineCommand(0, 'e')); // 7
         manager.execute(new DecreasePixelCommand(4, 4));
+        manager.execute(new DecreasePixelCommand(0, 1)); // 8
+        manager.execute(new ToLowerCommand(0, 0)); // 8
+        manager.execute(new DrawPixelCommand(3, 2, 'Z')); // 9
+        manager.execute(new IncreasePixelCommand(3, 4)); // 10
+        manager.execute(new ToUpperCommand(4, 4)); // 10
+        manager.execute(new DrawPixelCommand(4, 0, '+')); // 11
+        manager.execute(new FillVerticalLineCommand(4, '^')); // 16
+        manager.execute(new ToLowerCommand(0, 3)); // 16
+        manager.execute(new ToLowerCommand(1, 0)); // 16
+        manager.redo();
+        manager.undo(); // 17 문제 있을 듯
+        manager.execute(new ToLowerCommand(1, 3)); // 17
+        manager.execute(new FillVerticalLineCommand(3, 'I'));
+        manager.execute(new IncreasePixelCommand(4, 4));
+        manager.redo();
+
+        var real = canvas.getOverdrawCount();
+        System.out.println(real);
     }
 
     private static void testOfficial1() {

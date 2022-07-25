@@ -38,7 +38,7 @@ public class ToUpperCommand implements ICommand {
             return false;
         }
 
-        this.canvas.toLower(this.x, this.y);
+        this.canvas.drawPixel(this.x, this.y, this.originChar);
         this.canUndo = false;
 
         return true;
@@ -50,7 +50,7 @@ public class ToUpperCommand implements ICommand {
             return false;
         }
 
-        this.canvas.toUpper(this.x, this.y);
+        this.canvas.drawPixel(this.x, this.y, this.updatedChar);
         this.canUndo = true;
 
         return true;
