@@ -57,6 +57,14 @@ public class ClearCommand implements ICommand {
             return false;
         }
 
+        for (int i = 0; i < this.inputCanvas.getHeight(); ++i) {
+            for (int j = 0; j < this.inputCanvas.getWidth(); ++j) {
+                if (this.originCanvas[i][j] != this.inputCanvas.getPixel(j, i)) {
+                    return false;
+                }
+            }
+        }
+
         this.inputCanvas.clear();
         this.canUndo = true;
 
