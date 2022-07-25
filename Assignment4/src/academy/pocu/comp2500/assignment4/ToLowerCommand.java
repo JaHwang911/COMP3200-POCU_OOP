@@ -19,12 +19,6 @@ public class ToLowerCommand implements ICommand {
             return false;
         }
 
-        char origin = canvas.getPixel(this.x, this.y);
-
-        if (origin < 'A' || origin > 'Z') {
-            return false;
-        }
-
         canvas.toLower(this.x, this.y);
 
         this.canvas = canvas;

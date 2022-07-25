@@ -46,6 +46,8 @@ public class Program {
         manager.execute(new ToLowerCommand(5, 1));
         manager.redo();
         manager.undo();
+
+        System.out.println(canvas.getDrawing());
     }
 
     private static void testCanvas() {

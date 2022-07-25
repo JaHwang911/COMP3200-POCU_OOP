@@ -13,13 +13,9 @@ public class ToUpperCommand implements ICommand {
     }
 
     public boolean execute(Canvas canvas) {
-        if (this.x < 0 || this.x >= canvas.getWidth() || this.y < 0 || this.y >= canvas.getHeight()) {
-            return false;
-        }
-
-        char origin = canvas.getPixel(this.x, this.y);
-
-        if (origin < 'a' || origin > 'z') {
+        if (this.x < 0 || this.x >= canvas.getWidth() ||
+                this.y < 0 || this.y >= canvas.getHeight() ||
+                this.canvas != null) {
             return false;
         }
 

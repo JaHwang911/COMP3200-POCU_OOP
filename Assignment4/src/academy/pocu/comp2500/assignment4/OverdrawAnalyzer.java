@@ -173,7 +173,7 @@ public final class OverdrawAnalyzer extends Canvas {
             if (pixelHistory.size() == 0) {
                 pixelHistory.add(character);
                 continue;
-            } else if(pixelHistory.getLast() == character) {
+            } else if (pixelHistory.getLast() == character) {
                 continue;
             }
 
@@ -193,7 +193,7 @@ public final class OverdrawAnalyzer extends Canvas {
             if (pixelHistory.size() == 0) {
                 pixelHistory.add(character);
                 continue;
-            } else if(pixelHistory.getLast() == character) {
+            } else if (pixelHistory.getLast() == character) {
                 continue;
             }
 
