@@ -18,19 +18,18 @@ public class App {
     }
 
     public void run(BufferedReader in, PrintStream out, PrintStream err) {
-//        this.inputWareHouseType = null;
+        this.inputWareHouseType = null;
 
-//        while (true) {
-//            InputErrorCode errCode = chooseWareHouse(in, out);
-//
-//            if (errCode == InputErrorCode.NONE) {
-//                break;
-//            } else if (errCode == InputErrorCode.EXIT) {
-//                return;
-//            }
-//        }
+        while (true) {
+            InputErrorCode errCode = chooseWareHouse(in, out);
 
-        this.inputWareHouseType = WarehouseType.APPLE;
+            if (errCode == InputErrorCode.NONE) {
+                break;
+            } else if (errCode == InputErrorCode.EXIT) {
+                return;
+            }
+        }
+
         assert (this.inputWareHouseType != null);
 
         User user = new User();
@@ -109,6 +108,10 @@ public class App {
 
             try {
                 Product product = products.get(inputNum - 1);
+
+                if (product.getPrice() > wallet.getAmount()) {
+                    return InputErrorCode.INVALID;
+                }
 
                 warehouse.removeProduct(product.getId());
 

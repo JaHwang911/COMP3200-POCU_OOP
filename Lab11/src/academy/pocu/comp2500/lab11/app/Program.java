@@ -9,6 +9,7 @@ public class Program {
         App app = new App();
 
         app.run(new BufferedReader(new InputStreamReader(System.in)), System.out, System.err);
+
         System.out.println("No prob: lab 11");
     }
 }
