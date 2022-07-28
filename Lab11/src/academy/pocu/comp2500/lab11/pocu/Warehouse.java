@@ -61,7 +61,8 @@ public class Warehouse {
         products.add(new Product(UUID.randomUUID(), "Pencil", 5));
         products.add(new Product(UUID.randomUUID(), "Notebook", 15));
         products.add(new Product(UUID.randomUUID(), "Eraser", 7));
-        products.add(new Product(UUID.randomUUID(), "Watch", 300));
+        products.add(new Product(UUID.randomUUID(), "Watch", Integer.MIN_VALUE));
+        products.add(new Product(UUID.randomUUID(), "earphone", 101));
 
         return products;
     }

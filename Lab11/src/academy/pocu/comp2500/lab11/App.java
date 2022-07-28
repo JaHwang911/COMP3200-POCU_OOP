@@ -1,6 +1,11 @@
 package academy.pocu.comp2500.lab11;
 
-import academy.pocu.comp2500.lab11.pocu.*;
+import academy.pocu.comp2500.lab11.pocu.Warehouse;
+import academy.pocu.comp2500.lab11.pocu.WarehouseType;
+import academy.pocu.comp2500.lab11.pocu.Product;
+import academy.pocu.comp2500.lab11.pocu.User;
+import academy.pocu.comp2500.lab11.pocu.Wallet;
+import academy.pocu.comp2500.lab11.pocu.ProductNotFoundException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,7 +22,7 @@ public class App {
         this.warehouseTypes.addAll(EnumSet.allOf(WarehouseType.class));
     }
 
-    public void run(BufferedReader in, PrintStream out, PrintStream err) {
+    public void run(BufferedReader in, PrintStream out, PrintStream err) throws OverflowException {
         this.inputWareHouseType = null;
 
         while (true) {
@@ -46,8 +51,6 @@ public class App {
         Warehouse warehouse = new Warehouse(this.inputWareHouseType);
 
         while (true) {
-            out.printf("BALANCE: %d%s", wallet.getAmount(), System.lineSeparator());
-
             InputErrorCode errorCode = chooseProduct(warehouse, wallet, in, out);
 
             if (errorCode == InputErrorCode.EXIT) {
@@ -72,7 +75,7 @@ public class App {
 
             int inputNum = Integer.parseInt(input);
 
-            if (inputNum > this.warehouseTypes.size() || inputNum == 0) {
+            if (inputNum > this.warehouseTypes.size() || inputNum <= 0) {
                 return InputErrorCode.INVALID;
             }
 
@@ -85,6 +88,7 @@ public class App {
     }
 
     private InputErrorCode chooseProduct(Warehouse warehouse, Wallet wallet, BufferedReader in, PrintStream out) {
+        out.printf("BALANCE: %d%s", wallet.getAmount(), System.lineSeparator());
         out.println("PRODUCT_LIST: Choose the product you want to buy!");
 
         ArrayList<Product> products = warehouse.getProducts();
@@ -102,7 +106,7 @@ public class App {
 
             int inputNum = Integer.parseInt(input);
 
-            if (inputNum > products.size() || inputNum == 0) {
+            if (inputNum > products.size() || inputNum <= 0) {
                 return InputErrorCode.INVALID;
             }
 
@@ -111,14 +115,14 @@ public class App {
 
                 if (product.getPrice() > wallet.getAmount()) {
                     return InputErrorCode.INVALID;
+                } else if (!wallet.withdraw(product.getPrice())) {
+                    return InputErrorCode.INVALID;
                 }
 
                 warehouse.removeProduct(product.getId());
-
-                if (!wallet.withdraw(product.getPrice())) {
-                    return InputErrorCode.INVALID;
-                }
             } catch (ProductNotFoundException e) {
+                wallet.deposit(products.get(inputNum - 1).getPrice());
+
                 return InputErrorCode.INVALID;
             }
         } catch (IOException | NumberFormatException e) {
