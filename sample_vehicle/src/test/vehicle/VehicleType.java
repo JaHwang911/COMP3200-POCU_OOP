@@ -1,4 +1,4 @@
-package sample.vehicle;
+package test.vehicle;
 
 public enum VehicleType {
     MOTORCYCLE,

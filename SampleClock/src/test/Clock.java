@@ -1,4 +1,4 @@
-package sample;
+package test;
 
 public class Clock {
     protected static final int DAY_IN_SECONDS = 60 * 60 * 24;

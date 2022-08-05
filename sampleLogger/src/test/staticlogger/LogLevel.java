@@ -1,4 +1,4 @@
-package sample.staticlogger;
+package test.staticlogger;
 
 public enum LogLevel {
     DEBUG(0),

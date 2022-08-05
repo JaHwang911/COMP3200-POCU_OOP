@@ -1,6 +1,6 @@
-package sample.vehicle.app;
+package test.vehicle.app;
 
-import sample.vehicle.*;
+import test.vehicle.*;
 
 public class Program {
     public static void main(String[] args) {

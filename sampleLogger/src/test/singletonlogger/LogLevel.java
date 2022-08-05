@@ -1,4 +1,4 @@
-package sample.singletonlogger;
+package test.singletonlogger;
 
 public enum LogLevel {
     DEBUG(0),

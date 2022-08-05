@@ -1,4 +1,4 @@
-package sample.vehicle;
+package test.vehicle;
 
 import java.util.ArrayList;
 

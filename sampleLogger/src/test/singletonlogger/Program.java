@@ -1,4 +1,4 @@
-package sample.singletonlogger;
+package test.singletonlogger;
 
 public class Program {
     public static void main(String[] args) {

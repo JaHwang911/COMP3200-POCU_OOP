@@ -1,4 +1,4 @@
-package sample;
+package test;
 
 public class AnalogClock extends Clock {
     public short getSecondHandAngle() {

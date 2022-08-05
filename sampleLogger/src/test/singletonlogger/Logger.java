@@ -1,4 +1,4 @@
-package sample.singletonlogger;
+package test.singletonlogger;
 
 import java.io.BufferedWriter;
 import java.io.File;

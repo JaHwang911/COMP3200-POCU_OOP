@@ -1,4 +1,4 @@
-package sample.staticlogger;
+package test.staticlogger;
 
 import java.io.BufferedWriter;
 import java.io.File;

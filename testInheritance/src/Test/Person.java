@@ -23,4 +23,29 @@ public class Person {
         this.firstName = firstName;
         this.lastName = lastName;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null
+                || !(obj instanceof Person)
+                || this.hashCode() != obj.hashCode()) {
+            return false;
+        }
+
+        Person p = (Person) obj;
+        return this.firstName.equals(p.firstName) && this.lastName.equals(p.lastName);
+    }
+
+    @Override
+    public int hashCode() {
+        return this.firstName.hashCode() ^ (this.lastName.hashCode() << 31);
+    }
+
+    public void say() {
+        System.out.println("I'm a person");
+    }
 }

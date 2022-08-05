@@ -1,4 +1,4 @@
-package sample;
+package test;
 
 public class DigitalClock extends Clock {
     public boolean isBeforeMidday() {

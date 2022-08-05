@@ -7,10 +7,7 @@ public class Program {
         testStudent();
         testTeacher();
         testGetClass();
-        testTrolling();
-
-        Student student = new Student("Ja", "Hwnag");
-        System.out.println(student.toString());
+        testEquals();
 
         System.out.println("Inheritance No prob");
     }
@@ -59,14 +56,14 @@ public class Program {
         assert teacher0.getClass().getName().equals("Test.PartTimeTeacher");
     }
 
-    private static void testTrolling() {
-        Teacher teacher = new Teacher("harry", "poter", Department.WING);
-        Student student = new Student("Ja", "Hwang");
+    private static void testEquals() {
+        Teacher teacher0 = new Teacher("Ja", "Hwang", Department.WING);
+        Teacher teacher1 = new Teacher("Ja", "Hwang", Department.BLACK);
+        Teacher teacher3 = new Teacher("Baro", "Kim", Department.CHEMICAL);
+        Teacher teacher4 = new Teacher("Ja", "Hwang", Department.WING);
 
-        assert student.getEmail().equals("jhwang@hogwarts.academy");
-
-        Person person = student;
-        teacher.doMagic(person);
-        assert student.getEmail().equals("troll@voldemort.crew");
+        assert !teacher0.equals(teacher1);
+        assert !teacher0.equals(teacher3);
+        assert teacher0.equals(teacher4);
     }
 }
