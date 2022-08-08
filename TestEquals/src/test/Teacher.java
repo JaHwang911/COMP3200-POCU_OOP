@@ -20,14 +20,19 @@ public class Teacher extends Person {
         }
 
         if (obj == null
-                || !(obj instanceof Teacher)
-                || this.hashCode() != obj.hashCode()) {
+                || !(obj instanceof Person)
+                || !super.firstName.equals(((Person) obj).getFirstName())
+                || !super.lastName.equals(((Person) obj).getLastName())) {
             return false;
         }
 
-        Person p = (Person) obj;
+        if (!(obj instanceof Teacher) || this.hashCode() != obj.hashCode()) {
+            return false;
+        }
 
-        return (super.firstName.equals(p.firstName) && super.lastName.equals(p.lastName));
+        Teacher t = (Teacher) obj;
+
+        return (this.type == t.type);
     }
 
     @Override
