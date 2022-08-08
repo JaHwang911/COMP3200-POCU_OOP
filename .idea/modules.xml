@@ -6,7 +6,6 @@
       <module fileurl="file://$PROJECT_DIR$/Assignment2/Assignment2.iml" filepath="$PROJECT_DIR$/Assignment2/Assignment2.iml" />
       <module fileurl="file://$PROJECT_DIR$/Assignment3/Assignment3.iml" filepath="$PROJECT_DIR$/Assignment3/Assignment3.iml" />
       <module fileurl="file://$PROJECT_DIR$/Assignment4/Assignment4.iml" filepath="$PROJECT_DIR$/Assignment4/Assignment4.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Builder/Builder.iml" filepath="$PROJECT_DIR$/Builder/Builder.iml" />
       <module fileurl="file://$PROJECT_DIR$/Lab1/Lab1.iml" filepath="$PROJECT_DIR$/Lab1/Lab1.iml" />
       <module fileurl="file://$PROJECT_DIR$/Lab10/Lab10.iml" filepath="$PROJECT_DIR$/Lab10/Lab10.iml" />
       <module fileurl="file://$PROJECT_DIR$/Lab11/Lab11.iml" filepath="$PROJECT_DIR$/Lab11/Lab11.iml" />
@@ -25,6 +24,9 @@
       <module fileurl="file://$PROJECT_DIR$/SampleGardening/SampleGardening.iml" filepath="$PROJECT_DIR$/SampleGardening/SampleGardening.iml" />
       <module fileurl="file://$PROJECT_DIR$/SampleLogger/SampleLogger.iml" filepath="$PROJECT_DIR$/SampleLogger/SampleLogger.iml" />
       <module fileurl="file://$PROJECT_DIR$/TestArgs/TestArgs.iml" filepath="$PROJECT_DIR$/TestArgs/TestArgs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TestBuilder/TestBuilder.iml" filepath="$PROJECT_DIR$/TestBuilder/TestBuilder.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TestClone/TestClone.iml" filepath="$PROJECT_DIR$/TestClone/TestClone.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TestEquals/TestEquals.iml" filepath="$PROJECT_DIR$/TestEquals/TestEquals.iml" />
       <module fileurl="file://$PROJECT_DIR$/TestMath/TestMath.iml" filepath="$PROJECT_DIR$/TestMath/TestMath.iml" />
       <module fileurl="file://$PROJECT_DIR$/TestNestClass/TestNestClass.iml" filepath="$PROJECT_DIR$/TestNestClass/TestNestClass.iml" />
       <module fileurl="file://$PROJECT_DIR$/TestOverriding/TestOverriding.iml" filepath="$PROJECT_DIR$/TestOverriding/TestOverriding.iml" />
