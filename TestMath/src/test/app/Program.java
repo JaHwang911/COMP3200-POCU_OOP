@@ -1,6 +1,6 @@
-package Test.app;
+package test.app;
 
-import Test.SimpleMath;
+import test.SimpleMath;
 
 public class Program {
     public static void main(String[] args) {

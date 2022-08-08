@@ -1,13 +1,12 @@
-package Test.app;
+package test.app;
 
-import Test.*;
+import test.*;
 
 public class Program {
     public static void main(String[] args) {
         testStudent();
         testTeacher();
         testGetClass();
-        testEquals();
 
         System.out.println("Inheritance No prob");
     }
@@ -54,16 +53,5 @@ public class Program {
         Teacher teacher0 = (Teacher) person0;
 
         assert teacher0.getClass().getName().equals("Test.PartTimeTeacher");
-    }
-
-    private static void testEquals() {
-        Teacher teacher0 = new Teacher("Ja", "Hwang", Department.WING);
-        Teacher teacher1 = new Teacher("Ja", "Hwang", Department.BLACK);
-        Teacher teacher3 = new Teacher("Baro", "Kim", Department.CHEMICAL);
-        Teacher teacher4 = new Teacher("Ja", "Hwang", Department.WING);
-
-        assert !teacher0.equals(teacher1);
-        assert !teacher0.equals(teacher3);
-        assert teacher0.equals(teacher4);
     }
 }

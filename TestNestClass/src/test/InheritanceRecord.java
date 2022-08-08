@@ -1,4 +1,4 @@
-package Test;
+package test;
 
 public class InheritanceRecord extends Record.Reader {
     private int magicNum = 88;

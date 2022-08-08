@@ -1,4 +1,4 @@
-package Test;
+package test;
 
 public class FullTimeTeacher extends Teacher {
     private int officeNumber;
@@ -13,5 +13,9 @@ public class FullTimeTeacher extends Teacher {
 
     public void setOfficeNumber(int officeNumber) {
         this.officeNumber = officeNumber;
+    }
+
+    public void teaching() {
+
     }
 }

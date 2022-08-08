@@ -1,4 +1,4 @@
-package Test;
+package test;
 
 public class Configuration {
     private static Configuration instance;

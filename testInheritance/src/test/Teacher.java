@@ -1,6 +1,6 @@
-package Test;
+package test;
 
-public class Teacher extends Person {
+public abstract class Teacher extends Person implements ITeachable {
     private Department department;
 
     public Teacher(String firstName, String lastName, Department department) {

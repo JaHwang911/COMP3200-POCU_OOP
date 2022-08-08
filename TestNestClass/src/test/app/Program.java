@@ -1,8 +1,8 @@
-package Test.app;
+package test.app;
 
-import Test.Record;
-import Test.InheritanceRecord;
-import Test.NonStaticRecord;
+import test.Record;
+import test.InheritanceRecord;
+import test.NonStaticRecord;
 
 public class Program {
     public static void main(String[] args) {

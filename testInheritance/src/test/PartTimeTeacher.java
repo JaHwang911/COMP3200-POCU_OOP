@@ -1,6 +1,6 @@
-package Test;
+package test;
 
-public class PartTimeTeacher extends Teacher {
+public class PartTimeTeacher extends Teacher implements ITeachable {
     private int weeklyHours;
 
     public PartTimeTeacher(String firstName, String lastName, Department department) {
@@ -13,5 +13,9 @@ public class PartTimeTeacher extends Teacher {
 
     public void setWeeklyHours(int hours) {
         this.weeklyHours = hours;
+    }
+
+    public void teaching() {
+
     }
 }
