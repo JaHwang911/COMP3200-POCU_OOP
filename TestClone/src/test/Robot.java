@@ -36,9 +36,9 @@ public final class Robot implements Cloneable {
     @Override
     public Object clone() throws CloneNotSupportedException {
         Robot cloneRobot;
+        cloneRobot = (Robot) super.clone();
 
         try {
-            cloneRobot = (Robot) super.clone();
             cloneRobot.head = (Head) this.head.clone();
         } catch (CloneNotSupportedException e) {
             throw e;
