@@ -22,4 +22,16 @@ public final class Book {
     public String toString() {
         return this.title + String.format("(%d)", this.pageCount) + " by " + this.author.toString();
     }
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public int getPageCount() {
+        return pageCount;
+    }
+
+    public String getTitle() {
+        return title;
+    }
 }

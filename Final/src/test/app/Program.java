@@ -9,6 +9,13 @@ public class Program {
     public static void main(String[] args) {
         HashSet<Book> books = new HashSet<>();
 
+        WrapperBook wBook = new WrapperBook();
+
+        System.out.println(wBook.getTitle());
+        System.out.println(wBook.getPageCount());
+        System.out.println(wBook.getAuthor());
+
+
         Author author0 = new Author("Jane", "Doe");
         Author author1 = new Author("Jane", "Doe");
         Author author2 = new Author("John", "Mayor");
