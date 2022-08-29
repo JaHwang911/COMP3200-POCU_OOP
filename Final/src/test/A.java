@@ -1,21 +1,20 @@
 package test;
 
 public class A {
-    private final String s;
+    private int x;
+    private int y;
+    private int z;
 
-    public A(String s) {
-        this.s = s;
+    public A(int x, int y, int z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
     }
 
-    public String getS() {
-        return this.s;
-    }
+    @Override
+    public boolean equals(Object obj) {
+        A other = (A) obj;
 
-    public void printS() {
-        System.out.println(String.format("A: %s", this.s));
-    }
-
-    public void doMagic(int x) {
-        System.out.println(x + this.s.length());
+        return (this.x == other.x && this.y == other.y && this.z == other.z);
     }
 }

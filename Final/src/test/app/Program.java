@@ -7,32 +7,46 @@ import java.util.HashSet;
 
 public class Program {
     public static void main(String[] args) {
-        HashSet<Book> books = new HashSet<>();
+        B b = new B(1, 2);
 
-        WrapperBook wBook = new WrapperBook();
+        try {
+            B bCopy = (B) b.clone();
 
-        System.out.println(wBook.getTitle());
-        System.out.println(wBook.getPageCount());
-        System.out.println(wBook.getAuthor());
+            bCopy.setX(11);
+            bCopy.setY(10);
 
+            System.out.println(b.getX());
+            System.out.println(b.getY());
+        } catch (CloneNotSupportedException e) {
+            System.out.println("Error");
+        }
+    }
 
-        Author author0 = new Author("Jane", "Doe");
-        Author author1 = new Author("Jane", "Doe");
-        Author author2 = new Author("John", "Mayor");
-        Author author3 = new Author("John", "Mayor");
+    private static void testA() {
+        HashSet<A> as = new HashSet<>();
 
-        Book book0 = new Book("A New Hope", 100, author0);
-        Book book1 = new Book("A New Hope", 100, author1);
-        Book book2 = new Book("The Empire Strikes Back", 50, author2);
-        Book book3 = new Book("The Empire Strikes Back", 50, author3);
+        as.add(new A(1, 2, 3));
+        as.add(new A(2, 2, 2));
+        as.add(new A(2, 4, 2));
+        as.add(new A(5, 2, 1));
+        as.add(new A(3, 2, 1));
 
-        books.add(book0);
-        books.add(book1);
-        books.add(book2);
-        books.add(book3);
+        System.out.println(as.size());
+    }
 
-        for (Book book : books) {
-            System.out.println(book.toString());
+    private static void testB() {
+        B b = new B(1, 2);
+
+        try {
+            B bCopy = (B) b.clone();
+
+            bCopy.setX(11);
+            bCopy.setY(10);
+
+            System.out.println(b.getX());
+            System.out.println(b.getY());
+        } catch (CloneNotSupportedException e) {
+            System.out.println("Error");
         }
     }
 }
